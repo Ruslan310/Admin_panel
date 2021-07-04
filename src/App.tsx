@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import Amplify from 'aws-amplify'
+import Amplify, {a, Auth, DataStore} from 'aws-amplify'
 
 import {AmplifySignOut, withAuthenticator} from '@aws-amplify/ui-react'
 import '@aws-amplify/ui/dist/style.css';
-import {DataStore} from 'aws-amplify';
 
-import {Customer, Order, User} from "./models";
+import {Customer, Order, Role, User} from "./models";
 import awsExports from './aws-exports';
 
 Amplify.configure(awsExports);
@@ -19,24 +18,46 @@ const App = () => {
   async function addCustomer() {
     try {
       if (!email) return
-      const customer = {email: email }
+      const customer: Omit<Customer, "id"> = {email: email}
       setEmail("")
       const createdCustomer = await DataStore.save(
         new Customer(customer)
       );
       console.log('created: ', createdCustomer)
       setCustomers([...customers, createdCustomer])
-      // await API.graphql(graphqlOperation(createCustomer, {input: customer}))
     } catch (err) {
       console.log('error creating customer:', err)
     }
   }
 
   useEffect(() => {
-    fetchOrders()
-    fetchUsers()
-    fetchCustomers()
+    subscribeOnUsersUpdate();
+    createSignedUserIfNotExist();
+    fetchOrders();
+    fetchUsers();
+    fetchCustomers();
   }, [])
+
+  const createSignedUserIfNotExist = async () => {
+    const cognitoUser = await Auth.currentAuthenticatedUser();
+    const newUser: Omit<User, "id"> = {email: cognitoUser.attributes.email, sub: cognitoUser.attributes.sub, role: Role.GUEST};
+    console.log('user to be created: ', newUser)
+    const existed = await DataStore.query(User, (user) => user.email('eq', newUser.email))
+    if (existed.length === 0) {
+      const createdUser = await DataStore.save(
+        new User(newUser), (user) => user.email('ne', newUser.email)
+      );
+      console.log('just created: ', createdUser)
+    }
+  }
+
+  const subscribeOnUsersUpdate = async () => {
+    DataStore.observe(User).subscribe(event => {
+      if (event.opType === 'INSERT') {
+        console.log('created user: ', event.element);
+      }
+    });
+  }
 
   const fetchOrders = async () => {
     const orders = await DataStore.query(Order);
@@ -50,7 +71,6 @@ const App = () => {
 
   const fetchCustomers = async () => {
     const customers = await DataStore.query(Customer);
-    console.log(customers)
     setCustomers(customers)
   }
 
@@ -65,7 +85,7 @@ const App = () => {
               <p
                 // @ts-ignore
                 style={styles.todoName}>{order?.id}</p>
-              <p style={styles.todoDescription}>{order?.orderStatus}</p>
+              <p style={styles.todoDescription}>{order?.boxes}</p>
             </div>
           );
         })

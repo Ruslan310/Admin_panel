@@ -27,6 +27,7 @@ enum Role {
     DELIVERY
     KITCHEN
     ADMIN
+    GUEST
 }
 
 type User @model {
@@ -37,6 +38,7 @@ type User @model {
     firstName: String
     lastName: String
     avatar: String
+    coordinates: [Coordinates] @connection(keyName: "assignedDriverCoordinates", fields: ["id"])
 }
 
 type Customer  @model {
@@ -79,6 +81,7 @@ type Coordinates @model @key(name: "assignedDriverCoordinates", fields: ["assign
     assignedDriverUser: User @connection(fields: ["assignedDriverUserId"])
     verified: Boolean
     name: String
+    addresses: [Address] @connection(keyName: "coordinatesAddresses", fields: ["id"])
 }
 
 type Order @model
@@ -95,6 +98,7 @@ type Order @model
     address: Address @connection(fields: ["addressId"])
     finalPrice: Float!
     customerComment: String
+    boxes: [Box] @connection(keyName: "orderBoxes", fields: ["id"])
 }
 
 type Dish {

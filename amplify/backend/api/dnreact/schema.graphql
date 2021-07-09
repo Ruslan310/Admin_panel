@@ -71,6 +71,7 @@ type Address @model @key(name: "coordinatesAddresses", fields: ["coordinatesId"]
     postCode: String!
     coordinatesId: ID
     coordinates: Coordinates @connection(fields: ["coordinatesId"])
+    orders: [Order] @connection(keyName: "addressOrders", fields: ["id"])
 }
 
 type Coordinates @model @key(name: "assignedDriverCoordinates", fields: ["assignedDriverUserId"]) {
@@ -91,11 +92,11 @@ type Order @model
     id: ID!
     orderNumber: String
     orderStatus: ORDER_STATUS!
-    customerId: ID
-    customer: Customer @connection(fields: ["customerId"])
+    customerId: ID!
+    customer: Customer! @connection(fields: ["customerId"])
     dishes: [Dish]
     addressId: ID!
-    address: Address @connection(fields: ["addressId"])
+    address: Address! @connection(fields: ["addressId"])
     finalPrice: Float!
     customerComment: String
     boxes: [Box] @connection(keyName: "orderBoxes", fields: ["id"])

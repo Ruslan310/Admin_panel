@@ -76,10 +76,27 @@ export declare class Address {
   readonly city: string;
   readonly postCode: string;
   readonly coordinates?: Coordinates;
+  readonly orders?: (Order | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Address>);
   static copyOf(source: Address, mutator: (draft: MutableModel<Address>) => MutableModel<Address> | void): Address;
+}
+
+export declare class Order {
+  readonly id: string;
+  readonly orderNumber?: string;
+  readonly orderStatus: OrderStatus | keyof typeof OrderStatus;
+  readonly customer: Customer;
+  readonly dishes?: (Dish | null)[];
+  readonly address: Address;
+  readonly finalPrice: number;
+  readonly customerComment?: string;
+  readonly boxes?: (Box | null)[];
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Order>);
+  static copyOf(source: Order, mutator: (draft: MutableModel<Order>) => MutableModel<Order> | void): Order;
 }
 
 export declare class Customer {
@@ -95,23 +112,6 @@ export declare class Customer {
   readonly updatedAt?: string;
   constructor(init: ModelInit<Customer>);
   static copyOf(source: Customer, mutator: (draft: MutableModel<Customer>) => MutableModel<Customer> | void): Customer;
-}
-
-export declare class Order {
-  readonly id: string;
-  readonly orderNumber?: string;
-  readonly orderStatus: OrderStatus | keyof typeof OrderStatus;
-  readonly customer?: Customer;
-  readonly dishes?: (Dish | null)[];
-  readonly addressId: string;
-  readonly address?: Address;
-  readonly finalPrice: number;
-  readonly customerComment?: string;
-  readonly boxes?: (Box | null)[];
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  constructor(init: ModelInit<Order>);
-  static copyOf(source: Order, mutator: (draft: MutableModel<Order>) => MutableModel<Order> | void): Order;
 }
 
 export declare class Box {

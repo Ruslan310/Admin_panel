@@ -492,6 +492,24 @@ export const createAddress = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -543,6 +561,24 @@ export const updateAddress = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -593,6 +629,24 @@ export const deleteAddress = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+      }
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
       }
       _version
       _deleted
@@ -822,6 +876,10 @@ export const createOrder = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        orders {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -911,6 +969,10 @@ export const updateOrder = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        orders {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -999,6 +1061,10 @@ export const deleteOrder = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+        }
+        orders {
+          nextToken
+          startedAt
         }
         _version
         _deleted

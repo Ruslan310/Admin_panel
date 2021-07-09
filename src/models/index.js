@@ -34,14 +34,14 @@ const Role = {
   "GUEST": "GUEST"
 };
 
-const { User, Coordinates, Address, Customer, Order, Box, Dish } = initSchema(schema);
+const { User, Coordinates, Address, Order, Customer, Box, Dish } = initSchema(schema);
 
 export {
   User,
   Coordinates,
   Address,
-  Customer,
   Order,
+  Customer,
   Box,
   WeekDay,
   BoxStatus,

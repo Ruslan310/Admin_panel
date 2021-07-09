@@ -393,6 +393,10 @@ export const syncAddresses = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        orders {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -444,6 +448,24 @@ export const getAddress = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -478,6 +500,10 @@ export const listAddresss = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+        }
+        orders {
+          nextToken
+          startedAt
         }
         _version
         _deleted
@@ -754,6 +780,10 @@ export const getOrder = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+        }
+        orders {
+          nextToken
+          startedAt
         }
         _version
         _deleted

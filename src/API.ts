@@ -135,73 +135,6 @@ export type Address = {
   postCode: string,
   coordinatesId?: string | null,
   coordinates?: Coordinates | null,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateUserInput = {
-  id: string,
-  sub?: string | null,
-  email?: string | null,
-  role?: Role | null,
-  firstName?: string | null,
-  lastName?: string | null,
-  avatar?: string | null,
-  _version?: number | null,
-};
-
-export type DeleteUserInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateCustomerInput = {
-  id?: string | null,
-  wpId?: number | null,
-  company?: string | null,
-  firstName?: string | null,
-  lastName?: string | null,
-  email: string,
-  phoneNumber?: string | null,
-  _version?: number | null,
-};
-
-export type ModelCustomerConditionInput = {
-  wpId?: ModelIntInput | null,
-  company?: ModelStringInput | null,
-  firstName?: ModelStringInput | null,
-  lastName?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  phoneNumber?: ModelStringInput | null,
-  and?: Array< ModelCustomerConditionInput | null > | null,
-  or?: Array< ModelCustomerConditionInput | null > | null,
-  not?: ModelCustomerConditionInput | null,
-};
-
-export type ModelIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type Customer = {
-  __typename: "Customer",
-  id: string,
-  wpId?: number | null,
-  company?: string | null,
-  firstName?: string | null,
-  lastName?: string | null,
-  email: string,
-  phoneNumber?: string | null,
   orders?: ModelOrderConnection | null,
   _version: number,
   _deleted?: boolean | null,
@@ -222,11 +155,11 @@ export type Order = {
   id: string,
   orderNumber?: string | null,
   orderStatus: ORDER_STATUS,
-  customerId?: string | null,
-  customer?: Customer | null,
+  customerId: string,
+  customer: Customer,
   dishes?:  Array<Dish | null > | null,
   addressId: string,
-  address?: Address | null,
+  address: Address,
   finalPrice: number,
   customerComment?: string | null,
   boxes?: ModelBoxConnection | null,
@@ -243,6 +176,23 @@ export enum ORDER_STATUS {
   CANCELLED = "CANCELLED",
 }
 
+
+export type Customer = {
+  __typename: "Customer",
+  id: string,
+  wpId?: number | null,
+  company?: string | null,
+  firstName?: string | null,
+  lastName?: string | null,
+  email: string,
+  phoneNumber?: string | null,
+  orders?: ModelOrderConnection | null,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  createdAt: string,
+  updatedAt: string,
+};
 
 export type Dish = {
   __typename: "Dish",
@@ -296,6 +246,57 @@ export enum BOX_STATUS {
   CANCELLED = "CANCELLED",
 }
 
+
+export type UpdateUserInput = {
+  id: string,
+  sub?: string | null,
+  email?: string | null,
+  role?: Role | null,
+  firstName?: string | null,
+  lastName?: string | null,
+  avatar?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteUserInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateCustomerInput = {
+  id?: string | null,
+  wpId?: number | null,
+  company?: string | null,
+  firstName?: string | null,
+  lastName?: string | null,
+  email: string,
+  phoneNumber?: string | null,
+  _version?: number | null,
+};
+
+export type ModelCustomerConditionInput = {
+  wpId?: ModelIntInput | null,
+  company?: ModelStringInput | null,
+  firstName?: ModelStringInput | null,
+  lastName?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  phoneNumber?: ModelStringInput | null,
+  and?: Array< ModelCustomerConditionInput | null > | null,
+  or?: Array< ModelCustomerConditionInput | null > | null,
+  not?: ModelCustomerConditionInput | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
 
 export type UpdateCustomerInput = {
   id: string,
@@ -473,7 +474,7 @@ export type CreateOrderInput = {
   id?: string | null,
   orderNumber?: string | null,
   orderStatus: ORDER_STATUS,
-  customerId?: string | null,
+  customerId: string,
   dishes?: Array< DishInput | null > | null,
   addressId: string,
   finalPrice: number,
@@ -760,7 +761,7 @@ export type CreateCustomerMutation = {
         id: string,
         orderNumber?: string | null,
         orderStatus: ORDER_STATUS,
-        customerId?: string | null,
+        customerId: string,
         addressId: string,
         finalPrice: number,
         customerComment?: string | null,
@@ -803,7 +804,7 @@ export type UpdateCustomerMutation = {
         id: string,
         orderNumber?: string | null,
         orderStatus: ORDER_STATUS,
-        customerId?: string | null,
+        customerId: string,
         addressId: string,
         finalPrice: number,
         customerComment?: string | null,
@@ -846,7 +847,7 @@ export type DeleteCustomerMutation = {
         id: string,
         orderNumber?: string | null,
         orderStatus: ORDER_STATUS,
-        customerId?: string | null,
+        customerId: string,
         addressId: string,
         finalPrice: number,
         customerComment?: string | null,
@@ -882,8 +883,8 @@ export type CreateBoxMutation = {
       id: string,
       orderNumber?: string | null,
       orderStatus: ORDER_STATUS,
-      customerId?: string | null,
-      customer?:  {
+      customerId: string,
+      customer:  {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
@@ -897,7 +898,7 @@ export type CreateBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       dishes?:  Array< {
         __typename: "Dish",
         name: string,
@@ -906,7 +907,7 @@ export type CreateBoxMutation = {
         weekDay: WEEK_DAY,
       } | null > | null,
       addressId: string,
-      address?:  {
+      address:  {
         __typename: "Address",
         id: string,
         address1: string,
@@ -919,7 +920,7 @@ export type CreateBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       finalPrice: number,
       customerComment?: string | null,
       boxes?:  {
@@ -961,8 +962,8 @@ export type UpdateBoxMutation = {
       id: string,
       orderNumber?: string | null,
       orderStatus: ORDER_STATUS,
-      customerId?: string | null,
-      customer?:  {
+      customerId: string,
+      customer:  {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
@@ -976,7 +977,7 @@ export type UpdateBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       dishes?:  Array< {
         __typename: "Dish",
         name: string,
@@ -985,7 +986,7 @@ export type UpdateBoxMutation = {
         weekDay: WEEK_DAY,
       } | null > | null,
       addressId: string,
-      address?:  {
+      address:  {
         __typename: "Address",
         id: string,
         address1: string,
@@ -998,7 +999,7 @@ export type UpdateBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       finalPrice: number,
       customerComment?: string | null,
       boxes?:  {
@@ -1040,8 +1041,8 @@ export type DeleteBoxMutation = {
       id: string,
       orderNumber?: string | null,
       orderStatus: ORDER_STATUS,
-      customerId?: string | null,
-      customer?:  {
+      customerId: string,
+      customer:  {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
@@ -1055,7 +1056,7 @@ export type DeleteBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       dishes?:  Array< {
         __typename: "Dish",
         name: string,
@@ -1064,7 +1065,7 @@ export type DeleteBoxMutation = {
         weekDay: WEEK_DAY,
       } | null > | null,
       addressId: string,
-      address?:  {
+      address:  {
         __typename: "Address",
         id: string,
         address1: string,
@@ -1077,7 +1078,7 @@ export type DeleteBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       finalPrice: number,
       customerComment?: string | null,
       boxes?:  {
@@ -1152,6 +1153,26 @@ export type CreateAddressMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    orders?:  {
+      __typename: "ModelOrderConnection",
+      items?:  Array< {
+        __typename: "Order",
+        id: string,
+        orderNumber?: string | null,
+        orderStatus: ORDER_STATUS,
+        customerId: string,
+        addressId: string,
+        finalPrice: number,
+        customerComment?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -1208,6 +1229,26 @@ export type UpdateAddressMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    orders?:  {
+      __typename: "ModelOrderConnection",
+      items?:  Array< {
+        __typename: "Order",
+        id: string,
+        orderNumber?: string | null,
+        orderStatus: ORDER_STATUS,
+        customerId: string,
+        addressId: string,
+        finalPrice: number,
+        customerComment?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -1263,6 +1304,26 @@ export type DeleteAddressMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+    } | null,
+    orders?:  {
+      __typename: "ModelOrderConnection",
+      items?:  Array< {
+        __typename: "Order",
+        id: string,
+        orderNumber?: string | null,
+        orderStatus: ORDER_STATUS,
+        customerId: string,
+        addressId: string,
+        finalPrice: number,
+        customerComment?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     _version: number,
     _deleted?: boolean | null,
@@ -1466,8 +1527,8 @@ export type CreateOrderMutation = {
     id: string,
     orderNumber?: string | null,
     orderStatus: ORDER_STATUS,
-    customerId?: string | null,
-    customer?:  {
+    customerId: string,
+    customer:  {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
@@ -1486,7 +1547,7 @@ export type CreateOrderMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     dishes?:  Array< {
       __typename: "Dish",
       name: string,
@@ -1495,7 +1556,7 @@ export type CreateOrderMutation = {
       weekDay: WEEK_DAY,
     } | null > | null,
     addressId: string,
-    address?:  {
+    address:  {
       __typename: "Address",
       id: string,
       address1: string,
@@ -1517,12 +1578,17 @@ export type CreateOrderMutation = {
         createdAt: string,
         updatedAt: string,
       } | null,
+      orders?:  {
+        __typename: "ModelOrderConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     finalPrice: number,
     customerComment?: string | null,
     boxes?:  {
@@ -1564,8 +1630,8 @@ export type UpdateOrderMutation = {
     id: string,
     orderNumber?: string | null,
     orderStatus: ORDER_STATUS,
-    customerId?: string | null,
-    customer?:  {
+    customerId: string,
+    customer:  {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
@@ -1584,7 +1650,7 @@ export type UpdateOrderMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     dishes?:  Array< {
       __typename: "Dish",
       name: string,
@@ -1593,7 +1659,7 @@ export type UpdateOrderMutation = {
       weekDay: WEEK_DAY,
     } | null > | null,
     addressId: string,
-    address?:  {
+    address:  {
       __typename: "Address",
       id: string,
       address1: string,
@@ -1615,12 +1681,17 @@ export type UpdateOrderMutation = {
         createdAt: string,
         updatedAt: string,
       } | null,
+      orders?:  {
+        __typename: "ModelOrderConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     finalPrice: number,
     customerComment?: string | null,
     boxes?:  {
@@ -1662,8 +1733,8 @@ export type DeleteOrderMutation = {
     id: string,
     orderNumber?: string | null,
     orderStatus: ORDER_STATUS,
-    customerId?: string | null,
-    customer?:  {
+    customerId: string,
+    customer:  {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
@@ -1682,7 +1753,7 @@ export type DeleteOrderMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     dishes?:  Array< {
       __typename: "Dish",
       name: string,
@@ -1691,7 +1762,7 @@ export type DeleteOrderMutation = {
       weekDay: WEEK_DAY,
     } | null > | null,
     addressId: string,
-    address?:  {
+    address:  {
       __typename: "Address",
       id: string,
       address1: string,
@@ -1713,12 +1784,17 @@ export type DeleteOrderMutation = {
         createdAt: string,
         updatedAt: string,
       } | null,
+      orders?:  {
+        __typename: "ModelOrderConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     finalPrice: number,
     customerComment?: string | null,
     boxes?:  {
@@ -1915,7 +1991,7 @@ export type GetCustomerQuery = {
         id: string,
         orderNumber?: string | null,
         orderStatus: ORDER_STATUS,
-        customerId?: string | null,
+        customerId: string,
         addressId: string,
         finalPrice: number,
         customerComment?: string | null,
@@ -1989,7 +2065,7 @@ export type SyncBoxesQuery = {
         id: string,
         orderNumber?: string | null,
         orderStatus: ORDER_STATUS,
-        customerId?: string | null,
+        customerId: string,
         addressId: string,
         finalPrice: number,
         customerComment?: string | null,
@@ -2029,8 +2105,8 @@ export type GetBoxQuery = {
       id: string,
       orderNumber?: string | null,
       orderStatus: ORDER_STATUS,
-      customerId?: string | null,
-      customer?:  {
+      customerId: string,
+      customer:  {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
@@ -2044,7 +2120,7 @@ export type GetBoxQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       dishes?:  Array< {
         __typename: "Dish",
         name: string,
@@ -2053,7 +2129,7 @@ export type GetBoxQuery = {
         weekDay: WEEK_DAY,
       } | null > | null,
       addressId: string,
-      address?:  {
+      address:  {
         __typename: "Address",
         id: string,
         address1: string,
@@ -2066,7 +2142,7 @@ export type GetBoxQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       finalPrice: number,
       customerComment?: string | null,
       boxes?:  {
@@ -2111,7 +2187,7 @@ export type ListBoxsQuery = {
         id: string,
         orderNumber?: string | null,
         orderStatus: ORDER_STATUS,
-        customerId?: string | null,
+        customerId: string,
         addressId: string,
         finalPrice: number,
         customerComment?: string | null,
@@ -2168,6 +2244,11 @@ export type SyncAddressesQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
+      } | null,
+      orders?:  {
+        __typename: "ModelOrderConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
       } | null,
       _version: number,
       _deleted?: boolean | null,
@@ -2227,6 +2308,26 @@ export type GetAddressQuery = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    orders?:  {
+      __typename: "ModelOrderConnection",
+      items?:  Array< {
+        __typename: "Order",
+        id: string,
+        orderNumber?: string | null,
+        orderStatus: ORDER_STATUS,
+        customerId: string,
+        addressId: string,
+        finalPrice: number,
+        customerComment?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -2265,6 +2366,11 @@ export type ListAddresssQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
+      } | null,
+      orders?:  {
+        __typename: "ModelOrderConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
       } | null,
       _version: number,
       _deleted?: boolean | null,
@@ -2449,8 +2555,8 @@ export type SyncOrdersQuery = {
       id: string,
       orderNumber?: string | null,
       orderStatus: ORDER_STATUS,
-      customerId?: string | null,
-      customer?:  {
+      customerId: string,
+      customer:  {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
@@ -2464,7 +2570,7 @@ export type SyncOrdersQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       dishes?:  Array< {
         __typename: "Dish",
         name: string,
@@ -2473,7 +2579,7 @@ export type SyncOrdersQuery = {
         weekDay: WEEK_DAY,
       } | null > | null,
       addressId: string,
-      address?:  {
+      address:  {
         __typename: "Address",
         id: string,
         address1: string,
@@ -2486,7 +2592,7 @@ export type SyncOrdersQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       finalPrice: number,
       customerComment?: string | null,
       boxes?:  {
@@ -2515,8 +2621,8 @@ export type GetOrderQuery = {
     id: string,
     orderNumber?: string | null,
     orderStatus: ORDER_STATUS,
-    customerId?: string | null,
-    customer?:  {
+    customerId: string,
+    customer:  {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
@@ -2535,7 +2641,7 @@ export type GetOrderQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     dishes?:  Array< {
       __typename: "Dish",
       name: string,
@@ -2544,7 +2650,7 @@ export type GetOrderQuery = {
       weekDay: WEEK_DAY,
     } | null > | null,
     addressId: string,
-    address?:  {
+    address:  {
       __typename: "Address",
       id: string,
       address1: string,
@@ -2566,12 +2672,17 @@ export type GetOrderQuery = {
         createdAt: string,
         updatedAt: string,
       } | null,
+      orders?:  {
+        __typename: "ModelOrderConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     finalPrice: number,
     customerComment?: string | null,
     boxes?:  {
@@ -2616,8 +2727,8 @@ export type ListOrdersQuery = {
       id: string,
       orderNumber?: string | null,
       orderStatus: ORDER_STATUS,
-      customerId?: string | null,
-      customer?:  {
+      customerId: string,
+      customer:  {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
@@ -2631,7 +2742,7 @@ export type ListOrdersQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       dishes?:  Array< {
         __typename: "Dish",
         name: string,
@@ -2640,7 +2751,7 @@ export type ListOrdersQuery = {
         weekDay: WEEK_DAY,
       } | null > | null,
       addressId: string,
-      address?:  {
+      address:  {
         __typename: "Address",
         id: string,
         address1: string,
@@ -2653,7 +2764,7 @@ export type ListOrdersQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       finalPrice: number,
       customerComment?: string | null,
       boxes?:  {
@@ -2800,7 +2911,7 @@ export type OnCreateCustomerSubscription = {
         id: string,
         orderNumber?: string | null,
         orderStatus: ORDER_STATUS,
-        customerId?: string | null,
+        customerId: string,
         addressId: string,
         finalPrice: number,
         customerComment?: string | null,
@@ -2838,7 +2949,7 @@ export type OnUpdateCustomerSubscription = {
         id: string,
         orderNumber?: string | null,
         orderStatus: ORDER_STATUS,
-        customerId?: string | null,
+        customerId: string,
         addressId: string,
         finalPrice: number,
         customerComment?: string | null,
@@ -2876,7 +2987,7 @@ export type OnDeleteCustomerSubscription = {
         id: string,
         orderNumber?: string | null,
         orderStatus: ORDER_STATUS,
-        customerId?: string | null,
+        customerId: string,
         addressId: string,
         finalPrice: number,
         customerComment?: string | null,
@@ -2907,8 +3018,8 @@ export type OnCreateBoxSubscription = {
       id: string,
       orderNumber?: string | null,
       orderStatus: ORDER_STATUS,
-      customerId?: string | null,
-      customer?:  {
+      customerId: string,
+      customer:  {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
@@ -2922,7 +3033,7 @@ export type OnCreateBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       dishes?:  Array< {
         __typename: "Dish",
         name: string,
@@ -2931,7 +3042,7 @@ export type OnCreateBoxSubscription = {
         weekDay: WEEK_DAY,
       } | null > | null,
       addressId: string,
-      address?:  {
+      address:  {
         __typename: "Address",
         id: string,
         address1: string,
@@ -2944,7 +3055,7 @@ export type OnCreateBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       finalPrice: number,
       customerComment?: string | null,
       boxes?:  {
@@ -2981,8 +3092,8 @@ export type OnUpdateBoxSubscription = {
       id: string,
       orderNumber?: string | null,
       orderStatus: ORDER_STATUS,
-      customerId?: string | null,
-      customer?:  {
+      customerId: string,
+      customer:  {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
@@ -2996,7 +3107,7 @@ export type OnUpdateBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       dishes?:  Array< {
         __typename: "Dish",
         name: string,
@@ -3005,7 +3116,7 @@ export type OnUpdateBoxSubscription = {
         weekDay: WEEK_DAY,
       } | null > | null,
       addressId: string,
-      address?:  {
+      address:  {
         __typename: "Address",
         id: string,
         address1: string,
@@ -3018,7 +3129,7 @@ export type OnUpdateBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       finalPrice: number,
       customerComment?: string | null,
       boxes?:  {
@@ -3055,8 +3166,8 @@ export type OnDeleteBoxSubscription = {
       id: string,
       orderNumber?: string | null,
       orderStatus: ORDER_STATUS,
-      customerId?: string | null,
-      customer?:  {
+      customerId: string,
+      customer:  {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
@@ -3070,7 +3181,7 @@ export type OnDeleteBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       dishes?:  Array< {
         __typename: "Dish",
         name: string,
@@ -3079,7 +3190,7 @@ export type OnDeleteBoxSubscription = {
         weekDay: WEEK_DAY,
       } | null > | null,
       addressId: string,
-      address?:  {
+      address:  {
         __typename: "Address",
         id: string,
         address1: string,
@@ -3092,7 +3203,7 @@ export type OnDeleteBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-      } | null,
+      },
       finalPrice: number,
       customerComment?: string | null,
       boxes?:  {
@@ -3162,6 +3273,26 @@ export type OnCreateAddressSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    orders?:  {
+      __typename: "ModelOrderConnection",
+      items?:  Array< {
+        __typename: "Order",
+        id: string,
+        orderNumber?: string | null,
+        orderStatus: ORDER_STATUS,
+        customerId: string,
+        addressId: string,
+        finalPrice: number,
+        customerComment?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -3213,6 +3344,26 @@ export type OnUpdateAddressSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    orders?:  {
+      __typename: "ModelOrderConnection",
+      items?:  Array< {
+        __typename: "Order",
+        id: string,
+        orderNumber?: string | null,
+        orderStatus: ORDER_STATUS,
+        customerId: string,
+        addressId: string,
+        finalPrice: number,
+        customerComment?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -3263,6 +3414,26 @@ export type OnDeleteAddressSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+    } | null,
+    orders?:  {
+      __typename: "ModelOrderConnection",
+      items?:  Array< {
+        __typename: "Order",
+        id: string,
+        orderNumber?: string | null,
+        orderStatus: ORDER_STATUS,
+        customerId: string,
+        addressId: string,
+        finalPrice: number,
+        customerComment?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     _version: number,
     _deleted?: boolean | null,
@@ -3446,8 +3617,8 @@ export type OnCreateOrderSubscription = {
     id: string,
     orderNumber?: string | null,
     orderStatus: ORDER_STATUS,
-    customerId?: string | null,
-    customer?:  {
+    customerId: string,
+    customer:  {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
@@ -3466,7 +3637,7 @@ export type OnCreateOrderSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     dishes?:  Array< {
       __typename: "Dish",
       name: string,
@@ -3475,7 +3646,7 @@ export type OnCreateOrderSubscription = {
       weekDay: WEEK_DAY,
     } | null > | null,
     addressId: string,
-    address?:  {
+    address:  {
       __typename: "Address",
       id: string,
       address1: string,
@@ -3497,12 +3668,17 @@ export type OnCreateOrderSubscription = {
         createdAt: string,
         updatedAt: string,
       } | null,
+      orders?:  {
+        __typename: "ModelOrderConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     finalPrice: number,
     customerComment?: string | null,
     boxes?:  {
@@ -3539,8 +3715,8 @@ export type OnUpdateOrderSubscription = {
     id: string,
     orderNumber?: string | null,
     orderStatus: ORDER_STATUS,
-    customerId?: string | null,
-    customer?:  {
+    customerId: string,
+    customer:  {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
@@ -3559,7 +3735,7 @@ export type OnUpdateOrderSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     dishes?:  Array< {
       __typename: "Dish",
       name: string,
@@ -3568,7 +3744,7 @@ export type OnUpdateOrderSubscription = {
       weekDay: WEEK_DAY,
     } | null > | null,
     addressId: string,
-    address?:  {
+    address:  {
       __typename: "Address",
       id: string,
       address1: string,
@@ -3590,12 +3766,17 @@ export type OnUpdateOrderSubscription = {
         createdAt: string,
         updatedAt: string,
       } | null,
+      orders?:  {
+        __typename: "ModelOrderConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     finalPrice: number,
     customerComment?: string | null,
     boxes?:  {
@@ -3632,8 +3813,8 @@ export type OnDeleteOrderSubscription = {
     id: string,
     orderNumber?: string | null,
     orderStatus: ORDER_STATUS,
-    customerId?: string | null,
-    customer?:  {
+    customerId: string,
+    customer:  {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
@@ -3652,7 +3833,7 @@ export type OnDeleteOrderSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     dishes?:  Array< {
       __typename: "Dish",
       name: string,
@@ -3661,7 +3842,7 @@ export type OnDeleteOrderSubscription = {
       weekDay: WEEK_DAY,
     } | null > | null,
     addressId: string,
-    address?:  {
+    address:  {
       __typename: "Address",
       id: string,
       address1: string,
@@ -3683,12 +3864,17 @@ export type OnDeleteOrderSubscription = {
         createdAt: string,
         updatedAt: string,
       } | null,
+      orders?:  {
+        __typename: "ModelOrderConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-    } | null,
+    },
     finalPrice: number,
     customerComment?: string | null,
     boxes?:  {

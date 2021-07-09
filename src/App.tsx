@@ -1,47 +1,36 @@
 import React, {useEffect, useState} from 'react'
-import Amplify, {a, Auth, DataStore} from 'aws-amplify'
-
-import {AmplifySignOut, withAuthenticator} from '@aws-amplify/ui-react'
-import '@aws-amplify/ui/dist/style.css';
-
-import {Customer, Order, Role, User} from "./models";
+import Amplify, {Auth, DataStore} from 'aws-amplify'
+import {withAuthenticator} from '@aws-amplify/ui-react'
+import {Role, User} from "./models";
 import awsExports from './aws-exports';
+import './App.css'
+
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {Layout, Menu} from 'antd';
+import {ImportOutlined, MenuUnfoldOutlined, MenuFoldOutlined, ProfileOutlined} from "@ant-design/icons";
+import OrdersPage from "./pages/OrdersPage";
+import CustomersPage from "./pages/CustomersPage";
+import ProfilePage from "./pages/ProfilePage";
+
+const {Header, Content, Footer, Sider} = Layout;
 
 Amplify.configure(awsExports);
 
 const App = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [users, setUsers] = useState<User[]>([]);
-  const [customers, setCustomers] = useState<any[]>([]);
-  const [email, setEmail] = useState("")
-
-  async function addCustomer() {
-    try {
-      if (!email) return
-      const customer: Omit<Customer, "id"> = {email: email}
-      setEmail("")
-      const createdCustomer = await DataStore.save(
-        new Customer(customer)
-      );
-      console.log('created: ', createdCustomer)
-      setCustomers([...customers, createdCustomer])
-    } catch (err) {
-      console.log('error creating customer:', err)
-    }
-  }
+  const [collapsed, setCollapsed] = useState(false)
 
   useEffect(() => {
     subscribeOnUsersUpdate();
     createSignedUserIfNotExist();
-    fetchOrders();
-    fetchUsers();
-    fetchCustomers();
   }, [])
 
   const createSignedUserIfNotExist = async () => {
     const cognitoUser = await Auth.currentAuthenticatedUser();
-    const newUser: Omit<User, "id"> = {email: cognitoUser.attributes.email, sub: cognitoUser.attributes.sub, role: Role.GUEST};
-    console.log('user to be created: ', newUser)
+    const newUser: Omit<User, "id"> = {
+      email: cognitoUser.attributes.email,
+      sub: cognitoUser.attributes.sub,
+      role: Role.GUEST
+    };
     const existed = await DataStore.query(User, (user) => user.email('eq', newUser.email))
     if (existed.length === 0) {
       const createdUser = await DataStore.save(
@@ -59,89 +48,53 @@ const App = () => {
     });
   }
 
-  const fetchOrders = async () => {
-    const orders = await DataStore.query(Order);
-    setOrders(orders)
-  }
-
-  const fetchUsers = async () => {
-    const users = await DataStore.query(User);
-    setUsers(users)
-  }
-
-  const fetchCustomers = async () => {
-    const customers = await DataStore.query(Customer);
-    setCustomers(customers)
+  const onCollapse = () => {
+    setCollapsed(!collapsed)
   }
 
   return (
-    // @ts-ignore
-    <div style={styles.container}>
-      <h2>Orders</h2>
-      {
-        orders.map((order) => {
-          return (
-            <div key={order?.id} style={styles.todo}>
-              <p
-                // @ts-ignore
-                style={styles.todoName}>{order?.id}</p>
-              <p style={styles.todoDescription}>{order?.boxes}</p>
-            </div>
-          );
-        })
-      }
-      <h2>Users</h2>
-      {
-        users.map((user) => {
-          return (
-            <div key={user?.id} style={styles.todo}>
-              <p
-                // @ts-ignore
-                style={styles.todoName}>{user?.email}</p>
-              <p style={styles.todoDescription}>{user?.role}</p>
-            </div>
-          );
-        })
-      }
-      <h2>Customers</h2>
-      {
-        customers.map((customer) => {
-          return (
-            <div key={customer?.id} style={styles.todo}>
-              <p
-                // @ts-ignore
-                style={styles.todoName}>email: {customer?.email}</p>
-              <p style={styles.todoDescription}>id: {customer?.id}</p>
-            </div>
-          );
-        })
-      }
-      <input
-        onChange={(event) => setEmail(event.target.value)}
-        style={styles.input}
-        value={email}
-        placeholder="email"
-      />
-      <button style={styles.button} onClick={addCustomer}>Create customer</button>
-      <AmplifySignOut/>
-    </div>
-  )
-}
+    <Router>
+      <Layout style={{minHeight: '100vh'}}>
 
-const styles = {
-  container: {
-    width: 400,
-    margin: '0 auto',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    padding: 20
-  },
-  todo: {marginBottom: 15},
-  input: {border: 'none', backgroundColor: '#ddd', marginBottom: 10, padding: 8, fontSize: 18},
-  todoName: {fontSize: 20, fontWeight: 'bold'},
-  todoDescription: {marginBottom: 0},
-  button: {backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px'}
+        <Sider
+          collapsible
+          collapsed={collapsed}
+          onCollapse={onCollapse}>
+          <div className="logo"/>
+          <Menu theme="dark" defaultSelectedKeys={['orders']} mode="inline">
+            <Menu.Item key="orders">
+              <ImportOutlined/>
+              <span>Orders</span>
+              <Link to="/"/>
+            </Menu.Item>
+            <Menu.Item key="customers">
+              <ImportOutlined/>
+              <span>Customers</span>
+              <Link to="/customers"/>
+            </Menu.Item>
+            <Menu.Item key="profile" icon={<ProfileOutlined />}>
+              <span>Profile</span>
+              <Link to="/profile"/>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header style={{background: '#fff', padding: 0, paddingLeft: 16}}>
+            {collapsed ? <MenuUnfoldOutlined onClick={onCollapse}/> : <MenuFoldOutlined onClick={onCollapse}/>}
+          </Header>
+          <Content style={{margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280}}>
+            <Route exact path="/" component={OrdersPage}/>
+            <Route exact path="/customers" component={CustomersPage}/>
+            <Route exact path="/profile" component={ProfilePage}/>
+          </Content>
+          <Footer style={{textAlign: 'center'}}>
+            DINENATION GROUP
+          </Footer>
+        </Layout>
+
+      </Layout>
+    </Router>
+  )
 }
 
 export default withAuthenticator(App, {

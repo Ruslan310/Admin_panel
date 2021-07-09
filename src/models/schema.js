@@ -245,6 +245,20 @@ export const schema = {
                         "targetName": "coordinatesId"
                     }
                 },
+                "orders": {
+                    "name": "orders",
+                    "isArray": true,
+                    "type": {
+                        "model": "Order"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "address"
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -275,6 +289,140 @@ export const schema = {
                         "name": "coordinatesAddresses",
                         "fields": [
                             "coordinatesId"
+                        ]
+                    }
+                }
+            ]
+        },
+        "Order": {
+            "name": "Order",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "orderNumber": {
+                    "name": "orderNumber",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "orderStatus": {
+                    "name": "orderStatus",
+                    "isArray": false,
+                    "type": {
+                        "enum": "OrderStatus"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "customer": {
+                    "name": "customer",
+                    "isArray": false,
+                    "type": {
+                        "model": "Customer"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "customerId"
+                    }
+                },
+                "dishes": {
+                    "name": "dishes",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "Dish"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "address": {
+                    "name": "address",
+                    "isArray": false,
+                    "type": {
+                        "model": "Address"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "addressId"
+                    }
+                },
+                "finalPrice": {
+                    "name": "finalPrice",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "customerComment": {
+                    "name": "customerComment",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "boxes": {
+                    "name": "boxes",
+                    "isArray": true,
+                    "type": {
+                        "model": "Box"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "order"
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Orders",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "customerOrders",
+                        "fields": [
+                            "customerId"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "addressOrders",
+                        "fields": [
+                            "addressId"
                         ]
                     }
                 }
@@ -369,148 +517,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                }
-            ]
-        },
-        "Order": {
-            "name": "Order",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "orderNumber": {
-                    "name": "orderNumber",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "orderStatus": {
-                    "name": "orderStatus",
-                    "isArray": false,
-                    "type": {
-                        "enum": "OrderStatus"
-                    },
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "customer": {
-                    "name": "customer",
-                    "isArray": false,
-                    "type": {
-                        "model": "Customer"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "customerId"
-                    }
-                },
-                "dishes": {
-                    "name": "dishes",
-                    "isArray": true,
-                    "type": {
-                        "nonModel": "Dish"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "addressId": {
-                    "name": "addressId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "address": {
-                    "name": "address",
-                    "isArray": false,
-                    "type": {
-                        "model": "Address"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": "id",
-                        "targetName": "addressId"
-                    }
-                },
-                "finalPrice": {
-                    "name": "finalPrice",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "customerComment": {
-                    "name": "customerComment",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "boxes": {
-                    "name": "boxes",
-                    "isArray": true,
-                    "type": {
-                        "model": "Box"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "order"
-                    }
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Orders",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "customerOrders",
-                        "fields": [
-                            "customerId"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "addressOrders",
-                        "fields": [
-                            "addressId"
-                        ]
-                    }
                 }
             ]
         },
@@ -691,5 +697,5 @@ export const schema = {
             }
         }
     },
-    "version": "52e22705831c919bd60728021eeaccd7"
+    "version": "c3feafb6b85ef2ea3c9618a0c6778f16"
 };

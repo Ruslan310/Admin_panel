@@ -27,6 +27,7 @@ enum Role {
     DELIVERY
     KITCHEN
     ADMIN
+    GUEST
 }
 
 type User @model {
@@ -37,6 +38,7 @@ type User @model {
     firstName: String
     lastName: String
     avatar: String
+    coordinates: [Coordinates] @connection(keyName: "assignedDriverCoordinates", fields: ["id"])
 }
 
 type Customer  @model {
@@ -69,6 +71,7 @@ type Address @model @key(name: "coordinatesAddresses", fields: ["coordinatesId"]
     postCode: String!
     coordinatesId: ID
     coordinates: Coordinates @connection(fields: ["coordinatesId"])
+    orders: [Order] @connection(keyName: "addressOrders", fields: ["id"])
 }
 
 type Coordinates @model @key(name: "assignedDriverCoordinates", fields: ["assignedDriverUserId"]) {
@@ -79,6 +82,7 @@ type Coordinates @model @key(name: "assignedDriverCoordinates", fields: ["assign
     assignedDriverUser: User @connection(fields: ["assignedDriverUserId"])
     verified: Boolean
     name: String
+    addresses: [Address] @connection(keyName: "coordinatesAddresses", fields: ["id"])
 }
 
 type Order @model
@@ -88,13 +92,14 @@ type Order @model
     id: ID!
     orderNumber: String
     orderStatus: ORDER_STATUS!
-    customerId: ID
-    customer: Customer @connection(fields: ["customerId"])
+    customerId: ID!
+    customer: Customer! @connection(fields: ["customerId"])
     dishes: [Dish]
     addressId: ID!
-    address: Address @connection(fields: ["addressId"])
+    address: Address! @connection(fields: ["addressId"])
     finalPrice: Float!
     customerComment: String
+    boxes: [Box] @connection(keyName: "orderBoxes", fields: ["id"])
 }
 
 type Dish {

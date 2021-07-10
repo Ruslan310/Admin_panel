@@ -15,6 +15,11 @@ export const createUser = /* GraphQL */ `
       firstName
       lastName
       avatar
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         items {
           id
@@ -32,11 +37,6 @@ export const createUser = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -53,6 +53,11 @@ export const updateUser = /* GraphQL */ `
       firstName
       lastName
       avatar
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         items {
           id
@@ -70,11 +75,6 @@ export const updateUser = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -91,6 +91,11 @@ export const deleteUser = /* GraphQL */ `
       firstName
       lastName
       avatar
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         items {
           id
@@ -108,11 +113,123 @@ export const deleteUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+    }
+  }
+`;
+export const createCustomer = /* GraphQL */ `
+  mutation CreateCustomer(
+    $input: CreateCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    createCustomer(input: $input, condition: $condition) {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const updateCustomer = /* GraphQL */ `
+  mutation UpdateCustomer(
+    $input: UpdateCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    updateCustomer(input: $input, condition: $condition) {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const deleteCustomer = /* GraphQL */ `
+  mutation DeleteCustomer(
+    $input: DeleteCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    deleteCustomer(input: $input, condition: $condition) {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -124,6 +241,16 @@ export const createBox = /* GraphQL */ `
     createBox(input: $input, condition: $condition) {
       id
       orderId
+      sticker
+      boxStatus
+      qrCode
+      customerComment
+      weekDay
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       order {
         id
         orderNumber
@@ -136,25 +263,8 @@ export const createBox = /* GraphQL */ `
           weekDay
         }
         addressId
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         finalPrice
         customerComment
-        boxes {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -174,17 +284,24 @@ export const createBox = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        boxes {
+          nextToken
+          startedAt
+        }
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinatesId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
-      sticker
-      boxStatus
-      qrCode
-      customerComment
-      weekDay
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -196,6 +313,16 @@ export const updateBox = /* GraphQL */ `
     updateBox(input: $input, condition: $condition) {
       id
       orderId
+      sticker
+      boxStatus
+      qrCode
+      customerComment
+      weekDay
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       order {
         id
         orderNumber
@@ -208,25 +335,8 @@ export const updateBox = /* GraphQL */ `
           weekDay
         }
         addressId
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         finalPrice
         customerComment
-        boxes {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -246,17 +356,24 @@ export const updateBox = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        boxes {
+          nextToken
+          startedAt
+        }
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinatesId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
-      sticker
-      boxStatus
-      qrCode
-      customerComment
-      weekDay
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -268,6 +385,16 @@ export const deleteBox = /* GraphQL */ `
     deleteBox(input: $input, condition: $condition) {
       id
       orderId
+      sticker
+      boxStatus
+      qrCode
+      customerComment
+      weekDay
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       order {
         id
         orderNumber
@@ -280,25 +407,8 @@ export const deleteBox = /* GraphQL */ `
           weekDay
         }
         addressId
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         finalPrice
         customerComment
-        boxes {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -318,17 +428,24 @@ export const deleteBox = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        boxes {
+          nextToken
+          startedAt
+        }
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinatesId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
-      sticker
-      boxStatus
-      qrCode
-      customerComment
-      weekDay
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -344,11 +461,23 @@ export const createAddress = /* GraphQL */ `
       city
       postCode
       coordinatesId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         id
         latitude
         longitude
         assignedDriverUserId
+        verified
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
         assignedDriverUser {
           id
           sub
@@ -363,17 +492,10 @@ export const createAddress = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        verified
-        name
         addresses {
           nextToken
           startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
       }
       orders {
         items {
@@ -393,11 +515,6 @@ export const createAddress = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -413,11 +530,23 @@ export const updateAddress = /* GraphQL */ `
       city
       postCode
       coordinatesId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         id
         latitude
         longitude
         assignedDriverUserId
+        verified
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
         assignedDriverUser {
           id
           sub
@@ -432,17 +561,10 @@ export const updateAddress = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        verified
-        name
         addresses {
           nextToken
           startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
       }
       orders {
         items {
@@ -462,11 +584,6 @@ export const updateAddress = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -482,11 +599,23 @@ export const deleteAddress = /* GraphQL */ `
       city
       postCode
       coordinatesId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         id
         latitude
         longitude
         assignedDriverUserId
+        verified
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
         assignedDriverUser {
           id
           sub
@@ -501,17 +630,10 @@ export const deleteAddress = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        verified
-        name
         addresses {
           nextToken
           startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
       }
       orders {
         items {
@@ -531,11 +653,6 @@ export const deleteAddress = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -549,6 +666,13 @@ export const createCoordinates = /* GraphQL */ `
       latitude
       longitude
       assignedDriverUserId
+      verified
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       assignedDriverUser {
         id
         sub
@@ -557,18 +681,16 @@ export const createCoordinates = /* GraphQL */ `
         firstName
         lastName
         avatar
-        coordinates {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        coordinates {
+          nextToken
+          startedAt
+        }
       }
-      verified
-      name
       addresses {
         items {
           id
@@ -586,11 +708,6 @@ export const createCoordinates = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -604,6 +721,13 @@ export const updateCoordinates = /* GraphQL */ `
       latitude
       longitude
       assignedDriverUserId
+      verified
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       assignedDriverUser {
         id
         sub
@@ -612,18 +736,16 @@ export const updateCoordinates = /* GraphQL */ `
         firstName
         lastName
         avatar
-        coordinates {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        coordinates {
+          nextToken
+          startedAt
+        }
       }
-      verified
-      name
       addresses {
         items {
           id
@@ -641,11 +763,6 @@ export const updateCoordinates = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -659,6 +776,13 @@ export const deleteCoordinates = /* GraphQL */ `
       latitude
       longitude
       assignedDriverUserId
+      verified
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       assignedDriverUser {
         id
         sub
@@ -667,18 +791,16 @@ export const deleteCoordinates = /* GraphQL */ `
         firstName
         lastName
         avatar
-        coordinates {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        coordinates {
+          nextToken
+          startedAt
+        }
       }
-      verified
-      name
       addresses {
         items {
           id
@@ -696,11 +818,6 @@ export const deleteCoordinates = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -721,38 +838,31 @@ export const createOrder = /* GraphQL */ `
         weekDay
       }
       addressId
-      address {
+      finalPrice
+      customerComment
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      customer {
         id
-        address1
-        address2
-        city
-        postCode
-        coordinatesId
-        coordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          verified
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        orders {
-          nextToken
-          startedAt
-        }
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        orders {
+          nextToken
+          startedAt
+        }
       }
-      finalPrice
-      customerComment
       boxes {
         items {
           id
@@ -771,28 +881,35 @@ export const createOrder = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      customer {
+      address {
         id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
+        address1
+        address2
+        city
+        postCode
+        coordinatesId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        coordinates {
+          id
+          latitude
+          longitude
+          assignedDriverUserId
+          verified
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        orders {
+          nextToken
+          startedAt
+        }
       }
     }
   }
@@ -814,38 +931,31 @@ export const updateOrder = /* GraphQL */ `
         weekDay
       }
       addressId
-      address {
+      finalPrice
+      customerComment
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      customer {
         id
-        address1
-        address2
-        city
-        postCode
-        coordinatesId
-        coordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          verified
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        orders {
-          nextToken
-          startedAt
-        }
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        orders {
+          nextToken
+          startedAt
+        }
       }
-      finalPrice
-      customerComment
       boxes {
         items {
           id
@@ -864,28 +974,35 @@ export const updateOrder = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      customer {
+      address {
         id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
+        address1
+        address2
+        city
+        postCode
+        coordinatesId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        coordinates {
+          id
+          latitude
+          longitude
+          assignedDriverUserId
+          verified
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        orders {
+          nextToken
+          startedAt
+        }
       }
     }
   }
@@ -907,38 +1024,31 @@ export const deleteOrder = /* GraphQL */ `
         weekDay
       }
       addressId
-      address {
+      finalPrice
+      customerComment
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      customer {
         id
-        address1
-        address2
-        city
-        postCode
-        coordinatesId
-        coordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          verified
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        orders {
-          nextToken
-          startedAt
-        }
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        orders {
+          nextToken
+          startedAt
+        }
       }
-      finalPrice
-      customerComment
       boxes {
         items {
           id
@@ -957,146 +1067,36 @@ export const deleteOrder = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      customer {
+      address {
         id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
+        address1
+        address2
+        city
+        postCode
+        coordinatesId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-      }
-    }
-  }
-`;
-export const createCustomer = /* GraphQL */ `
-  mutation CreateCustomer(
-    $input: CreateCustomerInput!
-    $condition: ModelCustomerConditionInput
-  ) {
-    createCustomer(input: $input, condition: $condition) {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
+        coordinates {
           id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
+          latitude
+          longitude
+          assignedDriverUserId
+          verified
+          name
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
         }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateCustomer = /* GraphQL */ `
-  mutation UpdateCustomer(
-    $input: UpdateCustomerInput!
-    $condition: ModelCustomerConditionInput
-  ) {
-    updateCustomer(input: $input, condition: $condition) {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+        orders {
+          nextToken
+          startedAt
         }
-        nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteCustomer = /* GraphQL */ `
-  mutation DeleteCustomer(
-    $input: DeleteCustomerInput!
-    $condition: ModelCustomerConditionInput
-  ) {
-    deleteCustomer(input: $input, condition: $condition) {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;

@@ -12,6 +12,11 @@ export const onCreateUser = /* GraphQL */ `
       firstName
       lastName
       avatar
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         items {
           id
@@ -29,11 +34,6 @@ export const onCreateUser = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -47,6 +47,11 @@ export const onUpdateUser = /* GraphQL */ `
       firstName
       lastName
       avatar
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         items {
           id
@@ -64,11 +69,6 @@ export const onUpdateUser = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -82,6 +82,11 @@ export const onDeleteUser = /* GraphQL */ `
       firstName
       lastName
       avatar
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         items {
           id
@@ -99,11 +104,114 @@ export const onDeleteUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+    }
+  }
+`;
+export const onCreateCustomer = /* GraphQL */ `
+  subscription OnCreateCustomer {
+    onCreateCustomer {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onUpdateCustomer = /* GraphQL */ `
+  subscription OnUpdateCustomer {
+    onUpdateCustomer {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onDeleteCustomer = /* GraphQL */ `
+  subscription OnDeleteCustomer {
+    onDeleteCustomer {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -112,6 +220,16 @@ export const onCreateBox = /* GraphQL */ `
     onCreateBox {
       id
       orderId
+      sticker
+      boxStatus
+      qrCode
+      customerComment
+      weekDay
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       order {
         id
         orderNumber
@@ -124,25 +242,8 @@ export const onCreateBox = /* GraphQL */ `
           weekDay
         }
         addressId
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         finalPrice
         customerComment
-        boxes {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -162,17 +263,24 @@ export const onCreateBox = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        boxes {
+          nextToken
+          startedAt
+        }
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinatesId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
-      sticker
-      boxStatus
-      qrCode
-      customerComment
-      weekDay
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -181,6 +289,16 @@ export const onUpdateBox = /* GraphQL */ `
     onUpdateBox {
       id
       orderId
+      sticker
+      boxStatus
+      qrCode
+      customerComment
+      weekDay
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       order {
         id
         orderNumber
@@ -193,25 +311,8 @@ export const onUpdateBox = /* GraphQL */ `
           weekDay
         }
         addressId
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         finalPrice
         customerComment
-        boxes {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -231,17 +332,24 @@ export const onUpdateBox = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        boxes {
+          nextToken
+          startedAt
+        }
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinatesId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
-      sticker
-      boxStatus
-      qrCode
-      customerComment
-      weekDay
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -250,6 +358,16 @@ export const onDeleteBox = /* GraphQL */ `
     onDeleteBox {
       id
       orderId
+      sticker
+      boxStatus
+      qrCode
+      customerComment
+      weekDay
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       order {
         id
         orderNumber
@@ -262,25 +380,8 @@ export const onDeleteBox = /* GraphQL */ `
           weekDay
         }
         addressId
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         finalPrice
         customerComment
-        boxes {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -300,17 +401,24 @@ export const onDeleteBox = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        boxes {
+          nextToken
+          startedAt
+        }
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinatesId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
-      sticker
-      boxStatus
-      qrCode
-      customerComment
-      weekDay
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -323,11 +431,23 @@ export const onCreateAddress = /* GraphQL */ `
       city
       postCode
       coordinatesId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         id
         latitude
         longitude
         assignedDriverUserId
+        verified
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
         assignedDriverUser {
           id
           sub
@@ -342,17 +462,10 @@ export const onCreateAddress = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        verified
-        name
         addresses {
           nextToken
           startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
       }
       orders {
         items {
@@ -372,11 +485,6 @@ export const onCreateAddress = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -389,11 +497,23 @@ export const onUpdateAddress = /* GraphQL */ `
       city
       postCode
       coordinatesId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         id
         latitude
         longitude
         assignedDriverUserId
+        verified
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
         assignedDriverUser {
           id
           sub
@@ -408,17 +528,10 @@ export const onUpdateAddress = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        verified
-        name
         addresses {
           nextToken
           startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
       }
       orders {
         items {
@@ -438,11 +551,6 @@ export const onUpdateAddress = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -455,11 +563,23 @@ export const onDeleteAddress = /* GraphQL */ `
       city
       postCode
       coordinatesId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       coordinates {
         id
         latitude
         longitude
         assignedDriverUserId
+        verified
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
         assignedDriverUser {
           id
           sub
@@ -474,17 +594,10 @@ export const onDeleteAddress = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        verified
-        name
         addresses {
           nextToken
           startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
       }
       orders {
         items {
@@ -504,11 +617,6 @@ export const onDeleteAddress = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -519,6 +627,13 @@ export const onCreateCoordinates = /* GraphQL */ `
       latitude
       longitude
       assignedDriverUserId
+      verified
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       assignedDriverUser {
         id
         sub
@@ -527,18 +642,16 @@ export const onCreateCoordinates = /* GraphQL */ `
         firstName
         lastName
         avatar
-        coordinates {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        coordinates {
+          nextToken
+          startedAt
+        }
       }
-      verified
-      name
       addresses {
         items {
           id
@@ -556,11 +669,6 @@ export const onCreateCoordinates = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -571,6 +679,13 @@ export const onUpdateCoordinates = /* GraphQL */ `
       latitude
       longitude
       assignedDriverUserId
+      verified
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       assignedDriverUser {
         id
         sub
@@ -579,18 +694,16 @@ export const onUpdateCoordinates = /* GraphQL */ `
         firstName
         lastName
         avatar
-        coordinates {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        coordinates {
+          nextToken
+          startedAt
+        }
       }
-      verified
-      name
       addresses {
         items {
           id
@@ -608,11 +721,6 @@ export const onUpdateCoordinates = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -623,6 +731,13 @@ export const onDeleteCoordinates = /* GraphQL */ `
       latitude
       longitude
       assignedDriverUserId
+      verified
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       assignedDriverUser {
         id
         sub
@@ -631,18 +746,16 @@ export const onDeleteCoordinates = /* GraphQL */ `
         firstName
         lastName
         avatar
-        coordinates {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        coordinates {
+          nextToken
+          startedAt
+        }
       }
-      verified
-      name
       addresses {
         items {
           id
@@ -660,11 +773,6 @@ export const onDeleteCoordinates = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -682,38 +790,31 @@ export const onCreateOrder = /* GraphQL */ `
         weekDay
       }
       addressId
-      address {
+      finalPrice
+      customerComment
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      customer {
         id
-        address1
-        address2
-        city
-        postCode
-        coordinatesId
-        coordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          verified
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        orders {
-          nextToken
-          startedAt
-        }
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        orders {
+          nextToken
+          startedAt
+        }
       }
-      finalPrice
-      customerComment
       boxes {
         items {
           id
@@ -732,28 +833,35 @@ export const onCreateOrder = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      customer {
+      address {
         id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
+        address1
+        address2
+        city
+        postCode
+        coordinatesId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        coordinates {
+          id
+          latitude
+          longitude
+          assignedDriverUserId
+          verified
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        orders {
+          nextToken
+          startedAt
+        }
       }
     }
   }
@@ -772,38 +880,31 @@ export const onUpdateOrder = /* GraphQL */ `
         weekDay
       }
       addressId
-      address {
+      finalPrice
+      customerComment
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      customer {
         id
-        address1
-        address2
-        city
-        postCode
-        coordinatesId
-        coordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          verified
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        orders {
-          nextToken
-          startedAt
-        }
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        orders {
+          nextToken
+          startedAt
+        }
       }
-      finalPrice
-      customerComment
       boxes {
         items {
           id
@@ -822,28 +923,35 @@ export const onUpdateOrder = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      customer {
+      address {
         id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
+        address1
+        address2
+        city
+        postCode
+        coordinatesId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        coordinates {
+          id
+          latitude
+          longitude
+          assignedDriverUserId
+          verified
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        orders {
+          nextToken
+          startedAt
+        }
       }
     }
   }
@@ -862,38 +970,31 @@ export const onDeleteOrder = /* GraphQL */ `
         weekDay
       }
       addressId
-      address {
+      finalPrice
+      customerComment
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      customer {
         id
-        address1
-        address2
-        city
-        postCode
-        coordinatesId
-        coordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          verified
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        orders {
-          nextToken
-          startedAt
-        }
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        orders {
+          nextToken
+          startedAt
+        }
       }
-      finalPrice
-      customerComment
       boxes {
         items {
           id
@@ -912,137 +1013,36 @@ export const onDeleteOrder = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      customer {
+      address {
         id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
+        address1
+        address2
+        city
+        postCode
+        coordinatesId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-      }
-    }
-  }
-`;
-export const onCreateCustomer = /* GraphQL */ `
-  subscription OnCreateCustomer {
-    onCreateCustomer {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
+        coordinates {
           id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
+          latitude
+          longitude
+          assignedDriverUserId
+          verified
+          name
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
         }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateCustomer = /* GraphQL */ `
-  subscription OnUpdateCustomer {
-    onUpdateCustomer {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+        orders {
+          nextToken
+          startedAt
         }
-        nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteCustomer = /* GraphQL */ `
-  subscription OnDeleteCustomer {
-    onDeleteCustomer {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;

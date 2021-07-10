@@ -116,123 +116,6 @@ export const deleteUser = /* GraphQL */ `
     }
   }
 `;
-export const createCustomer = /* GraphQL */ `
-  mutation CreateCustomer(
-    $input: CreateCustomerInput!
-    $condition: ModelCustomerConditionInput
-  ) {
-    createCustomer(input: $input, condition: $condition) {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateCustomer = /* GraphQL */ `
-  mutation UpdateCustomer(
-    $input: UpdateCustomerInput!
-    $condition: ModelCustomerConditionInput
-  ) {
-    updateCustomer(input: $input, condition: $condition) {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteCustomer = /* GraphQL */ `
-  mutation DeleteCustomer(
-    $input: DeleteCustomerInput!
-    $condition: ModelCustomerConditionInput
-  ) {
-    deleteCustomer(input: $input, condition: $condition) {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const createBox = /* GraphQL */ `
   mutation CreateBox(
     $input: CreateBoxInput!
@@ -246,20 +129,6 @@ export const createBox = /* GraphQL */ `
         orderNumber
         orderStatus
         customerId
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         dishes {
           name
           dishType
@@ -291,6 +160,20 @@ export const createBox = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
       sticker
       boxStatus
@@ -318,20 +201,6 @@ export const updateBox = /* GraphQL */ `
         orderNumber
         orderStatus
         customerId
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         dishes {
           name
           dishType
@@ -363,6 +232,20 @@ export const updateBox = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
       sticker
       boxStatus
@@ -390,20 +273,6 @@ export const deleteBox = /* GraphQL */ `
         orderNumber
         orderStatus
         customerId
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         dishes {
           name
           dishType
@@ -435,6 +304,20 @@ export const deleteBox = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
       sticker
       boxStatus
@@ -831,24 +714,6 @@ export const createOrder = /* GraphQL */ `
       orderNumber
       orderStatus
       customerId
-      customer {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
       dishes {
         name
         dishType
@@ -911,6 +776,24 @@ export const createOrder = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      customer {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        orders {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -924,24 +807,6 @@ export const updateOrder = /* GraphQL */ `
       orderNumber
       orderStatus
       customerId
-      customer {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
       dishes {
         name
         dishType
@@ -1004,19 +869,6 @@ export const updateOrder = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-    }
-  }
-`;
-export const deleteOrder = /* GraphQL */ `
-  mutation DeleteOrder(
-    $input: DeleteOrderInput!
-    $condition: ModelOrderConditionInput
-  ) {
-    deleteOrder(input: $input, condition: $condition) {
-      id
-      orderNumber
-      orderStatus
-      customerId
       customer {
         id
         wpId
@@ -1035,6 +887,19 @@ export const deleteOrder = /* GraphQL */ `
         createdAt
         updatedAt
       }
+    }
+  }
+`;
+export const deleteOrder = /* GraphQL */ `
+  mutation DeleteOrder(
+    $input: DeleteOrderInput!
+    $condition: ModelOrderConditionInput
+  ) {
+    deleteOrder(input: $input, condition: $condition) {
+      id
+      orderNumber
+      orderStatus
+      customerId
       dishes {
         name
         dishType
@@ -1083,6 +948,141 @@ export const deleteOrder = /* GraphQL */ `
           qrCode
           customerComment
           weekDay
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      customer {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        orders {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const createCustomer = /* GraphQL */ `
+  mutation CreateCustomer(
+    $input: CreateCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    createCustomer(input: $input, condition: $condition) {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCustomer = /* GraphQL */ `
+  mutation UpdateCustomer(
+    $input: UpdateCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    updateCustomer(input: $input, condition: $condition) {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCustomer = /* GraphQL */ `
+  mutation DeleteCustomer(
+    $input: DeleteCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    deleteCustomer(input: $input, condition: $condition) {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
           _version
           _deleted
           _lastChangedAt

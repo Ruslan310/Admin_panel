@@ -107,114 +107,6 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
-export const onCreateCustomer = /* GraphQL */ `
-  subscription OnCreateCustomer {
-    onCreateCustomer {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateCustomer = /* GraphQL */ `
-  subscription OnUpdateCustomer {
-    onUpdateCustomer {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteCustomer = /* GraphQL */ `
-  subscription OnDeleteCustomer {
-    onDeleteCustomer {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateBox = /* GraphQL */ `
   subscription OnCreateBox {
     onCreateBox {
@@ -225,20 +117,6 @@ export const onCreateBox = /* GraphQL */ `
         orderNumber
         orderStatus
         customerId
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         dishes {
           name
           dishType
@@ -270,6 +148,20 @@ export const onCreateBox = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
       sticker
       boxStatus
@@ -294,20 +186,6 @@ export const onUpdateBox = /* GraphQL */ `
         orderNumber
         orderStatus
         customerId
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         dishes {
           name
           dishType
@@ -339,6 +217,20 @@ export const onUpdateBox = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
       sticker
       boxStatus
@@ -363,20 +255,6 @@ export const onDeleteBox = /* GraphQL */ `
         orderNumber
         orderStatus
         customerId
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         dishes {
           name
           dishType
@@ -408,6 +286,20 @@ export const onDeleteBox = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
       sticker
       boxStatus
@@ -783,24 +675,6 @@ export const onCreateOrder = /* GraphQL */ `
       orderNumber
       orderStatus
       customerId
-      customer {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
       dishes {
         name
         dishType
@@ -863,6 +737,24 @@ export const onCreateOrder = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      customer {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        orders {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -873,24 +765,6 @@ export const onUpdateOrder = /* GraphQL */ `
       orderNumber
       orderStatus
       customerId
-      customer {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
       dishes {
         name
         dishType
@@ -953,16 +827,6 @@ export const onUpdateOrder = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-    }
-  }
-`;
-export const onDeleteOrder = /* GraphQL */ `
-  subscription OnDeleteOrder {
-    onDeleteOrder {
-      id
-      orderNumber
-      orderStatus
-      customerId
       customer {
         id
         wpId
@@ -981,6 +845,16 @@ export const onDeleteOrder = /* GraphQL */ `
         createdAt
         updatedAt
       }
+    }
+  }
+`;
+export const onDeleteOrder = /* GraphQL */ `
+  subscription OnDeleteOrder {
+    onDeleteOrder {
+      id
+      orderNumber
+      orderStatus
+      customerId
       dishes {
         name
         dishType
@@ -1029,6 +903,132 @@ export const onDeleteOrder = /* GraphQL */ `
           qrCode
           customerComment
           weekDay
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      customer {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        orders {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onCreateCustomer = /* GraphQL */ `
+  subscription OnCreateCustomer {
+    onCreateCustomer {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCustomer = /* GraphQL */ `
+  subscription OnUpdateCustomer {
+    onUpdateCustomer {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCustomer = /* GraphQL */ `
+  subscription OnDeleteCustomer {
+    onDeleteCustomer {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
           _version
           _deleted
           _lastChangedAt

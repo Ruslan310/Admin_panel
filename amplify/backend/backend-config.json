@@ -19,9 +19,18 @@
               "userPoolId": "authdnreacta6da65b7"
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 7,
+                "description": "syncKey"
+              }
+            }
+          ]
         }
       }
     }
-  }
+  },
+  "storage": {}
 }

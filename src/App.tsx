@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Amplify, {Auth, DataStore} from 'aws-amplify'
 import {withAuthenticator} from '@aws-amplify/ui-react'
-import {Role, User} from "./models";
+import {Customer, Order, Role, User} from "./models";
 import awsExports from './aws-exports';
 import './App.css'
 
@@ -20,33 +20,23 @@ const App = () => {
   const [collapsed, setCollapsed] = useState(false)
 
   useEffect(() => {
-    subscribeOnUsersUpdate();
-    createSignedUserIfNotExist();
-  }, [])
-
-  const createSignedUserIfNotExist = async () => {
-    const cognitoUser = await Auth.currentAuthenticatedUser();
-    const newUser: Omit<User, "id"> = {
-      email: cognitoUser.attributes.email,
-      sub: cognitoUser.attributes.sub,
-      role: Role.GUEST
-    };
-    const existed = await DataStore.query(User, (user) => user.email('eq', newUser.email))
-    if (existed.length === 0) {
-      const createdUser = await DataStore.save(
-        new User(newUser), (user) => user.email('ne', newUser.email)
-      );
-      console.log('just created: ', createdUser)
+    const subscribeOnUsersUpdate = async () => {
+      console.log('subscribe')
+      DataStore.observe(Customer).subscribe(event => {
+        console.log('customer event: ', event.element);
+        if (event.opType === 'INSERT') {
+          console.log('created CUSTOMER: ', event.element);
+        }
+      });
+      DataStore.observe(User).subscribe(event => {
+        console.log('user event: ', event.element);
+        if (event.opType === 'INSERT') {
+          console.log('created user: ', event.element);
+        }
+      });
     }
-  }
-
-  const subscribeOnUsersUpdate = async () => {
-    DataStore.observe(User).subscribe(event => {
-      if (event.opType === 'INSERT') {
-        console.log('created user: ', event.element);
-      }
-    });
-  }
+    subscribeOnUsersUpdate();
+  }, [])
 
   const onCollapse = () => {
     setCollapsed(!collapsed)

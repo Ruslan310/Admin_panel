@@ -103,108 +103,6 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
-export const syncCustomers = /* GraphQL */ `
-  query SyncCustomers(
-    $filter: ModelCustomerFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncCustomers(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getCustomer = /* GraphQL */ `
-  query GetCustomer($id: ID!) {
-    getCustomer(id: $id) {
-      id
-      wpId
-      company
-      firstName
-      lastName
-      email
-      phoneNumber
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listCustomers = /* GraphQL */ `
-  query ListCustomers(
-    $filter: ModelCustomerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCustomers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
 export const syncBoxes = /* GraphQL */ `
   query SyncBoxes(
     $filter: ModelBoxFilterInput
@@ -261,20 +159,6 @@ export const getBox = /* GraphQL */ `
         orderNumber
         orderStatus
         customerId
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         dishes {
           name
           dishType
@@ -306,6 +190,20 @@ export const getBox = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
       sticker
       boxStatus
@@ -678,20 +576,6 @@ export const syncOrders = /* GraphQL */ `
         orderNumber
         orderStatus
         customerId
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         dishes {
           name
           dishType
@@ -723,6 +607,20 @@ export const syncOrders = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
       nextToken
       startedAt
@@ -736,24 +634,6 @@ export const getOrder = /* GraphQL */ `
       orderNumber
       orderStatus
       customerId
-      customer {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        orders {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
       dishes {
         name
         dishType
@@ -816,6 +696,24 @@ export const getOrder = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      customer {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        orders {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -831,20 +729,6 @@ export const listOrders = /* GraphQL */ `
         orderNumber
         orderStatus
         customerId
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         dishes {
           name
           dishType
@@ -868,6 +752,122 @@ export const listOrders = /* GraphQL */ `
         finalPrice
         customerComment
         boxes {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getCustomer = /* GraphQL */ `
+  query GetCustomer($id: ID!) {
+    getCustomer(id: $id) {
+      id
+      wpId
+      company
+      firstName
+      lastName
+      email
+      phoneNumber
+      orders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          customerId
+          addressId
+          finalPrice
+          customerComment
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCustomers = /* GraphQL */ `
+  query ListCustomers(
+    $filter: ModelCustomerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCustomers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        orders {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCustomers = /* GraphQL */ `
+  query SyncCustomers(
+    $filter: ModelCustomerFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCustomers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        orders {
           nextToken
           startedAt
         }

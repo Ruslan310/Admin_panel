@@ -16,5 +16,23 @@
         "dnreacta6da65b7": {}
       }
     }
+  },
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dnreact-staging-103329-authRole",
+      "UnauthRoleArn": "arn:aws:iam::150977011093:role/amplify-dnreact-staging-103329-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::150977011093:role/amplify-dnreact-staging-103329-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-dnreact-staging-103329-deployment",
+      "UnauthRoleName": "amplify-dnreact-staging-103329-unauthRole",
+      "StackName": "amplify-dnreact-staging-103329",
+      "StackId": "arn:aws:cloudformation:us-east-1:150977011093:stack/amplify-dnreact-staging-103329/f6701740-e087-11eb-ba37-1277bf9feb05",
+      "AmplifyAppId": "d1uu0vz2678n98"
+    },
+    "categories": {
+      "auth": {
+        "dnreacta6da65b7": {}
+      }
+    }
   }
 }

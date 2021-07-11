@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore, Hub} from 'aws-amplify'
+import {DataStore} from 'aws-amplify'
 
 import {Col, Descriptions, Input, Layout, Row, Table, Typography} from 'antd';
 import {Address, Customer, Order} from "../models";
@@ -17,25 +17,27 @@ const OrdersPage: React.FC = () => {
   const [searchNumber, setSearchNumber] = useState('')
 
   useEffect(() => {
-    const removeListener = Hub.listen("datastore", async (capsule) => {
-      const {
-        payload: {event, data},
-      } = capsule;
+    (async () => {
+      const fetchedOrders = await DataStore.query(Order);
 
-      if (event === "modelSynced" && data.model.name === 'Order') {
-        const fetchedOrders = await DataStore.query(Order);
+      if (fetchedOrders.length > 10) {
         setOrders(fetchedOrders);
         setFilteredOrders(fetchedOrders);
         setLoading(false)
       }
-    });
 
-    // Start the DataStore, this kicks-off the sync process.
-    DataStore.start();
-
-    return () => {
-      removeListener();
-    };
+      DataStore.observe(Order).subscribe(async (message) => {
+        if (message.opType === 'INSERT') {
+          const newOrder = await DataStore.query(Order, message.element.id) as Order;
+          fetchedOrders.push(newOrder);
+          setOrders([...fetchedOrders]);
+          setFilteredOrders([...fetchedOrders]);
+          if (isLoading && fetchedOrders.length > 10) {
+            setLoading(false)
+          }
+        }
+      });
+    })();
   }, []);
 
   const onSelectChange = (selectedRowKeys: Key[]) => {
@@ -174,16 +176,23 @@ const OrdersPage: React.FC = () => {
       }
     },
     {
-      title: 'Status',
-      dataIndex: 'orderStatus',
-    },
-    {
-      title: 'Total sum',
-      dataIndex: 'finalPrice',
-    },
-    {
-      title: 'Created date',
-      dataIndex: 'createdAt',
+      title: 'Assigned driver',
+      render: (value, record, index) => {
+        return record.address.coordinates?.assignedDriverUser
+      },
+      sorter: (a, b) => {
+        if (a.address.coordinates?.assignedDriverUser && b.address.coordinates?.assignedDriverUser) {
+          if (a.address.coordinates?.assignedDriverUser < b.address.coordinates?.assignedDriverUser) {
+            return -1;
+          }
+          if (a.address.coordinates?.assignedDriverUser > b.address.coordinates?.assignedDriverUser) {
+            return 1;
+          }
+          return 0;
+        } else {
+          return 0;
+        }
+      }
     },
   ];
 
@@ -202,6 +211,9 @@ const OrdersPage: React.FC = () => {
               <Descriptions.Item label="Full address">{stringifyAddress(record.address)}</Descriptions.Item>
               <Descriptions.Item label="Phone number">{record.customer.phoneNumber}</Descriptions.Item>
               <Descriptions.Item label="Email">{record.customer.email}</Descriptions.Item>
+              <Descriptions.Item label="Created">{record.createdAt}</Descriptions.Item>
+              <Descriptions.Item label="WP Status">{record.orderStatus}</Descriptions.Item>
+              <Descriptions.Item label="Order total price">{record.finalPrice}</Descriptions.Item>
             </Descriptions>
           },
           rowExpandable: record => true,

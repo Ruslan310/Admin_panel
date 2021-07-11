@@ -1,5 +1,5 @@
 import {Layout, Menu} from "antd";
-import {ImportOutlined, MenuFoldOutlined, MenuUnfoldOutlined, ProfileOutlined} from "@ant-design/icons";
+import {ImportOutlined, MenuFoldOutlined, MenuUnfoldOutlined, ProfileOutlined, ReconciliationOutlined} from "@ant-design/icons";
 import {Link, Route, useHistory} from "react-router-dom";
 import OrdersPage from "./pages/OrdersPage";
 import CustomersPage from "./pages/CustomersPage";
@@ -29,7 +29,7 @@ const MainRouter: React.FC = () => {
       <div className="logo"/>
       <Menu theme="dark" defaultSelectedKeys={['orders']} mode="inline">
         <Menu.Item key="orders">
-          <ImportOutlined/>
+          <ReconciliationOutlined />
           <span>Orders</span>
           <Link to="/"/>
         </Menu.Item>

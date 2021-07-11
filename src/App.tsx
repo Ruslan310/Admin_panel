@@ -1,92 +1,53 @@
-import React, {useEffect, useState} from 'react'
-import Amplify, {Auth, DataStore} from 'aws-amplify'
-import {withAuthenticator} from '@aws-amplify/ui-react'
-import {Customer, Order, Role, User} from "./models";
-import awsExports from './aws-exports';
-import './App.css'
+import React, {useState} from 'react';
+import './App.css';
+import Amplify from 'aws-amplify';
+import {AmplifyAuthenticator, AmplifySignUp} from '@aws-amplify/ui-react';
+import {AuthState, onAuthUIStateChange} from '@aws-amplify/ui-components';
+import awsconfig from './aws-exports';
+import {FormFieldTypes} from '@aws-amplify/ui-components/dist/types/components/amplify-auth-fields/amplify-auth-fields-interface';
+import MainRouter from "./MainRouter";
+import {BrowserRouter as Router, Link, Route, useHistory, withRouter} from "react-router-dom";
 
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
-import {Layout, Menu} from 'antd';
-import {ImportOutlined, MenuUnfoldOutlined, MenuFoldOutlined, ProfileOutlined} from "@ant-design/icons";
-import OrdersPage from "./pages/OrdersPage";
-import CustomersPage from "./pages/CustomersPage";
-import ProfilePage from "./pages/ProfilePage";
+Amplify.configure(awsconfig);
 
-const {Header, Content, Footer, Sider} = Layout;
+const AuthStateApp: React.FC = () => {
+  const [authState, setAuthState] = useState<AuthState>();
+  const [user, setUser] = useState<any>();
 
-Amplify.configure(awsExports);
+  React.useEffect(() => {
+    return onAuthUIStateChange((nextAuthState, authData) => {
+      setAuthState(nextAuthState);
+      setUser(authData)
+    });
+  }, []);
 
-const App = () => {
-  const [collapsed, setCollapsed] = useState(false)
-
-  useEffect(() => {
-    const subscribeOnUsersUpdate = async () => {
-      console.log('subscribe')
-      DataStore.observe(Customer).subscribe(event => {
-        console.log('customer event: ', event.element);
-        if (event.opType === 'INSERT') {
-          console.log('created CUSTOMER: ', event.element);
-        }
-      });
-      DataStore.observe(User).subscribe(event => {
-        console.log('user event: ', event.element);
-        if (event.opType === 'INSERT') {
-          console.log('created user: ', event.element);
-        }
-      });
-    }
-    subscribeOnUsersUpdate();
-  }, [])
-
-  const onCollapse = () => {
-    setCollapsed(!collapsed)
-  }
-
-  return (
+  return authState === AuthState.SignedIn && user ? (
     <Router>
-      <Layout style={{minHeight: '100vh'}}>
-
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={onCollapse}>
-          <div className="logo"/>
-          <Menu theme="dark" defaultSelectedKeys={['orders']} mode="inline">
-            <Menu.Item key="orders">
-              <ImportOutlined/>
-              <span>Orders</span>
-              <Link to="/"/>
-            </Menu.Item>
-            <Menu.Item key="customers">
-              <ImportOutlined/>
-              <span>Customers</span>
-              <Link to="/customers"/>
-            </Menu.Item>
-            <Menu.Item key="profile" icon={<ProfileOutlined />}>
-              <span>Profile</span>
-              <Link to="/profile"/>
-            </Menu.Item>
-          </Menu>
-        </Sider>
-        <Layout>
-          <Header style={{background: '#fff', padding: 0, paddingLeft: 16}}>
-            {collapsed ? <MenuUnfoldOutlined onClick={onCollapse}/> : <MenuFoldOutlined onClick={onCollapse}/>}
-          </Header>
-          <Content style={{margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280}}>
-            <Route exact path="/" component={OrdersPage}/>
-            <Route exact path="/customers" component={CustomersPage}/>
-            <Route exact path="/profile" component={ProfilePage}/>
-          </Content>
-          <Footer style={{textAlign: 'center'}}>
-            DINENATION GROUP
-          </Footer>
-        </Layout>
-
-      </Layout>
+      <MainRouter/>
     </Router>
-  )
+  ) : (
+    <AmplifyAuthenticator>
+      <AmplifySignUp
+        headerText="Sign Up"
+        usernameAlias="email"
+        formFields={[
+          {
+            type: 'email',
+            label: 'Email *',
+            placeholder: 'Enter your email',
+            required: true,
+          },
+          {
+            type: 'password',
+            label: 'Password *',
+            placeholder: 'Enter your password',
+            required: true,
+          }
+        ] as FormFieldTypes}
+        slot="sign-up"
+      />
+    </AmplifyAuthenticator>
+  );
 }
 
-export default withAuthenticator(App, {
-  usernameAlias: "email"
-})
+export default AuthStateApp;

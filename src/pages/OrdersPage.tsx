@@ -139,6 +139,38 @@ const OrdersPage: React.FC = () => {
       title: fullNameFilter,
       render: (value, record, index) => {
         return fullName(record.customer)
+      },
+      sorter: (a, b) => {
+        if (fullName(a.customer) && fullName(b.customer)) {
+          if (fullName(a.customer) < fullName(b.customer)) {
+            return -1;
+          }
+          if (fullName(a.customer) > fullName(b.customer)) {
+            return 1;
+          }
+          return 0;
+        } else {
+          return 0;
+        }
+      }
+    },
+    {
+      title: 'Company',
+      render: (value, record, index) => {
+        return record.customer.company
+      },
+      sorter: (a, b) => {
+        if (a.customer.company && b.customer.company) {
+          if (a.customer.company < b.customer.company) {
+            return -1;
+          }
+          if (a.customer.company > b.customer.company) {
+            return 1;
+          }
+          return 0;
+        } else {
+          return 0;
+        }
       }
     },
     {
@@ -169,9 +201,7 @@ const OrdersPage: React.FC = () => {
             return <Descriptions title="Order details">
               <Descriptions.Item label="Full address">{stringifyAddress(record.address)}</Descriptions.Item>
               <Descriptions.Item label="Phone number">{record.customer.phoneNumber}</Descriptions.Item>
-              <Descriptions.Item label="First name">{record.customer.phoneNumber}</Descriptions.Item>
-              <Descriptions.Item label="Phone number">{record.customer.phoneNumber}</Descriptions.Item>
-              <Descriptions.Item label="Phone number">{record.customer.phoneNumber}</Descriptions.Item>
+              <Descriptions.Item label="Email">{record.customer.email}</Descriptions.Item>
             </Descriptions>
           },
           rowExpandable: record => true,

@@ -88,7 +88,6 @@ type Coordinates @model
     longitude: Float!
     assignedDriverUserId: ID
     assignedDriverUser: User @connection(fields: ["assignedDriverUserId"])
-    verified: Boolean
     name: String
     addresses: [Address] @connection(keyName: "coordinatesAddresses", fields: ["id"])
 }

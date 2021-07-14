@@ -68,15 +68,15 @@ type Box @model
 }
 
 type Address @model
-@key(name: "coordinatesAddresses", fields: ["coordinatesId"])
+@key(name: "coordinatesAddresses", fields: ["addressCoordinatesId"])
 @auth(rules: [{ allow: public }, { allow: private }]) {
     id: ID!
     address1: String!
     address2: String!
     city: String!
     postCode: String!
-    coordinatesId: ID
-    coordinates: Coordinates @connection(fields: ["coordinatesId"])
+    addressCoordinatesId: ID
+    addressCoordinates: Coordinates @connection(fields: ["addressCoordinatesId"])
     orders: [Order] @connection(keyName: "addressOrders", fields: ["id"])
 }
 

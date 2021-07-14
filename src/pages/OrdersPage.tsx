@@ -20,7 +20,7 @@ const OrdersPage: React.FC = () => {
     (async () => {
       const fetchedOrders = await DataStore.query(Order);
 
-      if (fetchedOrders.length > 10) {
+      if (fetchedOrders.length > 0) {
         setOrders(fetchedOrders);
         setFilteredOrders(fetchedOrders);
         setLoading(false)
@@ -32,7 +32,7 @@ const OrdersPage: React.FC = () => {
           fetchedOrders.push(newOrder);
           setOrders([...fetchedOrders]);
           setFilteredOrders([...fetchedOrders]);
-          if (isLoading && fetchedOrders.length > 10) {
+          if (isLoading && fetchedOrders.length > 0) {
             setLoading(false)
           }
         }
@@ -41,9 +41,10 @@ const OrdersPage: React.FC = () => {
   }, []);
 
   const onSelectChange = (selectedRowKeys: Key[]) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
     setSelectedRowKeys(selectedRowKeys);
   };
+
+  console.log('orders:', orders)
 
   const rowSelection = {
     selectedRowKeys,
@@ -178,14 +179,14 @@ const OrdersPage: React.FC = () => {
     {
       title: 'Assigned driver',
       render: (value, record, index) => {
-        return record.address.coordinates?.assignedDriverUser
+        return record.address.addressCoordinates?.assignedDriverUser
       },
       sorter: (a, b) => {
-        if (a.address.coordinates?.assignedDriverUser && b.address.coordinates?.assignedDriverUser) {
-          if (a.address.coordinates?.assignedDriverUser < b.address.coordinates?.assignedDriverUser) {
+        if (a.address.addressCoordinates?.assignedDriverUser && b.address.addressCoordinates?.assignedDriverUser) {
+          if (a.address.addressCoordinates?.assignedDriverUser < b.address.addressCoordinates?.assignedDriverUser) {
             return -1;
           }
-          if (a.address.coordinates?.assignedDriverUser > b.address.coordinates?.assignedDriverUser) {
+          if (a.address.addressCoordinates?.assignedDriverUser > b.address.addressCoordinates?.assignedDriverUser) {
             return 1;
           }
           return 0;

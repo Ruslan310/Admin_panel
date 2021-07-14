@@ -156,13 +156,6 @@ export const schema = {
                         "targetName": "assignedDriverUserId"
                     }
                 },
-                "verified": {
-                    "name": "verified",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "name": {
                     "name": "name",
                     "isArray": false,
@@ -181,7 +174,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "coordinates"
+                        "associatedWith": "addressCoordinates"
                     }
                 },
                 "createdAt": {
@@ -282,8 +275,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "coordinates": {
-                    "name": "coordinates",
+                "addressCoordinates": {
+                    "name": "addressCoordinates",
                     "isArray": false,
                     "type": {
                         "model": "Coordinates"
@@ -292,7 +285,7 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "coordinatesId"
+                        "targetName": "addressCoordinatesId"
                     }
                 },
                 "orders": {
@@ -338,7 +331,7 @@ export const schema = {
                     "properties": {
                         "name": "coordinatesAddresses",
                         "fields": [
-                            "coordinatesId"
+                            "addressCoordinatesId"
                         ]
                     }
                 },
@@ -847,5 +840,5 @@ export const schema = {
             }
         }
     },
-    "version": "c3feafb6b85ef2ea3c9618a0c6778f16"
+    "version": "50c47b2fbdeb73463cdb1178a1995093"
 };

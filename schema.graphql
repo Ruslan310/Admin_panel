@@ -30,7 +30,8 @@ enum Role {
     GUEST
 }
 
-type User @model {
+type User @model
+@auth(rules: [{ allow: public }, { allow: private }]){
     id: ID!
     sub: String!
     email: String!
@@ -41,7 +42,8 @@ type User @model {
     coordinates: [Coordinates] @connection(keyName: "assignedDriverCoordinates", fields: ["id"])
 }
 
-type Customer  @model {
+type Customer @model
+@auth(rules: [{ allow: public }, { allow: private }]) {
     id: ID!
     wpId: Int
     company: String
@@ -52,7 +54,9 @@ type Customer  @model {
     orders: [Order] @connection(keyName: "customerOrders", fields: ["id"])
 }
 
-type Box @model @key(name: "orderBoxes", fields: ["orderId"]) {
+type Box @model
+@key(name: "orderBoxes", fields: ["orderId"])
+@auth(rules: [{ allow: public }, { allow: private }]) {
     id: ID!
     orderId: ID!
     order: Order @connection(fields: ["orderId"])
@@ -63,24 +67,27 @@ type Box @model @key(name: "orderBoxes", fields: ["orderId"]) {
     weekDay: WEEK_DAY!
 }
 
-type Address @model @key(name: "coordinatesAddresses", fields: ["coordinatesId"]) {
+type Address @model
+@key(name: "coordinatesAddresses", fields: ["addressCoordinatesId"])
+@auth(rules: [{ allow: public }, { allow: private }]) {
     id: ID!
     address1: String!
     address2: String!
     city: String!
     postCode: String!
-    coordinatesId: ID
-    coordinates: Coordinates @connection(fields: ["coordinatesId"])
+    addressCoordinatesId: ID
+    addressCoordinates: Coordinates @connection(fields: ["addressCoordinatesId"])
     orders: [Order] @connection(keyName: "addressOrders", fields: ["id"])
 }
 
-type Coordinates @model @key(name: "assignedDriverCoordinates", fields: ["assignedDriverUserId"]) {
+type Coordinates @model
+@key(name: "assignedDriverCoordinates", fields: ["assignedDriverUserId"])
+@auth(rules: [{ allow: public }, { allow: private }]) {
     id: ID!
     latitude: Float!
     longitude: Float!
     assignedDriverUserId: ID
     assignedDriverUser: User @connection(fields: ["assignedDriverUserId"])
-    verified: Boolean
     name: String
     addresses: [Address] @connection(keyName: "coordinatesAddresses", fields: ["id"])
 }
@@ -88,7 +95,7 @@ type Coordinates @model @key(name: "assignedDriverCoordinates", fields: ["assign
 type Order @model
 @key(name: "customerOrders", fields: ["customerId"])
 @key(name: "addressOrders", fields: ["addressId"])
-{
+@auth(rules: [{ allow: public }, { allow: private }]) {
     id: ID!
     orderNumber: String
     orderStatus: ORDER_STATUS!

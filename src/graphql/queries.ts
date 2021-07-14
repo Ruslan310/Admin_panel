@@ -23,13 +23,47 @@ export const getUser = /* GraphQL */ `
           latitude
           longitude
           assignedDriverUserId
-          verified
           name
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          assignedDriverUser {
+            id
+            sub
+            email
+            role
+            firstName
+            lastName
+            avatar
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            coordinates {
+              nextToken
+              startedAt
+            }
+          }
+          addresses {
+            items {
+              id
+              address1
+              address2
+              city
+              postCode
+              addressCoordinatesId
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
         nextToken
         startedAt
@@ -58,6 +92,36 @@ export const listUsers = /* GraphQL */ `
         createdAt
         updatedAt
         coordinates {
+          items {
+            id
+            latitude
+            longitude
+            assignedDriverUserId
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            assignedDriverUser {
+              id
+              sub
+              email
+              role
+              firstName
+              lastName
+              avatar
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            addresses {
+              nextToken
+              startedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -94,6 +158,36 @@ export const syncUsers = /* GraphQL */ `
         createdAt
         updatedAt
         coordinates {
+          items {
+            id
+            latitude
+            longitude
+            assignedDriverUserId
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            assignedDriverUser {
+              id
+              sub
+              email
+              role
+              firstName
+              lastName
+              avatar
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            addresses {
+              nextToken
+              startedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -124,6 +218,12 @@ export const getCustomer = /* GraphQL */ `
           orderNumber
           orderStatus
           customerId
+          dishes {
+            name
+            dishType
+            quantity
+            weekDay
+          }
           addressId
           finalPrice
           customerComment
@@ -132,6 +232,71 @@ export const getCustomer = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          customer {
+            id
+            wpId
+            company
+            firstName
+            lastName
+            email
+            phoneNumber
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            orders {
+              nextToken
+              startedAt
+            }
+          }
+          boxes {
+            items {
+              id
+              orderId
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            addressCoordinatesId
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressCoordinates {
+              id
+              latitude
+              longitude
+              assignedDriverUserId
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orders {
+              nextToken
+              startedAt
+            }
+          }
         }
         nextToken
         startedAt
@@ -160,6 +325,57 @@ export const listCustomers = /* GraphQL */ `
         createdAt
         updatedAt
         orders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            customerId
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            addressId
+            finalPrice
+            customerComment
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            boxes {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              addressCoordinatesId
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -196,6 +412,57 @@ export const syncCustomers = /* GraphQL */ `
         createdAt
         updatedAt
         orders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            customerId
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            addressId
+            finalPrice
+            customerComment
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            boxes {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              addressCoordinatesId
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -252,8 +519,54 @@ export const getBox = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          orders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              customerId
+              addressId
+              finalPrice
+              customerComment
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
         boxes {
+          items {
+            id
+            orderId
+            sticker
+            boxStatus
+            qrCode
+            customerComment
+            weekDay
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            order {
+              id
+              orderNumber
+              orderStatus
+              customerId
+              addressId
+              finalPrice
+              customerComment
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -263,12 +576,60 @@ export const getBox = /* GraphQL */ `
           address2
           city
           postCode
-          coordinatesId
+          addressCoordinatesId
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          addressCoordinates {
+            id
+            latitude
+            longitude
+            assignedDriverUserId
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            assignedDriverUser {
+              id
+              sub
+              email
+              role
+              firstName
+              lastName
+              avatar
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            addresses {
+              nextToken
+              startedAt
+            }
+          }
+          orders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              customerId
+              addressId
+              finalPrice
+              customerComment
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
       }
     }
@@ -299,6 +660,12 @@ export const listBoxs = /* GraphQL */ `
           orderNumber
           orderStatus
           customerId
+          dishes {
+            name
+            dishType
+            quantity
+            weekDay
+          }
           addressId
           finalPrice
           customerComment
@@ -307,6 +674,71 @@ export const listBoxs = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          customer {
+            id
+            wpId
+            company
+            firstName
+            lastName
+            email
+            phoneNumber
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            orders {
+              nextToken
+              startedAt
+            }
+          }
+          boxes {
+            items {
+              id
+              orderId
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            addressCoordinatesId
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressCoordinates {
+              id
+              latitude
+              longitude
+              assignedDriverUserId
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orders {
+              nextToken
+              startedAt
+            }
+          }
         }
       }
       nextToken
@@ -345,6 +777,12 @@ export const syncBoxes = /* GraphQL */ `
           orderNumber
           orderStatus
           customerId
+          dishes {
+            name
+            dishType
+            quantity
+            weekDay
+          }
           addressId
           finalPrice
           customerComment
@@ -353,6 +791,71 @@ export const syncBoxes = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          customer {
+            id
+            wpId
+            company
+            firstName
+            lastName
+            email
+            phoneNumber
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            orders {
+              nextToken
+              startedAt
+            }
+          }
+          boxes {
+            items {
+              id
+              orderId
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            addressCoordinatesId
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressCoordinates {
+              id
+              latitude
+              longitude
+              assignedDriverUserId
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orders {
+              nextToken
+              startedAt
+            }
+          }
         }
       }
       nextToken
@@ -368,18 +871,17 @@ export const getAddress = /* GraphQL */ `
       address2
       city
       postCode
-      coordinatesId
+      addressCoordinatesId
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      coordinates {
+      addressCoordinates {
         id
         latitude
         longitude
         assignedDriverUserId
-        verified
         name
         _version
         _deleted
@@ -399,8 +901,53 @@ export const getAddress = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          coordinates {
+            items {
+              id
+              latitude
+              longitude
+              assignedDriverUserId
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
         addresses {
+          items {
+            id
+            address1
+            address2
+            city
+            postCode
+            addressCoordinatesId
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressCoordinates {
+              id
+              latitude
+              longitude
+              assignedDriverUserId
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orders {
+              nextToken
+              startedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -411,6 +958,12 @@ export const getAddress = /* GraphQL */ `
           orderNumber
           orderStatus
           customerId
+          dishes {
+            name
+            dishType
+            quantity
+            weekDay
+          }
           addressId
           finalPrice
           customerComment
@@ -419,6 +972,71 @@ export const getAddress = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          customer {
+            id
+            wpId
+            company
+            firstName
+            lastName
+            email
+            phoneNumber
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            orders {
+              nextToken
+              startedAt
+            }
+          }
+          boxes {
+            items {
+              id
+              orderId
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            addressCoordinatesId
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressCoordinates {
+              id
+              latitude
+              longitude
+              assignedDriverUserId
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orders {
+              nextToken
+              startedAt
+            }
+          }
         }
         nextToken
         startedAt
@@ -439,26 +1057,111 @@ export const listAddresss = /* GraphQL */ `
         address2
         city
         postCode
-        coordinatesId
+        addressCoordinatesId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        coordinates {
+        addressCoordinates {
           id
           latitude
           longitude
           assignedDriverUserId
-          verified
           name
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          assignedDriverUser {
+            id
+            sub
+            email
+            role
+            firstName
+            lastName
+            avatar
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            coordinates {
+              nextToken
+              startedAt
+            }
+          }
+          addresses {
+            items {
+              id
+              address1
+              address2
+              city
+              postCode
+              addressCoordinatesId
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
         orders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            customerId
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            addressId
+            finalPrice
+            customerComment
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            boxes {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              addressCoordinatesId
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -487,26 +1190,111 @@ export const syncAddresses = /* GraphQL */ `
         address2
         city
         postCode
-        coordinatesId
+        addressCoordinatesId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        coordinates {
+        addressCoordinates {
           id
           latitude
           longitude
           assignedDriverUserId
-          verified
           name
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          assignedDriverUser {
+            id
+            sub
+            email
+            role
+            firstName
+            lastName
+            avatar
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            coordinates {
+              nextToken
+              startedAt
+            }
+          }
+          addresses {
+            items {
+              id
+              address1
+              address2
+              city
+              postCode
+              addressCoordinatesId
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
         orders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            customerId
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            addressId
+            finalPrice
+            customerComment
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            boxes {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              addressCoordinatesId
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -523,7 +1311,6 @@ export const getCoordinates = /* GraphQL */ `
       latitude
       longitude
       assignedDriverUserId
-      verified
       name
       _version
       _deleted
@@ -544,6 +1331,36 @@ export const getCoordinates = /* GraphQL */ `
         createdAt
         updatedAt
         coordinates {
+          items {
+            id
+            latitude
+            longitude
+            assignedDriverUserId
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            assignedDriverUser {
+              id
+              sub
+              email
+              role
+              firstName
+              lastName
+              avatar
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            addresses {
+              nextToken
+              startedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -555,12 +1372,60 @@ export const getCoordinates = /* GraphQL */ `
           address2
           city
           postCode
-          coordinatesId
+          addressCoordinatesId
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          addressCoordinates {
+            id
+            latitude
+            longitude
+            assignedDriverUserId
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            assignedDriverUser {
+              id
+              sub
+              email
+              role
+              firstName
+              lastName
+              avatar
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            addresses {
+              nextToken
+              startedAt
+            }
+          }
+          orders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              customerId
+              addressId
+              finalPrice
+              customerComment
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
         nextToken
         startedAt
@@ -580,7 +1445,6 @@ export const listCoordinatess = /* GraphQL */ `
         latitude
         longitude
         assignedDriverUserId
-        verified
         name
         _version
         _deleted
@@ -600,8 +1464,53 @@ export const listCoordinatess = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          coordinates {
+            items {
+              id
+              latitude
+              longitude
+              assignedDriverUserId
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
         addresses {
+          items {
+            id
+            address1
+            address2
+            city
+            postCode
+            addressCoordinatesId
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressCoordinates {
+              id
+              latitude
+              longitude
+              assignedDriverUserId
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orders {
+              nextToken
+              startedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -629,7 +1538,6 @@ export const syncCoordinates = /* GraphQL */ `
         latitude
         longitude
         assignedDriverUserId
-        verified
         name
         _version
         _deleted
@@ -649,8 +1557,53 @@ export const syncCoordinates = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          coordinates {
+            items {
+              id
+              latitude
+              longitude
+              assignedDriverUserId
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
         addresses {
+          items {
+            id
+            address1
+            address2
+            city
+            postCode
+            addressCoordinatesId
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressCoordinates {
+              id
+              latitude
+              longitude
+              assignedDriverUserId
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orders {
+              nextToken
+              startedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -695,6 +1648,57 @@ export const getOrder = /* GraphQL */ `
         createdAt
         updatedAt
         orders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            customerId
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            addressId
+            finalPrice
+            customerComment
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            boxes {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              addressCoordinatesId
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -713,6 +1717,57 @@ export const getOrder = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          order {
+            id
+            orderNumber
+            orderStatus
+            customerId
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            addressId
+            finalPrice
+            customerComment
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            boxes {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              addressCoordinatesId
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
         }
         nextToken
         startedAt
@@ -723,26 +1778,111 @@ export const getOrder = /* GraphQL */ `
         address2
         city
         postCode
-        coordinatesId
+        addressCoordinatesId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        coordinates {
+        addressCoordinates {
           id
           latitude
           longitude
           assignedDriverUserId
-          verified
           name
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          assignedDriverUser {
+            id
+            sub
+            email
+            role
+            firstName
+            lastName
+            avatar
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            coordinates {
+              nextToken
+              startedAt
+            }
+          }
+          addresses {
+            items {
+              id
+              address1
+              address2
+              city
+              postCode
+              addressCoordinatesId
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
         orders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            customerId
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            addressId
+            finalPrice
+            customerComment
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            boxes {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              addressCoordinatesId
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -789,8 +1929,54 @@ export const listOrders = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          orders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              customerId
+              addressId
+              finalPrice
+              customerComment
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
         boxes {
+          items {
+            id
+            orderId
+            sticker
+            boxStatus
+            qrCode
+            customerComment
+            weekDay
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            order {
+              id
+              orderNumber
+              orderStatus
+              customerId
+              addressId
+              finalPrice
+              customerComment
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -800,12 +1986,60 @@ export const listOrders = /* GraphQL */ `
           address2
           city
           postCode
-          coordinatesId
+          addressCoordinatesId
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          addressCoordinates {
+            id
+            latitude
+            longitude
+            assignedDriverUserId
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            assignedDriverUser {
+              id
+              sub
+              email
+              role
+              firstName
+              lastName
+              avatar
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            addresses {
+              nextToken
+              startedAt
+            }
+          }
+          orders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              customerId
+              addressId
+              finalPrice
+              customerComment
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
       }
       nextToken
@@ -858,8 +2092,54 @@ export const syncOrders = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          orders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              customerId
+              addressId
+              finalPrice
+              customerComment
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
         boxes {
+          items {
+            id
+            orderId
+            sticker
+            boxStatus
+            qrCode
+            customerComment
+            weekDay
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            order {
+              id
+              orderNumber
+              orderStatus
+              customerId
+              addressId
+              finalPrice
+              customerComment
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
           nextToken
           startedAt
         }
@@ -869,12 +2149,60 @@ export const syncOrders = /* GraphQL */ `
           address2
           city
           postCode
-          coordinatesId
+          addressCoordinatesId
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          addressCoordinates {
+            id
+            latitude
+            longitude
+            assignedDriverUserId
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            assignedDriverUser {
+              id
+              sub
+              email
+              role
+              firstName
+              lastName
+              avatar
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            addresses {
+              nextToken
+              startedAt
+            }
+          }
+          orders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              customerId
+              addressId
+              finalPrice
+              customerComment
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
         }
       }
       nextToken

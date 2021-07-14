@@ -60,7 +60,6 @@ export declare class Coordinates {
   readonly latitude: number;
   readonly longitude: number;
   readonly assignedDriverUser?: User;
-  readonly verified?: boolean;
   readonly name?: string;
   readonly addresses?: (Address | null)[];
   readonly createdAt?: string;
@@ -75,7 +74,7 @@ export declare class Address {
   readonly address2: string;
   readonly city: string;
   readonly postCode: string;
-  readonly coordinates?: Coordinates;
+  readonly addressCoordinates?: Coordinates;
   readonly orders?: (Order | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;

@@ -48,7 +48,7 @@ export declare class User {
   readonly firstName?: string;
   readonly lastName?: string;
   readonly avatar?: string;
-  readonly coordinates?: (Coordinates | null)[];
+  readonly coordinates?: (Coordinates)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<User>);
@@ -61,7 +61,7 @@ export declare class Coordinates {
   readonly longitude: number;
   readonly assignedDriverUser?: User;
   readonly name?: string;
-  readonly addresses?: (Address | null)[];
+  readonly addresses?: (Address)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Coordinates>);
@@ -75,7 +75,7 @@ export declare class Address {
   readonly city: string;
   readonly postCode: string;
   readonly addressCoordinates?: Coordinates;
-  readonly orders?: (Order | null)[];
+  readonly orders?: (Order)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Address>);
@@ -87,11 +87,11 @@ export declare class Order {
   readonly orderNumber?: string;
   readonly orderStatus: OrderStatus | keyof typeof OrderStatus;
   readonly customer: Customer;
-  readonly dishes?: (Dish | null)[];
+  readonly dishes?: (Dish)[];
   readonly address: Address;
   readonly finalPrice: number;
   readonly customerComment?: string;
-  readonly boxes?: (Box | null)[];
+  readonly boxes?: (Box)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Order>);
@@ -106,7 +106,7 @@ export declare class Customer {
   readonly lastName?: string;
   readonly email: string;
   readonly phoneNumber?: string;
-  readonly orders?: (Order | null)[];
+  readonly orders?: (Order)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Customer>);
@@ -115,7 +115,7 @@ export declare class Customer {
 
 export declare class Box {
   readonly id: string;
-  readonly order?: Order;
+  readonly order: Order;
   readonly sticker: string;
   readonly boxStatus: BoxStatus | keyof typeof BoxStatus;
   readonly qrCode: string;

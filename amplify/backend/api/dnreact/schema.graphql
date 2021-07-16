@@ -39,7 +39,7 @@ type User @model
     firstName: String
     lastName: String
     avatar: String
-    coordinates: [Coordinates] @connection(keyName: "assignedDriverCoordinates", fields: ["id"])
+    coordinates: [Coordinates!] @connection(keyName: "assignedDriverCoordinates", fields: ["id"])
 }
 
 type Customer @model
@@ -51,7 +51,7 @@ type Customer @model
     lastName: String
     email: String!
     phoneNumber: String
-    orders: [Order] @connection(keyName: "customerOrders", fields: ["id"])
+    orders: [Order!] @connection(keyName: "customerOrders", fields: ["id"])
 }
 
 type Box @model
@@ -59,7 +59,7 @@ type Box @model
 @auth(rules: [{ allow: public }, { allow: private }]) {
     id: ID!
     orderId: ID!
-    order: Order @connection(fields: ["orderId"])
+    order: Order! @connection(fields: ["orderId"])
     sticker: String!
     boxStatus: BOX_STATUS!
     qrCode: String!
@@ -77,7 +77,7 @@ type Address @model
     postCode: String!
     addressCoordinatesId: ID
     addressCoordinates: Coordinates @connection(fields: ["addressCoordinatesId"])
-    orders: [Order] @connection(keyName: "addressOrders", fields: ["id"])
+    orders: [Order!] @connection(keyName: "addressOrders", fields: ["id"])
 }
 
 type Coordinates @model
@@ -89,7 +89,7 @@ type Coordinates @model
     assignedDriverUserId: ID
     assignedDriverUser: User @connection(fields: ["assignedDriverUserId"])
     name: String
-    addresses: [Address] @connection(keyName: "coordinatesAddresses", fields: ["id"])
+    addresses: [Address!] @connection(keyName: "coordinatesAddresses", fields: ["id"])
 }
 
 type Order @model
@@ -101,7 +101,7 @@ type Order @model
     orderStatus: ORDER_STATUS!
     customerId: ID!
     customer: Customer! @connection(fields: ["customerId"])
-    dishes: [Dish]
+    dishes: [Dish!]
     addressId: ID!
     address: Address! @connection(fields: ["addressId"])
     finalPrice: Float!

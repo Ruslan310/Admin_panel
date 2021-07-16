@@ -234,7 +234,7 @@ export type Box = {
   _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
-  order?: Order | null,
+  order: Order,
 };
 
 export enum BOX_STATUS {
@@ -1227,7 +1227,7 @@ export type CreateBoxMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
+    order:  {
       __typename: "Order",
       id: string,
       orderNumber?: string | null,
@@ -1299,7 +1299,7 @@ export type CreateBoxMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
+          order:  {
             __typename: "Order",
             id: string,
             orderNumber?: string | null,
@@ -1313,7 +1313,7 @@ export type CreateBoxMutation = {
             _lastChangedAt: number,
             createdAt: string,
             updatedAt: string,
-          } | null,
+          },
         } | null > | null,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -1385,7 +1385,7 @@ export type CreateBoxMutation = {
           startedAt?: number | null,
         } | null,
       },
-    } | null,
+    },
   } | null,
 };
 
@@ -1409,7 +1409,7 @@ export type UpdateBoxMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
+    order:  {
       __typename: "Order",
       id: string,
       orderNumber?: string | null,
@@ -1481,7 +1481,7 @@ export type UpdateBoxMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
+          order:  {
             __typename: "Order",
             id: string,
             orderNumber?: string | null,
@@ -1495,7 +1495,7 @@ export type UpdateBoxMutation = {
             _lastChangedAt: number,
             createdAt: string,
             updatedAt: string,
-          } | null,
+          },
         } | null > | null,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -1567,7 +1567,7 @@ export type UpdateBoxMutation = {
           startedAt?: number | null,
         } | null,
       },
-    } | null,
+    },
   } | null,
 };
 
@@ -1591,7 +1591,7 @@ export type DeleteBoxMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
+    order:  {
       __typename: "Order",
       id: string,
       orderNumber?: string | null,
@@ -1663,7 +1663,7 @@ export type DeleteBoxMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
+          order:  {
             __typename: "Order",
             id: string,
             orderNumber?: string | null,
@@ -1677,7 +1677,7 @@ export type DeleteBoxMutation = {
             _lastChangedAt: number,
             createdAt: string,
             updatedAt: string,
-          } | null,
+          },
         } | null > | null,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -1749,7 +1749,7 @@ export type DeleteBoxMutation = {
           startedAt?: number | null,
         } | null,
       },
-    } | null,
+    },
   } | null,
 };
 
@@ -2922,7 +2922,7 @@ export type CreateOrderMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
+        order:  {
           __typename: "Order",
           id: string,
           orderNumber?: string | null,
@@ -2977,7 +2977,7 @@ export type CreateOrderMutation = {
             createdAt: string,
             updatedAt: string,
           },
-        } | null,
+        },
       } | null > | null,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -3231,7 +3231,7 @@ export type UpdateOrderMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
+        order:  {
           __typename: "Order",
           id: string,
           orderNumber?: string | null,
@@ -3286,7 +3286,7 @@ export type UpdateOrderMutation = {
             createdAt: string,
             updatedAt: string,
           },
-        } | null,
+        },
       } | null > | null,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -3540,7 +3540,7 @@ export type DeleteOrderMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
+        order:  {
           __typename: "Order",
           id: string,
           orderNumber?: string | null,
@@ -3595,7 +3595,7 @@ export type DeleteOrderMutation = {
             createdAt: string,
             updatedAt: string,
           },
-        } | null,
+        },
       } | null > | null,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -4265,7 +4265,7 @@ export type GetBoxQuery = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
+    order:  {
       __typename: "Order",
       id: string,
       orderNumber?: string | null,
@@ -4337,7 +4337,7 @@ export type GetBoxQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
+          order:  {
             __typename: "Order",
             id: string,
             orderNumber?: string | null,
@@ -4351,7 +4351,7 @@ export type GetBoxQuery = {
             _lastChangedAt: number,
             createdAt: string,
             updatedAt: string,
-          } | null,
+          },
         } | null > | null,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -4423,7 +4423,7 @@ export type GetBoxQuery = {
           startedAt?: number | null,
         } | null,
       },
-    } | null,
+    },
   } | null,
 };
 
@@ -4450,7 +4450,7 @@ export type ListBoxsQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      order?:  {
+      order:  {
         __typename: "Order",
         id: string,
         orderNumber?: string | null,
@@ -4543,7 +4543,7 @@ export type ListBoxsQuery = {
             startedAt?: number | null,
           } | null,
         },
-      } | null,
+      },
     } | null > | null,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -4574,7 +4574,7 @@ export type SyncBoxesQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      order?:  {
+      order:  {
         __typename: "Order",
         id: string,
         orderNumber?: string | null,
@@ -4667,7 +4667,7 @@ export type SyncBoxesQuery = {
             startedAt?: number | null,
           } | null,
         },
-      } | null,
+      },
     } | null > | null,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5618,7 +5618,7 @@ export type GetOrderQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
+        order:  {
           __typename: "Order",
           id: string,
           orderNumber?: string | null,
@@ -5673,7 +5673,7 @@ export type GetOrderQuery = {
             createdAt: string,
             updatedAt: string,
           },
-        } | null,
+        },
       } | null > | null,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -5889,7 +5889,7 @@ export type ListOrdersQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
+          order:  {
             __typename: "Order",
             id: string,
             orderNumber?: string | null,
@@ -5903,7 +5903,7 @@ export type ListOrdersQuery = {
             _lastChangedAt: number,
             createdAt: string,
             updatedAt: string,
-          } | null,
+          },
         } | null > | null,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -6063,7 +6063,7 @@ export type SyncOrdersQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
+          order:  {
             __typename: "Order",
             id: string,
             orderNumber?: string | null,
@@ -6077,7 +6077,7 @@ export type SyncOrdersQuery = {
             _lastChangedAt: number,
             createdAt: string,
             updatedAt: string,
-          } | null,
+          },
         } | null > | null,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -6746,7 +6746,7 @@ export type OnCreateBoxSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
+    order:  {
       __typename: "Order",
       id: string,
       orderNumber?: string | null,
@@ -6818,7 +6818,7 @@ export type OnCreateBoxSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
+          order:  {
             __typename: "Order",
             id: string,
             orderNumber?: string | null,
@@ -6832,7 +6832,7 @@ export type OnCreateBoxSubscription = {
             _lastChangedAt: number,
             createdAt: string,
             updatedAt: string,
-          } | null,
+          },
         } | null > | null,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -6904,7 +6904,7 @@ export type OnCreateBoxSubscription = {
           startedAt?: number | null,
         } | null,
       },
-    } | null,
+    },
   } | null,
 };
 
@@ -6923,7 +6923,7 @@ export type OnUpdateBoxSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
+    order:  {
       __typename: "Order",
       id: string,
       orderNumber?: string | null,
@@ -6995,7 +6995,7 @@ export type OnUpdateBoxSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
+          order:  {
             __typename: "Order",
             id: string,
             orderNumber?: string | null,
@@ -7009,7 +7009,7 @@ export type OnUpdateBoxSubscription = {
             _lastChangedAt: number,
             createdAt: string,
             updatedAt: string,
-          } | null,
+          },
         } | null > | null,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -7081,7 +7081,7 @@ export type OnUpdateBoxSubscription = {
           startedAt?: number | null,
         } | null,
       },
-    } | null,
+    },
   } | null,
 };
 
@@ -7100,7 +7100,7 @@ export type OnDeleteBoxSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
+    order:  {
       __typename: "Order",
       id: string,
       orderNumber?: string | null,
@@ -7172,7 +7172,7 @@ export type OnDeleteBoxSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
+          order:  {
             __typename: "Order",
             id: string,
             orderNumber?: string | null,
@@ -7186,7 +7186,7 @@ export type OnDeleteBoxSubscription = {
             _lastChangedAt: number,
             createdAt: string,
             updatedAt: string,
-          } | null,
+          },
         } | null > | null,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -7258,7 +7258,7 @@ export type OnDeleteBoxSubscription = {
           startedAt?: number | null,
         } | null,
       },
-    } | null,
+    },
   } | null,
 };
 
@@ -8396,7 +8396,7 @@ export type OnCreateOrderSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
+        order:  {
           __typename: "Order",
           id: string,
           orderNumber?: string | null,
@@ -8451,7 +8451,7 @@ export type OnCreateOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           },
-        } | null,
+        },
       } | null > | null,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -8700,7 +8700,7 @@ export type OnUpdateOrderSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
+        order:  {
           __typename: "Order",
           id: string,
           orderNumber?: string | null,
@@ -8755,7 +8755,7 @@ export type OnUpdateOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           },
-        } | null,
+        },
       } | null > | null,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -9004,7 +9004,7 @@ export type OnDeleteOrderSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
+        order:  {
           __typename: "Order",
           id: string,
           orderNumber?: string | null,
@@ -9059,7 +9059,7 @@ export type OnDeleteOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           },
-        } | null,
+        },
       } | null > | null,
       nextToken?: string | null,
       startedAt?: number | null,

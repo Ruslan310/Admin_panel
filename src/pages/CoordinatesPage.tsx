@@ -4,6 +4,7 @@ import {DataStore} from 'aws-amplify'
 import {Button, Descriptions, Form, Input, InputNumber, Layout, Select, Table} from 'antd';
 import {Coordinates, Role, User} from "../models";
 import {ColumnsType} from "antd/es/table";
+import Title from "antd/es/typography/Title";
 
 const {Content} = Layout;
 
@@ -75,6 +76,7 @@ const CoordinatesPage: React.FC = () => {
 
   return (
     <Content>
+      <Title>Orders</Title>
       <Form
         labelCol={{span: 4}}
         wrapperCol={{span: 14}}

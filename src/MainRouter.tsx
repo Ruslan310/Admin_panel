@@ -13,6 +13,7 @@ import ProfilePage from "./pages/ProfilePage";
 import React, {useEffect, useState} from "react";
 import CoordinatesPage from "./pages/CoordinatesPage";
 import AddressesPage from "./pages/AddressesPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -25,7 +26,7 @@ const MainRouter: React.FC = () => {
   }
 
   useEffect(() => {
-    history.push("/orders");
+    // history.push("/orders");
   }, [])
 
   return <Layout style={{minHeight: '100vh'}}>
@@ -64,6 +65,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/coordinates" component={CoordinatesPage}/>
         <Route exact path="/addresses" component={AddressesPage}/>
         <Route exact path="/profile" component={ProfilePage}/>
+        <Route exact path="/orderDetails/:orderId" component={OrderDetailsPage}/>
       </Content>
       <Footer style={{textAlign: 'center'}}>
         DINENATION GROUP

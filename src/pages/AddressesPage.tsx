@@ -4,6 +4,7 @@ import {DataStore} from 'aws-amplify'
 import {Layout, Select, Table} from 'antd';
 import {Address, Coordinates} from "../models";
 import {ColumnsType} from "antd/es/table";
+import Title from "antd/es/typography/Title";
 
 const {Content} = Layout;
 const width300 = {width: 300}
@@ -85,6 +86,7 @@ const AddressesPage: React.FC = () => {
 
   return (
     <Content>
+      <Title>Orders</Title>
       <Table
         size={"middle"}
         rowKey="id"

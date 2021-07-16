@@ -1,20 +1,24 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Col, Descriptions, Input, Layout, Row, Table, Typography} from 'antd';
-import {Address, Customer, Order} from "../models";
+import {Button, Col, Descriptions, Input, Layout, Modal, Row, Table, Typography} from 'antd';
+import {Address, Coordinates, Customer, Order} from "../models";
 import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
+import Title from "antd/es/typography/Title";
+import {useHistory} from "react-router-dom";
 
 const {Content} = Layout;
 
 const OrdersPage: React.FC = () => {
+  const history = useHistory();
   const [orders, setOrders] = useState<Order[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([])
   const [isLoading, setLoading] = useState(true)
   const [searchName, setSearchName] = useState('')
   const [searchNumber, setSearchNumber] = useState('')
+  const [assignedDriverName, setAssignedDriverName] = useState('')
 
   useEffect(() => {
     (async () => {
@@ -43,8 +47,6 @@ const OrdersPage: React.FC = () => {
   const onSelectChange = (selectedRowKeys: Key[]) => {
     setSelectedRowKeys(selectedRowKeys);
   };
-
-  console.log('orders:', orders)
 
   const rowSelection = {
     selectedRowKeys,
@@ -179,28 +181,44 @@ const OrdersPage: React.FC = () => {
     {
       title: 'Assigned driver',
       render: (value, record, index) => {
-        return record.address.addressCoordinates?.assignedDriverUser
-      },
-      sorter: (a, b) => {
-        if (a.address.addressCoordinates?.assignedDriverUser && b.address.addressCoordinates?.assignedDriverUser) {
-          if (a.address.addressCoordinates?.assignedDriverUser < b.address.addressCoordinates?.assignedDriverUser) {
-            return -1;
-          }
-          if (a.address.addressCoordinates?.assignedDriverUser > b.address.addressCoordinates?.assignedDriverUser) {
-            return 1;
-          }
-          return 0;
-        } else {
-          return 0;
-        }
+        return <Button type={'link'} onClick={() => loadAssignedDriverName(record.address.id)}>Driver</Button>
       }
     },
+    {
+      title: 'Details',
+      render: (value, record, index) => {
+        return <Button type={'primary'} onClick={() => history.push("/orderDetails/" + record.id)}>Details</Button>
+      }
+    }
   ];
+
+  const loadAssignedDriverName = async (addressId: string): Promise<void> => {
+    const address = await DataStore.query(Address, addressId);
+    if (address?.addressCoordinates) {
+      const coordinates = await DataStore.query(Coordinates, address.addressCoordinates.id);
+      if (coordinates?.assignedDriverUser?.firstName) {
+        setAssignedDriverName(coordinates.assignedDriverUser.firstName);
+      }
+    }
+    Modal.info({
+      title: 'Assigned driver:',
+      content: (
+        <Title level={2}>{assignedDriverName}</Title>
+      ),
+      onOk() {},
+    });
+  }
 
   return (
     <Content>
+      <Title>Orders</Title>
       <Table
         loading={isLoading}
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: event => {},
+          };
+        }}
         size={"middle"}
         rowKey="id"
         rowSelection={rowSelection}

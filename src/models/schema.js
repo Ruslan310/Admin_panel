@@ -654,7 +654,7 @@ export const schema = {
                     "type": {
                         "model": "Order"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
@@ -840,5 +840,5 @@ export const schema = {
             }
         }
     },
-    "version": "50c47b2fbdeb73463cdb1178a1995093"
+    "version": "8c36b36c0f82388369a4239a9b965bd9"
 };

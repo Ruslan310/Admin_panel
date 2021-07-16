@@ -59,7 +59,7 @@ type Box @model
 @auth(rules: [{ allow: public }, { allow: private }]) {
     id: ID!
     orderId: ID!
-    order: Order @connection(fields: ["orderId"])
+    order: Order! @connection(fields: ["orderId"])
     sticker: String!
     boxStatus: BOX_STATUS!
     qrCode: String!

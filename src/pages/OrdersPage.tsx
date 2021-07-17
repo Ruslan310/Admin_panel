@@ -23,6 +23,7 @@ const OrdersPage: React.FC = () => {
   useEffect(() => {
     (async () => {
       const fetchedOrders = await DataStore.query(Order);
+      console.log(fetchedOrders)
 
       if (fetchedOrders.length > 0) {
         setOrders(fetchedOrders);
@@ -32,6 +33,7 @@ const OrdersPage: React.FC = () => {
 
       DataStore.observe(Order).subscribe(async (message) => {
         if (message.opType === 'INSERT') {
+          console.log('message:', message)
           const newOrder = await DataStore.query(Order, message.element.id) as Order;
           fetchedOrders.push(newOrder);
           setOrders([...fetchedOrders]);

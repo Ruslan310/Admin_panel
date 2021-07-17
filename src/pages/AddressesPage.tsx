@@ -67,6 +67,7 @@ const AddressesPage: React.FC = () => {
     {
       title: 'Set coordinates',
       render: (value, record, index) => {
+        console.log('coord: ', record.addressCoordinates)
         return <Select value={record.addressCoordinates?.name} style={width300} onSelect={async (value) => {
           const coordinates = await DataStore.query(Coordinates, value as string);
           const updatedAddress = await DataStore.save(
@@ -77,7 +78,7 @@ const AddressesPage: React.FC = () => {
           console.log('updatedAddress: ', updatedAddress)
         }}>
           {coordinates.map((coord) => <Select.Option key={coord.id}
-                                                  value={coord.id}>{coord.name}</Select.Option>)}
+                                                     value={coord.id}>{coord.name}</Select.Option>)}
         </Select>
       },
       width: 500,

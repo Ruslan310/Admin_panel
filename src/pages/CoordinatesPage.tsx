@@ -69,8 +69,17 @@ const CoordinatesPage: React.FC = () => {
       title: 'Link to map',
       render: (value, record, index) => {
         return <a target={"_blank"}
-                  href={`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}>{`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}</a>
+                    href={`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}>{`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}</a>
       },
+    },
+    {
+      title: 'Actions',
+      render: (value, record, index) => {
+        return <Button type={'primary'} onClick={async () => {
+          const deleted = await DataStore.delete(Coordinates, record.id);
+          console.log(deleted)
+        }}>Delete</Button>
+      }
     }
   ];
 
@@ -104,10 +113,27 @@ const CoordinatesPage: React.FC = () => {
                                                     value={driver.id}>{driver.firstName}</Select.Option>)}
           </Select>
         </Form.Item>
+        <Form.Item label="Google map link">
+          <Input
+            style={width300}
+            onChange={(value) => {
+              const latReg = new RegExp("@(-?[\\d.]*)")
+              const latGroups = latReg.exec(value.target.value);
+              if (latGroups) {
+                setLatitude(parseFloat(latGroups[1]))
+              }
+              const lonReg = new RegExp("@[-?\\d.]*,([-?\\d.]*)")
+              const lonGroups = lonReg.exec(value.target.value);
+              if (lonGroups) {
+                setLongitude(parseFloat(lonGroups[1]))
+              }
+            }}
+          />
+        </Form.Item>
         <Form.Item label="latitude">
           <InputNumber<string>
             style={width300}
-            defaultValue="0.000000"
+            value={latitude.toString()}
             min="-50"
             max="50"
             step="0.000001"
@@ -118,7 +144,7 @@ const CoordinatesPage: React.FC = () => {
         <Form.Item label="longitude">
           <InputNumber<string>
             style={width300}
-            defaultValue="0.000000"
+            value={longitude.toString()}
             min="-50"
             max="50"
             step="0.000001"

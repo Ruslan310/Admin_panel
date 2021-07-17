@@ -1,126 +1,7 @@
 export const schema = {
     "models": {
-        "User": {
-            "name": "User",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "sub": {
-                    "name": "sub",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "email": {
-                    "name": "email",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "role": {
-                    "name": "role",
-                    "isArray": false,
-                    "type": {
-                        "enum": "Role"
-                    },
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "firstName": {
-                    "name": "firstName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "lastName": {
-                    "name": "lastName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "avatar": {
-                    "name": "avatar",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "coordinates": {
-                    "name": "coordinates",
-                    "isArray": true,
-                    "type": {
-                        "model": "Coordinates"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "assignedDriverUser"
-                    }
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Users",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            },
-                            {
-                                "allow": "private",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Coordinates": {
-            "name": "Coordinates",
+        "Coordinate": {
+            "name": "Coordinate",
             "fields": {
                 "id": {
                     "name": "id",
@@ -143,28 +24,22 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "assignedDriverUser": {
-                    "name": "assignedDriverUser",
-                    "isArray": false,
-                    "type": {
-                        "model": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "assignedDriverUserId"
-                    }
-                },
                 "name": {
                     "name": "name",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "userID": {
+                    "name": "userID",
+                    "isArray": false,
+                    "type": "ID",
                     "isRequired": false,
                     "attributes": []
                 },
-                "addresses": {
-                    "name": "addresses",
+                "coordinateAddresses": {
+                    "name": "coordinateAddresses",
                     "isArray": true,
                     "type": {
                         "model": "Address"
@@ -174,7 +49,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "addressCoordinates"
+                        "associatedWith": "coordinateID"
                     }
                 },
                 "createdAt": {
@@ -204,9 +79,9 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "assignedDriverCoordinates",
+                        "name": "byUser",
                         "fields": [
-                            "assignedDriverUserId"
+                            "userID"
                         ]
                     }
                 },
@@ -214,15 +89,6 @@ export const schema = {
                     "type": "auth",
                     "properties": {
                         "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            },
                             {
                                 "allow": "private",
                                 "operations": [
@@ -275,21 +141,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "addressCoordinates": {
-                    "name": "addressCoordinates",
+                "coordinateID": {
+                    "name": "coordinateID",
                     "isArray": false,
-                    "type": {
-                        "model": "Coordinates"
-                    },
+                    "type": "ID",
                     "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "addressCoordinatesId"
-                    }
+                    "attributes": []
                 },
-                "orders": {
-                    "name": "orders",
+                "addressOrders": {
+                    "name": "addressOrders",
                     "isArray": true,
                     "type": {
                         "model": "Order"
@@ -299,7 +159,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "address"
+                        "associatedWith": "addressID"
                     }
                 },
                 "createdAt": {
@@ -329,9 +189,9 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "coordinatesAddresses",
+                        "name": "byCoordinate",
                         "fields": [
-                            "addressCoordinatesId"
+                            "coordinateID"
                         ]
                     }
                 },
@@ -339,15 +199,6 @@ export const schema = {
                     "type": "auth",
                     "properties": {
                         "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            },
                             {
                                 "allow": "private",
                                 "operations": [
@@ -388,19 +239,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "customer": {
-                    "name": "customer",
-                    "isArray": false,
-                    "type": {
-                        "model": "Customer"
-                    },
-                    "isRequired": true,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "customerId"
-                    }
-                },
                 "dishes": {
                     "name": "dishes",
                     "isArray": true,
@@ -410,19 +248,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
-                },
-                "address": {
-                    "name": "address",
-                    "isArray": false,
-                    "type": {
-                        "model": "Address"
-                    },
-                    "isRequired": true,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "addressId"
-                    }
                 },
                 "finalPrice": {
                     "name": "finalPrice",
@@ -438,8 +263,28 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "boxes": {
-                    "name": "boxes",
+                "customerID": {
+                    "name": "customerID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "customer": {
+                    "name": "customer",
+                    "isArray": false,
+                    "type": {
+                        "model": "Customer"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "orderCustomerId"
+                    }
+                },
+                "orderBoxes": {
+                    "name": "orderBoxes",
                     "isArray": true,
                     "type": {
                         "model": "Box"
@@ -449,7 +294,27 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "order"
+                        "associatedWith": "orderID"
+                    }
+                },
+                "addressID": {
+                    "name": "addressID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "address": {
+                    "name": "address",
+                    "isArray": false,
+                    "type": {
+                        "model": "Address"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "orderAddressId"
                     }
                 },
                 "createdAt": {
@@ -479,18 +344,18 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "customerOrders",
+                        "name": "byCustomer",
                         "fields": [
-                            "customerId"
+                            "customerID"
                         ]
                     }
                 },
                 {
                     "type": "key",
                     "properties": {
-                        "name": "addressOrders",
+                        "name": "byAddress",
                         "fields": [
-                            "addressId"
+                            "addressID"
                         ]
                     }
                 },
@@ -498,15 +363,6 @@ export const schema = {
                     "type": "auth",
                     "properties": {
                         "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            },
                             {
                                 "allow": "private",
                                 "operations": [
@@ -573,8 +429,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "orders": {
-                    "name": "orders",
+                "customerOrders": {
+                    "name": "customerOrders",
                     "isArray": true,
                     "type": {
                         "model": "Order"
@@ -584,7 +440,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "customer"
+                        "associatedWith": "customerID"
                     }
                 },
                 "createdAt": {
@@ -648,19 +504,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "order": {
-                    "name": "order",
-                    "isArray": false,
-                    "type": {
-                        "model": "Order"
-                    },
-                    "isRequired": true,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "orderId"
-                    }
-                },
                 "sticker": {
                     "name": "sticker",
                     "isArray": false,
@@ -700,6 +543,26 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "orderID": {
+                    "name": "orderID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "order": {
+                    "name": "order",
+                    "isArray": false,
+                    "type": {
+                        "model": "Order"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "boxOrderId"
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -727,11 +590,121 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "orderBoxes",
+                        "name": "byOrder",
                         "fields": [
-                            "orderId"
+                            "orderID"
                         ]
                     }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "private",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "User": {
+            "name": "User",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "sub": {
+                    "name": "sub",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "role": {
+                    "name": "role",
+                    "isArray": false,
+                    "type": {
+                        "enum": "Role"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "firstName": {
+                    "name": "firstName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "lastName": {
+                    "name": "lastName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "avatar": {
+                    "name": "avatar",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "assignedDriverCoordinates": {
+                    "name": "assignedDriverCoordinates",
+                    "isArray": true,
+                    "type": {
+                        "model": "Coordinate"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "userID"
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Users",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
                 },
                 {
                     "type": "auth",
@@ -762,6 +735,14 @@ export const schema = {
         }
     },
     "enums": {
+        "OrderStatus": {
+            "name": "OrderStatus",
+            "values": [
+                "PROCESSING",
+                "COMPLETED",
+                "CANCELLED"
+            ]
+        },
         "WeekDay": {
             "name": "WeekDay",
             "values": [
@@ -782,14 +763,6 @@ export const schema = {
                 "COOKED",
                 "IN_DELIVERY",
                 "DELIVERED",
-                "CANCELLED"
-            ]
-        },
-        "OrderStatus": {
-            "name": "OrderStatus",
-            "values": [
-                "PROCESSING",
-                "COMPLETED",
                 "CANCELLED"
             ]
         },
@@ -840,5 +813,5 @@ export const schema = {
             }
         }
     },
-    "version": "8c36b36c0f82388369a4239a9b965bd9"
+    "version": "35c92a954a2a762d3f5267c75915a9fa"
 };

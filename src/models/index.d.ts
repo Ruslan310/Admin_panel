@@ -1,5 +1,11 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
+export enum OrderStatus {
+  PROCESSING = "PROCESSING",
+  COMPLETED = "COMPLETED",
+  CANCELLED = "CANCELLED"
+}
+
 export enum WeekDay {
   MONDAY = "MONDAY",
   TUESDAY = "TUESDAY",
@@ -19,12 +25,6 @@ export enum BoxStatus {
   CANCELLED = "CANCELLED"
 }
 
-export enum OrderStatus {
-  PROCESSING = "PROCESSING",
-  COMPLETED = "COMPLETED",
-  CANCELLED = "CANCELLED"
-}
-
 export enum Role {
   DELIVERY = "DELIVERY",
   KITCHEN = "KITCHEN",
@@ -40,32 +40,17 @@ export declare class Dish {
   constructor(init: ModelInit<Dish>);
 }
 
-export declare class User {
-  readonly id: string;
-  readonly sub: string;
-  readonly email: string;
-  readonly role: Role | keyof typeof Role;
-  readonly firstName?: string;
-  readonly lastName?: string;
-  readonly avatar?: string;
-  readonly coordinates?: (Coordinates)[];
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  constructor(init: ModelInit<User>);
-  static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
-}
-
-export declare class Coordinates {
+export declare class Coordinate {
   readonly id: string;
   readonly latitude: number;
   readonly longitude: number;
-  readonly assignedDriverUser?: User;
-  readonly name?: string;
-  readonly addresses?: (Address)[];
+  readonly name: string;
+  readonly userID?: string;
+  readonly coordinateAddresses?: (Address | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Coordinates>);
-  static copyOf(source: Coordinates, mutator: (draft: MutableModel<Coordinates>) => MutableModel<Coordinates> | void): Coordinates;
+  constructor(init: ModelInit<Coordinate>);
+  static copyOf(source: Coordinate, mutator: (draft: MutableModel<Coordinate>) => MutableModel<Coordinate> | void): Coordinate;
 }
 
 export declare class Address {
@@ -74,8 +59,8 @@ export declare class Address {
   readonly address2: string;
   readonly city: string;
   readonly postCode: string;
-  readonly addressCoordinates?: Coordinates;
-  readonly orders?: (Order)[];
+  readonly coordinateID?: string;
+  readonly addressOrders?: (Order | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Address>);
@@ -86,12 +71,14 @@ export declare class Order {
   readonly id: string;
   readonly orderNumber?: string;
   readonly orderStatus: OrderStatus | keyof typeof OrderStatus;
-  readonly customer: Customer;
-  readonly dishes?: (Dish)[];
-  readonly address: Address;
+  readonly dishes?: (Dish | null)[];
   readonly finalPrice: number;
   readonly customerComment?: string;
-  readonly boxes?: (Box)[];
+  readonly customerID?: string;
+  readonly customer?: Customer;
+  readonly orderBoxes?: (Box | null)[];
+  readonly addressID?: string;
+  readonly address?: Address;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Order>);
@@ -106,7 +93,7 @@ export declare class Customer {
   readonly lastName?: string;
   readonly email: string;
   readonly phoneNumber?: string;
-  readonly orders?: (Order)[];
+  readonly customerOrders?: (Order | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Customer>);
@@ -115,14 +102,30 @@ export declare class Customer {
 
 export declare class Box {
   readonly id: string;
-  readonly order: Order;
   readonly sticker: string;
   readonly boxStatus: BoxStatus | keyof typeof BoxStatus;
   readonly qrCode: string;
   readonly customerComment?: string;
   readonly weekDay: WeekDay | keyof typeof WeekDay;
+  readonly orderID?: string;
+  readonly order?: Order;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Box>);
   static copyOf(source: Box, mutator: (draft: MutableModel<Box>) => MutableModel<Box> | void): Box;
+}
+
+export declare class User {
+  readonly id: string;
+  readonly sub: string;
+  readonly email: string;
+  readonly role: Role | keyof typeof Role;
+  readonly firstName?: string;
+  readonly lastName?: string;
+  readonly avatar?: string;
+  readonly assignedDriverCoordinates?: (Coordinate | null)[];
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<User>);
+  static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
 }

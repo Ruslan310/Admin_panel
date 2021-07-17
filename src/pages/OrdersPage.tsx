@@ -83,12 +83,12 @@ const OrdersPage: React.FC = () => {
     ],
   };
 
-  const stringifyAddress = (address: Address) => {
-    return `${address.postCode}, ${address.city}, ${address.address1}, ${address.address2}`
+  const stringifyAddress = (address?: Address) => {
+    return `${address?.postCode}, ${address?.city}, ${address?.address1}, ${address?.address2}`
   }
 
-  const fullName = (customer: Customer) => {
-    return `${customer.firstName} ${customer.lastName}`
+  const fullName = (customer?: Customer) => {
+    return `${customer?.firstName} ${customer?.lastName}`
   }
 
   const fullNameFilter = (
@@ -164,10 +164,10 @@ const OrdersPage: React.FC = () => {
     {
       title: 'Company',
       render: (value, record, index) => {
-        return record.customer.company
+        return record.customer?.company
       },
       sorter: (a, b) => {
-        if (a.customer.company && b.customer.company) {
+        if (a.customer?.company && b.customer?.company) {
           if (a.customer.company < b.customer.company) {
             return -1;
           }
@@ -183,7 +183,7 @@ const OrdersPage: React.FC = () => {
     {
       title: 'Assigned driver',
       render: (value, record, index) => {
-        return <Button type={'link'} onClick={() => loadAssignedDriverName(record.address.id)}>Driver</Button>
+        return <Button type={'link'} onClick={() => loadAssignedDriverName(record.address?.id)}>Driver</Button>
       }
     },
     {
@@ -194,7 +194,8 @@ const OrdersPage: React.FC = () => {
     }
   ];
 
-  const loadAssignedDriverName = async (addressId: string): Promise<void> => {
+  const loadAssignedDriverName = async (addressId?: string): Promise<void> => {
+    if (!addressId) return ;
     const address = await DataStore.query(Address, addressId);
     if (address?.addressCoordinates) {
       const coordinates = await DataStore.query(Coordinates, address.addressCoordinates.id);
@@ -230,8 +231,8 @@ const OrdersPage: React.FC = () => {
           expandedRowRender: record => {
             return <Descriptions title="Order details">
               <Descriptions.Item label="Full address">{stringifyAddress(record.address)}</Descriptions.Item>
-              <Descriptions.Item label="Phone number">{record.customer.phoneNumber}</Descriptions.Item>
-              <Descriptions.Item label="Email">{record.customer.email}</Descriptions.Item>
+              <Descriptions.Item label="Phone number">{record.customer?.phoneNumber}</Descriptions.Item>
+              <Descriptions.Item label="Email">{record.customer?.email}</Descriptions.Item>
               <Descriptions.Item label="Created">{record.createdAt}</Descriptions.Item>
               <Descriptions.Item label="WP Status">{record.orderStatus}</Descriptions.Item>
               <Descriptions.Item label="Order total price">{record.finalPrice}</Descriptions.Item>

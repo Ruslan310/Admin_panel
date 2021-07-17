@@ -1,6 +1,6 @@
 {
   "auth": {
-    "dnreacta6da65b7": {
+    "dnReactUsers": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -16,21 +16,23 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authdnreacta6da65b7"
+              "userPoolId": "authdnReactUsers"
             }
           },
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "API_KEY",
               "apiKeyConfig": {
-                "apiKeyExpirationDays": 7,
-                "description": ""
+                "apiKeyExpirationDays": 30,
+                "description": "api key description"
               }
+            },
+            {
+              "authenticationType": "AWS_IAM"
             }
           ]
         }
       }
     }
-  },
-  "storage": {}
+  }
 }

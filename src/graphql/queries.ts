@@ -2,6 +2,1240 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getCoordinate = /* GraphQL */ `
+  query GetCoordinate($id: ID!) {
+    getCoordinate(id: $id) {
+      id
+      latitude
+      longitude
+      name
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      coordinateAddresses {
+        items {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const listCoordinates = /* GraphQL */ `
+  query ListCoordinates(
+    $filter: ModelCoordinateFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCoordinates(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        latitude
+        longitude
+        name
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        coordinateAddresses {
+          items {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCoordinates = /* GraphQL */ `
+  query SyncCoordinates(
+    $filter: ModelCoordinateFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCoordinates(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        latitude
+        longitude
+        name
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        coordinateAddresses {
+          items {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getAddress = /* GraphQL */ `
+  query GetAddress($id: ID!) {
+    getAddress(id: $id) {
+      id
+      address1
+      address2
+      city
+      postCode
+      coordinateID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      addressOrders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          dishes {
+            name
+            dishType
+            quantity
+            weekDay
+          }
+          finalPrice
+          customerComment
+          customerID
+          addressID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          orderBoxes {
+            items {
+              id
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              orderID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          customer {
+            id
+            wpId
+            company
+            firstName
+            lastName
+            email
+            phoneNumber
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customerOrders {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const listAddresss = /* GraphQL */ `
+  query ListAddresss(
+    $filter: ModelAddressFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAddresss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncAddresses = /* GraphQL */ `
+  query SyncAddresses(
+    $filter: ModelAddressFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncAddresses(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getBox = /* GraphQL */ `
+  query GetBox($id: ID!) {
+    getBox(id: $id) {
+      id
+      sticker
+      boxStatus
+      qrCode
+      customerComment
+      weekDay
+      orderID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      order {
+        id
+        orderNumber
+        orderStatus
+        dishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        customerID
+        addressID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        orderBoxes {
+          items {
+            id
+            sticker
+            boxStatus
+            qrCode
+            customerComment
+            weekDay
+            orderID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            order {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          customerOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const listBoxs = /* GraphQL */ `
+  query ListBoxs(
+    $filter: ModelBoxFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBoxs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sticker
+        boxStatus
+        qrCode
+        customerComment
+        weekDay
+        orderID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        order {
+          id
+          orderNumber
+          orderStatus
+          dishes {
+            name
+            dishType
+            quantity
+            weekDay
+          }
+          finalPrice
+          customerComment
+          customerID
+          addressID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          orderBoxes {
+            items {
+              id
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              orderID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          customer {
+            id
+            wpId
+            company
+            firstName
+            lastName
+            email
+            phoneNumber
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customerOrders {
+              nextToken
+              startedAt
+            }
+          }
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncBoxes = /* GraphQL */ `
+  query SyncBoxes(
+    $filter: ModelBoxFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncBoxes(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        sticker
+        boxStatus
+        qrCode
+        customerComment
+        weekDay
+        orderID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        order {
+          id
+          orderNumber
+          orderStatus
+          dishes {
+            name
+            dishType
+            quantity
+            weekDay
+          }
+          finalPrice
+          customerComment
+          customerID
+          addressID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          orderBoxes {
+            items {
+              id
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              orderID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          customer {
+            id
+            wpId
+            company
+            firstName
+            lastName
+            email
+            phoneNumber
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customerOrders {
+              nextToken
+              startedAt
+            }
+          }
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getOrder = /* GraphQL */ `
+  query GetOrder($id: ID!) {
+    getOrder(id: $id) {
+      id
+      orderNumber
+      orderStatus
+      dishes {
+        name
+        dishType
+        quantity
+        weekDay
+      }
+      finalPrice
+      customerComment
+      customerID
+      addressID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      address {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+      orderBoxes {
+        items {
+          id
+          sticker
+          boxStatus
+          qrCode
+          customerComment
+          weekDay
+          orderID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          order {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      customer {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        customerOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const listOrders = /* GraphQL */ `
+  query ListOrders(
+    $filter: ModelOrderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        orderNumber
+        orderStatus
+        dishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        customerID
+        addressID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        orderBoxes {
+          items {
+            id
+            sticker
+            boxStatus
+            qrCode
+            customerComment
+            weekDay
+            orderID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            order {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          customerOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncOrders = /* GraphQL */ `
+  query SyncOrders(
+    $filter: ModelOrderFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncOrders(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        orderNumber
+        orderStatus
+        dishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        customerID
+        addressID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        orderBoxes {
+          items {
+            id
+            sticker
+            boxStatus
+            qrCode
+            customerComment
+            weekDay
+            orderID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            order {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          customerOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -17,44 +1251,26 @@ export const getUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      coordinates {
+      assignedDriverCoordinates {
         items {
           id
           latitude
           longitude
-          assignedDriverUserId
           name
+          userID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
-          assignedDriverUser {
-            id
-            sub
-            email
-            role
-            firstName
-            lastName
-            avatar
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinates {
-              nextToken
-              startedAt
-            }
-          }
-          addresses {
+          coordinateAddresses {
             items {
               id
               address1
               address2
               city
               postCode
-              addressCoordinatesId
+              coordinateID
               _version
               _deleted
               _lastChangedAt
@@ -91,33 +1307,19 @@ export const listUsers = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        coordinates {
+        assignedDriverCoordinates {
           items {
             id
             latitude
             longitude
-            assignedDriverUserId
             name
+            userID
             _version
             _deleted
             _lastChangedAt
             createdAt
             updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
+            coordinateAddresses {
               nextToken
               startedAt
             }
@@ -157,33 +1359,19 @@ export const syncUsers = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        coordinates {
+        assignedDriverCoordinates {
           items {
             id
             latitude
             longitude
-            assignedDriverUserId
             name
+            userID
             _version
             _deleted
             _lastChangedAt
             createdAt
             updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
+            coordinateAddresses {
               nextToken
               startedAt
             }
@@ -212,26 +1400,61 @@ export const getCustomer = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      orders {
+      customerOrders {
         items {
           id
           orderNumber
           orderStatus
-          customerId
           dishes {
             name
             dishType
             quantity
             weekDay
           }
-          addressId
           finalPrice
           customerComment
+          customerID
+          addressID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          orderBoxes {
+            items {
+              id
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              orderID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
           customer {
             id
             wpId
@@ -245,54 +1468,7 @@ export const getCustomer = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          boxes {
-            items {
-              id
-              orderId
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
+            customerOrders {
               nextToken
               startedAt
             }
@@ -324,26 +1500,43 @@ export const listCustomers = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        orders {
+        customerOrders {
           items {
             id
             orderNumber
             orderStatus
-            customerId
             dishes {
               name
               dishType
               quantity
               weekDay
             }
-            addressId
             finalPrice
             customerComment
+            customerID
+            addressID
             _version
             _deleted
             _lastChangedAt
             createdAt
             updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
             customer {
               id
               wpId
@@ -352,23 +1545,6 @@ export const listCustomers = /* GraphQL */ `
               lastName
               email
               phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
               _version
               _deleted
               _lastChangedAt
@@ -411,26 +1587,43 @@ export const syncCustomers = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        orders {
+        customerOrders {
           items {
             id
             orderNumber
             orderStatus
-            customerId
             dishes {
               name
               dishType
               quantity
               weekDay
             }
-            addressId
             finalPrice
             customerComment
+            customerID
+            addressID
             _version
             _deleted
             _lastChangedAt
             createdAt
             updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
             customer {
               id
               wpId
@@ -445,1764 +1638,9 @@ export const syncCustomers = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
           }
           nextToken
           startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getBox = /* GraphQL */ `
-  query GetBox($id: ID!) {
-    getBox(id: $id) {
-      id
-      orderId
-      sticker
-      boxStatus
-      qrCode
-      customerComment
-      weekDay
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      order {
-        id
-        orderNumber
-        orderStatus
-        customerId
-        dishes {
-          name
-          dishType
-          quantity
-          weekDay
-        }
-        addressId
-        finalPrice
-        customerComment
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        boxes {
-          items {
-            id
-            orderId
-            sticker
-            boxStatus
-            qrCode
-            customerComment
-            weekDay
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            order {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          addressCoordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressCoordinates {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-    }
-  }
-`;
-export const listBoxs = /* GraphQL */ `
-  query ListBoxs(
-    $filter: ModelBoxFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listBoxs(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        orderId
-        sticker
-        boxStatus
-        qrCode
-        customerComment
-        weekDay
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        order {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          dishes {
-            name
-            dishType
-            quantity
-            weekDay
-          }
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          customer {
-            id
-            wpId
-            company
-            firstName
-            lastName
-            email
-            phoneNumber
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          boxes {
-            items {
-              id
-              orderId
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncBoxes = /* GraphQL */ `
-  query SyncBoxes(
-    $filter: ModelBoxFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncBoxes(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        orderId
-        sticker
-        boxStatus
-        qrCode
-        customerComment
-        weekDay
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        order {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          dishes {
-            name
-            dishType
-            quantity
-            weekDay
-          }
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          customer {
-            id
-            wpId
-            company
-            firstName
-            lastName
-            email
-            phoneNumber
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          boxes {
-            items {
-              id
-              orderId
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getAddress = /* GraphQL */ `
-  query GetAddress($id: ID!) {
-    getAddress(id: $id) {
-      id
-      address1
-      address2
-      city
-      postCode
-      addressCoordinatesId
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      addressCoordinates {
-        id
-        latitude
-        longitude
-        assignedDriverUserId
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        assignedDriverUser {
-          id
-          sub
-          email
-          role
-          firstName
-          lastName
-          avatar
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          coordinates {
-            items {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        addresses {
-          items {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          dishes {
-            name
-            dishType
-            quantity
-            weekDay
-          }
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          customer {
-            id
-            wpId
-            company
-            firstName
-            lastName
-            email
-            phoneNumber
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          boxes {
-            items {
-              id
-              orderId
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const listAddresss = /* GraphQL */ `
-  query ListAddresss(
-    $filter: ModelAddressFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listAddresss(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        address1
-        address2
-        city
-        postCode
-        addressCoordinatesId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressCoordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          assignedDriverUser {
-            id
-            sub
-            email
-            role
-            firstName
-            lastName
-            avatar
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinates {
-              nextToken
-              startedAt
-            }
-          }
-          addresses {
-            items {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        orders {
-          items {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncAddresses = /* GraphQL */ `
-  query SyncAddresses(
-    $filter: ModelAddressFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncAddresses(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        address1
-        address2
-        city
-        postCode
-        addressCoordinatesId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressCoordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          assignedDriverUser {
-            id
-            sub
-            email
-            role
-            firstName
-            lastName
-            avatar
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinates {
-              nextToken
-              startedAt
-            }
-          }
-          addresses {
-            items {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        orders {
-          items {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getCoordinates = /* GraphQL */ `
-  query GetCoordinates($id: ID!) {
-    getCoordinates(id: $id) {
-      id
-      latitude
-      longitude
-      assignedDriverUserId
-      name
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      assignedDriverUser {
-        id
-        sub
-        email
-        role
-        firstName
-        lastName
-        avatar
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        coordinates {
-          items {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      addresses {
-        items {
-          id
-          address1
-          address2
-          city
-          postCode
-          addressCoordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressCoordinates {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const listCoordinatess = /* GraphQL */ `
-  query ListCoordinatess(
-    $filter: ModelCoordinatesFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCoordinatess(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        latitude
-        longitude
-        assignedDriverUserId
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        assignedDriverUser {
-          id
-          sub
-          email
-          role
-          firstName
-          lastName
-          avatar
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          coordinates {
-            items {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        addresses {
-          items {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncCoordinates = /* GraphQL */ `
-  query SyncCoordinates(
-    $filter: ModelCoordinatesFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncCoordinates(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        latitude
-        longitude
-        assignedDriverUserId
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        assignedDriverUser {
-          id
-          sub
-          email
-          role
-          firstName
-          lastName
-          avatar
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          coordinates {
-            items {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        addresses {
-          items {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getOrder = /* GraphQL */ `
-  query GetOrder($id: ID!) {
-    getOrder(id: $id) {
-      id
-      orderNumber
-      orderStatus
-      customerId
-      dishes {
-        name
-        dishType
-        quantity
-        weekDay
-      }
-      addressId
-      finalPrice
-      customerComment
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      customer {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        orders {
-          items {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      boxes {
-        items {
-          id
-          orderId
-          sticker
-          boxStatus
-          qrCode
-          customerComment
-          weekDay
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          order {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      address {
-        id
-        address1
-        address2
-        city
-        postCode
-        addressCoordinatesId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressCoordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          assignedDriverUser {
-            id
-            sub
-            email
-            role
-            firstName
-            lastName
-            avatar
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinates {
-              nextToken
-              startedAt
-            }
-          }
-          addresses {
-            items {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        orders {
-          items {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-    }
-  }
-`;
-export const listOrders = /* GraphQL */ `
-  query ListOrders(
-    $filter: ModelOrderFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        orderNumber
-        orderStatus
-        customerId
-        dishes {
-          name
-          dishType
-          quantity
-          weekDay
-        }
-        addressId
-        finalPrice
-        customerComment
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        boxes {
-          items {
-            id
-            orderId
-            sticker
-            boxStatus
-            qrCode
-            customerComment
-            weekDay
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            order {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          addressCoordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressCoordinates {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncOrders = /* GraphQL */ `
-  query SyncOrders(
-    $filter: ModelOrderFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncOrders(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        orderNumber
-        orderStatus
-        customerId
-        dishes {
-          name
-          dishType
-          quantity
-          weekDay
-        }
-        addressId
-        finalPrice
-        customerComment
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        boxes {
-          items {
-            id
-            orderId
-            sticker
-            boxStatus
-            qrCode
-            customerComment
-            weekDay
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            order {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          addressCoordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressCoordinates {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
         }
       }
       nextToken

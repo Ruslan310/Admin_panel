@@ -26,11 +26,11 @@ const OrderDetailsPage: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const fetchedBoxes = (await DataStore.query(Box)).filter(box => box.order.id === orderId)
+      const fetchedBoxes = await DataStore.query(Box, box => box.orderId("eq", orderId))
       const fetchedOrder = await DataStore.query(Order, orderId);
       setCurrentOrder(fetchedOrder);
       setFilteredDishes(fetchedOrder?.dishes);
-      if (fetchedOrder) {
+      if (fetchedOrder && fetchedOrder.address) {
         await loadAssignedDriverName(fetchedOrder.address.id)
       }
 
@@ -41,7 +41,7 @@ const OrderDetailsPage: React.FC = () => {
       }
 
       DataStore.observe(Box).subscribe(async (message) => {
-        if (message.opType === 'INSERT' && message.element.order.id === orderId) {
+        if (message.opType === 'INSERT' && message.element.orderId === orderId) {
           const newBox = await DataStore.query(Box, message.element.id) as Box;
           fetchedBoxes.push(newBox);
           setBoxes([...fetchedBoxes]);
@@ -54,8 +54,8 @@ const OrderDetailsPage: React.FC = () => {
     })();
   }, []);
 
-  const stringifyAddress = (address: Address) => {
-    return `${address.postCode}, ${address.city}, ${address.address1}, ${address.address2}`
+  const stringifyAddress = (address?: Address) => {
+    return `${address?.postCode}, ${address?.city}, ${address?.address1}, ${address?.address2}`
   }
 
   const fullName = (customer: Customer) => {
@@ -152,8 +152,8 @@ const OrderDetailsPage: React.FC = () => {
     <Content>
       {currentOrder && <Descriptions title="Order details">
         <Descriptions.Item label="Full address">{stringifyAddress(currentOrder.address)}</Descriptions.Item>
-        <Descriptions.Item label="Phone number">{currentOrder.customer.phoneNumber}</Descriptions.Item>
-        <Descriptions.Item label="Email">{currentOrder.customer.email}</Descriptions.Item>
+        <Descriptions.Item label="Phone number">{currentOrder.customer?.phoneNumber}</Descriptions.Item>
+        <Descriptions.Item label="Email">{currentOrder.customer?.email}</Descriptions.Item>
         <Descriptions.Item label="Created">{currentOrder.createdAt}</Descriptions.Item>
         <Descriptions.Item label="WP Status">{currentOrder.orderStatus}</Descriptions.Item>
         <Descriptions.Item label="Order total price">{currentOrder.finalPrice}</Descriptions.Item>

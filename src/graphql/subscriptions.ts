@@ -2,6 +2,1530 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateCoordinate = /* GraphQL */ `
+  subscription OnCreateCoordinate {
+    onCreateCoordinate {
+      id
+      latitude
+      longitude
+      name
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      coordinateAddresses {
+        items {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onUpdateCoordinate = /* GraphQL */ `
+  subscription OnUpdateCoordinate {
+    onUpdateCoordinate {
+      id
+      latitude
+      longitude
+      name
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      coordinateAddresses {
+        items {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onDeleteCoordinate = /* GraphQL */ `
+  subscription OnDeleteCoordinate {
+    onDeleteCoordinate {
+      id
+      latitude
+      longitude
+      name
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      coordinateAddresses {
+        items {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onCreateAddress = /* GraphQL */ `
+  subscription OnCreateAddress {
+    onCreateAddress {
+      id
+      address1
+      address2
+      city
+      postCode
+      coordinateID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      addressOrders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          dishes {
+            name
+            dishType
+            quantity
+            weekDay
+          }
+          finalPrice
+          customerComment
+          customerID
+          addressID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          orderBoxes {
+            items {
+              id
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              orderID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          customer {
+            id
+            wpId
+            company
+            firstName
+            lastName
+            email
+            phoneNumber
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customerOrders {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onUpdateAddress = /* GraphQL */ `
+  subscription OnUpdateAddress {
+    onUpdateAddress {
+      id
+      address1
+      address2
+      city
+      postCode
+      coordinateID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      addressOrders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          dishes {
+            name
+            dishType
+            quantity
+            weekDay
+          }
+          finalPrice
+          customerComment
+          customerID
+          addressID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          orderBoxes {
+            items {
+              id
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              orderID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          customer {
+            id
+            wpId
+            company
+            firstName
+            lastName
+            email
+            phoneNumber
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customerOrders {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onDeleteAddress = /* GraphQL */ `
+  subscription OnDeleteAddress {
+    onDeleteAddress {
+      id
+      address1
+      address2
+      city
+      postCode
+      coordinateID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      addressOrders {
+        items {
+          id
+          orderNumber
+          orderStatus
+          dishes {
+            name
+            dishType
+            quantity
+            weekDay
+          }
+          finalPrice
+          customerComment
+          customerID
+          addressID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          orderBoxes {
+            items {
+              id
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              orderID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          customer {
+            id
+            wpId
+            company
+            firstName
+            lastName
+            email
+            phoneNumber
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            customerOrders {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onCreateBox = /* GraphQL */ `
+  subscription OnCreateBox {
+    onCreateBox {
+      id
+      sticker
+      boxStatus
+      qrCode
+      customerComment
+      weekDay
+      orderID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      order {
+        id
+        orderNumber
+        orderStatus
+        dishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        customerID
+        addressID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        orderBoxes {
+          items {
+            id
+            sticker
+            boxStatus
+            qrCode
+            customerComment
+            weekDay
+            orderID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            order {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          customerOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const onUpdateBox = /* GraphQL */ `
+  subscription OnUpdateBox {
+    onUpdateBox {
+      id
+      sticker
+      boxStatus
+      qrCode
+      customerComment
+      weekDay
+      orderID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      order {
+        id
+        orderNumber
+        orderStatus
+        dishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        customerID
+        addressID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        orderBoxes {
+          items {
+            id
+            sticker
+            boxStatus
+            qrCode
+            customerComment
+            weekDay
+            orderID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            order {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          customerOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const onDeleteBox = /* GraphQL */ `
+  subscription OnDeleteBox {
+    onDeleteBox {
+      id
+      sticker
+      boxStatus
+      qrCode
+      customerComment
+      weekDay
+      orderID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      order {
+        id
+        orderNumber
+        orderStatus
+        dishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        customerID
+        addressID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        orderBoxes {
+          items {
+            id
+            sticker
+            boxStatus
+            qrCode
+            customerComment
+            weekDay
+            orderID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            order {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          customerOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const onCreateOrder = /* GraphQL */ `
+  subscription OnCreateOrder {
+    onCreateOrder {
+      id
+      orderNumber
+      orderStatus
+      dishes {
+        name
+        dishType
+        quantity
+        weekDay
+      }
+      finalPrice
+      customerComment
+      customerID
+      addressID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      address {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+      orderBoxes {
+        items {
+          id
+          sticker
+          boxStatus
+          qrCode
+          customerComment
+          weekDay
+          orderID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          order {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      customer {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        customerOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const onUpdateOrder = /* GraphQL */ `
+  subscription OnUpdateOrder {
+    onUpdateOrder {
+      id
+      orderNumber
+      orderStatus
+      dishes {
+        name
+        dishType
+        quantity
+        weekDay
+      }
+      finalPrice
+      customerComment
+      customerID
+      addressID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      address {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+      orderBoxes {
+        items {
+          id
+          sticker
+          boxStatus
+          qrCode
+          customerComment
+          weekDay
+          orderID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          order {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      customer {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        customerOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const onDeleteOrder = /* GraphQL */ `
+  subscription OnDeleteOrder {
+    onDeleteOrder {
+      id
+      orderNumber
+      orderStatus
+      dishes {
+        name
+        dishType
+        quantity
+        weekDay
+      }
+      finalPrice
+      customerComment
+      customerID
+      addressID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      address {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+      orderBoxes {
+        items {
+          id
+          sticker
+          boxStatus
+          qrCode
+          customerComment
+          weekDay
+          orderID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          order {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      customer {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        customerOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
@@ -17,44 +1541,26 @@ export const onCreateUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      coordinates {
+      assignedDriverCoordinates {
         items {
           id
           latitude
           longitude
-          assignedDriverUserId
           name
+          userID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
-          assignedDriverUser {
-            id
-            sub
-            email
-            role
-            firstName
-            lastName
-            avatar
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinates {
-              nextToken
-              startedAt
-            }
-          }
-          addresses {
+          coordinateAddresses {
             items {
               id
               address1
               address2
               city
               postCode
-              addressCoordinatesId
+              coordinateID
               _version
               _deleted
               _lastChangedAt
@@ -86,44 +1592,26 @@ export const onUpdateUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      coordinates {
+      assignedDriverCoordinates {
         items {
           id
           latitude
           longitude
-          assignedDriverUserId
           name
+          userID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
-          assignedDriverUser {
-            id
-            sub
-            email
-            role
-            firstName
-            lastName
-            avatar
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinates {
-              nextToken
-              startedAt
-            }
-          }
-          addresses {
+          coordinateAddresses {
             items {
               id
               address1
               address2
               city
               postCode
-              addressCoordinatesId
+              coordinateID
               _version
               _deleted
               _lastChangedAt
@@ -155,44 +1643,26 @@ export const onDeleteUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      coordinates {
+      assignedDriverCoordinates {
         items {
           id
           latitude
           longitude
-          assignedDriverUserId
           name
+          userID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
-          assignedDriverUser {
-            id
-            sub
-            email
-            role
-            firstName
-            lastName
-            avatar
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinates {
-              nextToken
-              startedAt
-            }
-          }
-          addresses {
+          coordinateAddresses {
             items {
               id
               address1
               address2
               city
               postCode
-              addressCoordinatesId
+              coordinateID
               _version
               _deleted
               _lastChangedAt
@@ -224,26 +1694,61 @@ export const onCreateCustomer = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      orders {
+      customerOrders {
         items {
           id
           orderNumber
           orderStatus
-          customerId
           dishes {
             name
             dishType
             quantity
             weekDay
           }
-          addressId
           finalPrice
           customerComment
+          customerID
+          addressID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          orderBoxes {
+            items {
+              id
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              orderID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
           customer {
             id
             wpId
@@ -257,54 +1762,7 @@ export const onCreateCustomer = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          boxes {
-            items {
-              id
-              orderId
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
+            customerOrders {
               nextToken
               startedAt
             }
@@ -331,26 +1789,61 @@ export const onUpdateCustomer = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      orders {
+      customerOrders {
         items {
           id
           orderNumber
           orderStatus
-          customerId
           dishes {
             name
             dishType
             quantity
             weekDay
           }
-          addressId
           finalPrice
           customerComment
+          customerID
+          addressID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          orderBoxes {
+            items {
+              id
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              orderID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
           customer {
             id
             wpId
@@ -364,54 +1857,7 @@ export const onUpdateCustomer = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          boxes {
-            items {
-              id
-              orderId
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
+            customerOrders {
               nextToken
               startedAt
             }
@@ -438,26 +1884,61 @@ export const onDeleteCustomer = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      orders {
+      customerOrders {
         items {
           id
           orderNumber
           orderStatus
-          customerId
           dishes {
             name
             dishType
             quantity
             weekDay
           }
-          addressId
           finalPrice
           customerComment
+          customerID
+          addressID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressOrders {
+              nextToken
+              startedAt
+            }
+          }
+          orderBoxes {
+            items {
+              id
+              sticker
+              boxStatus
+              qrCode
+              customerComment
+              weekDay
+              orderID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
           customer {
             id
             wpId
@@ -471,54 +1952,7 @@ export const onDeleteCustomer = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          boxes {
-            items {
-              id
-              orderId
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
+            customerOrders {
               nextToken
               startedAt
             }
@@ -526,2256 +1960,6 @@ export const onDeleteCustomer = /* GraphQL */ `
         }
         nextToken
         startedAt
-      }
-    }
-  }
-`;
-export const onCreateBox = /* GraphQL */ `
-  subscription OnCreateBox {
-    onCreateBox {
-      id
-      orderId
-      sticker
-      boxStatus
-      qrCode
-      customerComment
-      weekDay
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      order {
-        id
-        orderNumber
-        orderStatus
-        customerId
-        dishes {
-          name
-          dishType
-          quantity
-          weekDay
-        }
-        addressId
-        finalPrice
-        customerComment
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        boxes {
-          items {
-            id
-            orderId
-            sticker
-            boxStatus
-            qrCode
-            customerComment
-            weekDay
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            order {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          addressCoordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressCoordinates {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-    }
-  }
-`;
-export const onUpdateBox = /* GraphQL */ `
-  subscription OnUpdateBox {
-    onUpdateBox {
-      id
-      orderId
-      sticker
-      boxStatus
-      qrCode
-      customerComment
-      weekDay
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      order {
-        id
-        orderNumber
-        orderStatus
-        customerId
-        dishes {
-          name
-          dishType
-          quantity
-          weekDay
-        }
-        addressId
-        finalPrice
-        customerComment
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        boxes {
-          items {
-            id
-            orderId
-            sticker
-            boxStatus
-            qrCode
-            customerComment
-            weekDay
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            order {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          addressCoordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressCoordinates {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-    }
-  }
-`;
-export const onDeleteBox = /* GraphQL */ `
-  subscription OnDeleteBox {
-    onDeleteBox {
-      id
-      orderId
-      sticker
-      boxStatus
-      qrCode
-      customerComment
-      weekDay
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      order {
-        id
-        orderNumber
-        orderStatus
-        customerId
-        dishes {
-          name
-          dishType
-          quantity
-          weekDay
-        }
-        addressId
-        finalPrice
-        customerComment
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        boxes {
-          items {
-            id
-            orderId
-            sticker
-            boxStatus
-            qrCode
-            customerComment
-            weekDay
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            order {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          addressCoordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressCoordinates {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-    }
-  }
-`;
-export const onCreateAddress = /* GraphQL */ `
-  subscription OnCreateAddress {
-    onCreateAddress {
-      id
-      address1
-      address2
-      city
-      postCode
-      addressCoordinatesId
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      addressCoordinates {
-        id
-        latitude
-        longitude
-        assignedDriverUserId
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        assignedDriverUser {
-          id
-          sub
-          email
-          role
-          firstName
-          lastName
-          avatar
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          coordinates {
-            items {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        addresses {
-          items {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          dishes {
-            name
-            dishType
-            quantity
-            weekDay
-          }
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          customer {
-            id
-            wpId
-            company
-            firstName
-            lastName
-            email
-            phoneNumber
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          boxes {
-            items {
-              id
-              orderId
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const onUpdateAddress = /* GraphQL */ `
-  subscription OnUpdateAddress {
-    onUpdateAddress {
-      id
-      address1
-      address2
-      city
-      postCode
-      addressCoordinatesId
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      addressCoordinates {
-        id
-        latitude
-        longitude
-        assignedDriverUserId
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        assignedDriverUser {
-          id
-          sub
-          email
-          role
-          firstName
-          lastName
-          avatar
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          coordinates {
-            items {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        addresses {
-          items {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          dishes {
-            name
-            dishType
-            quantity
-            weekDay
-          }
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          customer {
-            id
-            wpId
-            company
-            firstName
-            lastName
-            email
-            phoneNumber
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          boxes {
-            items {
-              id
-              orderId
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const onDeleteAddress = /* GraphQL */ `
-  subscription OnDeleteAddress {
-    onDeleteAddress {
-      id
-      address1
-      address2
-      city
-      postCode
-      addressCoordinatesId
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      addressCoordinates {
-        id
-        latitude
-        longitude
-        assignedDriverUserId
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        assignedDriverUser {
-          id
-          sub
-          email
-          role
-          firstName
-          lastName
-          avatar
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          coordinates {
-            items {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        addresses {
-          items {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      orders {
-        items {
-          id
-          orderNumber
-          orderStatus
-          customerId
-          dishes {
-            name
-            dishType
-            quantity
-            weekDay
-          }
-          addressId
-          finalPrice
-          customerComment
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          customer {
-            id
-            wpId
-            company
-            firstName
-            lastName
-            email
-            phoneNumber
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-          boxes {
-            items {
-              id
-              orderId
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            addressCoordinatesId
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressCoordinates {
-              id
-              latitude
-              longitude
-              assignedDriverUserId
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            orders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const onCreateCoordinates = /* GraphQL */ `
-  subscription OnCreateCoordinates {
-    onCreateCoordinates {
-      id
-      latitude
-      longitude
-      assignedDriverUserId
-      name
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      assignedDriverUser {
-        id
-        sub
-        email
-        role
-        firstName
-        lastName
-        avatar
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        coordinates {
-          items {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      addresses {
-        items {
-          id
-          address1
-          address2
-          city
-          postCode
-          addressCoordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressCoordinates {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const onUpdateCoordinates = /* GraphQL */ `
-  subscription OnUpdateCoordinates {
-    onUpdateCoordinates {
-      id
-      latitude
-      longitude
-      assignedDriverUserId
-      name
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      assignedDriverUser {
-        id
-        sub
-        email
-        role
-        firstName
-        lastName
-        avatar
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        coordinates {
-          items {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      addresses {
-        items {
-          id
-          address1
-          address2
-          city
-          postCode
-          addressCoordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressCoordinates {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const onDeleteCoordinates = /* GraphQL */ `
-  subscription OnDeleteCoordinates {
-    onDeleteCoordinates {
-      id
-      latitude
-      longitude
-      assignedDriverUserId
-      name
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      assignedDriverUser {
-        id
-        sub
-        email
-        role
-        firstName
-        lastName
-        avatar
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        coordinates {
-          items {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      addresses {
-        items {
-          id
-          address1
-          address2
-          city
-          postCode
-          addressCoordinatesId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressCoordinates {
-            id
-            latitude
-            longitude
-            assignedDriverUserId
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            assignedDriverUser {
-              id
-              sub
-              email
-              role
-              firstName
-              lastName
-              avatar
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            addresses {
-              nextToken
-              startedAt
-            }
-          }
-          orders {
-            items {
-              id
-              orderNumber
-              orderStatus
-              customerId
-              addressId
-              finalPrice
-              customerComment
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const onCreateOrder = /* GraphQL */ `
-  subscription OnCreateOrder {
-    onCreateOrder {
-      id
-      orderNumber
-      orderStatus
-      customerId
-      dishes {
-        name
-        dishType
-        quantity
-        weekDay
-      }
-      addressId
-      finalPrice
-      customerComment
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      customer {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        orders {
-          items {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      boxes {
-        items {
-          id
-          orderId
-          sticker
-          boxStatus
-          qrCode
-          customerComment
-          weekDay
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          order {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      address {
-        id
-        address1
-        address2
-        city
-        postCode
-        addressCoordinatesId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressCoordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          assignedDriverUser {
-            id
-            sub
-            email
-            role
-            firstName
-            lastName
-            avatar
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinates {
-              nextToken
-              startedAt
-            }
-          }
-          addresses {
-            items {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        orders {
-          items {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-    }
-  }
-`;
-export const onUpdateOrder = /* GraphQL */ `
-  subscription OnUpdateOrder {
-    onUpdateOrder {
-      id
-      orderNumber
-      orderStatus
-      customerId
-      dishes {
-        name
-        dishType
-        quantity
-        weekDay
-      }
-      addressId
-      finalPrice
-      customerComment
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      customer {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        orders {
-          items {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      boxes {
-        items {
-          id
-          orderId
-          sticker
-          boxStatus
-          qrCode
-          customerComment
-          weekDay
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          order {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      address {
-        id
-        address1
-        address2
-        city
-        postCode
-        addressCoordinatesId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressCoordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          assignedDriverUser {
-            id
-            sub
-            email
-            role
-            firstName
-            lastName
-            avatar
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinates {
-              nextToken
-              startedAt
-            }
-          }
-          addresses {
-            items {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        orders {
-          items {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-    }
-  }
-`;
-export const onDeleteOrder = /* GraphQL */ `
-  subscription OnDeleteOrder {
-    onDeleteOrder {
-      id
-      orderNumber
-      orderStatus
-      customerId
-      dishes {
-        name
-        dishType
-        quantity
-        weekDay
-      }
-      addressId
-      finalPrice
-      customerComment
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      customer {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        orders {
-          items {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      boxes {
-        items {
-          id
-          orderId
-          sticker
-          boxStatus
-          qrCode
-          customerComment
-          weekDay
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          order {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      address {
-        id
-        address1
-        address2
-        city
-        postCode
-        addressCoordinatesId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressCoordinates {
-          id
-          latitude
-          longitude
-          assignedDriverUserId
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          assignedDriverUser {
-            id
-            sub
-            email
-            role
-            firstName
-            lastName
-            avatar
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinates {
-              nextToken
-              startedAt
-            }
-          }
-          addresses {
-            items {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        orders {
-          items {
-            id
-            orderNumber
-            orderStatus
-            customerId
-            dishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            addressId
-            finalPrice
-            customerComment
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            boxes {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              addressCoordinatesId
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
       }
     }
   }

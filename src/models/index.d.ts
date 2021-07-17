@@ -60,7 +60,7 @@ export declare class Address {
   readonly city: string;
   readonly postCode: string;
   readonly coordinateID?: string;
-  readonly addressOrders?: (Order | null)[];
+  readonly addressOrders?: Order[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Address>);
@@ -76,7 +76,7 @@ export declare class Order {
   readonly customerComment?: string;
   readonly customerID?: string;
   readonly customer?: Customer;
-  readonly orderBoxes?: (Box | null)[];
+  readonly orderBoxes?: Box[];
   readonly addressID?: string;
   readonly address?: Address;
   readonly createdAt?: string;
@@ -93,7 +93,7 @@ export declare class Customer {
   readonly lastName?: string;
   readonly email: string;
   readonly phoneNumber?: string;
-  readonly customerOrders?: (Order | null)[];
+  readonly customerOrders?: Order[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Customer>);
@@ -123,7 +123,7 @@ export declare class User {
   readonly firstName?: string;
   readonly lastName?: string;
   readonly avatar?: string;
-  readonly assignedDriverCoordinates?: (Coordinate | null)[];
+  readonly assignedDriverCoordinates?: Coordinate[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<User>);

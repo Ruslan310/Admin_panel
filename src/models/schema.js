@@ -163,7 +163,7 @@ export const schema = {
                     "type": {
                         "model": "Order"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": [],
                     "isArrayNullable": true,
                     "association": {
@@ -307,7 +307,7 @@ export const schema = {
                     "type": {
                         "model": "Box"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": [],
                     "isArrayNullable": true,
                     "association": {
@@ -462,7 +462,7 @@ export const schema = {
                     "type": {
                         "model": "Order"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": [],
                     "isArrayNullable": true,
                     "association": {
@@ -710,7 +710,7 @@ export const schema = {
                     "type": {
                         "model": "Coordinate"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": [],
                     "isArrayNullable": true,
                     "association": {
@@ -849,5 +849,5 @@ export const schema = {
             }
         }
     },
-    "version": "41954d0291e4bc3b8abf89787e5c03b0"
+    "version": "8f1feb54964dbdb52dd91f10a2c917d4"
 };

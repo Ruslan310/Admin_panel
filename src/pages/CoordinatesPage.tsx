@@ -26,13 +26,7 @@ const CoordinatesPage: React.FC = () => {
         setCoordinates(fetchedCoordinates);
       }
 
-      DataStore.observe(Coordinate).subscribe(async (message) => {
-        if (message.opType === 'INSERT') {
-          const newCoordinates = await DataStore.query(Coordinate, message.element.id) as Coordinate;
-          fetchedCoordinates.push(newCoordinates);
-          setCoordinates([...fetchedCoordinates]);
-        }
-      });
+      console.log('subscribe')
 
 
       const fetchedUsers = await DataStore.query(User, user => user.role("eq", Role.DELIVERY));
@@ -40,19 +34,43 @@ const CoordinatesPage: React.FC = () => {
       if (fetchedUsers.length > 0) {
         setDrivers(fetchedUsers);
       }
-
-      DataStore.observe(User).subscribe(async (message) => {
-        if (message.opType === 'INSERT') {
-          const newUser = await DataStore.query(User, message.element.id) as User;
-          fetchedUsers.push(newUser);
-          setDrivers([...fetchedUsers]);
-        }
-      });
     })();
+
+    const coordinatesSubscription = DataStore.observe(Coordinate).subscribe(async (message) => {
+      if (message.opType === 'INSERT') {
+        const newCoordinate = await DataStore.query(Coordinate, message.element.id) as Coordinate;
+        coordinates.push(newCoordinate);
+        setCoordinates([...coordinates]);
+      }
+      if (message.opType === 'UPDATE') {
+        console.log('updated')
+        const newCoordinate = await DataStore.query(Coordinate, message.element.id) as Coordinate;
+        const newArray = coordinates.filter(coord => coord.id !== message.element.id)
+        setCoordinates([...newArray, newCoordinate]);
+      }
+      if (message.opType === 'DELETE') {
+        console.log('deleted')
+        const newArray = coordinates.filter(coord => coord.id !== message.element.id)
+        setCoordinates([...newArray]);
+      }
+    });
+
+    const userSubscription = DataStore.observe(User).subscribe(async (message) => {
+      if (message.opType === 'INSERT') {
+        const newUser = await DataStore.query(User, message.element.id) as User;
+        drivers.push(newUser);
+        setDrivers([...drivers]);
+      }
+    });
+
+    return () => {
+      coordinatesSubscription.unsubscribe();
+      userSubscription.unsubscribe();
+    }
+
   }, []);
 
   console.log('coordinates:', coordinates)
-  console.log('drivers:', drivers)
 
   const columns: ColumnsType<Coordinate> = [
     {
@@ -76,8 +94,7 @@ const CoordinatesPage: React.FC = () => {
       title: 'Actions',
       render: (value, record, index) => {
         return <Button type={'primary'} onClick={async () => {
-          const deleted = await DataStore.delete(Coordinate, record.id);
-          console.log(deleted)
+          await DataStore.delete(Coordinate, record.id);
         }}>Delete</Button>
       }
     }
@@ -96,22 +113,6 @@ const CoordinatesPage: React.FC = () => {
           <Input style={width300} placeholder={'Enter name'} value={name} onChange={(e) => {
             setName(e.target.value)
           }}/>
-        </Form.Item>
-        <Form.Item label="Assign driver">
-          <Select
-            showSearch
-            style={width300}
-            allowClear
-            placeholder="Select a person"
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-            onSelect={(value) => setAssignedDriverId(value as string)}
-          >
-            {drivers.map((driver) => <Select.Option key={driver.id}
-                                                    value={driver.id}>{driver.firstName}</Select.Option>)}
-          </Select>
         </Form.Item>
         <Form.Item label="Google map link">
           <Input

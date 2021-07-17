@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Checkbox, Descriptions, Divider, Layout, Modal, Table} from 'antd';
-import {Address, Box, Coordinates, Customer, Dish, Order, WeekDay} from "../models";
+import {Checkbox, Descriptions, Divider, Layout, Table} from 'antd';
+import {Address, Box, Coordinate, Customer, Dish, Order, User, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {useParams} from 'react-router-dom';
@@ -22,11 +22,11 @@ const OrderDetailsPage: React.FC = () => {
   const [checkedList, setCheckedList] = React.useState<WeekDay[]>(Object.values(WeekDay));
   const [indeterminate, setIndeterminate] = React.useState(false);
   const [checkAll, setCheckAll] = React.useState(true);
-  const [assignedDriver, setAssignedDriver] = React.useState('');
+  const [assignedDriver, setAssignedDriver] = React.useState<string>();
 
   useEffect(() => {
     (async () => {
-      const fetchedBoxes = await DataStore.query(Box, box => box.orderId("eq", orderId))
+      const fetchedBoxes = await DataStore.query(Box, box => box.orderID("eq", orderId))
       const fetchedOrder = await DataStore.query(Order, orderId);
       setCurrentOrder(fetchedOrder);
       setFilteredDishes(fetchedOrder?.dishes);
@@ -41,7 +41,7 @@ const OrderDetailsPage: React.FC = () => {
       }
 
       DataStore.observe(Box).subscribe(async (message) => {
-        if (message.opType === 'INSERT' && message.element.orderId === orderId) {
+        if (message.opType === 'INSERT' && message.element.orderID === orderId) {
           const newBox = await DataStore.query(Box, message.element.id) as Box;
           fetchedBoxes.push(newBox);
           setBoxes([...fetchedBoxes]);
@@ -135,11 +135,12 @@ const OrderDetailsPage: React.FC = () => {
 
   const loadAssignedDriverName = async (addressId: string): Promise<void> => {
     const address = await DataStore.query(Address, addressId);
-    if (address?.addressCoordinates) {
-      const coordinates = await DataStore.query(Coordinates, address.addressCoordinates.id);
-      console.log(coordinates)
-      if (coordinates?.assignedDriverUser?.firstName) {
-        setAssignedDriver(coordinates.assignedDriverUser.firstName);
+    if (address?.coordinateID) {
+      const coordinate = await DataStore.query(Coordinate, address.coordinateID);
+      console.log(coordinate)
+      if (coordinate?.userID) {
+        const driver = await DataStore.query(User, coordinate.userID);
+        setAssignedDriver(driver?.firstName);
       } else {
         setAssignedDriver('Not assigned');
       }

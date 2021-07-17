@@ -71,7 +71,7 @@ export declare class Order {
   readonly id: string;
   readonly orderNumber?: string;
   readonly orderStatus: OrderStatus | keyof typeof OrderStatus;
-  readonly dishes?: (Dish | null)[];
+  readonly dishes?: Dish[];
   readonly finalPrice: number;
   readonly customerComment?: string;
   readonly customerID?: string;

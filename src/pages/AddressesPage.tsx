@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Layout, Select, Table} from 'antd';
-import {Address, Coordinates} from "../models";
+import {Address, Coordinate} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 
@@ -11,7 +11,7 @@ const width300 = {width: 300}
 
 const AddressesPage: React.FC = () => {
   const [addresses, setAddresses] = useState<Address[]>([]);
-  const [coordinates, setCoordinates] = useState<Coordinates[]>([]);
+  const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -29,15 +29,15 @@ const AddressesPage: React.FC = () => {
         }
       });
 
-      const fetchedCoordinates = await DataStore.query(Coordinates);
+      const fetchedCoordinates = await DataStore.query(Coordinate);
 
       if (fetchedCoordinates.length > 0) {
         setCoordinates(fetchedCoordinates);
       }
 
-      DataStore.observe(Coordinates).subscribe(async (message) => {
+      DataStore.observe(Coordinate).subscribe(async (message) => {
         if (message.opType === 'INSERT') {
-          const newCoordinates = await DataStore.query(Coordinates, message.element.id) as Coordinates;
+          const newCoordinates = await DataStore.query(Coordinate, message.element.id) as Coordinate;
           fetchedCoordinates.push(newCoordinates);
           setCoordinates([...fetchedCoordinates]);
         }
@@ -67,12 +67,11 @@ const AddressesPage: React.FC = () => {
     {
       title: 'Set coordinates',
       render: (value, record, index) => {
-        console.log('coord: ', record.addressCoordinates)
-        return <Select value={record.addressCoordinates?.name} style={width300} onSelect={async (value) => {
-          const coordinates = await DataStore.query(Coordinates, value as string);
+        console.log('coord: ', record.coordinateID)
+        return <Select value={record.coordinateID} style={width300} onSelect={async (value) => {
           const updatedAddress = await DataStore.save(
             Address.copyOf(record, updated => {
-              updated.addressCoordinates = coordinates;
+              updated.coordinateID = value;
             })
           );
           console.log('updatedAddress: ', updatedAddress)

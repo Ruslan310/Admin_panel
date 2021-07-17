@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Button, Col, Descriptions, Input, Layout, Modal, Row, Table, Typography} from 'antd';
-import {Address, Coordinates, Customer, Order} from "../models";
+import {Address, Coordinate, Customer, Order, User} from "../models";
 import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
@@ -18,7 +18,7 @@ const OrdersPage: React.FC = () => {
   const [isLoading, setLoading] = useState(true)
   const [searchName, setSearchName] = useState('')
   const [searchNumber, setSearchNumber] = useState('')
-  const [assignedDriverName, setAssignedDriverName] = useState('')
+  const [assignedDriverName, setAssignedDriverName] = useState<string>()
 
   useEffect(() => {
     (async () => {
@@ -197,10 +197,11 @@ const OrdersPage: React.FC = () => {
   const loadAssignedDriverName = async (addressId?: string): Promise<void> => {
     if (!addressId) return ;
     const address = await DataStore.query(Address, addressId);
-    if (address?.addressCoordinates) {
-      const coordinates = await DataStore.query(Coordinates, address.addressCoordinates.id);
-      if (coordinates?.assignedDriverUser?.firstName) {
-        setAssignedDriverName(coordinates.assignedDriverUser.firstName);
+    if (address?.coordinateID) {
+      const coordinate = await DataStore.query(Coordinate, address.coordinateID);
+      if (coordinate?.userID) {
+        const driver = await DataStore.query(User, coordinate.userID);
+        setAssignedDriverName(driver?.firstName);
       }
     }
     Modal.info({

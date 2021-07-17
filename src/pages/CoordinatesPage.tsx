@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Button, Descriptions, Form, Input, InputNumber, Layout, Select, Table} from 'antd';
-import {Coordinates, Role, User} from "../models";
+import {Coordinate, Role, User} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 
@@ -11,7 +11,7 @@ const {Content} = Layout;
 const width300 = {width: 300}
 
 const CoordinatesPage: React.FC = () => {
-  const [coordinates, setCoordinates] = useState<Coordinates[]>([]);
+  const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
   const [drivers, setDrivers] = useState<User[]>([]);
   const [name, setName] = useState('');
   const [latitude, setLatitude] = useState(0.000000);
@@ -20,15 +20,15 @@ const CoordinatesPage: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const fetchedCoordinates = await DataStore.query(Coordinates);
+      const fetchedCoordinates = await DataStore.query(Coordinate);
 
       if (fetchedCoordinates.length > 0) {
         setCoordinates(fetchedCoordinates);
       }
 
-      DataStore.observe(Coordinates).subscribe(async (message) => {
+      DataStore.observe(Coordinate).subscribe(async (message) => {
         if (message.opType === 'INSERT') {
-          const newCoordinates = await DataStore.query(Coordinates, message.element.id) as Coordinates;
+          const newCoordinates = await DataStore.query(Coordinate, message.element.id) as Coordinate;
           fetchedCoordinates.push(newCoordinates);
           setCoordinates([...fetchedCoordinates]);
         }
@@ -54,7 +54,7 @@ const CoordinatesPage: React.FC = () => {
   console.log('coordinates:', coordinates)
   console.log('drivers:', drivers)
 
-  const columns: ColumnsType<Coordinates> = [
+  const columns: ColumnsType<Coordinate> = [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -62,7 +62,7 @@ const CoordinatesPage: React.FC = () => {
     {
       title: 'Assigned driver',
       render: (value, record, index) => {
-        return record.assignedDriverUser?.firstName
+        return record.userID
       },
     },
     {
@@ -76,7 +76,7 @@ const CoordinatesPage: React.FC = () => {
       title: 'Actions',
       render: (value, record, index) => {
         return <Button type={'primary'} onClick={async () => {
-          const deleted = await DataStore.delete(Coordinates, record.id);
+          const deleted = await DataStore.delete(Coordinate, record.id);
           console.log(deleted)
         }}>Delete</Button>
       }
@@ -157,8 +157,8 @@ const CoordinatesPage: React.FC = () => {
             const targetDriver = drivers.find(driver => driver.id === assignedDriverId)
             if (name) {
               await DataStore.save(
-                new Coordinates({
-                  assignedDriverUser: targetDriver,
+                new Coordinate({
+                  userID: targetDriver?.id,
                   latitude: latitude,
                   longitude: longitude,
                   name: name,

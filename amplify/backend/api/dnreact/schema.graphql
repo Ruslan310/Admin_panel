@@ -1,4 +1,4 @@
-type Coordinate @model @auth(rules: [{allow: private}]) @key(name: "byUser", fields: ["userID"]) {
+type Coordinate @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   latitude: Float!
   longitude: Float!
@@ -7,7 +7,7 @@ type Coordinate @model @auth(rules: [{allow: private}]) @key(name: "byUser", fie
   coordinateAddresses: [Address] @connection(keyName: "byCoordinate", fields: ["id"])
 }
 
-type Address @model @auth(rules: [{allow: private}]) @key(name: "byCoordinate", fields: ["coordinateID"]) {
+type Address @model @auth(rules: [{allow: public}]) @key(name: "byCoordinate", fields: ["coordinateID"]) {
   id: ID!
   address1: String!
   address2: String!
@@ -17,7 +17,7 @@ type Address @model @auth(rules: [{allow: private}]) @key(name: "byCoordinate", 
   addressOrders: [Order] @connection(keyName: "byAddress", fields: ["id"])
 }
 
-type Box @model @auth(rules: [{allow: private}]) @key(name: "byOrder", fields: ["orderID"]) {
+type Box @model @auth(rules: [{allow: public}]) @key(name: "byOrder", fields: ["orderID"]) {
   id: ID!
   sticker: String!
   boxStatus: BOX_STATUS!
@@ -28,7 +28,7 @@ type Box @model @auth(rules: [{allow: private}]) @key(name: "byOrder", fields: [
   order: Order @connection
 }
 
-type Order @model @auth(rules: [{allow: private}]) @key(name: "byCustomer", fields: ["customerID"]) @key(name: "byAddress", fields: ["addressID"]) {
+type Order @model @auth(rules: [{allow: public}]) @key(name: "byCustomer", fields: ["customerID"]) @key(name: "byAddress", fields: ["addressID"]) {
   id: ID!
   orderNumber: String
   orderStatus: ORDER_STATUS!
@@ -74,7 +74,7 @@ enum Role {
   GUEST
 }
 
-type User @model @auth(rules: [{allow: public}, {allow: private}]) {
+type User @model @auth(rules: [{allow: public}]) {
   id: ID!
   sub: String!
   email: String!
@@ -85,7 +85,7 @@ type User @model @auth(rules: [{allow: public}, {allow: private}]) {
   assignedDriverCoordinates: [Coordinate] @connection(keyName: "byUser", fields: ["id"])
 }
 
-type Customer @model @auth(rules: [{allow: public}, {allow: private}]) {
+type Customer @model @auth(rules: [{allow: public}]) {
   id: ID!
   wpId: Int
   company: String

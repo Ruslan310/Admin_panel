@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Button, Col, Descriptions, Input, Layout, Modal, Row, Table, Typography} from 'antd';
-import {Address, Coordinate, Customer, Order, User} from "../models";
+import {Address, Box, Coordinate, Customer, Order, User} from "../models";
 import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
@@ -21,30 +21,25 @@ const OrdersPage: React.FC = () => {
   const [searchNumber, setSearchNumber] = useState('')
   const [assignedDriverName, setAssignedDriverName] = useState<string>()
 
+  const fetchOrders = async () => {
+    const fetchedOrders = await DataStore.query(Order);
+
+    if (fetchedOrders.length > 0) {
+      setOrders(fetchedOrders);
+      setFilteredOrders(fetchedOrders);
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
-    (async () => {
-      const fetchedOrders = await DataStore.query(Order);
-      console.log(fetchedOrders)
+    fetchOrders();
+    const ordersSubscription = DataStore.observe(Order).subscribe(async (message) => {
+      await fetchOrders();
+    });
 
-      if (fetchedOrders.length > 0) {
-        setOrders(fetchedOrders);
-        setFilteredOrders(fetchedOrders);
-        setLoading(false)
-      }
-
-      DataStore.observe(Order).subscribe(async (message) => {
-        if (message.opType === 'INSERT') {
-          console.log('message:', message)
-          const newOrder = await DataStore.query(Order, message.element.id) as Order;
-          fetchedOrders.push(newOrder);
-          setOrders([...fetchedOrders]);
-          setFilteredOrders([...fetchedOrders]);
-          if (isLoading && fetchedOrders.length > 0) {
-            setLoading(false)
-          }
-        }
-      });
-    })();
+    return () => {
+      ordersSubscription.unsubscribe();
+    }
   }, []);
 
   const onSelectChange = (selectedRowKeys: Key[]) => {
@@ -187,6 +182,20 @@ const OrdersPage: React.FC = () => {
       title: 'Details',
       render: (value, record, index) => {
         return <Button type={'primary'} onClick={() => history.push("/orderDetails/" + record.id)}>Details</Button>
+      }
+    },
+    {
+      title: 'Actions',
+      render: (value, record, index) => {
+        return <Button type={'primary'} onClick={async () => {
+          const boxes = await DataStore.query(Box, box => box.orderID("eq", record.id))
+          if (boxes) {
+            for (const box of boxes) {
+              await DataStore.delete(Box, box.id)
+            }
+          }
+          await DataStore.delete(Order, record.id);
+        }}>Delete</Button>
       }
     }
   ];

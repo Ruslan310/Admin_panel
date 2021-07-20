@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Button, Descriptions, Form, Input, InputNumber, Layout, Select, Table} from 'antd';
-import {Coordinate, Role, User} from "../models";
+import {Address, Coordinate, Role, User} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 
@@ -18,59 +18,25 @@ const CoordinatesPage: React.FC = () => {
   const [longitude, setLongitude] = useState(0.000000);
   const [assignedDriverId, setAssignedDriverId] = useState('');
 
+  const fetchCoordinates = async () => {
+    const fetchedCoordinates = await DataStore.query(Coordinate);
+
+    if (fetchedCoordinates.length > 0) {
+      setCoordinates(fetchedCoordinates);
+    }
+  }
+
   useEffect(() => {
-    (async () => {
-      const fetchedCoordinates = await DataStore.query(Coordinate);
-
-      if (fetchedCoordinates.length > 0) {
-        setCoordinates(fetchedCoordinates);
-      }
-
-      console.log('subscribe')
-
-
-      const fetchedUsers = await DataStore.query(User, user => user.role("eq", Role.DELIVERY));
-
-      if (fetchedUsers.length > 0) {
-        setDrivers(fetchedUsers);
-      }
-    })();
-
+    fetchCoordinates();
     const coordinatesSubscription = DataStore.observe(Coordinate).subscribe(async (message) => {
-      if (message.opType === 'INSERT') {
-        const newCoordinate = await DataStore.query(Coordinate, message.element.id) as Coordinate;
-        coordinates.push(newCoordinate);
-        setCoordinates([...coordinates]);
-      }
-      if (message.opType === 'UPDATE') {
-        console.log('updated')
-        const newCoordinate = await DataStore.query(Coordinate, message.element.id) as Coordinate;
-        const newArray = coordinates.filter(coord => coord.id !== message.element.id)
-        setCoordinates([...newArray, newCoordinate]);
-      }
-      if (message.opType === 'DELETE') {
-        console.log('deleted')
-        const newArray = coordinates.filter(coord => coord.id !== message.element.id)
-        setCoordinates([...newArray]);
-      }
-    });
-
-    const userSubscription = DataStore.observe(User).subscribe(async (message) => {
-      if (message.opType === 'INSERT') {
-        const newUser = await DataStore.query(User, message.element.id) as User;
-        drivers.push(newUser);
-        setDrivers([...drivers]);
-      }
+      await fetchCoordinates();
     });
 
     return () => {
       coordinatesSubscription.unsubscribe();
-      userSubscription.unsubscribe();
     }
 
   }, []);
-
-  console.log('coordinates:', coordinates)
 
   const columns: ColumnsType<Coordinate> = [
     {
@@ -94,6 +60,16 @@ const CoordinatesPage: React.FC = () => {
       title: 'Actions',
       render: (value, record, index) => {
         return <Button type={'primary'} onClick={async () => {
+          const addresses = await DataStore.query(Address, address => address.coordinateID("eq", record.id))
+          if (addresses) {
+            for (const address of addresses) {
+              await DataStore.save(
+                Address.copyOf(address, updated => {
+                  updated.coordinateID = undefined;
+                })
+              );
+            }
+          }
           await DataStore.delete(Coordinate, record.id);
         }}>Delete</Button>
       }

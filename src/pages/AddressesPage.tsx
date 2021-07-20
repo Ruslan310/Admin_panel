@@ -13,39 +13,39 @@ const AddressesPage: React.FC = () => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
 
+  const fetchCoordinates = async () => {
+    const fetchedCoordinates = await DataStore.query(Coordinate);
+
+    if (fetchedCoordinates.length > 0) {
+      setCoordinates(fetchedCoordinates);
+    }
+  }
+
+  const fetchAddresses = async () => {
+    const fetchedAddresses = await DataStore.query(Address);
+
+    if (fetchedAddresses.length > 0) {
+      setAddresses(fetchedAddresses);
+    }
+  }
+
   useEffect(() => {
-    (async () => {
-      const fetchedAddresses = await DataStore.query(Address);
+    fetchCoordinates();
+    fetchAddresses();
 
-      if (fetchedAddresses.length > 0) {
-        setAddresses(fetchedAddresses);
-      }
+    const coordinatesSubscription = DataStore.observe(Coordinate).subscribe(async (message) => {
+      await fetchCoordinates();
+    });
 
-      DataStore.observe(Address).subscribe(async (message) => {
-        if (message.opType === 'INSERT') {
-          const newAddress = await DataStore.query(Address, message.element.id) as Address;
-          fetchedAddresses.push(newAddress);
-          setAddresses([...fetchedAddresses]);
-        }
-      });
+    const addressesSubscription = DataStore.observe(Address).subscribe(async (message) => {
+      await fetchAddresses();
+    });
 
-      const fetchedCoordinates = await DataStore.query(Coordinate);
-
-      if (fetchedCoordinates.length > 0) {
-        setCoordinates(fetchedCoordinates);
-      }
-
-      DataStore.observe(Coordinate).subscribe(async (message) => {
-        if (message.opType === 'INSERT') {
-          const newCoordinates = await DataStore.query(Coordinate, message.element.id) as Coordinate;
-          fetchedCoordinates.push(newCoordinates);
-          setCoordinates([...fetchedCoordinates]);
-        }
-      });
-    })();
+    return () => {
+      coordinatesSubscription.unsubscribe();
+      addressesSubscription.unsubscribe();
+    }
   }, []);
-
-  console.log('addresses:', addresses)
 
   const columns: ColumnsType<Address> = [
     {
@@ -67,14 +67,12 @@ const AddressesPage: React.FC = () => {
     {
       title: 'Set coordinates',
       render: (value, record, index) => {
-        console.log('coord: ', record.coordinateID)
         return <Select value={record.coordinateID} style={width300} onSelect={async (value) => {
-          const updatedAddress = await DataStore.save(
+          await DataStore.save(
             Address.copyOf(record, updated => {
               updated.coordinateID = value;
             })
           );
-          console.log('updatedAddress: ', updatedAddress)
         }}>
           {coordinates.map((coord) => <Select.Option key={coord.id}
                                                      value={coord.id}>{coord.name}</Select.Option>)}

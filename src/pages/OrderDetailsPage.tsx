@@ -7,6 +7,7 @@ import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {useParams} from 'react-router-dom';
 import {CheckboxChangeEvent} from "antd/es/checkbox";
+import {stringifyAddress} from "../utils/utils";
 
 const {Content} = Layout;
 
@@ -53,10 +54,6 @@ const OrderDetailsPage: React.FC = () => {
       });
     })();
   }, []);
-
-  const stringifyAddress = (address?: Address) => {
-    return `${address?.postCode}, ${address?.city}, ${address?.address1}, ${address?.address2}`
-  }
 
   const fullName = (customer: Customer) => {
     return `${customer.firstName} ${customer.lastName}`

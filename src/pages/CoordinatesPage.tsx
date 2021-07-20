@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Descriptions, Form, Input, InputNumber, Layout, Select, Table} from 'antd';
-import {Address, Coordinate, Role, User} from "../models";
+import {Button, List, Form, Input, InputNumber, Layout, Spin, Table} from 'antd';
+import {Address, Coordinate, User} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
+import {stringifyAddress} from "../utils/utils";
 
 const {Content} = Layout;
 
@@ -17,6 +18,7 @@ const CoordinatesPage: React.FC = () => {
   const [latitude, setLatitude] = useState(0.000000);
   const [longitude, setLongitude] = useState(0.000000);
   const [assignedDriverId, setAssignedDriverId] = useState('');
+  const [isLoadingAddresses, setLoadingAddresses] = useState(false)
 
   const fetchCoordinates = async () => {
     const fetchedCoordinates = await DataStore.query(Coordinate);
@@ -75,6 +77,22 @@ const CoordinatesPage: React.FC = () => {
       }
     }
   ];
+
+  const loadAddresses = async (coordinateId: string): Promise<void> => {
+    setLoadingAddresses(true);
+    const loadedAddresses = await DataStore.query(Address, address => address.coordinateID("eq", coordinateId))
+    const targetCoordinate = coordinates.find(coordinate => coordinate.id === coordinateId);
+    if (targetCoordinate) {
+      const targetIndex = coordinates.indexOf(targetCoordinate);
+      const newCoordinate = Coordinate.copyOf(targetCoordinate, updated => {
+        updated.coordinateAddresses = loadedAddresses;
+      })
+      const filteredCoordinates = coordinates.filter(coordinate => coordinate.id !== coordinateId);
+      filteredCoordinates.splice(targetIndex, 0, newCoordinate);
+      setCoordinates([...filteredCoordinates]);
+    }
+    setLoadingAddresses(false);
+  }
 
   return (
     <Content>
@@ -154,11 +172,22 @@ const CoordinatesPage: React.FC = () => {
         dataSource={coordinates}
         expandable={{
           expandedRowRender: record => {
-            return <Descriptions title="Coordinates details">
-
-            </Descriptions>
+            if (isLoadingAddresses) {
+              return <Spin size="large"/>
+            } else {
+              return <List
+                size="small"
+                dataSource={record.coordinateAddresses}
+                renderItem={item => <List.Item>{stringifyAddress(item)}</List.Item>}
+              />
+            }
           },
           rowExpandable: record => true,
+          onExpand: async (expanded, record) => {
+            if (expanded) {
+              await loadAddresses(record.id)
+            }
+          }
         }}
       />
     </Content>

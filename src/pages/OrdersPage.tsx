@@ -7,6 +7,7 @@ import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {useHistory} from "react-router-dom";
+import {stringifyAddress} from "../utils/utils";
 
 const {Content} = Layout;
 
@@ -82,10 +83,6 @@ const OrdersPage: React.FC = () => {
       },
     ],
   };
-
-  const stringifyAddress = (address?: Address) => {
-    return `${address?.postCode}, ${address?.city}, ${address?.address1}, ${address?.address2}`
-  }
 
   const fullName = (customer?: Customer) => {
     return `${customer?.firstName} ${customer?.lastName}`

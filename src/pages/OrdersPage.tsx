@@ -215,7 +215,7 @@ const OrdersPage: React.FC = () => {
 
   return (
     <Content>
-      <Title>Orders</Title>
+      <Title>Orders ({orders.length})</Title>
       <Table
         loading={isLoading}
         onRow={(record, rowIndex) => {

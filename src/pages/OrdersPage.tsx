@@ -24,11 +24,9 @@ const OrdersPage: React.FC = () => {
   const fetchOrders = async () => {
     const fetchedOrders = await DataStore.query(Order);
 
-    if (fetchedOrders.length > 0) {
-      setOrders(fetchedOrders);
-      setFilteredOrders(fetchedOrders);
-      setLoading(false)
-    }
+    setOrders(fetchedOrders);
+    setFilteredOrders(fetchedOrders);
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -201,7 +199,7 @@ const OrdersPage: React.FC = () => {
   ];
 
   const loadAssignedDriverName = async (addressId?: string): Promise<void> => {
-    if (!addressId) return ;
+    if (!addressId) return;
     const address = await DataStore.query(Address, addressId);
     if (address?.coordinateID) {
       const coordinate = await DataStore.query(Coordinate, address.coordinateID);
@@ -215,7 +213,6 @@ const OrdersPage: React.FC = () => {
       content: (
         <Title level={2}>{assignedDriverName}</Title>
       ),
-      onOk() {},
     });
   }
 
@@ -224,11 +221,6 @@ const OrdersPage: React.FC = () => {
       <Title>Orders ({orders.length})</Title>
       <Table
         loading={isLoading}
-        onRow={(record, rowIndex) => {
-          return {
-            onClick: event => {},
-          };
-        }}
         size={"middle"}
         rowKey="id"
         rowSelection={rowSelection}

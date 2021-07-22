@@ -226,7 +226,12 @@ const OrdersPage: React.FC = () => {
           await deleteOrderWithBoxes(order.id);
         }
       }} type="primary" htmlType="submit">
-        Delete all addresses
+        Delete all orders
+      </Button>
+      <Button onClick={async () => {
+        await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')
+      }} type="default">
+        Sync orders from wp
       </Button>
       <Table
         loading={isLoading}

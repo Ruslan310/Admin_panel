@@ -90,7 +90,7 @@ const KitchenPage: React.FC = () => {
     <Content>
       <Title>Kitchen</Title>
       <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WeekDay)}>
-        {Object.values(WeekDay).map(weekDay => <TabPane tab={weekDay} key={weekDay}/>)}
+        {Object.values(WeekDay).map(weekDay => <TabPane tab={`${weekDay} (${kitchenDishes.filter(dish => dish.weekDay === weekDay).length})`} key={weekDay}/>)}
       </Tabs>
       <Table
         pagination={{defaultPageSize: 100, showSizeChanger: true, pageSizeOptions: ['10', '50', '100']}}

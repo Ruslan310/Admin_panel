@@ -7,7 +7,8 @@ import {
   ReconciliationOutlined,
   UserOutlined,
   UsergroupAddOutlined,
-  FileSearchOutlined
+  FileSearchOutlined,
+  CodeSandboxOutlined
 } from "@ant-design/icons";
 import {Link, Route} from "react-router-dom";
 import OrdersPage from "./pages/OrdersPage";
@@ -18,6 +19,7 @@ import AddressesPage from "./pages/AddressesPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import CustomersPage from "./pages/CustomersPage";
 import KitchenPage from "./pages/KitchenPage";
+import BoxesPage from "./pages/BoxesPage";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -49,6 +51,10 @@ const MainRouter: React.FC = () => {
           <span>Kitchen</span>
           <Link to="/kitchen"/>
         </Menu.Item>
+        <Menu.Item key="boxes" icon={<CodeSandboxOutlined />}>
+          <span>Boxes</span>
+          <Link to="/boxes"/>
+        </Menu.Item>
         <Menu.Item key="coordinates" icon={<CompassOutlined/>}>
           <span>Coordinates</span>
           <Link to="/coordinates"/>
@@ -78,6 +84,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/coordinates" component={CoordinatesPage}/>
         <Route exact path="/addresses" component={AddressesPage}/>
         <Route exact path="/customers" component={CustomersPage}/>
+        <Route exact path="/boxes" component={BoxesPage}/>
         <Route exact path="/profile" component={ProfilePage}/>
         <Route exact path="/orderDetails/:orderId" component={OrderDetailsPage}/>
       </Content>

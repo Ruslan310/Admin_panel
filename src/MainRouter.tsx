@@ -6,9 +6,10 @@ import {
   MenuUnfoldOutlined,
   ReconciliationOutlined,
   UserOutlined,
-  UsergroupAddOutlined
+  UsergroupAddOutlined,
+  FileSearchOutlined
 } from "@ant-design/icons";
-import {Link, Route, useHistory} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
 import OrdersPage from "./pages/OrdersPage";
 import ProfilePage from "./pages/ProfilePage";
 import React, {useEffect, useState} from "react";
@@ -16,11 +17,11 @@ import CoordinatesPage from "./pages/CoordinatesPage";
 import AddressesPage from "./pages/AddressesPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import CustomersPage from "./pages/CustomersPage";
+import KitchenPage from "./pages/KitchenPage";
 
 const {Header, Content, Footer, Sider} = Layout;
 
 const MainRouter: React.FC = () => {
-  const history = useHistory();
   const [collapsed, setCollapsed] = useState(false)
 
   const onCollapse = () => {
@@ -31,6 +32,7 @@ const MainRouter: React.FC = () => {
     // history.push("/orders");
   }, [])
 
+  const path = window.location.pathname.replace(new RegExp("/(\\w*)"), "$1")
   return <Layout style={{minHeight: '100vh'}}>
 
     <Sider
@@ -38,24 +40,28 @@ const MainRouter: React.FC = () => {
       collapsed={collapsed}
       onCollapse={onCollapse}>
       <div className="logo"/>
-      <Menu theme="dark" defaultSelectedKeys={['orders']} mode="inline">
-        <Menu.Item key="orders" icon={<ReconciliationOutlined />}>
+      <Menu theme="dark" defaultSelectedKeys={[path ? path: 'orders']} mode="inline">
+        <Menu.Item key="orders" icon={<ReconciliationOutlined/>}>
           <span>Orders</span>
           <Link to="/"/>
         </Menu.Item>
-        <Menu.Item key="coordinates" icon={<CompassOutlined />}>
+        <Menu.Item key="kitchen" icon={<FileSearchOutlined/>}>
+          <span>Kitchen</span>
+          <Link to="/kitchen"/>
+        </Menu.Item>
+        <Menu.Item key="coordinates" icon={<CompassOutlined/>}>
           <span>Coordinates</span>
           <Link to="/coordinates"/>
         </Menu.Item>
-        <Menu.Item key="addresses" icon={<HomeOutlined />}>
+        <Menu.Item key="addresses" icon={<HomeOutlined/>}>
           <span>Addresses</span>
           <Link to="/addresses"/>
         </Menu.Item>
-        <Menu.Item key="customers" icon={<UsergroupAddOutlined />}>
+        <Menu.Item key="customers" icon={<UsergroupAddOutlined/>}>
           <span>Customers</span>
           <Link to="/customers"/>
         </Menu.Item>
-        <Menu.Item key="profile" icon={<UserOutlined />}>
+        <Menu.Item key="profile" icon={<UserOutlined/>}>
           <span>Profile</span>
           <Link to="/profile"/>
         </Menu.Item>
@@ -68,6 +74,7 @@ const MainRouter: React.FC = () => {
       <Content style={{margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280}}>
         <Route exact path="/" component={OrdersPage}/>
         <Route exact path="/orders" component={OrdersPage}/>
+        <Route exact path="/kitchen" component={KitchenPage}/>
         <Route exact path="/coordinates" component={CoordinatesPage}/>
         <Route exact path="/addresses" component={AddressesPage}/>
         <Route exact path="/customers" component={CustomersPage}/>

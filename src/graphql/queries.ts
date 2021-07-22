@@ -323,6 +323,94 @@ export const listAddresss = /* GraphQL */ `
     }
   }
 `;
+export const byPostCode = /* GraphQL */ `
+  query ByPostCode(
+    $postCode: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelAddressFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byPostCode(
+      postCode: $postCode
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const syncAddresses = /* GraphQL */ `
   query SyncAddresses(
     $filter: ModelAddressFilterInput
@@ -1103,6 +1191,141 @@ export const listOrders = /* GraphQL */ `
     }
   }
 `;
+export const byOrderNumber = /* GraphQL */ `
+  query ByOrderNumber(
+    $orderNumber: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelOrderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byOrderNumber(
+      orderNumber: $orderNumber
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        orderNumber
+        orderStatus
+        dishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        customerID
+        addressID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        orderBoxes {
+          items {
+            id
+            sticker
+            boxStatus
+            qrCode
+            customerComment
+            weekDay
+            orderID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            order {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          customerOrders {
+            items {
+              id
+              orderNumber
+              orderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const syncOrders = /* GraphQL */ `
   query SyncOrders(
     $filter: ModelOrderFilterInput
@@ -1487,6 +1710,95 @@ export const listCustomers = /* GraphQL */ `
     $nextToken: String
   ) {
     listCustomers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        customerOrders {
+          items {
+            id
+            orderNumber
+            orderStatus
+            dishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            orderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const byEmail = /* GraphQL */ `
+  query ByEmail(
+    $email: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelCustomerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byEmail(
+      email: $email
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         wpId

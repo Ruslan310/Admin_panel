@@ -5,7 +5,8 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ReconciliationOutlined,
-  UserOutlined
+  UserOutlined,
+  UsergroupAddOutlined
 } from "@ant-design/icons";
 import {Link, Route, useHistory} from "react-router-dom";
 import OrdersPage from "./pages/OrdersPage";
@@ -14,6 +15,7 @@ import React, {useEffect, useState} from "react";
 import CoordinatesPage from "./pages/CoordinatesPage";
 import AddressesPage from "./pages/AddressesPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
+import CustomersPage from "./pages/CustomersPage";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -49,6 +51,10 @@ const MainRouter: React.FC = () => {
           <span>Addresses</span>
           <Link to="/addresses"/>
         </Menu.Item>
+        <Menu.Item key="customers" icon={<UsergroupAddOutlined />}>
+          <span>Customers</span>
+          <Link to="/customers"/>
+        </Menu.Item>
         <Menu.Item key="profile" icon={<UserOutlined />}>
           <span>Profile</span>
           <Link to="/profile"/>
@@ -64,6 +70,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/orders" component={OrdersPage}/>
         <Route exact path="/coordinates" component={CoordinatesPage}/>
         <Route exact path="/addresses" component={AddressesPage}/>
+        <Route exact path="/customers" component={CustomersPage}/>
         <Route exact path="/profile" component={ProfilePage}/>
         <Route exact path="/orderDetails/:orderId" component={OrderDetailsPage}/>
       </Content>

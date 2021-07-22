@@ -55,7 +55,7 @@ const CoordinatesPage: React.FC = () => {
       title: 'Link to map',
       render: (value, record, index) => {
         return <a target={"_blank"}
-                    href={`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}>{`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}</a>
+                    href={`https://www.google.com/maps/place/${record.latitude},${record.longitude}`}>{`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}</a>
       },
     },
     {

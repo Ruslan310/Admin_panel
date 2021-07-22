@@ -205,6 +205,16 @@ export const schema = {
                     }
                 },
                 {
+                    "type": "key",
+                    "properties": {
+                        "name": "byPostCode",
+                        "fields": [
+                            "postCode"
+                        ],
+                        "queryField": "byPostCode"
+                    }
+                },
+                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -378,6 +388,16 @@ export const schema = {
                     }
                 },
                 {
+                    "type": "key",
+                    "properties": {
+                        "name": "byOrderNumber",
+                        "fields": [
+                            "orderNumber"
+                        ],
+                        "queryField": "byOrderNumber"
+                    }
+                },
+                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -493,6 +513,16 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byEmail",
+                        "fields": [
+                            "email"
+                        ],
+                        "queryField": "byEmail"
+                    }
                 },
                 {
                     "type": "auth",
@@ -849,5 +879,5 @@ export const schema = {
             }
         }
     },
-    "version": "8f1feb54964dbdb52dd91f10a2c917d4"
+    "version": "65ca86c4ab417d267d72ba1606c500f9"
 };

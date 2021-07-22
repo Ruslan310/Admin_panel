@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Layout, Select, Table} from 'antd';
+import {Button, Layout, Select, Table} from 'antd';
 import {Address, Coordinate} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
@@ -15,18 +15,12 @@ const AddressesPage: React.FC = () => {
 
   const fetchCoordinates = async () => {
     const fetchedCoordinates = await DataStore.query(Coordinate);
-
-    if (fetchedCoordinates.length > 0) {
-      setCoordinates(fetchedCoordinates);
-    }
+    setCoordinates(fetchedCoordinates);
   }
 
   const fetchAddresses = async () => {
     const fetchedAddresses = await DataStore.query(Address);
-
-    if (fetchedAddresses.length > 0) {
-      setAddresses(fetchedAddresses);
-    }
+    setAddresses(fetchedAddresses);
   }
 
   useEffect(() => {
@@ -84,7 +78,14 @@ const AddressesPage: React.FC = () => {
 
   return (
     <Content>
-      <Title>Orders</Title>
+      <Title>Addresses ({addresses.length})</Title>
+      <Button onClick={async () => {
+        for (const address of addresses) {
+          await DataStore.delete(Address, address.id);
+        }
+      }} type="primary" htmlType="submit">
+        Delete all addresses
+      </Button>
       <Table
         size={"middle"}
         rowKey="id"

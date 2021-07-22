@@ -127,6 +127,16 @@ const OrdersPage: React.FC = () => {
     </Row>
   );
 
+  const deleteOrderWithBoxes = async (orderId: string) => {
+    const boxes = await DataStore.query(Box, box => box.orderID("eq", orderId))
+    if (boxes) {
+      for (const box of boxes) {
+        await DataStore.delete(Box, box.id)
+      }
+    }
+    await DataStore.delete(Order, orderId);
+  }
+
   const columns: ColumnsType<Order> = [
     {
       title: orderNumberFilter,
@@ -185,15 +195,7 @@ const OrdersPage: React.FC = () => {
     {
       title: 'Actions',
       render: (value, record, index) => {
-        return <Button type={'primary'} onClick={async () => {
-          const boxes = await DataStore.query(Box, box => box.orderID("eq", record.id))
-          if (boxes) {
-            for (const box of boxes) {
-              await DataStore.delete(Box, box.id)
-            }
-          }
-          await DataStore.delete(Order, record.id);
-        }}>Delete</Button>
+        return <Button type={'primary'} onClick={async () => await deleteOrderWithBoxes(record.id)}>Delete</Button>
       }
     }
   ];
@@ -219,6 +221,13 @@ const OrdersPage: React.FC = () => {
   return (
     <Content>
       <Title>Orders ({orders.length})</Title>
+      <Button onClick={async () => {
+        for (const order of orders) {
+          await deleteOrderWithBoxes(order.id);
+        }
+      }} type="primary" htmlType="submit">
+        Delete all addresses
+      </Button>
       <Table
         loading={isLoading}
         size={"middle"}

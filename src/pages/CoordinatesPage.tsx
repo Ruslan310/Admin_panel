@@ -96,7 +96,7 @@ const CoordinatesPage: React.FC = () => {
 
   return (
     <Content>
-      <Title>Orders</Title>
+      <Title>Coordinates</Title>
       <Form
         labelCol={{span: 4}}
         wrapperCol={{span: 14}}

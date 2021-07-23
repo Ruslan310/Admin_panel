@@ -7,7 +7,7 @@ import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {useHistory} from "react-router-dom";
-import {stringifyAddress} from "../utils/utils";
+import {fullName, stringifyAddress} from "../utils/utils";
 import moment from "moment-timezone";
 moment.tz.setDefault("Africa/Nouakchott");
 
@@ -79,10 +79,6 @@ const OrdersPage: React.FC = () => {
       },
     ],
   };
-
-  const fullName = (customer?: Customer) => {
-    return `${customer?.firstName} ${customer?.lastName}`
-  }
 
   const fullNameFilter = (
     <Row>

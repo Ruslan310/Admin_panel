@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, List, Form, Input, InputNumber, Layout, Spin, Table} from 'antd';
-import {Address, Coordinate, User} from "../models";
+import {Button, Form, Input, InputNumber, Layout, List, Select, Spin, Table} from 'antd';
+import {Address, Coordinate, Role, User} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {stringifyAddress} from "../utils/utils";
@@ -19,7 +19,6 @@ const CoordinatesPage: React.FC = () => {
   const [name, setName] = useState('');
   const [latitude, setLatitude] = useState(0.000000);
   const [longitude, setLongitude] = useState(0.000000);
-  const [assignedDriverId, setAssignedDriverId] = useState('');
   const [isLoadingAddresses, setLoadingAddresses] = useState(false)
 
   const fetchCoordinates = async () => {
@@ -27,16 +26,26 @@ const CoordinatesPage: React.FC = () => {
     setCoordinates(fetchedCoordinates);
   }
 
+  const fetchDrivers = async () => {
+    const fetchedDrivers = await DataStore.query(User, user => user.role("eq", Role.DELIVERY));
+    setDrivers(fetchedDrivers);
+  }
+
   useEffect(() => {
     setLoading(true);
     fetchCoordinates();
+    fetchDrivers();
     const coordinatesSubscription = DataStore.observe(Coordinate).subscribe(async (message) => {
       await fetchCoordinates();
+    });
+    const driversSubscription = DataStore.observe(User).subscribe(async (message) => {
+      await fetchDrivers();
     });
 
     setLoading(false);
     return () => {
       coordinatesSubscription.unsubscribe();
+      driversSubscription.unsubscribe();
     }
 
   }, []);
@@ -47,17 +56,35 @@ const CoordinatesPage: React.FC = () => {
       dataIndex: 'name',
     },
     {
-      title: 'Assigned driver',
-      render: (value, record, index) => {
-        return record.userID
-      },
-    },
-    {
       title: 'Link to map',
       render: (value, record, index) => {
         return <a target={"_blank"}
                   href={`https://www.google.com/maps/place/${record.latitude},${record.longitude}`}>{`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}</a>
       },
+    },
+    {
+      title: 'Set driver',
+      render: (value, record, index) => {
+        return <Select
+          placeholder="Select driver"
+          showSearch
+          filterOption={(input, option) =>
+            option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }
+          value={record.userID}
+          style={width300}
+          onSelect={async (value) => {
+            await DataStore.save(
+              Coordinate.copyOf(record, updated => {
+                updated.userID = value;
+              })
+            );
+          }}>
+          {drivers.map((driver) => <Select.Option key={driver.id}
+                                                     value={driver.id}>{driver.email}</Select.Option>)}
+        </Select>
+      },
+      width: 500,
     },
     {
       title: 'Actions',
@@ -150,11 +177,9 @@ const CoordinatesPage: React.FC = () => {
         </Form.Item>
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
-            const targetDriver = drivers.find(driver => driver.id === assignedDriverId)
             if (name) {
               await DataStore.save(
                 new Coordinate({
-                  userID: targetDriver?.id,
                   latitude: latitude,
                   longitude: longitude,
                   name: name,

@@ -17,6 +17,7 @@
     "antd": "^4.16.6",
     "aws-amplify": "^4.1.2",
     "jspdf": "^2.3.1",
+    "moment-timezone": "^0.5.33",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-google-maps": "^9.4.5",

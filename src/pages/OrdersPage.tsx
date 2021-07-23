@@ -8,7 +8,8 @@ import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {useHistory} from "react-router-dom";
 import {stringifyAddress} from "../utils/utils";
-import moment from "moment";
+import moment from "moment-timezone";
+moment.tz.setDefault("Africa/Nouakchott");
 
 const {Content} = Layout;
 const {Text} = Typography;
@@ -198,7 +199,17 @@ const OrdersPage: React.FC = () => {
       title: 'Created in WP',
       render: (value, record, index) => {
         return <Text>{moment.unix(record.createdAtWp).format("HH:mm DD-MM-YYYY")}</Text>
-      }
+      },
+      sorter: (a, b) => {
+          if (a.createdAtWp < b.createdAtWp) {
+            return -1;
+          }
+          if (a.createdAtWp > b.createdAtWp) {
+            return 1;
+          }
+          return 0;
+      },
+      defaultSortOrder: "descend"
     },
     {
       title: 'Actions',

@@ -67,6 +67,9 @@ const BoxesPage: React.FC = () => {
       if (box.order?.customerID) {
         customer = await DataStore.query(Customer, box.order.customerID)
       }
+      if (!customer) {
+        console.log('cannot find customer', box.order?.customerID)
+      }
       printBoxes.push({
         orderNumber: box.order?.orderNumber || "",
         firstName: customer?.firstName || "",

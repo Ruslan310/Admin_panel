@@ -14,7 +14,8 @@ import {
   Select, Space,
   Spin,
   Table,
-  Typography
+  Typography,
+  Radio, Row
 } from 'antd';
 import {Address, Coordinate, Role, User} from "../models";
 import {ColumnsType} from "antd/es/table";
@@ -51,6 +52,7 @@ const CoordinatesPage: React.FC = () => {
   const [latitude, setLatitude] = useState(0.000000);
   const [longitude, setLongitude] = useState(0.000000);
   const [isLoadingAddresses, setLoadingAddresses] = useState(false)
+  const [driverOnMap, setDriverOnMap] = useState(null);
 
   const fetchCoordinates = async () => {
     const fetchedCoordinates = await DataStore.query(Coordinate);
@@ -207,6 +209,29 @@ const CoordinatesPage: React.FC = () => {
     setDriversModalVisible(false);
   }
 
+  const renderMaps = () => {
+    if (isLoading || coordinates.length === 0) return null;
+    if (driverOnMap) {
+      return drivers.map((driver) => {
+        if (driver.id === driverOnMap) {
+          return <ManyPointsMapComponent
+            // @ts-ignore
+            center={{lat: 34.6671732, lng: 33.0132906}}
+            zoom={12}
+            places={coordinates.filter(coordinate => coordinate.userID === driver.id)}
+          />
+        }
+      })
+    } else {
+      return <ManyPointsMapComponent
+        // @ts-ignore
+        center={{lat: 34.6671732, lng: 33.0132906}}
+        zoom={12}
+        places={coordinates}
+      />
+    }
+  }
+
   return (
     <>
       <Modal
@@ -330,12 +355,18 @@ const CoordinatesPage: React.FC = () => {
             }
           }}
         />
-        {!isLoading && coordinates.length > 0 && <ManyPointsMapComponent
-          // @ts-ignore
-          center={{lat: 34.6671732, lng: 33.0132906}}
-          zoom={12}
-          places={coordinates}
-        />}
+        <Radio.Group size={"large"} onChange={(e) => {
+          if (e.target.value === "all") {
+            setDriverOnMap(null);
+          } else {
+            setDriverOnMap(e.target.value);
+          }
+        }} defaultValue="all">
+          <Radio.Button value="all">All drivers</Radio.Button>
+          {drivers.map((driver => <Radio.Button value={driver.id}>{driver.email}</Radio.Button>))}
+        </Radio.Group>
+        <div style={{height: 30}}/>
+        {renderMaps()}
       </Content>
     </>
   )

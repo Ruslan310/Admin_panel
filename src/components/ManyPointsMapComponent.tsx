@@ -18,7 +18,6 @@ const ManyPointsMapComponent = compose(
     }),
     {
       onToggleOpen: ({infoWindows}) => selectedIndex => {
-        console.log('here')
         console.log(infoWindows)
         return {
           infoWindows: infoWindows.map((iw: any, i: number) => {

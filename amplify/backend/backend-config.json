@@ -31,5 +31,13 @@
         }
       }
     }
+  },
+  "function": {
+    "dnReactCreateUserOnConfirm": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    }
   }
 }

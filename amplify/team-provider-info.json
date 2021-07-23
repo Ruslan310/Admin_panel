@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "dnreact7159e40c7159e40c": {}
+      },
+      "function": {
+        "dnReactCreateUserOnConfirm": {
+          "deploymentBucketName": "amplify-dnreact-dev-202233-deployment",
+          "s3Key": "amplify-builds/dnReactCreateUserOnConfirm-654f4f71373566615161-build.zip"
+        }
       }
     }
   }

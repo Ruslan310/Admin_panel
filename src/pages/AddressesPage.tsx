@@ -61,13 +61,21 @@ const AddressesPage: React.FC = () => {
     {
       title: 'Set coordinates',
       render: (value, record, index) => {
-        return <Select value={record.coordinateID} style={width300} onSelect={async (value) => {
-          await DataStore.save(
-            Address.copyOf(record, updated => {
-              updated.coordinateID = value;
-            })
-          );
-        }}>
+        return <Select
+          placeholder="Select coordinates"
+          showSearch
+          filterOption={(input, option) =>
+            option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }
+          value={record.coordinateID}
+          style={width300}
+          onSelect={async (value) => {
+            await DataStore.save(
+              Address.copyOf(record, updated => {
+                updated.coordinateID = value;
+              })
+            );
+          }}>
           {coordinates.map((coord) => <Select.Option key={coord.id}
                                                      value={coord.id}>{coord.name}</Select.Option>)}
         </Select>

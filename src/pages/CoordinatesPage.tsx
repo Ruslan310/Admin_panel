@@ -12,10 +12,24 @@ const {Content} = Layout;
 
 const width300 = {width: 300}
 
+export interface GeoAddress {
+  id: string,
+  latitude: number,
+  longitude: number,
+  drivers: string[],
+}
+
+export interface Body {
+  clusters: number,
+  drivers: string[],
+  addresses: GeoAddress[]
+}
+
 const CoordinatesPage: React.FC = () => {
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
   const [drivers, setDrivers] = useState<User[]>([]);
   const [isLoading, setLoading] = useState(true);
+  const [isDriversAssigning, setDriversAssigning] = useState(false);
   const [name, setName] = useState('');
   const [latitude, setLatitude] = useState(0.000000);
   const [longitude, setLongitude] = useState(0.000000);
@@ -68,6 +82,7 @@ const CoordinatesPage: React.FC = () => {
         return <Select
           placeholder="Select driver"
           showSearch
+          disabled={isDriversAssigning}
           filterOption={(input, option) =>
             option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
           }
@@ -81,7 +96,7 @@ const CoordinatesPage: React.FC = () => {
             );
           }}>
           {drivers.map((driver) => <Select.Option key={driver.id}
-                                                     value={driver.id}>{driver.email}</Select.Option>)}
+                                                  value={driver.id}>{driver.email}</Select.Option>)}
         </Select>
       },
       width: 500,
@@ -122,9 +137,51 @@ const CoordinatesPage: React.FC = () => {
     setLoadingAddresses(false);
   }
 
+  const driversAutoAssign = async () => {
+    setDriversAssigning(true)
+    let body: Body = {addresses: [], clusters: drivers.length, drivers: drivers.map(driver => driver.id)};
+    for (const coordinate of coordinates) {
+      const geo: GeoAddress = {
+        drivers: [],
+        id: coordinate.id,
+        latitude: coordinate.latitude,
+        longitude: coordinate.longitude
+      }
+      body.addresses.push(geo)
+    }
+    const result = await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/getClusters', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    })
+    const clusters = await result.json();
+    for (let key in clusters) {
+      if (clusters.hasOwnProperty(key)) {
+        let clusterCoordinates = clusters[key];
+        for (const clusterCoordinate of clusterCoordinates) {
+          const coordinate = await DataStore.query(Coordinate, clusterCoordinate)
+          if (coordinate) {
+            await DataStore.save(
+              Coordinate.copyOf(coordinate, updated => {
+                updated.userID = key;
+              })
+            );
+          }
+        }
+      }
+    }
+    setDriversAssigning(false)
+  }
+
   return (
     <Content>
       <Title>Coordinates ({coordinates.length})</Title>
+      <Button
+        loading={isDriversAssigning}
+        disabled={isDriversAssigning}
+        onClick={driversAutoAssign} type="primary">
+        Auto assign drivers
+      </Button>
       <Form
         labelCol={{span: 4}}
         wrapperCol={{span: 14}}

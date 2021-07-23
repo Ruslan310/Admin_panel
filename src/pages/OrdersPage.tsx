@@ -8,8 +8,10 @@ import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {useHistory} from "react-router-dom";
 import {stringifyAddress} from "../utils/utils";
+import moment from "moment";
 
 const {Content} = Layout;
+const {Text} = Typography;
 
 const OrdersPage: React.FC = () => {
   const history = useHistory();
@@ -190,6 +192,12 @@ const OrdersPage: React.FC = () => {
       title: 'Details',
       render: (value, record, index) => {
         return <Button type={'primary'} onClick={() => history.push("/orderDetails/" + record.id)}>Details</Button>
+      }
+    },
+    {
+      title: 'Created in WP',
+      render: (value, record, index) => {
+        return <Text>{moment.unix(record.createdAtWp).format("HH:mm DD-MM-YYYY")}</Text>
       }
     },
     {

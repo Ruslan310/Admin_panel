@@ -37,6 +37,7 @@ export const getCoordinate = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -178,6 +179,7 @@ export const getAddress = /* GraphQL */ `
           customerComment
           customerID
           addressID
+          createdAtWp
           _version
           _deleted
           _lastChangedAt
@@ -277,6 +279,7 @@ export const listAddresss = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -365,6 +368,7 @@ export const byPostCode = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -451,6 +455,7 @@ export const syncAddresses = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -526,6 +531,7 @@ export const getBox = /* GraphQL */ `
         customerComment
         customerID
         addressID
+        createdAtWp
         _version
         _deleted
         _lastChangedAt
@@ -552,6 +558,7 @@ export const getBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -584,6 +591,7 @@ export const getBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -616,6 +624,7 @@ export const getBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -664,6 +673,7 @@ export const listBoxs = /* GraphQL */ `
           customerComment
           customerID
           addressID
+          createdAtWp
           _version
           _deleted
           _lastChangedAt
@@ -769,6 +779,7 @@ export const syncBoxes = /* GraphQL */ `
           customerComment
           customerID
           addressID
+          createdAtWp
           _version
           _deleted
           _lastChangedAt
@@ -850,6 +861,7 @@ export const getOrder = /* GraphQL */ `
       customerComment
       customerID
       addressID
+      createdAtWp
       _version
       _deleted
       _lastChangedAt
@@ -882,6 +894,7 @@ export const getOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -951,6 +964,7 @@ export const getOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1020,6 +1034,7 @@ export const getOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1085,6 +1100,7 @@ export const listOrders = /* GraphQL */ `
         customerComment
         customerID
         addressID
+        createdAtWp
         _version
         _deleted
         _lastChangedAt
@@ -1111,6 +1127,7 @@ export const listOrders = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -1143,6 +1160,7 @@ export const listOrders = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -1175,6 +1193,7 @@ export const listOrders = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -1220,6 +1239,7 @@ export const byOrderNumber = /* GraphQL */ `
         customerComment
         customerID
         addressID
+        createdAtWp
         _version
         _deleted
         _lastChangedAt
@@ -1246,6 +1266,7 @@ export const byOrderNumber = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -1278,6 +1299,7 @@ export const byOrderNumber = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -1310,6 +1332,7 @@ export const byOrderNumber = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -1353,6 +1376,7 @@ export const syncOrders = /* GraphQL */ `
         customerComment
         customerID
         addressID
+        createdAtWp
         _version
         _deleted
         _lastChangedAt
@@ -1379,6 +1403,7 @@ export const syncOrders = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -1411,6 +1436,7 @@ export const syncOrders = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -1443,6 +1469,7 @@ export const syncOrders = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -1638,6 +1665,7 @@ export const getCustomer = /* GraphQL */ `
           customerComment
           customerID
           addressID
+          createdAtWp
           _version
           _deleted
           _lastChangedAt
@@ -1738,6 +1766,7 @@ export const listCustomers = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1827,6 +1856,7 @@ export const byEmail = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1914,6 +1944,7 @@ export const syncCustomers = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt

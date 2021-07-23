@@ -40,6 +40,7 @@ export const createCoordinate = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -94,6 +95,7 @@ export const updateCoordinate = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -148,6 +150,7 @@ export const deleteCoordinate = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -196,6 +199,7 @@ export const createAddress = /* GraphQL */ `
           customerComment
           customerID
           addressID
+          createdAtWp
           _version
           _deleted
           _lastChangedAt
@@ -293,6 +297,7 @@ export const updateAddress = /* GraphQL */ `
           customerComment
           customerID
           addressID
+          createdAtWp
           _version
           _deleted
           _lastChangedAt
@@ -390,6 +395,7 @@ export const deleteAddress = /* GraphQL */ `
           customerComment
           customerID
           addressID
+          createdAtWp
           _version
           _deleted
           _lastChangedAt
@@ -487,6 +493,7 @@ export const createBox = /* GraphQL */ `
         customerComment
         customerID
         addressID
+        createdAtWp
         _version
         _deleted
         _lastChangedAt
@@ -513,6 +520,7 @@ export const createBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -545,6 +553,7 @@ export const createBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -577,6 +586,7 @@ export const createBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -623,6 +633,7 @@ export const updateBox = /* GraphQL */ `
         customerComment
         customerID
         addressID
+        createdAtWp
         _version
         _deleted
         _lastChangedAt
@@ -649,6 +660,7 @@ export const updateBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -681,6 +693,7 @@ export const updateBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -713,6 +726,7 @@ export const updateBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -759,6 +773,7 @@ export const deleteBox = /* GraphQL */ `
         customerComment
         customerID
         addressID
+        createdAtWp
         _version
         _deleted
         _lastChangedAt
@@ -785,6 +800,7 @@ export const deleteBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -817,6 +833,7 @@ export const deleteBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -849,6 +866,7 @@ export const deleteBox = /* GraphQL */ `
               customerComment
               customerID
               addressID
+              createdAtWp
               _version
               _deleted
               _lastChangedAt
@@ -882,6 +900,7 @@ export const createOrder = /* GraphQL */ `
       customerComment
       customerID
       addressID
+      createdAtWp
       _version
       _deleted
       _lastChangedAt
@@ -914,6 +933,7 @@ export const createOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -983,6 +1003,7 @@ export const createOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1052,6 +1073,7 @@ export const createOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1115,6 +1137,7 @@ export const updateOrder = /* GraphQL */ `
       customerComment
       customerID
       addressID
+      createdAtWp
       _version
       _deleted
       _lastChangedAt
@@ -1147,6 +1170,7 @@ export const updateOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1216,6 +1240,7 @@ export const updateOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1285,6 +1310,7 @@ export const updateOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1348,6 +1374,7 @@ export const deleteOrder = /* GraphQL */ `
       customerComment
       customerID
       addressID
+      createdAtWp
       _version
       _deleted
       _lastChangedAt
@@ -1380,6 +1407,7 @@ export const deleteOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1449,6 +1477,7 @@ export const deleteOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1518,6 +1547,7 @@ export const deleteOrder = /* GraphQL */ `
             customerComment
             customerID
             addressID
+            createdAtWp
             _version
             _deleted
             _lastChangedAt
@@ -1757,6 +1787,7 @@ export const createCustomer = /* GraphQL */ `
           customerComment
           customerID
           addressID
+          createdAtWp
           _version
           _deleted
           _lastChangedAt
@@ -1855,6 +1886,7 @@ export const updateCustomer = /* GraphQL */ `
           customerComment
           customerID
           addressID
+          createdAtWp
           _version
           _deleted
           _lastChangedAt
@@ -1953,6 +1985,7 @@ export const deleteCustomer = /* GraphQL */ `
           customerComment
           customerID
           addressID
+          createdAtWp
           _version
           _deleted
           _lastChangedAt

@@ -79,6 +79,7 @@ export declare class Order {
   readonly orderBoxes?: Box[];
   readonly addressID?: string;
   readonly address?: Address;
+  readonly createdAtWp: number;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Order>);

@@ -345,6 +345,13 @@ export const schema = {
                         "targetName": "orderAddressId"
                     }
                 },
+                "createdAtWp": {
+                    "name": "createdAtWp",
+                    "isArray": false,
+                    "type": "AWSTimestamp",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -879,5 +886,5 @@ export const schema = {
             }
         }
     },
-    "version": "65ca86c4ab417d267d72ba1606c500f9"
+    "version": "7249e79d029356893dd159c01f394dfd"
 };

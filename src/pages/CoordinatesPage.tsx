@@ -6,6 +6,7 @@ import {Address, Coordinate, User} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {stringifyAddress} from "../utils/utils";
+import ManyPointsMapComponent from "../components/ManyPointsMapComponent";
 
 const {Content} = Layout;
 
@@ -14,6 +15,7 @@ const width300 = {width: 300}
 const CoordinatesPage: React.FC = () => {
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
   const [drivers, setDrivers] = useState<User[]>([]);
+  const [isLoading, setLoading] = useState(true);
   const [name, setName] = useState('');
   const [latitude, setLatitude] = useState(0.000000);
   const [longitude, setLongitude] = useState(0.000000);
@@ -22,18 +24,17 @@ const CoordinatesPage: React.FC = () => {
 
   const fetchCoordinates = async () => {
     const fetchedCoordinates = await DataStore.query(Coordinate);
-
-    if (fetchedCoordinates.length > 0) {
-      setCoordinates(fetchedCoordinates);
-    }
+    setCoordinates(fetchedCoordinates);
   }
 
   useEffect(() => {
+    setLoading(true);
     fetchCoordinates();
     const coordinatesSubscription = DataStore.observe(Coordinate).subscribe(async (message) => {
       await fetchCoordinates();
     });
 
+    setLoading(false);
     return () => {
       coordinatesSubscription.unsubscribe();
     }
@@ -55,7 +56,7 @@ const CoordinatesPage: React.FC = () => {
       title: 'Link to map',
       render: (value, record, index) => {
         return <a target={"_blank"}
-                    href={`https://www.google.com/maps/place/${record.latitude},${record.longitude}`}>{`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}</a>
+                  href={`https://www.google.com/maps/place/${record.latitude},${record.longitude}`}>{`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}</a>
       },
     },
     {
@@ -190,6 +191,12 @@ const CoordinatesPage: React.FC = () => {
           }
         }}
       />
+      {!isLoading && coordinates.length > 0 && <ManyPointsMapComponent
+        // @ts-ignore
+        center={{lat: 34.6671732, lng: 33.0132906}}
+        zoom={12}
+        places={coordinates}
+      />}
     </Content>
   )
 }

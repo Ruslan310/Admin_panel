@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Col, Descriptions, Input, Layout, Modal, Row, Table, Typography} from 'antd';
+import {Button, Col, Descriptions, Input, Layout, Modal, Row, Space, Table, Typography} from 'antd';
 import {Address, Box, Coordinate, Customer, Order, User} from "../models";
 import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
@@ -221,18 +221,21 @@ const OrdersPage: React.FC = () => {
   return (
     <Content>
       <Title>Orders ({orders.length})</Title>
-      <Button onClick={async () => {
-        for (const order of orders) {
-          await deleteOrderWithBoxes(order.id);
-        }
-      }} type="primary" htmlType="submit">
-        Delete all orders
-      </Button>
+      <Space>
+      {/*<Button onClick={async () => {*/}
+      {/*  for (const order of orders) {*/}
+      {/*    await deleteOrderWithBoxes(order.id);*/}
+      {/*  }*/}
+      {/*}} type="primary" htmlType="submit">*/}
+      {/*  Delete all orders*/}
+      {/*</Button>*/}
       <Button onClick={async () => {
         await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')
       }} type="default">
         Sync orders from wp
       </Button>
+      </Space>
+      <div style={{height: 20}}/>
       <Table
         loading={isLoading}
         size={"middle"}

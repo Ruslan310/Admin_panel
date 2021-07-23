@@ -87,13 +87,13 @@ const AddressesPage: React.FC = () => {
   return (
     <Content>
       <Title>Addresses ({addresses.length})</Title>
-      <Button onClick={async () => {
-        for (const address of addresses) {
-          await DataStore.delete(Address, address.id);
-        }
-      }} type="primary" htmlType="submit">
-        Delete all addresses
-      </Button>
+      {/*<Button onClick={async () => {*/}
+      {/*  for (const address of addresses) {*/}
+      {/*    await DataStore.delete(Address, address.id);*/}
+      {/*  }*/}
+      {/*}} type="primary" htmlType="submit">*/}
+      {/*  Delete all addresses*/}
+      {/*</Button>*/}
       <Table
         size={"middle"}
         rowKey="id"

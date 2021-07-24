@@ -137,7 +137,7 @@ const OrderDetailsPage: React.FC = () => {
       console.log(coordinate)
       if (coordinate?.userID) {
         const driver = await DataStore.query(User, coordinate.userID);
-        setAssignedDriver(driver?.firstName);
+        setAssignedDriver(driver?.email);
       } else {
         setAssignedDriver('Not assigned');
       }

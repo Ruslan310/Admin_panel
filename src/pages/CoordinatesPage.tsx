@@ -246,6 +246,7 @@ const CoordinatesPage: React.FC = () => {
   return (
     <>
       <Modal
+        confirmLoading={isDriversAssigning}
         okButtonProps={{disabled: selectedDrivers.length === 0}}
         title="Select drivers to assign"
         visible={isDriversModalVisible}
@@ -384,8 +385,8 @@ const CoordinatesPage: React.FC = () => {
             setDriverOnMap(e.target.value);
           }
         }} defaultValue="all">
-          <Radio.Button value="all">All drivers</Radio.Button>
-          {drivers.map((driver => <Radio.Button value={driver.id}>{driver.email}</Radio.Button>))}
+          <Radio.Button value="all">All drivers ({coordinates.length})</Radio.Button>
+          {drivers.map((driver => <Radio.Button value={driver.id}>{driver.email} ({coordinates.filter(coordinate => coordinate.userID === driver.id).length})</Radio.Button>))}
         </Radio.Group>
         <div style={{height: 30}}/>
         {renderMaps()}

@@ -235,13 +235,13 @@ const OrdersPage: React.FC = () => {
       const coordinate = await DataStore.query(Coordinate, address.coordinateID);
       if (coordinate?.userID) {
         const driver = await DataStore.query(User, coordinate.userID);
-        setAssignedDriverName(driver?.firstName);
+        setAssignedDriverName(driver?.email);
       }
     }
     Modal.info({
       title: 'Assigned driver:',
       content: (
-        <Title level={2}>{assignedDriverName}</Title>
+        <Title level={3}>{assignedDriverName}</Title>
       ),
     });
   }

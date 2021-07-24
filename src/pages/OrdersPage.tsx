@@ -24,6 +24,9 @@ const OrdersPage: React.FC = () => {
   const [searchName, setSearchName] = useState('')
   const [searchNumber, setSearchNumber] = useState('')
   const [assignedDriverName, setAssignedDriverName] = useState<string>()
+  const [isDeleteOrderConfirm, setDeleteOrderConfirm] = useState(false)
+  const [isDeleting, setDeleting] = useState(false)
+  const [targetOrder, setTargetOrder] = useState<Order>()
 
   const fetchOrders = async () => {
     const fetchedOrders = await DataStore.query(Order, order => order.orderStatus("eq", OrderStatus.PROCESSING));
@@ -127,14 +130,20 @@ const OrdersPage: React.FC = () => {
     </Row>
   );
 
-  const deleteOrderWithBoxes = async (orderId: string) => {
-    const boxes = await DataStore.query(Box, box => box.orderID("eq", orderId))
-    if (boxes) {
-      for (const box of boxes) {
-        await DataStore.delete(Box, box.id)
+  const deleteOrderWithBoxes = async () => {
+    setDeleting(true)
+    if (targetOrder) {
+      const boxes = await DataStore.query(Box, box => box.orderID("eq", targetOrder.id))
+      if (boxes) {
+        for (const box of boxes) {
+          await DataStore.delete(Box, box.id)
+        }
       }
+      await DataStore.delete(Order, targetOrder.id);
     }
-    await DataStore.delete(Order, orderId);
+    setDeleting(false)
+    setTargetOrder(undefined);
+    setDeleteOrderConfirm(false);
   }
 
   const columns: ColumnsType<Order> = [
@@ -198,20 +207,23 @@ const OrdersPage: React.FC = () => {
         return <Text>{moment.unix(record.createdAtWp).format("HH:mm DD-MM-YYYY")}</Text>
       },
       sorter: (a, b) => {
-          if (a.createdAtWp < b.createdAtWp) {
-            return -1;
-          }
-          if (a.createdAtWp > b.createdAtWp) {
-            return 1;
-          }
-          return 0;
+        if (a.createdAtWp < b.createdAtWp) {
+          return -1;
+        }
+        if (a.createdAtWp > b.createdAtWp) {
+          return 1;
+        }
+        return 0;
       },
       defaultSortOrder: "descend"
     },
     {
       title: 'Actions',
       render: (value, record, index) => {
-        return <Button type={'primary'} onClick={async () => await deleteOrderWithBoxes(record.id)}>Delete</Button>
+        return <Button type={'primary'} onClick={async () => {
+          setTargetOrder(record);
+          setDeleteOrderConfirm(true);
+        }}>Delete</Button>
       }
     }
   ];
@@ -235,45 +247,59 @@ const OrdersPage: React.FC = () => {
   }
 
   return (
-    <Content>
-      <Title>Orders ({orders.length})</Title>
-      <Space>
-      {/*<Button onClick={async () => {*/}
-      {/*  for (const order of orders) {*/}
-      {/*    await deleteOrderWithBoxes(order.id);*/}
-      {/*  }*/}
-      {/*}} type="primary" htmlType="submit">*/}
-      {/*  Delete all orders*/}
-      {/*</Button>*/}
-      <Button onClick={async () => {
-        await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')
-      }} type="default">
-        Sync orders from wp
-      </Button>
-      </Space>
-      <div style={{height: 20}}/>
-      <Table
-        loading={isLoading}
-        size={"middle"}
-        rowKey="id"
-        rowSelection={rowSelection}
-        columns={columns}
-        dataSource={filteredOrders}
-        expandable={{
-          expandedRowRender: record => {
-            return <Descriptions title="Order details">
-              <Descriptions.Item label="Full address">{stringifyAddress(record.address)}</Descriptions.Item>
-              <Descriptions.Item label="Phone number">{record.customer?.phoneNumber}</Descriptions.Item>
-              <Descriptions.Item label="Email">{record.customer?.email}</Descriptions.Item>
-              <Descriptions.Item label="Created">{record.createdAt}</Descriptions.Item>
-              <Descriptions.Item label="WP Status">{record.orderStatus}</Descriptions.Item>
-              <Descriptions.Item label="Order total price">{record.finalPrice}</Descriptions.Item>
-            </Descriptions>
-          },
-          rowExpandable: record => true,
+    <>
+      <Content>
+        <Title>Orders ({orders.length})</Title>
+        <Space>
+          {/*<Button onClick={async () => {*/}
+          {/*  for (const order of orders) {*/}
+          {/*    await deleteOrderWithBoxes(order.id);*/}
+          {/*  }*/}
+          {/*}} type="primary" htmlType="submit">*/}
+          {/*  Delete all orders*/}
+          {/*</Button>*/}
+          <Button onClick={async () => {
+            await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')
+          }} type="default">
+            Sync orders from wp
+          </Button>
+        </Space>
+        <div style={{height: 20}}/>
+        <Table
+          loading={isLoading}
+          size={"middle"}
+          rowKey="id"
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={filteredOrders}
+          expandable={{
+            expandedRowRender: record => {
+              return <Descriptions title="Order details">
+                <Descriptions.Item label="Full address">{stringifyAddress(record.address)}</Descriptions.Item>
+                <Descriptions.Item label="Phone number">{record.customer?.phoneNumber}</Descriptions.Item>
+                <Descriptions.Item label="Email">{record.customer?.email}</Descriptions.Item>
+                <Descriptions.Item label="Created">{record.createdAt}</Descriptions.Item>
+                <Descriptions.Item label="WP Status">{record.orderStatus}</Descriptions.Item>
+                <Descriptions.Item label="Order total price">{record.finalPrice}</Descriptions.Item>
+              </Descriptions>
+            },
+            rowExpandable: record => true,
+          }}
+        />
+      </Content>
+      <Modal
+        title="Are sure you want to delete order?"
+        visible={isDeleteOrderConfirm}
+        onOk={deleteOrderWithBoxes}
+        confirmLoading={isDeleting}
+        onCancel={() => {
+          setTargetOrder(undefined);
+          setDeleteOrderConfirm(false);
         }}
-      />
-    </Content>
+      >
+        <Text>You are going to delete order <Text strong>{targetOrder?.orderNumber}</Text></Text>
+      </Modal>
+    </>
   )
 }
 

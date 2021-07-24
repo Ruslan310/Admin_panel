@@ -148,6 +148,7 @@ const CoordinatesPage: React.FC = () => {
       }
       await DataStore.delete(Coordinate, targetCoordinate.id);
     }
+    setTargetCoordinate(undefined);
     setDeleteConfirmationShow(false);
   };
 
@@ -269,7 +270,7 @@ const CoordinatesPage: React.FC = () => {
       <Modal
         title="Are sure you want to delete coordinate?"
         visible={isDeleteConfirmationShow}
-        onOk={() => deleteCoordinate()}
+        onOk={deleteCoordinate}
         onCancel={() => {
           setTargetCoordinate(undefined);
           setDeleteConfirmationShow(false);

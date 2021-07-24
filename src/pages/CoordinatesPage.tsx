@@ -15,7 +15,7 @@ import {
   Spin,
   Table,
   Typography,
-  Radio, Row
+  Radio
 } from 'antd';
 import {Address, Coordinate, Role, User} from "../models";
 import {ColumnsType} from "antd/es/table";
@@ -48,6 +48,8 @@ const CoordinatesPage: React.FC = () => {
   const [isLoading, setLoading] = useState(true);
   const [isDriversAssigning, setDriversAssigning] = useState(false);
   const [isDriversModalVisible, setDriversModalVisible] = useState(false);
+  const [isDeleteConfirmationShow, setDeleteConfirmationShow] = useState(false);
+  const [targetCoordinate, setTargetCoordinate] = useState<Coordinate>();
   const [name, setName] = useState('');
   const [latitude, setLatitude] = useState(0.000000);
   const [longitude, setLongitude] = useState(0.000000);
@@ -124,22 +126,30 @@ const CoordinatesPage: React.FC = () => {
     {
       title: 'Actions',
       render: (value, record, index) => {
-        return <Button type={'primary'} onClick={async () => {
-          const addresses = await DataStore.query(Address, address => address.coordinateID("eq", record.id))
-          if (addresses) {
-            for (const address of addresses) {
-              await DataStore.save(
-                Address.copyOf(address, updated => {
-                  updated.coordinateID = undefined;
-                })
-              );
-            }
-          }
-          await DataStore.delete(Coordinate, record.id);
+        return <Button type={'primary'} onClick={() =>{
+          setDeleteConfirmationShow(true);
+          setTargetCoordinate(record);
         }}>Delete</Button>
       }
     }
   ];
+
+  const deleteCoordinate = async () => {
+    if (targetCoordinate) {
+      const addresses = await DataStore.query(Address, address => address.coordinateID("eq", targetCoordinate.id))
+      if (addresses) {
+        for (const address of addresses) {
+          await DataStore.save(
+            Address.copyOf(address, updated => {
+              updated.coordinateID = undefined;
+            })
+          );
+        }
+      }
+      await DataStore.delete(Coordinate, targetCoordinate.id);
+    }
+    setDeleteConfirmationShow(false);
+  };
 
   const loadAddresses = async (coordinateId: string): Promise<void> => {
     setLoadingAddresses(true);
@@ -255,6 +265,17 @@ const CoordinatesPage: React.FC = () => {
                 }}>{driver.email}</Checkbox>
             </Col>)}
         </Space>
+      </Modal>
+      <Modal
+        title="Are sure you want to delete coordinate?"
+        visible={isDeleteConfirmationShow}
+        onOk={() => deleteCoordinate()}
+        onCancel={() => {
+          setTargetCoordinate(undefined);
+          setDeleteConfirmationShow(false);
+        }}
+      >
+        <p>You want to delete coordinate with name "{targetCoordinate?.name}"</p>
       </Modal>
       <Content>
         <Title>Coordinates ({coordinates.length})</Title>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Button, Layout, Table, Tabs, Typography} from 'antd';
-import {Box, Customer, WeekDay} from "../models";
+import {Box, Customer, OrderStatus, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import moment from 'moment';
@@ -29,7 +29,7 @@ const BoxesPage: React.FC = () => {
   const [boxes, setBoxes] = useState<Box[]>([]);
 
   const fetchBoxes = async () => {
-    const fetchedBoxes = await DataStore.query(Box);
+    const fetchedBoxes = (await DataStore.query(Box)).filter(box => box.order?.orderStatus === OrderStatus.PROCESSING);
     setBoxes(fetchedBoxes);
   }
 

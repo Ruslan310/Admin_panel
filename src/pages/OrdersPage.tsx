@@ -2,13 +2,14 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Button, Col, Descriptions, Input, Layout, Modal, Row, Space, Table, Typography} from 'antd';
-import {Address, Box, Coordinate, Customer, Order, User} from "../models";
+import {Address, Box, Coordinate, Order, OrderStatus, User} from "../models";
 import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {useHistory} from "react-router-dom";
 import {fullName, stringifyAddress} from "../utils/utils";
 import moment from "moment-timezone";
+
 moment.tz.setDefault("Africa/Nouakchott");
 
 const {Content} = Layout;
@@ -25,7 +26,7 @@ const OrdersPage: React.FC = () => {
   const [assignedDriverName, setAssignedDriverName] = useState<string>()
 
   const fetchOrders = async () => {
-    const fetchedOrders = await DataStore.query(Order);
+    const fetchedOrders = await DataStore.query(Order, order => order.orderStatus("eq", OrderStatus.PROCESSING));
 
     setOrders(fetchedOrders);
     setFilteredOrders(fetchedOrders);

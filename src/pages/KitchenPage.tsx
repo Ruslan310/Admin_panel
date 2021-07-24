@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Layout, Table, Tabs} from 'antd';
-import {Order, WeekDay} from "../models";
+import {Order, OrderStatus, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import moment from 'moment';
@@ -23,7 +23,7 @@ const KitchenPage: React.FC = () => {
   const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
 
   const fetchOrders = async () => {
-    const fetchedOrders = await DataStore.query(Order);
+    const fetchedOrders = await DataStore.query(Order, order => order.orderStatus("eq", OrderStatus.PROCESSING));
     let newItems: KitchenDish[] = [];
     for (const order of fetchedOrders) {
       if (order.dishes) {

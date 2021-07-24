@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { CSVLink, CSVDownload } from "react-csv";
 
 import {Button, Input, InputNumber, Layout, Progress, Radio, Space, Typography} from 'antd';
 import Title from "antd/es/typography/Title";
@@ -6,6 +7,7 @@ import {DataStore} from 'aws-amplify';
 import {Order} from "../models";
 import moment from "moment-timezone";
 import {fullName} from "../utils/utils";
+import {CommonPropTypes, Data} from "react-csv/components/CommonPropTypes";
 
 const {Text} = Typography;
 
@@ -22,6 +24,7 @@ initialEndDate.set({hour: 9, minute: 30, second: 0});
 
 interface InvoiceOrderItem {
   fullName: string,
+  total: number,
   companyPayment: number,
   customerPayment: number,
 }
@@ -32,6 +35,7 @@ const AddressesPage: React.FC = () => {
   const [endDate, setEndDate] = useState(initialEndDate);
   const [targetCompany, setTargetCompany] = useState('');
   const [companyCoverage, setCompanyCoverage] = useState(0);
+  const [csvData, setCsvData] = useState<Data>([]);
 
   return (
     <Content>
@@ -41,20 +45,34 @@ const AddressesPage: React.FC = () => {
           const orders = await DataStore.query(Order, order => order.createdAtWp("between", [startDate.unix(), endDate.unix()]));
           const companyOrders = orders.filter(order => targetCompany ? order.customer?.company?.toLowerCase().includes(targetCompany) : true)
           const invoice: InvoiceOrderItem[] = [];
+          setProgress(1);
+          let count = 1;
           for (const order of companyOrders) {
             const found = invoice.find(item => fullName(order.customer) === item.fullName);
             if (found) {
-              found.companyPayment = found.companyPayment + order.finalPrice;
+              found.companyPayment = Math.round((found.companyPayment + order.finalPrice) * 100) / 100;
             } else {
               const newItem: InvoiceOrderItem = {
-                companyPayment: order.finalPrice,
+                fullName: fullName(order.customer),
+                total: Math.round(order.finalPrice * 100) / 100,
+                companyPayment: 0,
                 customerPayment: 0,
-                fullName: fullName(order.customer)
               };
               invoice.push(newItem)
             }
+            count++;
+            setProgress(Math.round((count/companyOrders.length)*90))
           }
-          console.log(invoice)
+          for (const invoiceItem of invoice) {
+            if (invoiceItem.total > companyCoverage) {
+              invoiceItem.customerPayment = Math.round((invoiceItem.total - companyCoverage) * 100) / 100;
+              invoiceItem.companyPayment = companyCoverage;
+            } else {
+              invoiceItem.companyPayment = invoiceItem.total;
+            }
+          }
+          setProgress(100)
+          setCsvData(invoice);
         }} type="primary">
           Generate ({startDate.format("DD-MM")}-{endDate.format("DD-MM")})
         </Button>
@@ -82,6 +100,7 @@ const AddressesPage: React.FC = () => {
         </Space>
       </Space>
       {progress > 0 && <Progress percent={progress}/>}
+      {progress === 100 && <CSVLink data={csvData}>Download report</CSVLink>}
     </Content>
   )
 }

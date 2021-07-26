@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Layout, Select, Table} from 'antd';
+import {Button, Layout, Modal, Select, Table} from 'antd';
 import {Address, Coordinate} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
+import {stringifyAddress} from "../utils/utils";
 
 const {Content} = Layout;
 const width300 = {width: 300}
@@ -12,6 +13,8 @@ const width300 = {width: 300}
 const AddressesPage: React.FC = () => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
+  const [isDeleteConfirmationShow, setDeleteConfirmationShow] = useState(false);
+  const [targetAddress, setTargetAddress] = useState<Address>();
 
   const fetchCoordinates = async () => {
     const fetchedCoordinates = await DataStore.query(Coordinate);
@@ -90,25 +93,55 @@ const AddressesPage: React.FC = () => {
         }
       }
     },
+    {
+      title: 'Delete',
+      render: (value, record, index) => {
+        return <Button type={'primary'} onClick={() =>{
+          setDeleteConfirmationShow(true);
+          setTargetAddress(record);
+        }}>Delete</Button>
+      }
+    }
   ];
 
+  const deleteAddress = async () => {
+    if (targetAddress) {
+      await DataStore.delete(Address, targetAddress.id);
+    }
+    setTargetAddress(undefined);
+    setDeleteConfirmationShow(false);
+  };
+
   return (
-    <Content>
-      <Title>Addresses ({addresses.length})</Title>
-      {/*<Button onClick={async () => {*/}
-      {/*  for (const address of addresses) {*/}
-      {/*    await DataStore.delete(Address, address.id);*/}
-      {/*  }*/}
-      {/*}} type="primary" htmlType="submit">*/}
-      {/*  Delete all addresses*/}
-      {/*</Button>*/}
-      <Table
-        size={"middle"}
-        rowKey="id"
-        columns={columns}
-        dataSource={addresses}
-      />
-    </Content>
+    <>
+      <Content>
+        <Title>Addresses ({addresses.length})</Title>
+        {/*<Button onClick={async () => {*/}
+        {/*  for (const address of addresses) {*/}
+        {/*    await DataStore.delete(Address, address.id);*/}
+        {/*  }*/}
+        {/*}} type="primary" htmlType="submit">*/}
+        {/*  Delete all addresses*/}
+        {/*</Button>*/}
+        <Table
+          size={"middle"}
+          rowKey="id"
+          columns={columns}
+          dataSource={addresses}
+        />
+      </Content>
+      <Modal
+        title="Are sure you want to delete address?"
+        visible={isDeleteConfirmationShow}
+        onOk={deleteAddress}
+        onCancel={() => {
+          setTargetAddress(undefined);
+          setDeleteConfirmationShow(false);
+        }}
+      >
+        <p>You want to delete address "{stringifyAddress(targetAddress)}"</p>
+      </Modal>
+    </>
   )
 }
 

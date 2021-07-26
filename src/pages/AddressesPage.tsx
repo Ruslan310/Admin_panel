@@ -81,6 +81,14 @@ const AddressesPage: React.FC = () => {
         </Select>
       },
       width: 500,
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => {
+        if (a.coordinateID) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }
     },
   ];
 

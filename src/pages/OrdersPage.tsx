@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Col, Descriptions, Input, Layout, Modal, Row, Space, Table, Typography} from 'antd';
+import {Button, Checkbox, Col, Descriptions, Divider, Input, Layout, Modal, Row, Table, Typography} from 'antd';
 import {Address, Box, Coordinate, Order, OrderStatus, User} from "../models";
 import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
@@ -21,6 +21,7 @@ const OrdersPage: React.FC = () => {
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([])
   const [isLoading, setLoading] = useState(true)
+  const [checkedStatusesList, setCheckedStatusesList] = React.useState<OrderStatus[]>([OrderStatus.PROCESSING]);
   const [searchName, setSearchName] = useState('')
   const [searchNumber, setSearchNumber] = useState('')
   const [assignedDriverName, setAssignedDriverName] = useState<string>()
@@ -29,10 +30,10 @@ const OrdersPage: React.FC = () => {
   const [targetOrder, setTargetOrder] = useState<Order>()
 
   const fetchOrders = async () => {
-    const fetchedOrders = await DataStore.query(Order, order => order.orderStatus("eq", OrderStatus.PROCESSING));
+    const fetchedOrders = await DataStore.query(Order);
 
     setOrders(fetchedOrders);
-    setFilteredOrders(fetchedOrders);
+    setFilteredOrders(fetchedOrders.filter(order => checkedStatusesList.includes(order.orderStatus as OrderStatus)));
     setLoading(false)
   }
 
@@ -96,10 +97,9 @@ const OrdersPage: React.FC = () => {
           onChange={e => {
             const currValue = e.target.value;
             setSearchName(currValue);
-            const filteredData = orders.filter((order: Order) => {
-                return fullName(order.customer).toLowerCase().includes(currValue.toLowerCase())
-              }
-            );
+            const filteredData = orders
+              .filter(order => checkedStatusesList.includes(order.orderStatus as OrderStatus))
+              .filter(order => fullName(order.customer).toLowerCase().includes(currValue.toLowerCase()));
             setFilteredOrders(filteredData);
           }}
         />
@@ -119,10 +119,9 @@ const OrdersPage: React.FC = () => {
           onChange={e => {
             const currValue = e.target.value;
             setSearchNumber(currValue);
-            const filteredData = orders.filter((order: Order) => {
-                return order.orderNumber?.toLowerCase().includes(currValue.toLowerCase())
-              }
-            );
+            const filteredData = orders
+              .filter(order => checkedStatusesList.includes(order.orderStatus as OrderStatus))
+              .filter(order => order.orderNumber?.toLowerCase().includes(currValue.toLowerCase()));
             setFilteredOrders(filteredData);
           }}
         />
@@ -249,22 +248,32 @@ const OrdersPage: React.FC = () => {
   return (
     <>
       <Content>
-        <Title>Orders ({orders.length})</Title>
-        <Space>
-          {/*<Button onClick={async () => {*/}
-          {/*  for (const order of orders) {*/}
-          {/*    await deleteOrderWithBoxes(order.id);*/}
-          {/*  }*/}
-          {/*}} type="primary" htmlType="submit">*/}
-          {/*  Delete all orders*/}
-          {/*</Button>*/}
-          <Button onClick={async () => {
-            await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')
-          }} type="default">
-            Sync orders from wp
-          </Button>
-        </Space>
-        <div style={{height: 20}}/>
+        <Title>Orders ({filteredOrders.length})</Title>
+        {/*<Space>*/}
+        {/*<Button onClick={async () => {*/}
+        {/*  for (const order of orders) {*/}
+        {/*    await deleteOrderWithBoxes(order.id);*/}
+        {/*  }*/}
+        {/*}} type="primary" htmlType="submit">*/}
+        {/*  Delete all orders*/}
+        {/*</Button>*/}
+        {/*<Button onClick={async () => {*/}
+        {/*  await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')*/}
+        {/*}} type="default">*/}
+        {/*  Sync orders from wp*/}
+        {/*</Button>*/}
+        {/*</Space>*/}
+        <Checkbox.Group options={Object.values(OrderStatus)} value={checkedStatusesList} onChange={(list) => {
+          setCheckedStatusesList(list as Array<OrderStatus>);
+          console.log(list)
+          setFilteredOrders(
+            orders
+              .filter(order => list.includes(order.orderStatus as OrderStatus))
+              .filter(order => order.orderNumber?.toLowerCase().includes(searchNumber.toLowerCase()))
+              .filter(order => fullName(order.customer).toLowerCase().includes(searchName.toLowerCase()))
+          )
+        }}/>
+        <Divider/>
         <Table
           loading={isLoading}
           size={"middle"}
@@ -303,4 +312,4 @@ const OrdersPage: React.FC = () => {
   )
 }
 
-export default OrdersPage
+export default OrdersPage;

@@ -162,7 +162,6 @@ const OrderDetailsPage: React.FC = () => {
       </Checkbox>
       <Divider/>
       <Checkbox.Group options={Object.values(WeekDay)} value={checkedList} onChange={onChange}/>
-
       <Divider/>
       <Title>Boxes</Title>
       <Table

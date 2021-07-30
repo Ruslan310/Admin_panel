@@ -5,7 +5,7 @@ import {Layout, Table, Tabs} from 'antd';
 import {Order, OrderStatus, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
-import moment from 'moment';
+import {today} from "../utils/utils";
 
 const {Content} = Layout;
 const {TabPane} = Tabs;
@@ -17,7 +17,6 @@ interface KitchenDish {
   weekDay: WeekDay | keyof typeof WeekDay;
 }
 
-const today = moment().format('dddd');
 const KitchenPage: React.FC = () => {
   const [kitchenDishes, setKitchenDishes] = useState<KitchenDish[]>([]);
   const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);

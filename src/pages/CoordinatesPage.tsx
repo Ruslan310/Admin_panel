@@ -3,51 +3,29 @@ import {DataStore} from 'aws-amplify'
 
 import {
   Button,
-  Checkbox,
-  Col,
+  Divider,
   Form,
   Input,
   InputNumber,
   Layout,
   List,
   Modal,
-  Select, Space,
   Spin,
   Table,
-  Typography,
-  Radio, Row
 } from 'antd';
-import {Address, Coordinate, Order, Role, User} from "../models";
+import {Address, Coordinate} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {stringifyAddress} from "../utils/utils";
 import ManyPointsMapComponent from "../components/ManyPointsMapComponent";
 
 const {Content} = Layout;
-const {Text} = Typography;
 
 const width300 = {width: 300}
 
-export interface GeoAddress {
-  id: string,
-  latitude: number,
-  longitude: number,
-  drivers: string[],
-}
-
-export interface Body {
-  clusters: number,
-  drivers: string[],
-  addresses: GeoAddress[]
-}
-
 const CoordinatesPage: React.FC = () => {
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
-  const [drivers, setDrivers] = useState<User[]>([]);
-  const [selectedDrivers, setSelectedDrivers] = useState<User[]>([]);
   const [isLoading, setLoading] = useState(true);
-  const [isDriversAssigning, setDriversAssigning] = useState(false);
-  const [isDriversModalVisible, setDriversModalVisible] = useState(false);
   const [isDeleteConfirmationShow, setDeleteConfirmationShow] = useState(false);
   const [isEditShow, setEditShow] = useState(false);
   const [editedName, setEditedName] = useState<string>();
@@ -58,34 +36,22 @@ const CoordinatesPage: React.FC = () => {
   const [latitude, setLatitude] = useState(0.000000);
   const [longitude, setLongitude] = useState(0.000000);
   const [isLoadingAddresses, setLoadingAddresses] = useState(false)
-  const [driverOnMap, setDriverOnMap] = useState(null);
 
   const fetchCoordinates = async () => {
     const fetchedCoordinates = await DataStore.query(Coordinate);
     setCoordinates(fetchedCoordinates);
   }
 
-  const fetchDrivers = async () => {
-    const fetchedDrivers = await DataStore.query(User, user => user.role("eq", Role.DELIVERY));
-    setDrivers(fetchedDrivers);
-    setSelectedDrivers(fetchedDrivers);
-  }
-
   useEffect(() => {
     setLoading(true);
     fetchCoordinates();
-    fetchDrivers();
     const coordinatesSubscription = DataStore.observe(Coordinate).subscribe(async (message) => {
       await fetchCoordinates();
-    });
-    const driversSubscription = DataStore.observe(User).subscribe(async (message) => {
-      await fetchDrivers();
     });
 
     setLoading(false);
     return () => {
       coordinatesSubscription.unsubscribe();
-      driversSubscription.unsubscribe();
     }
 
   }, []);
@@ -103,34 +69,9 @@ const CoordinatesPage: React.FC = () => {
       },
     },
     {
-      title: 'Set driver',
-      render: (value, record, index) => {
-        return <Select
-          placeholder="Select driver"
-          showSearch
-          disabled={isDriversAssigning}
-          filterOption={(input, option) =>
-            option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-          value={record.userID}
-          style={width300}
-          onSelect={async (value) => {
-            await DataStore.save(
-              Coordinate.copyOf(record, updated => {
-                updated.userID = value;
-              })
-            );
-          }}>
-          {drivers.map((driver) => <Select.Option key={driver.id}
-                                                  value={driver.id}>{driver.email}</Select.Option>)}
-        </Select>
-      },
-      width: 500,
-    },
-    {
       title: 'Edit',
       render: (value, record, index) => {
-        return <Button type={'primary'} onClick={() =>{
+        return <Button type={'primary'} onClick={() => {
           setEditShow(true);
           setEditedName(record.name)
           setEditedLatitude(record.latitude)
@@ -142,7 +83,7 @@ const CoordinatesPage: React.FC = () => {
     {
       title: 'Delete',
       render: (value, record, index) => {
-        return <Button type={'primary'} onClick={() =>{
+        return <Button type={'primary'} onClick={() => {
           setDeleteConfirmationShow(true);
           setTargetCoordinate(record);
         }}>Delete</Button>
@@ -198,106 +139,22 @@ const CoordinatesPage: React.FC = () => {
     setLoadingAddresses(false);
   }
 
-  const driversAutoAssign = async () => {
-    if (selectedDrivers.length === 0) return;
-    setDriversAssigning(true)
-    if (selectedDrivers.length === 1) {
-      for (const coordinate of coordinates) {
-        await DataStore.save(
-          Coordinate.copyOf(coordinate, updated => {
-            updated.userID = selectedDrivers[0].id;
-          })
-        );
-      }
-    } else {
-      let body: Body = {
-        addresses: [],
-        clusters: selectedDrivers.length,
-        drivers: selectedDrivers.map(driver => driver.id)
-      };
-      for (const coordinate of coordinates) {
-        const geo: GeoAddress = {
-          drivers: [],
-          id: coordinate.id,
-          latitude: coordinate.latitude,
-          longitude: coordinate.longitude
-        }
-        body.addresses.push(geo)
-      }
-      const result = await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/getClusters', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(body)
-      })
-      const clusters = await result.json();
-      for (let key in clusters) {
-        if (clusters.hasOwnProperty(key)) {
-          let clusterCoordinates = clusters[key];
-          for (const clusterCoordinate of clusterCoordinates) {
-            const coordinate = await DataStore.query(Coordinate, clusterCoordinate)
-            if (coordinate) {
-              await DataStore.save(
-                Coordinate.copyOf(coordinate, updated => {
-                  updated.userID = key;
-                })
-              );
-            }
-          }
-        }
-      }
-    }
-    setDriversAssigning(false)
-    setDriversModalVisible(false);
-  }
-
   const renderMaps = () => {
     if (isLoading || coordinates.length === 0) return null;
-    if (driverOnMap) {
-      return drivers.map((driver) => {
-        if (driver.id === driverOnMap) {
-          return <ManyPointsMapComponent
-            // @ts-ignore
-            center={{lat: 34.6671732, lng: 33.0132906}}
-            zoom={12}
-            places={coordinates.filter(coordinate => coordinate.userID === driver.id)}
-          />
-        }
-      })
-    } else {
-      return <ManyPointsMapComponent
-        // @ts-ignore
-        center={{lat: 34.6671732, lng: 33.0132906}}
-        zoom={12}
-        places={coordinates}
-      />
-    }
+    return <ManyPointsMapComponent
+      // @ts-ignore
+      center={{lat: 34.6671732, lng: 33.0132906}}
+      zoom={12}
+      places={coordinates}
+    />
+  }
+
+  if (isLoading) {
+    return <Spin size="large"/>
   }
 
   return (
     <>
-      <Modal
-        confirmLoading={isDriversAssigning}
-        okButtonProps={{disabled: selectedDrivers.length === 0}}
-        title="Select drivers to assign"
-        visible={isDriversModalVisible}
-        onOk={driversAutoAssign}
-        onCancel={() => setDriversModalVisible(false)}>
-        <Space direction="vertical">
-          {selectedDrivers.length === 0 && <Text strong type="danger">And who do you think deliver it?</Text>}
-          {drivers.map((driver) =>
-            <Col span={8}>
-              <Checkbox
-                checked={selectedDrivers.includes(driver)}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setSelectedDrivers([...selectedDrivers, driver])
-                  } else {
-                    setSelectedDrivers([...selectedDrivers.filter(sDriver => sDriver.id !== driver.id)])
-                  }
-                }}>{driver.email}</Checkbox>
-            </Col>)}
-        </Space>
-      </Modal>
       <Modal
         title="Are sure you want to delete coordinate?"
         visible={isDeleteConfirmationShow}
@@ -387,12 +244,6 @@ const CoordinatesPage: React.FC = () => {
       </Modal>
       <Content>
         <Title>Coordinates ({coordinates.length})</Title>
-        <Button
-          loading={isDriversAssigning}
-          disabled={isDriversAssigning}
-          onClick={() => setDriversModalVisible(true)} type="primary">
-          Auto assign drivers
-        </Button>
         <Form
           labelCol={{span: 4}}
           wrapperCol={{span: 14}}
@@ -500,17 +351,7 @@ const CoordinatesPage: React.FC = () => {
             }
           }}
         />
-        <Radio.Group size={"large"} onChange={(e) => {
-          if (e.target.value === "all") {
-            setDriverOnMap(null);
-          } else {
-            setDriverOnMap(e.target.value);
-          }
-        }} defaultValue="all">
-          <Radio.Button value="all">All drivers ({coordinates.length})</Radio.Button>
-          {drivers.map((driver => <Radio.Button value={driver.id}>{driver.email} ({coordinates.filter(coordinate => coordinate.userID === driver.id).length})</Radio.Button>))}
-        </Radio.Group>
-        <div style={{height: 30}}/>
+        <Divider/>
         {renderMaps()}
       </Content>
     </>

@@ -40,12 +40,13 @@ export interface Body {
   addresses: GeoAddress[]
 }
 
-interface CoordinateWithOrders extends Coordinate {
-  orders: Order[]
+interface CoordinateWithOrders {
+  coordinate: Coordinate,
+  orders: Order[],
 }
 
 const MapCoordinatesPage: React.FC = () => {
-  const [coordinatesWithOrders, setCoordinatesWithOrders] = useState<CoordinateWithOrders[]>([]);
+  const [coordinatesWithOrdersCurrentDay, setCoordinatesWithOrdersCurrentDay] = useState<CoordinateWithOrders[]>([]);
   const [drivers, setDrivers] = useState<User[]>([]);
   const [selectedDrivers, setSelectedDrivers] = useState<User[]>([]);
   const [isLoading, setLoading] = useState(true);
@@ -54,12 +55,13 @@ const MapCoordinatesPage: React.FC = () => {
   const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
   const [driverOnMap, setDriverOnMap] = useState(null);
 
-  const fetchCoordinates = async () => {
+  const fetchCoordinates = async (weekDay?: WeekDay) => {
+    console.log('selected day:', selectedDay)
     const fetchedCoordinates = await DataStore.query(Coordinate);
     const fetchedCoordinatesWithOrders = [];
     for (const fetchedCoordinate of fetchedCoordinates) {
       const coordinateWithOrders: CoordinateWithOrders = {
-        ...fetchedCoordinate,
+        coordinate: fetchedCoordinate,
         orders: [],
       };
       const coordinateAddresses = await DataStore.query(Address, address => address.coordinateID("eq", fetchedCoordinate.id))
@@ -68,16 +70,18 @@ const MapCoordinatesPage: React.FC = () => {
             .addressID("eq", coordinateAddress.id)
           // .orderStatus("eq", OrderStatus.PROCESSING)
         );
+        const targetWeekday = weekDay ? weekDay : selectedDay;
         for (const addressOrder of addressOrders) {
-          coordinateWithOrders.orders.push(addressOrder)
+          if (addressOrder.dishes?.find(dish => dish.weekDay === targetWeekday)) {
+            coordinateWithOrders.orders.push(addressOrder)
+          }
         }
       }
-      console.log(coordinateWithOrders)
       if (coordinateWithOrders.orders.length > 0) {
         fetchedCoordinatesWithOrders.push(coordinateWithOrders);
       }
     }
-    setCoordinatesWithOrders(fetchedCoordinatesWithOrders)
+    setCoordinatesWithOrdersCurrentDay([...fetchedCoordinatesWithOrders])
   }
 
   const fetchDrivers = async () => {
@@ -90,16 +94,12 @@ const MapCoordinatesPage: React.FC = () => {
     setLoading(true);
     fetchCoordinates();
     fetchDrivers();
-    const coordinatesWithOrdersTodaySubscription = DataStore.observe(Coordinate).subscribe(async (message) => {
-      await fetchCoordinates();
-    });
     const driversSubscription = DataStore.observe(User).subscribe(async (message) => {
       await fetchDrivers();
     });
 
     setLoading(false);
     return () => {
-      coordinatesWithOrdersTodaySubscription.unsubscribe();
       driversSubscription.unsubscribe();
     }
 
@@ -108,7 +108,9 @@ const MapCoordinatesPage: React.FC = () => {
   const columns: ColumnsType<CoordinateWithOrders> = [
     {
       title: 'Name',
-      dataIndex: 'name',
+      render: (value, record, index) => {
+        return record.coordinate.name
+      },
     },
     {
       title: 'Order amount',
@@ -120,7 +122,7 @@ const MapCoordinatesPage: React.FC = () => {
       title: 'Link to map',
       render: (value, record, index) => {
         return <a target={"_blank"}
-                  href={`https://www.google.com/maps/place/${record.latitude},${record.longitude}`}>{`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}</a>
+                  href={`https://www.google.com/maps/place/${record.coordinate.latitude},${record.coordinate.longitude}`}>{`https://www.google.com/maps/place/${record.coordinate.longitude},${record.coordinate.latitude}`}</a>
       },
     },
     {
@@ -133,11 +135,11 @@ const MapCoordinatesPage: React.FC = () => {
           filterOption={(input, option) =>
             option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
           }
-          value={record.userID}
+          value={record.coordinate.userID}
           style={width300}
           onSelect={async (value) => {
             await DataStore.save(
-              Coordinate.copyOf(record, updated => {
+              Coordinate.copyOf(record.coordinate, updated => {
                 updated.userID = value;
               })
             );
@@ -154,12 +156,10 @@ const MapCoordinatesPage: React.FC = () => {
     if (selectedDrivers.length === 0) return;
     setDriversAssigning(true)
     if (selectedDrivers.length === 1) {
-      for (const coordinate of coordinatesWithOrders) {
-        await DataStore.save(
-          Coordinate.copyOf(coordinate, updated => {
-            updated.userID = selectedDrivers[0].id;
-          })
-        );
+      for (const coordinateWithOrder of coordinatesWithOrdersCurrentDay) {
+        await DataStore.save(Coordinate.copyOf(coordinateWithOrder.coordinate, updated => {
+          updated.userID = selectedDrivers[0].id;
+        }));
       }
     } else {
       let body: Body = {
@@ -167,12 +167,12 @@ const MapCoordinatesPage: React.FC = () => {
         clusters: selectedDrivers.length,
         drivers: selectedDrivers.map(driver => driver.id)
       };
-      for (const coordinate of coordinatesWithOrders) {
+      for (const coordinateWithOrder of coordinatesWithOrdersCurrentDay) {
         const geo: GeoAddress = {
           drivers: [],
-          id: coordinate.id,
-          latitude: coordinate.latitude,
-          longitude: coordinate.longitude
+          id: coordinateWithOrder.coordinate.id,
+          latitude: coordinateWithOrder.coordinate.latitude,
+          longitude: coordinateWithOrder.coordinate.longitude
         }
         body.addresses.push(geo)
       }
@@ -203,7 +203,7 @@ const MapCoordinatesPage: React.FC = () => {
   }
 
   const renderMaps = () => {
-    if (isLoading || coordinatesWithOrders.length === 0) return null;
+    if (isLoading || coordinatesWithOrdersCurrentDay.length === 0) return null;
     if (driverOnMap) {
       return drivers.map((driver) => {
         if (driver.id === driverOnMap) {
@@ -211,7 +211,7 @@ const MapCoordinatesPage: React.FC = () => {
             // @ts-ignore
             center={{lat: 34.6671732, lng: 33.0132906}}
             zoom={12}
-            places={coordinatesWithOrders.filter(coordinate => coordinate.userID === driver.id)}
+            places={coordinatesWithOrdersCurrentDay.filter(coordinateWithOrders => coordinateWithOrders.coordinate.userID === driver.id).map(coordinate => coordinate.coordinate)}
           />
         }
       })
@@ -220,7 +220,7 @@ const MapCoordinatesPage: React.FC = () => {
         // @ts-ignore
         center={{lat: 34.6671732, lng: 33.0132906}}
         zoom={12}
-        places={coordinatesWithOrders}
+        places={coordinatesWithOrdersCurrentDay.map(coordinate => coordinate.coordinate)}
       />
     }
   }
@@ -255,27 +255,34 @@ const MapCoordinatesPage: React.FC = () => {
         </Space>
       </Modal>
       <Content>
-        <Title>Coordinates ({coordinatesWithOrders.length})</Title>
+        <Title>Coordinates ({coordinatesWithOrdersCurrentDay.length})</Title>
         <Button
           loading={isDriversAssigning}
           disabled={isDriversAssigning}
           onClick={() => setDriversModalVisible(true)} type="primary">
           Auto assign drivers
         </Button>
-        <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WeekDay)}>
+        <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => {
+          setLoading(true);
+          fetchCoordinates(activeKey as WeekDay);
+          setSelectedDay(activeKey as WeekDay)
+          setLoading(false);
+        }}>
           {Object.values(WeekDay).map(weekDay => <TabPane tab={`${weekDay}`} key={weekDay}/>)}
         </Tabs>
         <Table
           size={"middle"}
           rowKey="id"
           columns={columns}
-          dataSource={coordinatesWithOrders}
+          dataSource={coordinatesWithOrdersCurrentDay}
           expandable={{
             expandedRowRender: record => {
               return <List
                 size="small"
                 dataSource={record.orders}
-                renderItem={item => <List.Item>{item.orderNumber} {item.customer?.firstName} {item.customer?.lastName} {item.customer?.company}</List.Item>}
+                renderItem={item =>
+                  <List.Item
+                    key={item.id}>{item.orderNumber} {item.customer?.firstName} {item.customer?.lastName} {item.customer?.company}</List.Item>}
               />
             },
             rowExpandable: record => true,
@@ -288,9 +295,9 @@ const MapCoordinatesPage: React.FC = () => {
             setDriverOnMap(e.target.value);
           }
         }} defaultValue="all">
-          <Radio.Button value="all">All drivers ({coordinatesWithOrders.length})</Radio.Button>
+          <Radio.Button value="all">All drivers ({coordinatesWithOrdersCurrentDay.length})</Radio.Button>
           {drivers.map((driver => <Radio.Button
-            value={driver.id}>{driver.email} ({coordinatesWithOrders.filter(coordinate => coordinate.userID === driver.id).length})</Radio.Button>))}
+            value={driver.id}>{driver.email} ({coordinatesWithOrdersCurrentDay.filter(coordinateWithOrders => coordinateWithOrders.coordinate.userID === driver.id).length})</Radio.Button>))}
         </Radio.Group>
         <div style={{height: 30}}/>
         {renderMaps()}

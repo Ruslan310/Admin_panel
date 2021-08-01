@@ -297,10 +297,6 @@ const MapCoordinatesPage: React.FC = () => {
     }
   }
 
-  if (isLoading) {
-    return <Spin size="large"/>
-  }
-
   const coordinatesForThisDay = getCoordinatesForThisDay();
   return (
     <>
@@ -339,7 +335,7 @@ const MapCoordinatesPage: React.FC = () => {
           setLoading(true);
           setDriverOnMap(ALL_DRIVERS)
           setSelectedDay(activeKey as WeekDay)
-          setLoading(false);
+          setTimeout(() => setLoading(false), 1000)
         }}>
           {Object.values(WeekDay).map(weekDay => <TabPane tab={`${weekDay}`} key={weekDay}/>)}
         </Tabs>

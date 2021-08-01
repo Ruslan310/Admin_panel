@@ -20,6 +20,7 @@ import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {stringifyAddress, today} from "../utils/utils";
 import ManyPointsMapComponent from "../components/ManyPointsMapComponent";
+import {ALL_DRIVERS} from "../constants";
 
 const {Content} = Layout;
 const {Text} = Typography;
@@ -74,10 +75,9 @@ const MapCoordinatesPage: React.FC = () => {
   const [isDriversAssigning, setDriversAssigning] = useState(false);
   const [isDriversModalVisible, setDriversModalVisible] = useState(false);
   const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
-  const [driverOnMap, setDriverOnMap] = useState(null);
+  const [driverOnMap, setDriverOnMap] = useState(ALL_DRIVERS);
 
   const fetchCoordinatesWithOrders = async () => {
-    console.log('selected day:', selectedDay)
     const fetchedCoordinates = await DataStore.query(Coordinate);
     const fetchedCoordinatesByDays: CoordinatesByDays = {
       MONDAY: [],
@@ -139,7 +139,6 @@ const MapCoordinatesPage: React.FC = () => {
 
   const getCoordinatesForThisDay = (): Coordinate[] => {
     const coordinatesForTheDay: Coordinate[] = [];
-    console.log('get coordiante for: ', selectedDay);
     for (const coordinateForSelectedDay of coordinatesByDays[selectedDay]) {
       const foundInPureCoordinatesForThisFay = coordinates.find(coordinate => coordinate.id === coordinateForSelectedDay.coordinate.id)
       if (foundInPureCoordinatesForThisFay) {
@@ -225,9 +224,10 @@ const MapCoordinatesPage: React.FC = () => {
   const driversAutoAssign = async () => {
     if (selectedDrivers.length === 0) return;
     setDriversAssigning(true)
+    const coordinatesToUpdate = getCoordinatesForThisDay();
     if (selectedDrivers.length === 1) {
-      for (const coordinateWithOrder of coordinatesByDays[selectedDay]) {
-        await DataStore.save(Coordinate.copyOf(coordinateWithOrder.coordinate, updated => {
+      for (const coordinate of coordinatesToUpdate) {
+        await DataStore.save(Coordinate.copyOf(coordinate, updated => {
           updated.userID = selectedDrivers[0].id;
         }));
       }
@@ -237,12 +237,12 @@ const MapCoordinatesPage: React.FC = () => {
         clusters: selectedDrivers.length,
         drivers: selectedDrivers.map(driver => driver.id)
       };
-      for (const coordinateWithOrder of coordinatesByDays[selectedDay]) {
+      for (const coordinate of coordinatesToUpdate) {
         const geo: GeoAddress = {
           drivers: [],
-          id: coordinateWithOrder.coordinate.id,
-          latitude: coordinateWithOrder.coordinate.latitude,
-          longitude: coordinateWithOrder.coordinate.longitude
+          id: coordinate.id,
+          latitude: coordinate.latitude,
+          longitude: coordinate.longitude
         }
         body.addresses.push(geo)
       }
@@ -274,7 +274,14 @@ const MapCoordinatesPage: React.FC = () => {
 
   const renderMaps = (coordinates: Coordinate[]) => {
     if (isLoading || coordinates.length === 0) return null;
-    if (driverOnMap) {
+    if (driverOnMap === ALL_DRIVERS) {
+      return <ManyPointsMapComponent
+        // @ts-ignore
+        center={{lat: 34.6671732, lng: 33.0132906}}
+        zoom={12}
+        places={coordinates}
+      />
+    } else if (driverOnMap) {
       return drivers.map((driver) => {
         if (driver.id === driverOnMap) {
           return <ManyPointsMapComponent
@@ -287,13 +294,6 @@ const MapCoordinatesPage: React.FC = () => {
           return null;
         }
       })
-    } else {
-      return <ManyPointsMapComponent
-        // @ts-ignore
-        center={{lat: 34.6671732, lng: 33.0132906}}
-        zoom={12}
-        places={coordinates}
-      />
     }
   }
 
@@ -337,6 +337,7 @@ const MapCoordinatesPage: React.FC = () => {
         </Button>
         <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => {
           setLoading(true);
+          setDriverOnMap(ALL_DRIVERS)
           setSelectedDay(activeKey as WeekDay)
           setLoading(false);
         }}>
@@ -360,14 +361,8 @@ const MapCoordinatesPage: React.FC = () => {
             rowExpandable: record => true,
           }}
         />
-        <Radio.Group size={"large"} onChange={(e) => {
-          if (e.target.value === "all") {
-            setDriverOnMap(null);
-          } else {
-            setDriverOnMap(e.target.value);
-          }
-        }} defaultValue="all">
-          <Radio.Button value="all">All drivers ({coordinatesForThisDay.length})</Radio.Button>
+        <Radio.Group size={"large"} onChange={(e) => setDriverOnMap(e.target.value.toLowerCase())} value={driverOnMap}>
+          <Radio.Button value={ALL_DRIVERS}>All drivers ({coordinatesForThisDay.length})</Radio.Button>
           {drivers.map((driver => <Radio.Button
             value={driver.id}>{driver.email} ({coordinatesForThisDay.filter(coordinateWithOrders => coordinateWithOrders.userID === driver.id).length})</Radio.Button>))}
         </Radio.Group>

@@ -1,6 +1,6 @@
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
+import {withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow} from "react-google-maps"
 import React from "react";
-import { compose, withProps, withStateHandlers } from "recompose";
+import {compose, withProps, withStateHandlers} from "recompose";
 
 const ManyPointsMapComponent = compose(
   withProps({

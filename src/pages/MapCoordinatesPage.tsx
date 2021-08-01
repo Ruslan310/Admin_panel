@@ -207,11 +207,13 @@ const MapCoordinatesPage: React.FC = () => {
           value={record.userID}
           style={width300}
           onSelect={async (value) => {
+            setLoading(true);
             await DataStore.save(
               Coordinate.copyOf(record, updated => {
                 updated.userID = value;
               })
             );
+            setTimeout(() => setLoading(false), 1000)
           }}>
           {drivers.map((driver) => <Select.Option key={driver.id}
                                                   value={driver.id}>{driver.email}</Select.Option>)}

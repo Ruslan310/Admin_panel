@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Checkbox, Col, Descriptions, Divider, Input, Layout, Modal, Row, Table, Typography} from 'antd';
+import {Button, Checkbox, Col, Descriptions, Divider, Input, Layout, Modal, Row, Select, Table, Typography} from 'antd';
 import {Address, Box, Coordinate, Order, OrderStatus, User} from "../models";
 import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
@@ -15,9 +15,12 @@ moment.tz.setDefault("Africa/Nouakchott");
 const {Content} = Layout;
 const {Text} = Typography;
 
+const width300 = {width: 300}
+
 const OrdersPage: React.FC = () => {
   const history = useHistory();
   const [orders, setOrders] = useState<Order[]>([]);
+  const [addresses, setAddresses] = useState<Address[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([])
   const [isLoading, setLoading] = useState(true)
@@ -31,20 +34,31 @@ const OrdersPage: React.FC = () => {
 
   const fetchOrders = async () => {
     const fetchedOrders = await DataStore.query(Order);
-
     setOrders(fetchedOrders);
     setFilteredOrders(fetchedOrders.filter(order => checkedStatusesList.includes(order.orderStatus as OrderStatus)));
     setLoading(false)
   }
 
+  const fetchAddresses = async () => {
+    const fetchedAddresses = await DataStore.query(Address);
+    setAddresses(fetchedAddresses);
+    setLoading(false)
+  }
+
   useEffect(() => {
     fetchOrders();
+    fetchAddresses();
     const ordersSubscription = DataStore.observe(Order).subscribe(async (message) => {
+      console.log('message.element.addressID:', message.element)
       await fetchOrders();
+    });
+    const addressesSubscription = DataStore.observe(Address).subscribe(async (message) => {
+      await fetchAddresses();
     });
 
     return () => {
       ordersSubscription.unsubscribe();
+      addressesSubscription.unsubscribe();
     }
   }, []);
 
@@ -200,21 +214,47 @@ const OrdersPage: React.FC = () => {
         return <Button type={'primary'} onClick={() => history.push("/orderDetails/" + record.id)}>Details</Button>
       }
     },
+    // {
+    //   title: 'Created in WP',
+    //   render: (value, record, index) => {
+    //     return <Text>{moment.unix(record.createdAtWp).format("HH:mm DD-MM-YYYY")}</Text>
+    //   },
+    //   sorter: (a, b) => {
+    //     if (a.createdAtWp < b.createdAtWp) {
+    //       return -1;
+    //     }
+    //     if (a.createdAtWp > b.createdAtWp) {
+    //       return 1;
+    //     }
+    //     return 0;
+    //   },
+    //   defaultSortOrder: "descend"
+    // },
     {
-      title: 'Created in WP',
+      title: 'Address',
       render: (value, record, index) => {
-        return <Text>{moment.unix(record.createdAtWp).format("HH:mm DD-MM-YYYY")}</Text>
+        return <Select
+          placeholder="Change address"
+          showSearch
+          style={width300}
+          filterOption={(input, option) => {
+            return option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }}
+          value={record.address?.id}
+          onSelect={async (value) => {
+            setLoading(true);
+            const fullNewAddress = addresses.find(address => address.id === value);
+            await DataStore.save(
+              Order.copyOf(record, updated => {
+                updated.addressID = value;
+                updated.address = fullNewAddress;
+              })
+            );
+          }}>
+          {addresses.map((address) => <Select.Option key={address.id}
+                                                  value={address.id}>{stringifyAddress(address)}</Select.Option>)}
+        </Select>
       },
-      sorter: (a, b) => {
-        if (a.createdAtWp < b.createdAtWp) {
-          return -1;
-        }
-        if (a.createdAtWp > b.createdAtWp) {
-          return 1;
-        }
-        return 0;
-      },
-      defaultSortOrder: "descend"
     },
     {
       title: 'Actions',
@@ -245,6 +285,15 @@ const OrdersPage: React.FC = () => {
     });
   }
 
+  // if (orders) {
+  //   const tar = orders.find(order => order.orderNumber === "DN-11237")
+  //   if (tar) {
+  //     console.log(stringifyAddress(tar.address))
+  //     console.log(tar.addressID)
+  //     console.log(tar.customer?.lastName)
+  //   }
+  // }
+
   return (
     <>
       <Content>
@@ -265,7 +314,6 @@ const OrdersPage: React.FC = () => {
         {/*</Space>*/}
         <Checkbox.Group options={Object.values(OrderStatus)} value={checkedStatusesList} onChange={(list) => {
           setCheckedStatusesList(list as Array<OrderStatus>);
-          console.log(list)
           setFilteredOrders(
             orders
               .filter(order => list.includes(order.orderStatus as OrderStatus))

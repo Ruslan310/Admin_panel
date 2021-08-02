@@ -148,9 +148,22 @@ const MapCoordinatesPage: React.FC = () => {
     return coordinatesForTheDay;
   }
 
-  const getOrderForThisCoordinate = (targetCoordinateId: string): Order[] => {
+  const getOrdersForThisCoordinate = (targetCoordinateId: string): Order[] => {
+    const targetOrders: Order[] = [];
     const targetCoordinateFromSelectedDays = coordinatesByDays[selectedDay].find(coordinate => coordinate.coordinate.id === targetCoordinateId);
-    return targetCoordinateFromSelectedDays ? targetCoordinateFromSelectedDays.orders : [];
+    if (targetCoordinateFromSelectedDays) {
+      for (const order of targetCoordinateFromSelectedDays.orders) {
+        if (order.dishes) {
+          for (const dish of order.dishes) {
+            if (dish.weekDay === selectedDay) {
+              targetOrders.push(order);
+              break;
+            }
+          }
+        }
+      }
+    }
+    return targetOrders;
   }
 
   useEffect(() => {
@@ -184,7 +197,7 @@ const MapCoordinatesPage: React.FC = () => {
     {
       title: 'Order amount',
       render: (value, record, index) => {
-        return getOrderForThisCoordinate(record.id).length
+        return getOrdersForThisCoordinate(record.id).length
       },
     },
     {
@@ -350,7 +363,7 @@ const MapCoordinatesPage: React.FC = () => {
             expandedRowRender: record => {
               return <List
                 size="small"
-                dataSource={getOrderForThisCoordinate(record.id)}
+                dataSource={getOrdersForThisCoordinate(record.id)}
                 renderItem={item =>
                   <List.Item
                     key={item.id}>{item.orderNumber} {item.customer?.firstName} {item.customer?.lastName} {item.customer?.company}</List.Item>}

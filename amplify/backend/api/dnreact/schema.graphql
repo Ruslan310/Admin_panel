@@ -1,106 +1,131 @@
-type Coordinate @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byUser", fields: ["userID"]) {
-  id: ID!
-  latitude: Float!
-  longitude: Float!
-  name: String!
-  userID: ID
-  coordinateAddresses: [Address] @connection(keyName: "byCoordinate", fields: ["id"])
+type Coordinate
+@model
+@auth(rules: [{allow: public}, {allow: private}])
+@key(name: "byUser", fields: ["userID"])
+{
+    id: ID!
+    latitude: Float!
+    longitude: Float!
+    name: String!
+    userID: ID
+    coordinateAddresses: [Address] @connection(keyName: "byCoordinate", fields: ["id"])
 }
 
-type Address @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byCoordinate", fields: ["coordinateID"]) @key(name: "byPostCode", fields: ["postCode"], queryField: "byPostCode") {
-  id: ID!
-  address1: String!
-  address2: String!
-  city: String!
-  postCode: String!
-  coordinateID: ID
-  addressOrders: [Order!] @connection(keyName: "byAddress", fields: ["id"])
+type Address
+@model
+@auth(rules: [{allow: public}, {allow: private}])
+@key(name: "byCoordinate", fields: ["coordinateID"])
+@key(name: "byPostCode", fields: ["postCode"], queryField: "byPostCode")
+{
+    id: ID!
+    address1: String!
+    address2: String!
+    city: String!
+    postCode: String!
+    coordinateID: ID
+    addressOrders: [Order!] @connection(keyName: "byAddress", fields: ["id"])
 }
 
-type Box @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byOrder", fields: ["orderID"]) {
-  id: ID!
-  sticker: String!
-  boxStatus: BOX_STATUS!
-  qrCode: String!
-  customerComment: String
-  weekDay: WEEK_DAY!
-  orderID: ID
-  order: Order @connection
+type Box
+@model
+@auth(rules: [{allow: public}, {allow: private}])
+@key(name: "byOrder", fields: ["orderID"])
+{
+    id: ID!
+    sticker: String!
+    boxStatus: BOX_STATUS!
+    qrCode: String!
+    customerComment: String
+    weekDay: WEEK_DAY!
+    orderID: ID
+    order: Order @connection
 }
 
-type Order @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byCustomer", fields: ["customerID"]) @key(name: "byAddress", fields: ["addressID"]) @key(name: "byOrderNumber", fields: ["orderNumber"], queryField: "byOrderNumber") {
-  id: ID!
-  orderNumber: String
-  orderStatus: ORDER_STATUS!
-  dishes: [Dish!]
-  finalPrice: Float!
-  customerComment: String
-  customerID: ID
-  customer: Customer @connection
-  orderBoxes: [Box!] @connection(keyName: "byOrder", fields: ["id"])
-  addressID: ID
-  address: Address @connection
-  createdAtWp: AWSTimestamp!
+type Order
+@model
+@auth(rules: [{allow: public}, {allow: private}])
+@key(name: "byCustomer", fields: ["customerID"])
+@key(name: "byAddress", fields: ["addressID"])
+@key(name: "byOrderNumber", fields: ["orderNumber"], queryField: "byOrderNumber")
+{
+    id: ID!
+    orderNumber: String
+    orderStatus: ORDER_STATUS!
+    dishes: [Dish!]
+    finalPrice: Float!
+    customerComment: String
+    customerID: ID
+    customer: Customer @connection
+    orderBoxes: [Box!] @connection(keyName: "byOrder", fields: ["id"])
+    addressID: ID
+    address: Address @connection
+    createdAtWp: AWSTimestamp!
 }
 
 enum WEEK_DAY {
-  MONDAY
-  TUESDAY
-  WEDNESDAY
-  THURSDAY
-  FRIDAY
-  SATURDAY
-  SUNDAY
-  WITHOUT_DAY
+    MONDAY
+    TUESDAY
+    WEDNESDAY
+    THURSDAY
+    FRIDAY
+    SATURDAY
+    SUNDAY
+    WITHOUT_DAY
 }
 
 enum BOX_STATUS {
-  PRINTED
-  COOKED
-  IN_DELIVERY
-  DELIVERED
-  CANCELLED
+    PRINTED
+    COOKED
+    IN_DELIVERY
+    DELIVERED
+    CANCELLED
 }
 
 enum ORDER_STATUS {
-  PROCESSING
-  COMPLETED
-  CANCELLED
+    PROCESSING
+    COMPLETED
+    CANCELLED
 }
 
 enum Role {
-  DELIVERY
-  KITCHEN
-  ADMIN
-  GUEST
+    DELIVERY
+    KITCHEN
+    ADMIN
+    GUEST
 }
 
-type User @model @auth(rules: [{allow: public}, {allow: private}]) {
-  id: ID!
-  sub: String!
-  email: String!
-  role: Role!
-  firstName: String
-  lastName: String
-  avatar: String
-  assignedDriverCoordinates: [Coordinate!] @connection(keyName: "byUser", fields: ["id"])
+type User
+@model
+@auth(rules: [{allow: public}, {allow: private}])
+{
+    id: ID!
+    sub: String!
+    email: String!
+    role: Role!
+    firstName: String
+    lastName: String
+    avatar: String
+    assignedDriverCoordinates: [Coordinate!] @connection(keyName: "byUser", fields: ["id"])
 }
 
-type Customer @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byEmail", fields: ["email"], queryField: "byEmail") {
-  id: ID!
-  wpId: Int
-  company: String
-  firstName: String
-  lastName: String
-  email: String!
-  phoneNumber: String
-  customerOrders: [Order!] @connection(keyName: "byCustomer", fields: ["id"])
+type Customer
+@model
+@auth(rules: [{allow: public}, {allow: private}])
+@key(name: "byEmail", fields: ["email"], queryField: "byEmail")
+{
+    id: ID!
+    wpId: Int
+    company: String
+    firstName: String
+    lastName: String
+    email: String!
+    phoneNumber: String
+    customerOrders: [Order!] @connection(keyName: "byCustomer", fields: ["id"])
 }
 
 type Dish {
-  name: String!
-  dishType: String!
-  quantity: Int!
-  weekDay: WEEK_DAY!
+    name: String!
+    dishType: String!
+    quantity: Int!
+    weekDay: WEEK_DAY!
 }
- 

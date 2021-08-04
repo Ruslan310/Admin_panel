@@ -16,5 +16,23 @@
         "devDnreactUsers": {}
       }
     }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dnreact-prod-232915-authRole",
+      "UnauthRoleArn": "arn:aws:iam::150977011093:role/amplify-dnreact-prod-232915-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::150977011093:role/amplify-dnreact-prod-232915-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-dnreact-prod-232915-deployment",
+      "UnauthRoleName": "amplify-dnreact-prod-232915-unauthRole",
+      "StackName": "amplify-dnreact-prod-232915",
+      "StackId": "arn:aws:cloudformation:us-east-1:150977011093:stack/amplify-dnreact-prod-232915/a4bc0e00-f562-11eb-98ab-123bd221e837",
+      "AmplifyAppId": "d21mksgutceozs"
+    },
+    "categories": {
+      "auth": {
+        "devDnreactUsers": {}
+      }
+    }
   }
 }

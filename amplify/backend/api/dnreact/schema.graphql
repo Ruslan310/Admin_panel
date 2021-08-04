@@ -23,13 +23,13 @@ type Address
     city: String!
     postCode: String!
     coordinateID: ID
-    addressOrders: [Order!] @connection(keyName: "byAddress", fields: ["id"])
+    addressWPOrders: [WPOrder!] @connection(keyName: "byAddress", fields: ["id"])
 }
 
 type Box
 @model
 @auth(rules: [{allow: public}, {allow: private}])
-@key(name: "byOrder", fields: ["orderID"])
+@key(name: "byWPOrder", fields: ["WPOrderID"])
 {
     id: ID!
     sticker: String!
@@ -37,26 +37,26 @@ type Box
     qrCode: String!
     customerComment: String
     weekDay: WEEK_DAY!
-    orderID: ID
-    order: Order @connection
+    WPOrderID: ID
+    WPOrder: WPOrder @connection
 }
 
-type Order
+type WPOrder
 @model
 @auth(rules: [{allow: public}, {allow: private}])
 @key(name: "byCustomer", fields: ["customerID"])
 @key(name: "byAddress", fields: ["addressID"])
-@key(name: "byOrderNumber", fields: ["orderNumber"], queryField: "byOrderNumber")
+@key(name: "byWPOrderNumber", fields: ["WPOrderNumber"], queryField: "byWPOrderNumber")
 {
     id: ID!
-    orderNumber: String
-    orderStatus: ORDER_STATUS!
-    dishes: [Dish!]
+    WPOrderNumber: String
+    WPOrderStatus: WPORDER_STATUS!
+    WPDishes: [WPDish!]
     finalPrice: Float!
     customerComment: String
     customerID: ID
     customer: Customer @connection
-    orderBoxes: [Box!] @connection(keyName: "byOrder", fields: ["id"])
+    WPOrderBoxes: [Box!] @connection(keyName: "byWPOrder", fields: ["id"])
     addressID: ID
     address: Address @connection
     createdAtWp: AWSTimestamp!
@@ -81,7 +81,7 @@ enum BOX_STATUS {
     CANCELLED
 }
 
-enum ORDER_STATUS {
+enum WPORDER_STATUS {
     PROCESSING
     COMPLETED
     CANCELLED
@@ -120,10 +120,10 @@ type Customer
     lastName: String
     email: String!
     phoneNumber: String
-    customerOrders: [Order!] @connection(keyName: "byCustomer", fields: ["id"])
+    customerWPOrders: [WPOrder!] @connection(keyName: "byCustomer", fields: ["id"])
 }
 
-type Dish {
+type WPDish {
     name: String!
     dishType: String!
     quantity: Int!

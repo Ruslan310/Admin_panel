@@ -1,8 +1,22 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Checkbox, Col, Descriptions, Divider, Input, Layout, Modal, Row, Select, Table, Typography} from 'antd';
-import {Address, Box, Coordinate, Order, OrderStatus, User} from "../models";
+import {
+  Button,
+  Checkbox,
+  Col,
+  Descriptions,
+  Divider,
+  Input,
+  Layout,
+  Modal,
+  Row,
+  Select,
+  Space,
+  Table,
+  Typography
+} from 'antd';
+import {Address, Box, Coordinate, WPOrder, WporderStatus, User} from "../models";
 import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
@@ -19,23 +33,23 @@ const width300 = {width: 300}
 
 const OrdersPage: React.FC = () => {
   const history = useHistory();
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<WPOrder[]>([]);
   const [addresses, setAddresses] = useState<Address[]>([]);
-  const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
+  const [filteredOrders, setFilteredOrders] = useState<WPOrder[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([])
   const [isLoading, setLoading] = useState(true)
-  const [checkedStatusesList, setCheckedStatusesList] = React.useState<OrderStatus[]>([OrderStatus.PROCESSING]);
+  const [checkedStatusesList, setCheckedStatusesList] = React.useState<WporderStatus[]>([WporderStatus.PROCESSING]);
   const [searchName, setSearchName] = useState('')
   const [searchNumber, setSearchNumber] = useState('')
   const [assignedDriverName, setAssignedDriverName] = useState<string>()
   const [isDeleteOrderConfirm, setDeleteOrderConfirm] = useState(false)
   const [isDeleting, setDeleting] = useState(false)
-  const [targetOrder, setTargetOrder] = useState<Order>()
+  const [targetOrder, setTargetOrder] = useState<WPOrder>()
 
   const fetchOrders = async () => {
-    const fetchedOrders = await DataStore.query(Order);
+    const fetchedOrders = await DataStore.query(WPOrder);
     setOrders(fetchedOrders);
-    setFilteredOrders(fetchedOrders.filter(order => checkedStatusesList.includes(order.orderStatus as OrderStatus)));
+    setFilteredOrders(fetchedOrders.filter(order => checkedStatusesList.includes(order.WPOrderStatus as WporderStatus)));
     setLoading(false)
   }
 
@@ -48,7 +62,7 @@ const OrdersPage: React.FC = () => {
   useEffect(() => {
     fetchOrders();
     fetchAddresses();
-    const ordersSubscription = DataStore.observe(Order).subscribe(async (message) => {
+    const ordersSubscription = DataStore.observe(WPOrder).subscribe(async (message) => {
       console.log('message.element.addressID:', message.element)
       await fetchOrders();
     });
@@ -112,7 +126,7 @@ const OrdersPage: React.FC = () => {
             const currValue = e.target.value;
             setSearchName(currValue);
             const filteredData = orders
-              .filter(order => checkedStatusesList.includes(order.orderStatus as OrderStatus))
+              .filter(order => checkedStatusesList.includes(order.WPOrderStatus as WporderStatus))
               .filter(order => fullName(order.customer).toLowerCase().includes(currValue.toLowerCase()));
             setFilteredOrders(filteredData);
           }}
@@ -134,8 +148,8 @@ const OrdersPage: React.FC = () => {
             const currValue = e.target.value;
             setSearchNumber(currValue);
             const filteredData = orders
-              .filter(order => checkedStatusesList.includes(order.orderStatus as OrderStatus))
-              .filter(order => order.orderNumber?.toLowerCase().includes(currValue.toLowerCase()));
+              .filter(order => checkedStatusesList.includes(order.WPOrderStatus as WporderStatus))
+              .filter(order => order.WPOrderNumber?.toLowerCase().includes(currValue.toLowerCase()));
             setFilteredOrders(filteredData);
           }}
         />
@@ -146,23 +160,23 @@ const OrdersPage: React.FC = () => {
   const deleteOrderWithBoxes = async () => {
     setDeleting(true)
     if (targetOrder) {
-      const boxes = await DataStore.query(Box, box => box.orderID("eq", targetOrder.id))
+      const boxes = await DataStore.query(Box, box => box.WPOrderID("eq", targetOrder.id))
       if (boxes) {
         for (const box of boxes) {
           await DataStore.delete(Box, box.id)
         }
       }
-      await DataStore.delete(Order, targetOrder.id);
+      await DataStore.delete(WPOrder, targetOrder.id);
     }
     setDeleting(false)
     setTargetOrder(undefined);
     setDeleteOrderConfirm(false);
   }
 
-  const columns: ColumnsType<Order> = [
+  const columns: ColumnsType<WPOrder> = [
     {
       title: orderNumberFilter,
-      dataIndex: 'orderNumber',
+      dataIndex: 'WPOrderNumber',
     },
     {
       title: fullNameFilter,
@@ -245,14 +259,14 @@ const OrdersPage: React.FC = () => {
             setLoading(true);
             const fullNewAddress = addresses.find(address => address.id === value);
             await DataStore.save(
-              Order.copyOf(record, updated => {
+              WPOrder.copyOf(record, updated => {
                 updated.addressID = value;
                 updated.address = fullNewAddress;
               })
             );
           }}>
           {addresses.map((address) => <Select.Option key={address.id}
-                                                  value={address.id}>{stringifyAddress(address)}</Select.Option>)}
+                                                     value={address.id}>{stringifyAddress(address)}</Select.Option>)}
         </Select>
       },
     },
@@ -298,26 +312,26 @@ const OrdersPage: React.FC = () => {
     <>
       <Content>
         <Title>Orders ({filteredOrders.length})</Title>
-        {/*<Space>*/}
-        {/*<Button onClick={async () => {*/}
-        {/*  for (const order of orders) {*/}
-        {/*    await deleteOrderWithBoxes(order.id);*/}
-        {/*  }*/}
-        {/*}} type="primary" htmlType="submit">*/}
-        {/*  Delete all orders*/}
-        {/*</Button>*/}
-        {/*<Button onClick={async () => {*/}
-        {/*  await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')*/}
-        {/*}} type="default">*/}
-        {/*  Sync orders from wp*/}
-        {/*</Button>*/}
-        {/*</Space>*/}
-        <Checkbox.Group options={Object.values(OrderStatus)} value={checkedStatusesList} onChange={(list) => {
-          setCheckedStatusesList(list as Array<OrderStatus>);
+        <Space>
+          {/*<Button onClick={async () => {*/}
+          {/*  for (const order of orders) {*/}
+          {/*    await deleteOrderWithBoxes(order.id);*/}
+          {/*  }*/}
+          {/*}} type="primary" htmlType="submit">*/}
+          {/*  Delete all orders*/}
+          {/*</Button>*/}
+          <Button onClick={async () => {
+            await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')
+          }} type="default">
+            Sync orders from wp
+          </Button>
+        </Space>
+        <Checkbox.Group options={Object.values(WporderStatus)} value={checkedStatusesList} onChange={(list) => {
+          setCheckedStatusesList(list as Array<WporderStatus>);
           setFilteredOrders(
             orders
-              .filter(order => list.includes(order.orderStatus as OrderStatus))
-              .filter(order => order.orderNumber?.toLowerCase().includes(searchNumber.toLowerCase()))
+              .filter(order => list.includes(order.WPOrderStatus as WporderStatus))
+              .filter(order => order.WPOrderNumber?.toLowerCase().includes(searchNumber.toLowerCase()))
               .filter(order => fullName(order.customer).toLowerCase().includes(searchName.toLowerCase()))
           )
         }}/>
@@ -336,7 +350,7 @@ const OrdersPage: React.FC = () => {
                 <Descriptions.Item label="Phone number">{record.customer?.phoneNumber}</Descriptions.Item>
                 <Descriptions.Item label="Email">{record.customer?.email}</Descriptions.Item>
                 <Descriptions.Item label="Created">{record.createdAt}</Descriptions.Item>
-                <Descriptions.Item label="WP Status">{record.orderStatus}</Descriptions.Item>
+                <Descriptions.Item label="WP Status">{record.WPOrderStatus}</Descriptions.Item>
                 <Descriptions.Item label="Order total price">{record.finalPrice}</Descriptions.Item>
               </Descriptions>
             },
@@ -354,7 +368,7 @@ const OrdersPage: React.FC = () => {
           setDeleteOrderConfirm(false);
         }}
       >
-        <Text>You are going to delete order <Text strong>{targetOrder?.orderNumber}</Text></Text>
+        <Text>You are going to delete order <Text strong>{targetOrder?.WPOrderNumber}</Text></Text>
       </Modal>
     </>
   )

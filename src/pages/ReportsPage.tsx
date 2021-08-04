@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink} from "react-csv";
 
 import {Button, Input, InputNumber, Layout, Progress, Radio, Space, Typography} from 'antd';
 import Title from "antd/es/typography/Title";
 import {DataStore} from 'aws-amplify';
-import {Order} from "../models";
+import {WPOrder} from "../models";
 import moment from "moment-timezone";
 import {fullName} from "../utils/utils";
-import {CommonPropTypes, Data} from "react-csv/components/CommonPropTypes";
+import {Data} from "react-csv/components/CommonPropTypes";
 
 const {Text} = Typography;
 
@@ -42,7 +42,7 @@ const AddressesPage: React.FC = () => {
       <Title>Reports</Title>
       <Space direction={"vertical"}>
         <Button onClick={async () => {
-          const orders = await DataStore.query(Order, order => order.createdAtWp("between", [startDate.unix(), endDate.unix()]));
+          const orders = await DataStore.query(WPOrder, order => order.createdAtWp("between", [startDate.unix(), endDate.unix()]));
           const companyOrders = orders.filter(order => targetCompany ? order.customer?.company?.toLowerCase().includes(targetCompany) : true)
           const invoice: InvoiceOrderItem[] = [];
           setProgress(1);

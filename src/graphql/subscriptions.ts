@@ -28,11 +28,11 @@ export const onCreateCoordinate = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          addressOrders {
+          addressWPOrders {
             items {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -80,11 +80,11 @@ export const onUpdateCoordinate = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          addressOrders {
+          addressWPOrders {
             items {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -132,11 +132,11 @@ export const onDeleteCoordinate = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          addressOrders {
+          addressWPOrders {
             items {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -172,12 +172,12 @@ export const onCreateAddress = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      addressOrders {
+      addressWPOrders {
         items {
           id
-          orderNumber
-          orderStatus
-          dishes {
+          WPOrderNumber
+          WPOrderStatus
+          WPDishes {
             name
             dishType
             quantity
@@ -205,12 +205,12 @@ export const onCreateAddress = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            addressOrders {
+            addressWPOrders {
               nextToken
               startedAt
             }
           }
-          orderBoxes {
+          WPOrderBoxes {
             items {
               id
               sticker
@@ -218,7 +218,7 @@ export const onCreateAddress = /* GraphQL */ `
               qrCode
               customerComment
               weekDay
-              orderID
+              WPOrderID
               _version
               _deleted
               _lastChangedAt
@@ -241,7 +241,7 @@ export const onCreateAddress = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            customerOrders {
+            customerWPOrders {
               nextToken
               startedAt
             }
@@ -267,12 +267,12 @@ export const onUpdateAddress = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      addressOrders {
+      addressWPOrders {
         items {
           id
-          orderNumber
-          orderStatus
-          dishes {
+          WPOrderNumber
+          WPOrderStatus
+          WPDishes {
             name
             dishType
             quantity
@@ -300,12 +300,12 @@ export const onUpdateAddress = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            addressOrders {
+            addressWPOrders {
               nextToken
               startedAt
             }
           }
-          orderBoxes {
+          WPOrderBoxes {
             items {
               id
               sticker
@@ -313,7 +313,7 @@ export const onUpdateAddress = /* GraphQL */ `
               qrCode
               customerComment
               weekDay
-              orderID
+              WPOrderID
               _version
               _deleted
               _lastChangedAt
@@ -336,7 +336,7 @@ export const onUpdateAddress = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            customerOrders {
+            customerWPOrders {
               nextToken
               startedAt
             }
@@ -362,12 +362,12 @@ export const onDeleteAddress = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      addressOrders {
+      addressWPOrders {
         items {
           id
-          orderNumber
-          orderStatus
-          dishes {
+          WPOrderNumber
+          WPOrderStatus
+          WPDishes {
             name
             dishType
             quantity
@@ -395,12 +395,12 @@ export const onDeleteAddress = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            addressOrders {
+            addressWPOrders {
               nextToken
               startedAt
             }
           }
-          orderBoxes {
+          WPOrderBoxes {
             items {
               id
               sticker
@@ -408,7 +408,7 @@ export const onDeleteAddress = /* GraphQL */ `
               qrCode
               customerComment
               weekDay
-              orderID
+              WPOrderID
               _version
               _deleted
               _lastChangedAt
@@ -431,7 +431,7 @@ export const onDeleteAddress = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            customerOrders {
+            customerWPOrders {
               nextToken
               startedAt
             }
@@ -452,17 +452,17 @@ export const onCreateBox = /* GraphQL */ `
       qrCode
       customerComment
       weekDay
-      orderID
+      WPOrderID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      order {
+      WPOrder {
         id
-        orderNumber
-        orderStatus
-        dishes {
+        WPOrderNumber
+        WPOrderStatus
+        WPDishes {
           name
           dishType
           quantity
@@ -490,11 +490,11 @@ export const onCreateBox = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          addressOrders {
+          addressWPOrders {
             items {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -510,7 +510,7 @@ export const onCreateBox = /* GraphQL */ `
             startedAt
           }
         }
-        orderBoxes {
+        WPOrderBoxes {
           items {
             id
             sticker
@@ -518,16 +518,16 @@ export const onCreateBox = /* GraphQL */ `
             qrCode
             customerComment
             weekDay
-            orderID
+            WPOrderID
             _version
             _deleted
             _lastChangedAt
             createdAt
             updatedAt
-            order {
+            WPOrder {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -556,11 +556,11 @@ export const onCreateBox = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          customerOrders {
+          customerWPOrders {
             items {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -589,17 +589,17 @@ export const onUpdateBox = /* GraphQL */ `
       qrCode
       customerComment
       weekDay
-      orderID
+      WPOrderID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      order {
+      WPOrder {
         id
-        orderNumber
-        orderStatus
-        dishes {
+        WPOrderNumber
+        WPOrderStatus
+        WPDishes {
           name
           dishType
           quantity
@@ -627,11 +627,11 @@ export const onUpdateBox = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          addressOrders {
+          addressWPOrders {
             items {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -647,7 +647,7 @@ export const onUpdateBox = /* GraphQL */ `
             startedAt
           }
         }
-        orderBoxes {
+        WPOrderBoxes {
           items {
             id
             sticker
@@ -655,16 +655,16 @@ export const onUpdateBox = /* GraphQL */ `
             qrCode
             customerComment
             weekDay
-            orderID
+            WPOrderID
             _version
             _deleted
             _lastChangedAt
             createdAt
             updatedAt
-            order {
+            WPOrder {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -693,11 +693,11 @@ export const onUpdateBox = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          customerOrders {
+          customerWPOrders {
             items {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -726,17 +726,17 @@ export const onDeleteBox = /* GraphQL */ `
       qrCode
       customerComment
       weekDay
-      orderID
+      WPOrderID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      order {
+      WPOrder {
         id
-        orderNumber
-        orderStatus
-        dishes {
+        WPOrderNumber
+        WPOrderStatus
+        WPDishes {
           name
           dishType
           quantity
@@ -764,11 +764,11 @@ export const onDeleteBox = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          addressOrders {
+          addressWPOrders {
             items {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -784,7 +784,7 @@ export const onDeleteBox = /* GraphQL */ `
             startedAt
           }
         }
-        orderBoxes {
+        WPOrderBoxes {
           items {
             id
             sticker
@@ -792,16 +792,16 @@ export const onDeleteBox = /* GraphQL */ `
             qrCode
             customerComment
             weekDay
-            orderID
+            WPOrderID
             _version
             _deleted
             _lastChangedAt
             createdAt
             updatedAt
-            order {
+            WPOrder {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -830,11 +830,11 @@ export const onDeleteBox = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          customerOrders {
+          customerWPOrders {
             items {
               id
-              orderNumber
-              orderStatus
+              WPOrderNumber
+              WPOrderStatus
               finalPrice
               customerComment
               customerID
@@ -854,13 +854,13 @@ export const onDeleteBox = /* GraphQL */ `
     }
   }
 `;
-export const onCreateOrder = /* GraphQL */ `
-  subscription OnCreateOrder {
-    onCreateOrder {
+export const onCreateWPOrder = /* GraphQL */ `
+  subscription OnCreateWPOrder {
+    onCreateWPOrder {
       id
-      orderNumber
-      orderStatus
-      dishes {
+      WPOrderNumber
+      WPOrderStatus
+      WPDishes {
         name
         dishType
         quantity
@@ -888,12 +888,12 @@ export const onCreateOrder = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        addressOrders {
+        addressWPOrders {
           items {
             id
-            orderNumber
-            orderStatus
-            dishes {
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
               name
               dishType
               quantity
@@ -922,7 +922,7 @@ export const onCreateOrder = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            orderBoxes {
+            WPOrderBoxes {
               nextToken
               startedAt
             }
@@ -945,7 +945,7 @@ export const onCreateOrder = /* GraphQL */ `
           startedAt
         }
       }
-      orderBoxes {
+      WPOrderBoxes {
         items {
           id
           sticker
@@ -953,17 +953,17 @@ export const onCreateOrder = /* GraphQL */ `
           qrCode
           customerComment
           weekDay
-          orderID
+          WPOrderID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
-          order {
+          WPOrder {
             id
-            orderNumber
-            orderStatus
-            dishes {
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
               name
               dishType
               quantity
@@ -992,7 +992,7 @@ export const onCreateOrder = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            orderBoxes {
+            WPOrderBoxes {
               nextToken
               startedAt
             }
@@ -1028,12 +1028,12 @@ export const onCreateOrder = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        customerOrders {
+        customerWPOrders {
           items {
             id
-            orderNumber
-            orderStatus
-            dishes {
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
               name
               dishType
               quantity
@@ -1062,7 +1062,7 @@ export const onCreateOrder = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            orderBoxes {
+            WPOrderBoxes {
               nextToken
               startedAt
             }
@@ -1088,13 +1088,13 @@ export const onCreateOrder = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateOrder = /* GraphQL */ `
-  subscription OnUpdateOrder {
-    onUpdateOrder {
+export const onUpdateWPOrder = /* GraphQL */ `
+  subscription OnUpdateWPOrder {
+    onUpdateWPOrder {
       id
-      orderNumber
-      orderStatus
-      dishes {
+      WPOrderNumber
+      WPOrderStatus
+      WPDishes {
         name
         dishType
         quantity
@@ -1122,12 +1122,12 @@ export const onUpdateOrder = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        addressOrders {
+        addressWPOrders {
           items {
             id
-            orderNumber
-            orderStatus
-            dishes {
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
               name
               dishType
               quantity
@@ -1156,7 +1156,7 @@ export const onUpdateOrder = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            orderBoxes {
+            WPOrderBoxes {
               nextToken
               startedAt
             }
@@ -1179,7 +1179,7 @@ export const onUpdateOrder = /* GraphQL */ `
           startedAt
         }
       }
-      orderBoxes {
+      WPOrderBoxes {
         items {
           id
           sticker
@@ -1187,17 +1187,17 @@ export const onUpdateOrder = /* GraphQL */ `
           qrCode
           customerComment
           weekDay
-          orderID
+          WPOrderID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
-          order {
+          WPOrder {
             id
-            orderNumber
-            orderStatus
-            dishes {
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
               name
               dishType
               quantity
@@ -1226,7 +1226,7 @@ export const onUpdateOrder = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            orderBoxes {
+            WPOrderBoxes {
               nextToken
               startedAt
             }
@@ -1262,12 +1262,12 @@ export const onUpdateOrder = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        customerOrders {
+        customerWPOrders {
           items {
             id
-            orderNumber
-            orderStatus
-            dishes {
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
               name
               dishType
               quantity
@@ -1296,7 +1296,7 @@ export const onUpdateOrder = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            orderBoxes {
+            WPOrderBoxes {
               nextToken
               startedAt
             }
@@ -1322,13 +1322,13 @@ export const onUpdateOrder = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteOrder = /* GraphQL */ `
-  subscription OnDeleteOrder {
-    onDeleteOrder {
+export const onDeleteWPOrder = /* GraphQL */ `
+  subscription OnDeleteWPOrder {
+    onDeleteWPOrder {
       id
-      orderNumber
-      orderStatus
-      dishes {
+      WPOrderNumber
+      WPOrderStatus
+      WPDishes {
         name
         dishType
         quantity
@@ -1356,12 +1356,12 @@ export const onDeleteOrder = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        addressOrders {
+        addressWPOrders {
           items {
             id
-            orderNumber
-            orderStatus
-            dishes {
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
               name
               dishType
               quantity
@@ -1390,7 +1390,7 @@ export const onDeleteOrder = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            orderBoxes {
+            WPOrderBoxes {
               nextToken
               startedAt
             }
@@ -1413,7 +1413,7 @@ export const onDeleteOrder = /* GraphQL */ `
           startedAt
         }
       }
-      orderBoxes {
+      WPOrderBoxes {
         items {
           id
           sticker
@@ -1421,17 +1421,17 @@ export const onDeleteOrder = /* GraphQL */ `
           qrCode
           customerComment
           weekDay
-          orderID
+          WPOrderID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
-          order {
+          WPOrder {
             id
-            orderNumber
-            orderStatus
-            dishes {
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
               name
               dishType
               quantity
@@ -1460,7 +1460,7 @@ export const onDeleteOrder = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            orderBoxes {
+            WPOrderBoxes {
               nextToken
               startedAt
             }
@@ -1496,12 +1496,12 @@ export const onDeleteOrder = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        customerOrders {
+        customerWPOrders {
           items {
             id
-            orderNumber
-            orderStatus
-            dishes {
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
               name
               dishType
               quantity
@@ -1530,7 +1530,7 @@ export const onDeleteOrder = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            orderBoxes {
+            WPOrderBoxes {
               nextToken
               startedAt
             }
@@ -1724,12 +1724,12 @@ export const onCreateCustomer = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      customerOrders {
+      customerWPOrders {
         items {
           id
-          orderNumber
-          orderStatus
-          dishes {
+          WPOrderNumber
+          WPOrderStatus
+          WPDishes {
             name
             dishType
             quantity
@@ -1757,12 +1757,12 @@ export const onCreateCustomer = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            addressOrders {
+            addressWPOrders {
               nextToken
               startedAt
             }
           }
-          orderBoxes {
+          WPOrderBoxes {
             items {
               id
               sticker
@@ -1770,7 +1770,7 @@ export const onCreateCustomer = /* GraphQL */ `
               qrCode
               customerComment
               weekDay
-              orderID
+              WPOrderID
               _version
               _deleted
               _lastChangedAt
@@ -1793,7 +1793,7 @@ export const onCreateCustomer = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            customerOrders {
+            customerWPOrders {
               nextToken
               startedAt
             }
@@ -1820,12 +1820,12 @@ export const onUpdateCustomer = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      customerOrders {
+      customerWPOrders {
         items {
           id
-          orderNumber
-          orderStatus
-          dishes {
+          WPOrderNumber
+          WPOrderStatus
+          WPDishes {
             name
             dishType
             quantity
@@ -1853,12 +1853,12 @@ export const onUpdateCustomer = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            addressOrders {
+            addressWPOrders {
               nextToken
               startedAt
             }
           }
-          orderBoxes {
+          WPOrderBoxes {
             items {
               id
               sticker
@@ -1866,7 +1866,7 @@ export const onUpdateCustomer = /* GraphQL */ `
               qrCode
               customerComment
               weekDay
-              orderID
+              WPOrderID
               _version
               _deleted
               _lastChangedAt
@@ -1889,7 +1889,7 @@ export const onUpdateCustomer = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            customerOrders {
+            customerWPOrders {
               nextToken
               startedAt
             }
@@ -1916,12 +1916,12 @@ export const onDeleteCustomer = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      customerOrders {
+      customerWPOrders {
         items {
           id
-          orderNumber
-          orderStatus
-          dishes {
+          WPOrderNumber
+          WPOrderStatus
+          WPDishes {
             name
             dishType
             quantity
@@ -1949,12 +1949,12 @@ export const onDeleteCustomer = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            addressOrders {
+            addressWPOrders {
               nextToken
               startedAt
             }
           }
-          orderBoxes {
+          WPOrderBoxes {
             items {
               id
               sticker
@@ -1962,7 +1962,7 @@ export const onDeleteCustomer = /* GraphQL */ `
               qrCode
               customerComment
               weekDay
-              orderID
+              WPOrderID
               _version
               _deleted
               _lastChangedAt
@@ -1985,7 +1985,7 @@ export const onDeleteCustomer = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
-            customerOrders {
+            customerWPOrders {
               nextToken
               startedAt
             }

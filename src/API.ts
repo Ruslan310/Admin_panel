@@ -124,22 +124,22 @@ export type Address = {
   _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
-  addressOrders?: ModelOrderConnection | null,
+  addressWPOrders?: ModelWPOrderConnection | null,
 };
 
-export type ModelOrderConnection = {
-  __typename: "ModelOrderConnection",
-  items?:  Array<Order | null > | null,
+export type ModelWPOrderConnection = {
+  __typename: "ModelWPOrderConnection",
+  items?:  Array<WPOrder | null > | null,
   nextToken?: string | null,
   startedAt?: number | null,
 };
 
-export type Order = {
-  __typename: "Order",
+export type WPOrder = {
+  __typename: "WPOrder",
   id: string,
-  orderNumber?: string | null,
-  orderStatus: ORDER_STATUS,
-  dishes?:  Array<Dish > | null,
+  WPOrderNumber?: string | null,
+  WPOrderStatus: WPORDER_STATUS,
+  WPDishes?:  Array<WPDish > | null,
   finalPrice: number,
   customerComment?: string | null,
   customerID?: string | null,
@@ -151,19 +151,19 @@ export type Order = {
   createdAt: string,
   updatedAt: string,
   address?: Address | null,
-  orderBoxes?: ModelBoxConnection | null,
+  WPOrderBoxes?: ModelBoxConnection | null,
   customer?: Customer | null,
 };
 
-export enum ORDER_STATUS {
+export enum WPORDER_STATUS {
   PROCESSING = "PROCESSING",
   COMPLETED = "COMPLETED",
   CANCELLED = "CANCELLED",
 }
 
 
-export type Dish = {
-  __typename: "Dish",
+export type WPDish = {
+  __typename: "WPDish",
   name: string,
   dishType: string,
   quantity: number,
@@ -197,13 +197,13 @@ export type Box = {
   qrCode: string,
   customerComment?: string | null,
   weekDay: WEEK_DAY,
-  orderID?: string | null,
+  WPOrderID?: string | null,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
-  order?: Order | null,
+  WPOrder?: WPOrder | null,
 };
 
 export enum BOX_STATUS {
@@ -229,7 +229,7 @@ export type Customer = {
   _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
-  customerOrders?: ModelOrderConnection | null,
+  customerWPOrders?: ModelWPOrderConnection | null,
 };
 
 export type UpdateCoordinateInput = {
@@ -289,9 +289,9 @@ export type CreateBoxInput = {
   qrCode: string,
   customerComment?: string | null,
   weekDay: WEEK_DAY,
-  orderID?: string | null,
+  WPOrderID?: string | null,
   _version?: number | null,
-  boxOrderId?: string | null,
+  boxWPOrderId?: string | null,
 };
 
 export type ModelBoxConditionInput = {
@@ -300,7 +300,7 @@ export type ModelBoxConditionInput = {
   qrCode?: ModelStringInput | null,
   customerComment?: ModelStringInput | null,
   weekDay?: ModelWEEK_DAYInput | null,
-  orderID?: ModelIDInput | null,
+  WPOrderID?: ModelIDInput | null,
   and?: Array< ModelBoxConditionInput | null > | null,
   or?: Array< ModelBoxConditionInput | null > | null,
   not?: ModelBoxConditionInput | null,
@@ -323,9 +323,9 @@ export type UpdateBoxInput = {
   qrCode?: string | null,
   customerComment?: string | null,
   weekDay?: WEEK_DAY | null,
-  orderID?: string | null,
+  WPOrderID?: string | null,
   _version?: number | null,
-  boxOrderId?: string | null,
+  boxWPOrderId?: string | null,
 };
 
 export type DeleteBoxInput = {
@@ -333,44 +333,44 @@ export type DeleteBoxInput = {
   _version?: number | null,
 };
 
-export type CreateOrderInput = {
+export type CreateWPOrderInput = {
   id?: string | null,
-  orderNumber?: string | null,
-  orderStatus: ORDER_STATUS,
-  dishes?: Array< DishInput > | null,
+  WPOrderNumber?: string | null,
+  WPOrderStatus: WPORDER_STATUS,
+  WPDishes?: Array< WPDishInput > | null,
   finalPrice: number,
   customerComment?: string | null,
   customerID?: string | null,
   addressID?: string | null,
   createdAtWp: number,
   _version?: number | null,
-  orderCustomerId?: string | null,
-  orderAddressId?: string | null,
+  wPOrderCustomerId?: string | null,
+  wPOrderAddressId?: string | null,
 };
 
-export type DishInput = {
+export type WPDishInput = {
   name: string,
   dishType: string,
   quantity: number,
   weekDay: WEEK_DAY,
 };
 
-export type ModelOrderConditionInput = {
-  orderNumber?: ModelStringInput | null,
-  orderStatus?: ModelORDER_STATUSInput | null,
+export type ModelWPOrderConditionInput = {
+  WPOrderNumber?: ModelStringInput | null,
+  WPOrderStatus?: ModelWPORDER_STATUSInput | null,
   finalPrice?: ModelFloatInput | null,
   customerComment?: ModelStringInput | null,
   customerID?: ModelIDInput | null,
   addressID?: ModelIDInput | null,
   createdAtWp?: ModelIntInput | null,
-  and?: Array< ModelOrderConditionInput | null > | null,
-  or?: Array< ModelOrderConditionInput | null > | null,
-  not?: ModelOrderConditionInput | null,
+  and?: Array< ModelWPOrderConditionInput | null > | null,
+  or?: Array< ModelWPOrderConditionInput | null > | null,
+  not?: ModelWPOrderConditionInput | null,
 };
 
-export type ModelORDER_STATUSInput = {
-  eq?: ORDER_STATUS | null,
-  ne?: ORDER_STATUS | null,
+export type ModelWPORDER_STATUSInput = {
+  eq?: WPORDER_STATUS | null,
+  ne?: WPORDER_STATUS | null,
 };
 
 export type ModelIntInput = {
@@ -385,22 +385,22 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
-export type UpdateOrderInput = {
+export type UpdateWPOrderInput = {
   id: string,
-  orderNumber?: string | null,
-  orderStatus?: ORDER_STATUS | null,
-  dishes?: Array< DishInput > | null,
+  WPOrderNumber?: string | null,
+  WPOrderStatus?: WPORDER_STATUS | null,
+  WPDishes?: Array< WPDishInput > | null,
   finalPrice?: number | null,
   customerComment?: string | null,
   customerID?: string | null,
   addressID?: string | null,
   createdAtWp?: number | null,
   _version?: number | null,
-  orderCustomerId?: string | null,
-  orderAddressId?: string | null,
+  wPOrderCustomerId?: string | null,
+  wPOrderAddressId?: string | null,
 };
 
-export type DeleteOrderInput = {
+export type DeleteWPOrderInput = {
   id: string,
   _version?: number | null,
 };
@@ -556,24 +556,24 @@ export type ModelBoxFilterInput = {
   qrCode?: ModelStringInput | null,
   customerComment?: ModelStringInput | null,
   weekDay?: ModelWEEK_DAYInput | null,
-  orderID?: ModelIDInput | null,
+  WPOrderID?: ModelIDInput | null,
   and?: Array< ModelBoxFilterInput | null > | null,
   or?: Array< ModelBoxFilterInput | null > | null,
   not?: ModelBoxFilterInput | null,
 };
 
-export type ModelOrderFilterInput = {
+export type ModelWPOrderFilterInput = {
   id?: ModelIDInput | null,
-  orderNumber?: ModelStringInput | null,
-  orderStatus?: ModelORDER_STATUSInput | null,
+  WPOrderNumber?: ModelStringInput | null,
+  WPOrderStatus?: ModelWPORDER_STATUSInput | null,
   finalPrice?: ModelFloatInput | null,
   customerComment?: ModelStringInput | null,
   customerID?: ModelIDInput | null,
   addressID?: ModelIDInput | null,
   createdAtWp?: ModelIntInput | null,
-  and?: Array< ModelOrderFilterInput | null > | null,
-  or?: Array< ModelOrderFilterInput | null > | null,
-  not?: ModelOrderFilterInput | null,
+  and?: Array< ModelWPOrderFilterInput | null > | null,
+  or?: Array< ModelWPOrderFilterInput | null > | null,
+  not?: ModelWPOrderFilterInput | null,
 };
 
 export type ModelUserFilterInput = {
@@ -649,13 +649,13 @@ export type CreateCoordinateMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -710,13 +710,13 @@ export type UpdateCoordinateMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -771,13 +771,13 @@ export type DeleteCoordinateMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -818,15 +818,15 @@ export type CreateAddressMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    addressOrders?:  {
-      __typename: "ModelOrderConnection",
+    addressWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -855,13 +855,13 @@ export type CreateAddressMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -871,7 +871,7 @@ export type CreateAddressMutation = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -895,8 +895,8 @@ export type CreateAddressMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -927,15 +927,15 @@ export type UpdateAddressMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    addressOrders?:  {
-      __typename: "ModelOrderConnection",
+    addressWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -964,13 +964,13 @@ export type UpdateAddressMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -980,7 +980,7 @@ export type UpdateAddressMutation = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -1004,8 +1004,8 @@ export type UpdateAddressMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -1036,15 +1036,15 @@ export type DeleteAddressMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    addressOrders?:  {
-      __typename: "ModelOrderConnection",
+    addressWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -1073,13 +1073,13 @@ export type DeleteAddressMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -1089,7 +1089,7 @@ export type DeleteAddressMutation = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -1113,8 +1113,8 @@ export type DeleteAddressMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -1140,19 +1140,19 @@ export type CreateBoxMutation = {
     qrCode: string,
     customerComment?: string | null,
     weekDay: WEEK_DAY,
-    orderID?: string | null,
+    WPOrderID?: string | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
-      __typename: "Order",
+    WPOrder?:  {
+      __typename: "WPOrder",
       id: string,
-      orderNumber?: string | null,
-      orderStatus: ORDER_STATUS,
-      dishes?:  Array< {
-        __typename: "Dish",
+      WPOrderNumber?: string | null,
+      WPOrderStatus: WPORDER_STATUS,
+      WPDishes?:  Array< {
+        __typename: "WPDish",
         name: string,
         dishType: string,
         quantity: number,
@@ -1181,13 +1181,13 @@ export type CreateBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -1203,7 +1203,7 @@ export type CreateBoxMutation = {
           startedAt?: number | null,
         } | null,
       } | null,
-      orderBoxes?:  {
+      WPOrderBoxes?:  {
         __typename: "ModelBoxConnection",
         items?:  Array< {
           __typename: "Box",
@@ -1213,17 +1213,17 @@ export type CreateBoxMutation = {
           qrCode: string,
           customerComment?: string | null,
           weekDay: WEEK_DAY,
-          orderID?: string | null,
+          WPOrderID?: string | null,
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
-            __typename: "Order",
+          WPOrder?:  {
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -1253,13 +1253,13 @@ export type CreateBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        customerOrders?:  {
-          __typename: "ModelOrderConnection",
+        customerWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -1293,19 +1293,19 @@ export type UpdateBoxMutation = {
     qrCode: string,
     customerComment?: string | null,
     weekDay: WEEK_DAY,
-    orderID?: string | null,
+    WPOrderID?: string | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
-      __typename: "Order",
+    WPOrder?:  {
+      __typename: "WPOrder",
       id: string,
-      orderNumber?: string | null,
-      orderStatus: ORDER_STATUS,
-      dishes?:  Array< {
-        __typename: "Dish",
+      WPOrderNumber?: string | null,
+      WPOrderStatus: WPORDER_STATUS,
+      WPDishes?:  Array< {
+        __typename: "WPDish",
         name: string,
         dishType: string,
         quantity: number,
@@ -1334,13 +1334,13 @@ export type UpdateBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -1356,7 +1356,7 @@ export type UpdateBoxMutation = {
           startedAt?: number | null,
         } | null,
       } | null,
-      orderBoxes?:  {
+      WPOrderBoxes?:  {
         __typename: "ModelBoxConnection",
         items?:  Array< {
           __typename: "Box",
@@ -1366,17 +1366,17 @@ export type UpdateBoxMutation = {
           qrCode: string,
           customerComment?: string | null,
           weekDay: WEEK_DAY,
-          orderID?: string | null,
+          WPOrderID?: string | null,
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
-            __typename: "Order",
+          WPOrder?:  {
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -1406,13 +1406,13 @@ export type UpdateBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        customerOrders?:  {
-          __typename: "ModelOrderConnection",
+        customerWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -1446,19 +1446,19 @@ export type DeleteBoxMutation = {
     qrCode: string,
     customerComment?: string | null,
     weekDay: WEEK_DAY,
-    orderID?: string | null,
+    WPOrderID?: string | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
-      __typename: "Order",
+    WPOrder?:  {
+      __typename: "WPOrder",
       id: string,
-      orderNumber?: string | null,
-      orderStatus: ORDER_STATUS,
-      dishes?:  Array< {
-        __typename: "Dish",
+      WPOrderNumber?: string | null,
+      WPOrderStatus: WPORDER_STATUS,
+      WPDishes?:  Array< {
+        __typename: "WPDish",
         name: string,
         dishType: string,
         quantity: number,
@@ -1487,13 +1487,13 @@ export type DeleteBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -1509,7 +1509,7 @@ export type DeleteBoxMutation = {
           startedAt?: number | null,
         } | null,
       } | null,
-      orderBoxes?:  {
+      WPOrderBoxes?:  {
         __typename: "ModelBoxConnection",
         items?:  Array< {
           __typename: "Box",
@@ -1519,17 +1519,17 @@ export type DeleteBoxMutation = {
           qrCode: string,
           customerComment?: string | null,
           weekDay: WEEK_DAY,
-          orderID?: string | null,
+          WPOrderID?: string | null,
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
-            __typename: "Order",
+          WPOrder?:  {
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -1559,13 +1559,13 @@ export type DeleteBoxMutation = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        customerOrders?:  {
-          __typename: "ModelOrderConnection",
+        customerWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -1585,19 +1585,19 @@ export type DeleteBoxMutation = {
   } | null,
 };
 
-export type CreateOrderMutationVariables = {
-  input: CreateOrderInput,
-  condition?: ModelOrderConditionInput | null,
+export type CreateWPOrderMutationVariables = {
+  input: CreateWPOrderInput,
+  condition?: ModelWPOrderConditionInput | null,
 };
 
-export type CreateOrderMutation = {
-  createOrder?:  {
-    __typename: "Order",
+export type CreateWPOrderMutation = {
+  createWPOrder?:  {
+    __typename: "WPOrder",
     id: string,
-    orderNumber?: string | null,
-    orderStatus: ORDER_STATUS,
-    dishes?:  Array< {
-      __typename: "Dish",
+    WPOrderNumber?: string | null,
+    WPOrderStatus: WPORDER_STATUS,
+    WPDishes?:  Array< {
+      __typename: "WPDish",
       name: string,
       dishType: string,
       quantity: number,
@@ -1626,15 +1626,15 @@ export type CreateOrderMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      addressOrders?:  {
-        __typename: "ModelOrderConnection",
+      addressWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -1664,7 +1664,7 @@ export type CreateOrderMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -1689,7 +1689,7 @@ export type CreateOrderMutation = {
         startedAt?: number | null,
       } | null,
     } | null,
-    orderBoxes?:  {
+    WPOrderBoxes?:  {
       __typename: "ModelBoxConnection",
       items?:  Array< {
         __typename: "Box",
@@ -1699,19 +1699,19 @@ export type CreateOrderMutation = {
         qrCode: string,
         customerComment?: string | null,
         weekDay: WEEK_DAY,
-        orderID?: string | null,
+        WPOrderID?: string | null,
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
-          __typename: "Order",
+        WPOrder?:  {
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -1741,7 +1741,7 @@ export type CreateOrderMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -1780,15 +1780,15 @@ export type CreateOrderMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      customerOrders?:  {
-        __typename: "ModelOrderConnection",
+      customerWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -1818,7 +1818,7 @@ export type CreateOrderMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -1846,19 +1846,19 @@ export type CreateOrderMutation = {
   } | null,
 };
 
-export type UpdateOrderMutationVariables = {
-  input: UpdateOrderInput,
-  condition?: ModelOrderConditionInput | null,
+export type UpdateWPOrderMutationVariables = {
+  input: UpdateWPOrderInput,
+  condition?: ModelWPOrderConditionInput | null,
 };
 
-export type UpdateOrderMutation = {
-  updateOrder?:  {
-    __typename: "Order",
+export type UpdateWPOrderMutation = {
+  updateWPOrder?:  {
+    __typename: "WPOrder",
     id: string,
-    orderNumber?: string | null,
-    orderStatus: ORDER_STATUS,
-    dishes?:  Array< {
-      __typename: "Dish",
+    WPOrderNumber?: string | null,
+    WPOrderStatus: WPORDER_STATUS,
+    WPDishes?:  Array< {
+      __typename: "WPDish",
       name: string,
       dishType: string,
       quantity: number,
@@ -1887,15 +1887,15 @@ export type UpdateOrderMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      addressOrders?:  {
-        __typename: "ModelOrderConnection",
+      addressWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -1925,7 +1925,7 @@ export type UpdateOrderMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -1950,7 +1950,7 @@ export type UpdateOrderMutation = {
         startedAt?: number | null,
       } | null,
     } | null,
-    orderBoxes?:  {
+    WPOrderBoxes?:  {
       __typename: "ModelBoxConnection",
       items?:  Array< {
         __typename: "Box",
@@ -1960,19 +1960,19 @@ export type UpdateOrderMutation = {
         qrCode: string,
         customerComment?: string | null,
         weekDay: WEEK_DAY,
-        orderID?: string | null,
+        WPOrderID?: string | null,
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
-          __typename: "Order",
+        WPOrder?:  {
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -2002,7 +2002,7 @@ export type UpdateOrderMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -2041,15 +2041,15 @@ export type UpdateOrderMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      customerOrders?:  {
-        __typename: "ModelOrderConnection",
+      customerWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -2079,7 +2079,7 @@ export type UpdateOrderMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -2107,19 +2107,19 @@ export type UpdateOrderMutation = {
   } | null,
 };
 
-export type DeleteOrderMutationVariables = {
-  input: DeleteOrderInput,
-  condition?: ModelOrderConditionInput | null,
+export type DeleteWPOrderMutationVariables = {
+  input: DeleteWPOrderInput,
+  condition?: ModelWPOrderConditionInput | null,
 };
 
-export type DeleteOrderMutation = {
-  deleteOrder?:  {
-    __typename: "Order",
+export type DeleteWPOrderMutation = {
+  deleteWPOrder?:  {
+    __typename: "WPOrder",
     id: string,
-    orderNumber?: string | null,
-    orderStatus: ORDER_STATUS,
-    dishes?:  Array< {
-      __typename: "Dish",
+    WPOrderNumber?: string | null,
+    WPOrderStatus: WPORDER_STATUS,
+    WPDishes?:  Array< {
+      __typename: "WPDish",
       name: string,
       dishType: string,
       quantity: number,
@@ -2148,15 +2148,15 @@ export type DeleteOrderMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      addressOrders?:  {
-        __typename: "ModelOrderConnection",
+      addressWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -2186,7 +2186,7 @@ export type DeleteOrderMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -2211,7 +2211,7 @@ export type DeleteOrderMutation = {
         startedAt?: number | null,
       } | null,
     } | null,
-    orderBoxes?:  {
+    WPOrderBoxes?:  {
       __typename: "ModelBoxConnection",
       items?:  Array< {
         __typename: "Box",
@@ -2221,19 +2221,19 @@ export type DeleteOrderMutation = {
         qrCode: string,
         customerComment?: string | null,
         weekDay: WEEK_DAY,
-        orderID?: string | null,
+        WPOrderID?: string | null,
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
-          __typename: "Order",
+        WPOrder?:  {
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -2263,7 +2263,7 @@ export type DeleteOrderMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -2302,15 +2302,15 @@ export type DeleteOrderMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      customerOrders?:  {
-        __typename: "ModelOrderConnection",
+      customerWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -2340,7 +2340,7 @@ export type DeleteOrderMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -2568,15 +2568,15 @@ export type CreateCustomerMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    customerOrders?:  {
-      __typename: "ModelOrderConnection",
+    customerWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -2605,13 +2605,13 @@ export type CreateCustomerMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -2621,7 +2621,7 @@ export type CreateCustomerMutation = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -2645,8 +2645,8 @@ export type CreateCustomerMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -2678,15 +2678,15 @@ export type UpdateCustomerMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    customerOrders?:  {
-      __typename: "ModelOrderConnection",
+    customerWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -2715,13 +2715,13 @@ export type UpdateCustomerMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -2731,7 +2731,7 @@ export type UpdateCustomerMutation = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -2755,8 +2755,8 @@ export type UpdateCustomerMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -2788,15 +2788,15 @@ export type DeleteCustomerMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    customerOrders?:  {
-      __typename: "ModelOrderConnection",
+    customerWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -2825,13 +2825,13 @@ export type DeleteCustomerMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -2841,7 +2841,7 @@ export type DeleteCustomerMutation = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -2865,8 +2865,8 @@ export type DeleteCustomerMutation = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -2910,13 +2910,13 @@ export type GetCoordinateQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -2974,8 +2974,8 @@ export type ListCoordinatesQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -3026,8 +3026,8 @@ export type SyncCoordinatesQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -3059,15 +3059,15 @@ export type GetAddressQuery = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    addressOrders?:  {
-      __typename: "ModelOrderConnection",
+    addressWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -3096,13 +3096,13 @@ export type GetAddressQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -3112,7 +3112,7 @@ export type GetAddressQuery = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -3136,8 +3136,8 @@ export type GetAddressQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -3171,15 +3171,15 @@ export type ListAddresssQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      addressOrders?:  {
-        __typename: "ModelOrderConnection",
+      addressWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -3209,7 +3209,7 @@ export type ListAddresssQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -3263,15 +3263,15 @@ export type ByPostCodeQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      addressOrders?:  {
-        __typename: "ModelOrderConnection",
+      addressWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -3301,7 +3301,7 @@ export type ByPostCodeQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -3354,15 +3354,15 @@ export type SyncAddressesQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      addressOrders?:  {
-        __typename: "ModelOrderConnection",
+      addressWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -3392,7 +3392,7 @@ export type SyncAddressesQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -3435,19 +3435,19 @@ export type GetBoxQuery = {
     qrCode: string,
     customerComment?: string | null,
     weekDay: WEEK_DAY,
-    orderID?: string | null,
+    WPOrderID?: string | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
-      __typename: "Order",
+    WPOrder?:  {
+      __typename: "WPOrder",
       id: string,
-      orderNumber?: string | null,
-      orderStatus: ORDER_STATUS,
-      dishes?:  Array< {
-        __typename: "Dish",
+      WPOrderNumber?: string | null,
+      WPOrderStatus: WPORDER_STATUS,
+      WPDishes?:  Array< {
+        __typename: "WPDish",
         name: string,
         dishType: string,
         quantity: number,
@@ -3476,13 +3476,13 @@ export type GetBoxQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -3498,7 +3498,7 @@ export type GetBoxQuery = {
           startedAt?: number | null,
         } | null,
       } | null,
-      orderBoxes?:  {
+      WPOrderBoxes?:  {
         __typename: "ModelBoxConnection",
         items?:  Array< {
           __typename: "Box",
@@ -3508,17 +3508,17 @@ export type GetBoxQuery = {
           qrCode: string,
           customerComment?: string | null,
           weekDay: WEEK_DAY,
-          orderID?: string | null,
+          WPOrderID?: string | null,
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
-            __typename: "Order",
+          WPOrder?:  {
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -3548,13 +3548,13 @@ export type GetBoxQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        customerOrders?:  {
-          __typename: "ModelOrderConnection",
+        customerWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -3591,19 +3591,19 @@ export type ListBoxsQuery = {
       qrCode: string,
       customerComment?: string | null,
       weekDay: WEEK_DAY,
-      orderID?: string | null,
+      WPOrderID?: string | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      order?:  {
-        __typename: "Order",
+      WPOrder?:  {
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -3632,13 +3632,13 @@ export type ListBoxsQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -3648,7 +3648,7 @@ export type ListBoxsQuery = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -3672,8 +3672,8 @@ export type ListBoxsQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -3703,19 +3703,19 @@ export type SyncBoxesQuery = {
       qrCode: string,
       customerComment?: string | null,
       weekDay: WEEK_DAY,
-      orderID?: string | null,
+      WPOrderID?: string | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      order?:  {
-        __typename: "Order",
+      WPOrder?:  {
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -3744,13 +3744,13 @@ export type SyncBoxesQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -3760,7 +3760,7 @@ export type SyncBoxesQuery = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -3784,8 +3784,8 @@ export type SyncBoxesQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -3797,18 +3797,18 @@ export type SyncBoxesQuery = {
   } | null,
 };
 
-export type GetOrderQueryVariables = {
+export type GetWPOrderQueryVariables = {
   id: string,
 };
 
-export type GetOrderQuery = {
-  getOrder?:  {
-    __typename: "Order",
+export type GetWPOrderQuery = {
+  getWPOrder?:  {
+    __typename: "WPOrder",
     id: string,
-    orderNumber?: string | null,
-    orderStatus: ORDER_STATUS,
-    dishes?:  Array< {
-      __typename: "Dish",
+    WPOrderNumber?: string | null,
+    WPOrderStatus: WPORDER_STATUS,
+    WPDishes?:  Array< {
+      __typename: "WPDish",
       name: string,
       dishType: string,
       quantity: number,
@@ -3837,15 +3837,15 @@ export type GetOrderQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      addressOrders?:  {
-        __typename: "ModelOrderConnection",
+      addressWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -3875,7 +3875,7 @@ export type GetOrderQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -3900,7 +3900,7 @@ export type GetOrderQuery = {
         startedAt?: number | null,
       } | null,
     } | null,
-    orderBoxes?:  {
+    WPOrderBoxes?:  {
       __typename: "ModelBoxConnection",
       items?:  Array< {
         __typename: "Box",
@@ -3910,19 +3910,19 @@ export type GetOrderQuery = {
         qrCode: string,
         customerComment?: string | null,
         weekDay: WEEK_DAY,
-        orderID?: string | null,
+        WPOrderID?: string | null,
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
-          __typename: "Order",
+        WPOrder?:  {
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -3952,7 +3952,7 @@ export type GetOrderQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -3991,15 +3991,15 @@ export type GetOrderQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      customerOrders?:  {
-        __typename: "ModelOrderConnection",
+      customerWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -4029,7 +4029,7 @@ export type GetOrderQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -4057,22 +4057,22 @@ export type GetOrderQuery = {
   } | null,
 };
 
-export type ListOrdersQueryVariables = {
-  filter?: ModelOrderFilterInput | null,
+export type ListWPOrdersQueryVariables = {
+  filter?: ModelWPOrderFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListOrdersQuery = {
-  listOrders?:  {
-    __typename: "ModelOrderConnection",
+export type ListWPOrdersQuery = {
+  listWPOrders?:  {
+    __typename: "ModelWPOrderConnection",
     items?:  Array< {
-      __typename: "Order",
+      __typename: "WPOrder",
       id: string,
-      orderNumber?: string | null,
-      orderStatus: ORDER_STATUS,
-      dishes?:  Array< {
-        __typename: "Dish",
+      WPOrderNumber?: string | null,
+      WPOrderStatus: WPORDER_STATUS,
+      WPDishes?:  Array< {
+        __typename: "WPDish",
         name: string,
         dishType: string,
         quantity: number,
@@ -4101,13 +4101,13 @@ export type ListOrdersQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -4123,7 +4123,7 @@ export type ListOrdersQuery = {
           startedAt?: number | null,
         } | null,
       } | null,
-      orderBoxes?:  {
+      WPOrderBoxes?:  {
         __typename: "ModelBoxConnection",
         items?:  Array< {
           __typename: "Box",
@@ -4133,17 +4133,17 @@ export type ListOrdersQuery = {
           qrCode: string,
           customerComment?: string | null,
           weekDay: WEEK_DAY,
-          orderID?: string | null,
+          WPOrderID?: string | null,
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
-            __typename: "Order",
+          WPOrder?:  {
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -4173,13 +4173,13 @@ export type ListOrdersQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        customerOrders?:  {
-          __typename: "ModelOrderConnection",
+        customerWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -4201,24 +4201,24 @@ export type ListOrdersQuery = {
   } | null,
 };
 
-export type ByOrderNumberQueryVariables = {
-  orderNumber?: string | null,
+export type ByWPOrderNumberQueryVariables = {
+  WPOrderNumber?: string | null,
   sortDirection?: ModelSortDirection | null,
-  filter?: ModelOrderFilterInput | null,
+  filter?: ModelWPOrderFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ByOrderNumberQuery = {
-  byOrderNumber?:  {
-    __typename: "ModelOrderConnection",
+export type ByWPOrderNumberQuery = {
+  byWPOrderNumber?:  {
+    __typename: "ModelWPOrderConnection",
     items?:  Array< {
-      __typename: "Order",
+      __typename: "WPOrder",
       id: string,
-      orderNumber?: string | null,
-      orderStatus: ORDER_STATUS,
-      dishes?:  Array< {
-        __typename: "Dish",
+      WPOrderNumber?: string | null,
+      WPOrderStatus: WPORDER_STATUS,
+      WPDishes?:  Array< {
+        __typename: "WPDish",
         name: string,
         dishType: string,
         quantity: number,
@@ -4247,13 +4247,13 @@ export type ByOrderNumberQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -4269,7 +4269,7 @@ export type ByOrderNumberQuery = {
           startedAt?: number | null,
         } | null,
       } | null,
-      orderBoxes?:  {
+      WPOrderBoxes?:  {
         __typename: "ModelBoxConnection",
         items?:  Array< {
           __typename: "Box",
@@ -4279,17 +4279,17 @@ export type ByOrderNumberQuery = {
           qrCode: string,
           customerComment?: string | null,
           weekDay: WEEK_DAY,
-          orderID?: string | null,
+          WPOrderID?: string | null,
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
-            __typename: "Order",
+          WPOrder?:  {
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -4319,13 +4319,13 @@ export type ByOrderNumberQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        customerOrders?:  {
-          __typename: "ModelOrderConnection",
+        customerWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -4347,23 +4347,23 @@ export type ByOrderNumberQuery = {
   } | null,
 };
 
-export type SyncOrdersQueryVariables = {
-  filter?: ModelOrderFilterInput | null,
+export type SyncWPOrdersQueryVariables = {
+  filter?: ModelWPOrderFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
   lastSync?: number | null,
 };
 
-export type SyncOrdersQuery = {
-  syncOrders?:  {
-    __typename: "ModelOrderConnection",
+export type SyncWPOrdersQuery = {
+  syncWPOrders?:  {
+    __typename: "ModelWPOrderConnection",
     items?:  Array< {
-      __typename: "Order",
+      __typename: "WPOrder",
       id: string,
-      orderNumber?: string | null,
-      orderStatus: ORDER_STATUS,
-      dishes?:  Array< {
-        __typename: "Dish",
+      WPOrderNumber?: string | null,
+      WPOrderStatus: WPORDER_STATUS,
+      WPDishes?:  Array< {
+        __typename: "WPDish",
         name: string,
         dishType: string,
         quantity: number,
@@ -4392,13 +4392,13 @@ export type SyncOrdersQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -4414,7 +4414,7 @@ export type SyncOrdersQuery = {
           startedAt?: number | null,
         } | null,
       } | null,
-      orderBoxes?:  {
+      WPOrderBoxes?:  {
         __typename: "ModelBoxConnection",
         items?:  Array< {
           __typename: "Box",
@@ -4424,17 +4424,17 @@ export type SyncOrdersQuery = {
           qrCode: string,
           customerComment?: string | null,
           weekDay: WEEK_DAY,
-          orderID?: string | null,
+          WPOrderID?: string | null,
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
-            __typename: "Order",
+          WPOrder?:  {
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -4464,13 +4464,13 @@ export type SyncOrdersQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        customerOrders?:  {
-          __typename: "ModelOrderConnection",
+        customerWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -4675,15 +4675,15 @@ export type GetCustomerQuery = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    customerOrders?:  {
-      __typename: "ModelOrderConnection",
+    customerWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -4712,13 +4712,13 @@ export type GetCustomerQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -4728,7 +4728,7 @@ export type GetCustomerQuery = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -4752,8 +4752,8 @@ export type GetCustomerQuery = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -4788,15 +4788,15 @@ export type ListCustomersQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      customerOrders?:  {
-        __typename: "ModelOrderConnection",
+      customerWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -4826,7 +4826,7 @@ export type ListCustomersQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -4881,15 +4881,15 @@ export type ByEmailQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      customerOrders?:  {
-        __typename: "ModelOrderConnection",
+      customerWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -4919,7 +4919,7 @@ export type ByEmailQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -4973,15 +4973,15 @@ export type SyncCustomersQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      customerOrders?:  {
-        __typename: "ModelOrderConnection",
+      customerWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -5011,7 +5011,7 @@ export type SyncCustomersQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -5069,13 +5069,13 @@ export type OnCreateCoordinateSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5125,13 +5125,13 @@ export type OnUpdateCoordinateSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5181,13 +5181,13 @@ export type OnDeleteCoordinateSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5223,15 +5223,15 @@ export type OnCreateAddressSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    addressOrders?:  {
-      __typename: "ModelOrderConnection",
+    addressWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -5260,13 +5260,13 @@ export type OnCreateAddressSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -5276,7 +5276,7 @@ export type OnCreateAddressSubscription = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -5300,8 +5300,8 @@ export type OnCreateAddressSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -5327,15 +5327,15 @@ export type OnUpdateAddressSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    addressOrders?:  {
-      __typename: "ModelOrderConnection",
+    addressWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -5364,13 +5364,13 @@ export type OnUpdateAddressSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -5380,7 +5380,7 @@ export type OnUpdateAddressSubscription = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -5404,8 +5404,8 @@ export type OnUpdateAddressSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -5431,15 +5431,15 @@ export type OnDeleteAddressSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    addressOrders?:  {
-      __typename: "ModelOrderConnection",
+    addressWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -5468,13 +5468,13 @@ export type OnDeleteAddressSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -5484,7 +5484,7 @@ export type OnDeleteAddressSubscription = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -5508,8 +5508,8 @@ export type OnDeleteAddressSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -5530,19 +5530,19 @@ export type OnCreateBoxSubscription = {
     qrCode: string,
     customerComment?: string | null,
     weekDay: WEEK_DAY,
-    orderID?: string | null,
+    WPOrderID?: string | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
-      __typename: "Order",
+    WPOrder?:  {
+      __typename: "WPOrder",
       id: string,
-      orderNumber?: string | null,
-      orderStatus: ORDER_STATUS,
-      dishes?:  Array< {
-        __typename: "Dish",
+      WPOrderNumber?: string | null,
+      WPOrderStatus: WPORDER_STATUS,
+      WPDishes?:  Array< {
+        __typename: "WPDish",
         name: string,
         dishType: string,
         quantity: number,
@@ -5571,13 +5571,13 @@ export type OnCreateBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5593,7 +5593,7 @@ export type OnCreateBoxSubscription = {
           startedAt?: number | null,
         } | null,
       } | null,
-      orderBoxes?:  {
+      WPOrderBoxes?:  {
         __typename: "ModelBoxConnection",
         items?:  Array< {
           __typename: "Box",
@@ -5603,17 +5603,17 @@ export type OnCreateBoxSubscription = {
           qrCode: string,
           customerComment?: string | null,
           weekDay: WEEK_DAY,
-          orderID?: string | null,
+          WPOrderID?: string | null,
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
-            __typename: "Order",
+          WPOrder?:  {
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5643,13 +5643,13 @@ export type OnCreateBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        customerOrders?:  {
-          __typename: "ModelOrderConnection",
+        customerWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5678,19 +5678,19 @@ export type OnUpdateBoxSubscription = {
     qrCode: string,
     customerComment?: string | null,
     weekDay: WEEK_DAY,
-    orderID?: string | null,
+    WPOrderID?: string | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
-      __typename: "Order",
+    WPOrder?:  {
+      __typename: "WPOrder",
       id: string,
-      orderNumber?: string | null,
-      orderStatus: ORDER_STATUS,
-      dishes?:  Array< {
-        __typename: "Dish",
+      WPOrderNumber?: string | null,
+      WPOrderStatus: WPORDER_STATUS,
+      WPDishes?:  Array< {
+        __typename: "WPDish",
         name: string,
         dishType: string,
         quantity: number,
@@ -5719,13 +5719,13 @@ export type OnUpdateBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5741,7 +5741,7 @@ export type OnUpdateBoxSubscription = {
           startedAt?: number | null,
         } | null,
       } | null,
-      orderBoxes?:  {
+      WPOrderBoxes?:  {
         __typename: "ModelBoxConnection",
         items?:  Array< {
           __typename: "Box",
@@ -5751,17 +5751,17 @@ export type OnUpdateBoxSubscription = {
           qrCode: string,
           customerComment?: string | null,
           weekDay: WEEK_DAY,
-          orderID?: string | null,
+          WPOrderID?: string | null,
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
-            __typename: "Order",
+          WPOrder?:  {
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5791,13 +5791,13 @@ export type OnUpdateBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        customerOrders?:  {
-          __typename: "ModelOrderConnection",
+        customerWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5826,19 +5826,19 @@ export type OnDeleteBoxSubscription = {
     qrCode: string,
     customerComment?: string | null,
     weekDay: WEEK_DAY,
-    orderID?: string | null,
+    WPOrderID?: string | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    order?:  {
-      __typename: "Order",
+    WPOrder?:  {
+      __typename: "WPOrder",
       id: string,
-      orderNumber?: string | null,
-      orderStatus: ORDER_STATUS,
-      dishes?:  Array< {
-        __typename: "Dish",
+      WPOrderNumber?: string | null,
+      WPOrderStatus: WPORDER_STATUS,
+      WPDishes?:  Array< {
+        __typename: "WPDish",
         name: string,
         dishType: string,
         quantity: number,
@@ -5867,13 +5867,13 @@ export type OnDeleteBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        addressOrders?:  {
-          __typename: "ModelOrderConnection",
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5889,7 +5889,7 @@ export type OnDeleteBoxSubscription = {
           startedAt?: number | null,
         } | null,
       } | null,
-      orderBoxes?:  {
+      WPOrderBoxes?:  {
         __typename: "ModelBoxConnection",
         items?:  Array< {
           __typename: "Box",
@@ -5899,17 +5899,17 @@ export type OnDeleteBoxSubscription = {
           qrCode: string,
           customerComment?: string | null,
           weekDay: WEEK_DAY,
-          orderID?: string | null,
+          WPOrderID?: string | null,
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          order?:  {
-            __typename: "Order",
+          WPOrder?:  {
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5939,13 +5939,13 @@ export type OnDeleteBoxSubscription = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        customerOrders?:  {
-          __typename: "ModelOrderConnection",
+        customerWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
           items?:  Array< {
-            __typename: "Order",
+            __typename: "WPOrder",
             id: string,
-            orderNumber?: string | null,
-            orderStatus: ORDER_STATUS,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
             finalPrice: number,
             customerComment?: string | null,
             customerID?: string | null,
@@ -5965,14 +5965,14 @@ export type OnDeleteBoxSubscription = {
   } | null,
 };
 
-export type OnCreateOrderSubscription = {
-  onCreateOrder?:  {
-    __typename: "Order",
+export type OnCreateWPOrderSubscription = {
+  onCreateWPOrder?:  {
+    __typename: "WPOrder",
     id: string,
-    orderNumber?: string | null,
-    orderStatus: ORDER_STATUS,
-    dishes?:  Array< {
-      __typename: "Dish",
+    WPOrderNumber?: string | null,
+    WPOrderStatus: WPORDER_STATUS,
+    WPDishes?:  Array< {
+      __typename: "WPDish",
       name: string,
       dishType: string,
       quantity: number,
@@ -6001,15 +6001,15 @@ export type OnCreateOrderSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      addressOrders?:  {
-        __typename: "ModelOrderConnection",
+      addressWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -6039,7 +6039,7 @@ export type OnCreateOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -6064,7 +6064,7 @@ export type OnCreateOrderSubscription = {
         startedAt?: number | null,
       } | null,
     } | null,
-    orderBoxes?:  {
+    WPOrderBoxes?:  {
       __typename: "ModelBoxConnection",
       items?:  Array< {
         __typename: "Box",
@@ -6074,19 +6074,19 @@ export type OnCreateOrderSubscription = {
         qrCode: string,
         customerComment?: string | null,
         weekDay: WEEK_DAY,
-        orderID?: string | null,
+        WPOrderID?: string | null,
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
-          __typename: "Order",
+        WPOrder?:  {
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -6116,7 +6116,7 @@ export type OnCreateOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -6155,15 +6155,15 @@ export type OnCreateOrderSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      customerOrders?:  {
-        __typename: "ModelOrderConnection",
+      customerWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -6193,7 +6193,7 @@ export type OnCreateOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -6221,14 +6221,14 @@ export type OnCreateOrderSubscription = {
   } | null,
 };
 
-export type OnUpdateOrderSubscription = {
-  onUpdateOrder?:  {
-    __typename: "Order",
+export type OnUpdateWPOrderSubscription = {
+  onUpdateWPOrder?:  {
+    __typename: "WPOrder",
     id: string,
-    orderNumber?: string | null,
-    orderStatus: ORDER_STATUS,
-    dishes?:  Array< {
-      __typename: "Dish",
+    WPOrderNumber?: string | null,
+    WPOrderStatus: WPORDER_STATUS,
+    WPDishes?:  Array< {
+      __typename: "WPDish",
       name: string,
       dishType: string,
       quantity: number,
@@ -6257,15 +6257,15 @@ export type OnUpdateOrderSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      addressOrders?:  {
-        __typename: "ModelOrderConnection",
+      addressWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -6295,7 +6295,7 @@ export type OnUpdateOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -6320,7 +6320,7 @@ export type OnUpdateOrderSubscription = {
         startedAt?: number | null,
       } | null,
     } | null,
-    orderBoxes?:  {
+    WPOrderBoxes?:  {
       __typename: "ModelBoxConnection",
       items?:  Array< {
         __typename: "Box",
@@ -6330,19 +6330,19 @@ export type OnUpdateOrderSubscription = {
         qrCode: string,
         customerComment?: string | null,
         weekDay: WEEK_DAY,
-        orderID?: string | null,
+        WPOrderID?: string | null,
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
-          __typename: "Order",
+        WPOrder?:  {
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -6372,7 +6372,7 @@ export type OnUpdateOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -6411,15 +6411,15 @@ export type OnUpdateOrderSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      customerOrders?:  {
-        __typename: "ModelOrderConnection",
+      customerWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -6449,7 +6449,7 @@ export type OnUpdateOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -6477,14 +6477,14 @@ export type OnUpdateOrderSubscription = {
   } | null,
 };
 
-export type OnDeleteOrderSubscription = {
-  onDeleteOrder?:  {
-    __typename: "Order",
+export type OnDeleteWPOrderSubscription = {
+  onDeleteWPOrder?:  {
+    __typename: "WPOrder",
     id: string,
-    orderNumber?: string | null,
-    orderStatus: ORDER_STATUS,
-    dishes?:  Array< {
-      __typename: "Dish",
+    WPOrderNumber?: string | null,
+    WPOrderStatus: WPORDER_STATUS,
+    WPDishes?:  Array< {
+      __typename: "WPDish",
       name: string,
       dishType: string,
       quantity: number,
@@ -6513,15 +6513,15 @@ export type OnDeleteOrderSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      addressOrders?:  {
-        __typename: "ModelOrderConnection",
+      addressWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -6551,7 +6551,7 @@ export type OnDeleteOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -6576,7 +6576,7 @@ export type OnDeleteOrderSubscription = {
         startedAt?: number | null,
       } | null,
     } | null,
-    orderBoxes?:  {
+    WPOrderBoxes?:  {
       __typename: "ModelBoxConnection",
       items?:  Array< {
         __typename: "Box",
@@ -6586,19 +6586,19 @@ export type OnDeleteOrderSubscription = {
         qrCode: string,
         customerComment?: string | null,
         weekDay: WEEK_DAY,
-        orderID?: string | null,
+        WPOrderID?: string | null,
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        order?:  {
-          __typename: "Order",
+        WPOrder?:  {
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -6628,7 +6628,7 @@ export type OnDeleteOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -6667,15 +6667,15 @@ export type OnDeleteOrderSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      customerOrders?:  {
-        __typename: "ModelOrderConnection",
+      customerWPOrders?:  {
+        __typename: "ModelWPOrderConnection",
         items?:  Array< {
-          __typename: "Order",
+          __typename: "WPOrder",
           id: string,
-          orderNumber?: string | null,
-          orderStatus: ORDER_STATUS,
-          dishes?:  Array< {
-            __typename: "Dish",
+          WPOrderNumber?: string | null,
+          WPOrderStatus: WPORDER_STATUS,
+          WPDishes?:  Array< {
+            __typename: "WPDish",
             name: string,
             dishType: string,
             quantity: number,
@@ -6705,7 +6705,7 @@ export type OnDeleteOrderSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
-          orderBoxes?:  {
+          WPOrderBoxes?:  {
             __typename: "ModelBoxConnection",
             nextToken?: string | null,
             startedAt?: number | null,
@@ -6913,15 +6913,15 @@ export type OnCreateCustomerSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    customerOrders?:  {
-      __typename: "ModelOrderConnection",
+    customerWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -6950,13 +6950,13 @@ export type OnCreateCustomerSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -6966,7 +6966,7 @@ export type OnCreateCustomerSubscription = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -6990,8 +6990,8 @@ export type OnCreateCustomerSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -7018,15 +7018,15 @@ export type OnUpdateCustomerSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    customerOrders?:  {
-      __typename: "ModelOrderConnection",
+    customerWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -7055,13 +7055,13 @@ export type OnUpdateCustomerSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -7071,7 +7071,7 @@ export type OnUpdateCustomerSubscription = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -7095,8 +7095,8 @@ export type OnUpdateCustomerSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
@@ -7123,15 +7123,15 @@ export type OnDeleteCustomerSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    customerOrders?:  {
-      __typename: "ModelOrderConnection",
+    customerWPOrders?:  {
+      __typename: "ModelWPOrderConnection",
       items?:  Array< {
-        __typename: "Order",
+        __typename: "WPOrder",
         id: string,
-        orderNumber?: string | null,
-        orderStatus: ORDER_STATUS,
-        dishes?:  Array< {
-          __typename: "Dish",
+        WPOrderNumber?: string | null,
+        WPOrderStatus: WPORDER_STATUS,
+        WPDishes?:  Array< {
+          __typename: "WPDish",
           name: string,
           dishType: string,
           quantity: number,
@@ -7160,13 +7160,13 @@ export type OnDeleteCustomerSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          addressOrders?:  {
-            __typename: "ModelOrderConnection",
+          addressWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,
         } | null,
-        orderBoxes?:  {
+        WPOrderBoxes?:  {
           __typename: "ModelBoxConnection",
           items?:  Array< {
             __typename: "Box",
@@ -7176,7 +7176,7 @@ export type OnDeleteCustomerSubscription = {
             qrCode: string,
             customerComment?: string | null,
             weekDay: WEEK_DAY,
-            orderID?: string | null,
+            WPOrderID?: string | null,
             _version: number,
             _deleted?: boolean | null,
             _lastChangedAt: number,
@@ -7200,8 +7200,8 @@ export type OnDeleteCustomerSubscription = {
           _lastChangedAt: number,
           createdAt: string,
           updatedAt: string,
-          customerOrders?:  {
-            __typename: "ModelOrderConnection",
+          customerWPOrders?:  {
+            __typename: "ModelWPOrderConnection",
             nextToken?: string | null,
             startedAt?: number | null,
           } | null,

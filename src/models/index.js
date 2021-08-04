@@ -2,7 +2,7 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
-const OrderStatus = {
+const WporderStatus = {
   "PROCESSING": "PROCESSING",
   "COMPLETED": "COMPLETED",
   "CANCELLED": "CANCELLED"
@@ -34,18 +34,18 @@ const Role = {
   "GUEST": "GUEST"
 };
 
-const { Coordinate, Address, Order, Customer, Box, User, Dish } = initSchema(schema);
+const { Coordinate, Address, WPOrder, Customer, Box, User, WPDish } = initSchema(schema);
 
 export {
   Coordinate,
   Address,
-  Order,
+  WPOrder,
   Customer,
   Box,
   User,
-  OrderStatus,
+  WporderStatus,
   WeekDay,
   BoxStatus,
   Role,
-  Dish
+  WPDish
 };

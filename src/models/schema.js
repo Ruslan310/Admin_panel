@@ -157,11 +157,11 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "addressOrders": {
-                    "name": "addressOrders",
+                "addressWPOrders": {
+                    "name": "addressWPOrders",
                     "isArray": true,
                     "type": {
-                        "model": "Order"
+                        "model": "WPOrder"
                     },
                     "isRequired": true,
                     "attributes": [],
@@ -241,8 +241,8 @@ export const schema = {
                 }
             ]
         },
-        "Order": {
-            "name": "Order",
+        "WPOrder": {
+            "name": "WPOrder",
             "fields": {
                 "id": {
                     "name": "id",
@@ -251,27 +251,27 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "orderNumber": {
-                    "name": "orderNumber",
+                "WPOrderNumber": {
+                    "name": "WPOrderNumber",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "orderStatus": {
-                    "name": "orderStatus",
+                "WPOrderStatus": {
+                    "name": "WPOrderStatus",
                     "isArray": false,
                     "type": {
-                        "enum": "OrderStatus"
+                        "enum": "WporderStatus"
                     },
                     "isRequired": true,
                     "attributes": []
                 },
-                "dishes": {
-                    "name": "dishes",
+                "WPDishes": {
+                    "name": "WPDishes",
                     "isArray": true,
                     "type": {
-                        "nonModel": "Dish"
+                        "nonModel": "WPDish"
                     },
                     "isRequired": true,
                     "attributes": [],
@@ -308,11 +308,11 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "orderCustomerId"
+                        "targetName": "wpOrderCustomerId"
                     }
                 },
-                "orderBoxes": {
-                    "name": "orderBoxes",
+                "WPOrderBoxes": {
+                    "name": "WPOrderBoxes",
                     "isArray": true,
                     "type": {
                         "model": "Box"
@@ -322,7 +322,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "orderID"
+                        "associatedWith": "WPOrderID"
                     }
                 },
                 "addressID": {
@@ -342,7 +342,7 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "orderAddressId"
+                        "targetName": "wpOrderAddressId"
                     }
                 },
                 "createdAtWp": {
@@ -370,7 +370,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Orders",
+            "pluralName": "WPOrders",
             "attributes": [
                 {
                     "type": "model",
@@ -397,11 +397,11 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byOrderNumber",
+                        "name": "byWPOrderNumber",
                         "fields": [
-                            "orderNumber"
+                            "WPOrderNumber"
                         ],
-                        "queryField": "byOrderNumber"
+                        "queryField": "byWPOrderNumber"
                     }
                 },
                 {
@@ -483,11 +483,11 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "customerOrders": {
-                    "name": "customerOrders",
+                "customerWPOrders": {
+                    "name": "customerWPOrders",
                     "isArray": true,
                     "type": {
-                        "model": "Order"
+                        "model": "WPOrder"
                     },
                     "isRequired": true,
                     "attributes": [],
@@ -607,24 +607,24 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "orderID": {
-                    "name": "orderID",
+                "WPOrderID": {
+                    "name": "WPOrderID",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
                 },
-                "order": {
-                    "name": "order",
+                "WPOrder": {
+                    "name": "WPOrder",
                     "isArray": false,
                     "type": {
-                        "model": "Order"
+                        "model": "WPOrder"
                     },
                     "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "boxOrderId"
+                        "targetName": "boxWpOrderId"
                     }
                 },
                 "createdAt": {
@@ -654,9 +654,9 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byOrder",
+                        "name": "byWPOrder",
                         "fields": [
-                            "orderID"
+                            "WPOrderID"
                         ]
                     }
                 },
@@ -808,8 +808,8 @@ export const schema = {
         }
     },
     "enums": {
-        "OrderStatus": {
-            "name": "OrderStatus",
+        "WporderStatus": {
+            "name": "WporderStatus",
             "values": [
                 "PROCESSING",
                 "COMPLETED",
@@ -850,8 +850,8 @@ export const schema = {
         }
     },
     "nonModels": {
-        "Dish": {
-            "name": "Dish",
+        "WPDish": {
+            "name": "WPDish",
             "fields": {
                 "name": {
                     "name": "name",
@@ -886,5 +886,5 @@ export const schema = {
             }
         }
     },
-    "version": "7249e79d029356893dd159c01f394dfd"
+    "version": "7535f3b72b5db6f903a4f13c38c0fdab"
 };

@@ -398,7 +398,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "getOrder",
+          "name" : "getWPOrder",
           "description" : null,
           "args" : [ {
             "name" : "id",
@@ -416,20 +416,20 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Order",
+            "name" : "WPOrder",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listOrders",
+          "name" : "listWPOrders",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderFilterInput",
+              "name" : "ModelWPOrderFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -454,16 +454,16 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelOrderConnection",
+            "name" : "ModelWPOrderConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "byOrderNumber",
+          "name" : "byWPOrderNumber",
           "description" : null,
           "args" : [ {
-            "name" : "orderNumber",
+            "name" : "WPOrderNumber",
             "description" : null,
             "type" : {
               "kind" : "SCALAR",
@@ -485,7 +485,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderFilterInput",
+              "name" : "ModelWPOrderFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -510,20 +510,20 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelOrderConnection",
+            "name" : "ModelWPOrderConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "syncOrders",
+          "name" : "syncWPOrders",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderFilterInput",
+              "name" : "ModelWPOrderFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -557,7 +557,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelOrderConnection",
+            "name" : "ModelWPOrderConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1310,14 +1310,14 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "addressOrders",
+          "name" : "addressWPOrders",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderFilterInput",
+              "name" : "ModelWPOrderFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -1351,7 +1351,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelOrderConnection",
+            "name" : "ModelWPOrderConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1363,7 +1363,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModelOrderConnection",
+        "name" : "ModelWPOrderConnection",
         "description" : null,
         "fields" : [ {
           "name" : "items",
@@ -1374,7 +1374,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "Order",
+              "name" : "WPOrder",
               "ofType" : null
             }
           },
@@ -1409,7 +1409,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "Order",
+        "name" : "WPOrder",
         "description" : null,
         "fields" : [ {
           "name" : "id",
@@ -1427,7 +1427,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "orderNumber",
+          "name" : "WPOrderNumber",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -1438,7 +1438,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "orderStatus",
+          "name" : "WPOrderStatus",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -1446,14 +1446,14 @@
             "name" : null,
             "ofType" : {
               "kind" : "ENUM",
-              "name" : "ORDER_STATUS",
+              "name" : "WPORDER_STATUS",
               "ofType" : null
             }
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "dishes",
+          "name" : "WPDishes",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -1464,7 +1464,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "OBJECT",
-                "name" : "Dish",
+                "name" : "WPDish",
                 "ofType" : null
               }
             }
@@ -1617,7 +1617,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "orderBoxes",
+          "name" : "WPOrderBoxes",
           "description" : null,
           "args" : [ {
             "name" : "filter",
@@ -1681,7 +1681,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "ENUM",
-        "name" : "ORDER_STATUS",
+        "name" : "WPORDER_STATUS",
         "description" : null,
         "fields" : null,
         "inputFields" : null,
@@ -1705,7 +1705,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "Dish",
+        "name" : "WPDish",
         "description" : null,
         "fields" : [ {
           "name" : "name",
@@ -1958,7 +1958,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "orderID",
+          "name" : "WPOrderID",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -2040,12 +2040,12 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "order",
+          "name" : "WPOrder",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Order",
+            "name" : "WPOrder",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -2149,7 +2149,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderID",
+          "name" : "WPOrderID",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -2825,14 +2825,14 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "customerOrders",
+          "name" : "customerWPOrders",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderFilterInput",
+              "name" : "ModelWPOrderFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -2866,7 +2866,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelOrderConnection",
+            "name" : "ModelWPOrderConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -2878,7 +2878,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelOrderFilterInput",
+        "name" : "ModelWPOrderFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -2891,7 +2891,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderNumber",
+          "name" : "WPOrderNumber",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -2900,11 +2900,11 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderStatus",
+          "name" : "WPOrderStatus",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelORDER_STATUSInput",
+            "name" : "ModelWPORDER_STATUSInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -2961,7 +2961,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderFilterInput",
+              "name" : "ModelWPOrderFilterInput",
               "ofType" : null
             }
           },
@@ -2974,7 +2974,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderFilterInput",
+              "name" : "ModelWPOrderFilterInput",
               "ofType" : null
             }
           },
@@ -2984,7 +2984,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelOrderFilterInput",
+            "name" : "ModelWPOrderFilterInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -2994,7 +2994,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelORDER_STATUSInput",
+        "name" : "ModelWPORDER_STATUSInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -3002,7 +3002,7 @@
           "description" : null,
           "type" : {
             "kind" : "ENUM",
-            "name" : "ORDER_STATUS",
+            "name" : "WPORDER_STATUS",
             "ofType" : null
           },
           "defaultValue" : null
@@ -3011,7 +3011,7 @@
           "description" : null,
           "type" : {
             "kind" : "ENUM",
-            "name" : "ORDER_STATUS",
+            "name" : "WPORDER_STATUS",
             "ofType" : null
           },
           "defaultValue" : null
@@ -4324,7 +4324,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "createOrder",
+          "name" : "createWPOrder",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -4334,7 +4334,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "CreateOrderInput",
+                "name" : "CreateWPOrderInput",
                 "ofType" : null
               }
             },
@@ -4344,20 +4344,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderConditionInput",
+              "name" : "ModelWPOrderConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Order",
+            "name" : "WPOrder",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "updateOrder",
+          "name" : "updateWPOrder",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -4367,7 +4367,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "UpdateOrderInput",
+                "name" : "UpdateWPOrderInput",
                 "ofType" : null
               }
             },
@@ -4377,20 +4377,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderConditionInput",
+              "name" : "ModelWPOrderConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Order",
+            "name" : "WPOrder",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "deleteOrder",
+          "name" : "deleteWPOrder",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -4400,7 +4400,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DeleteOrderInput",
+                "name" : "DeleteWPOrderInput",
                 "ofType" : null
               }
             },
@@ -4410,14 +4410,14 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderConditionInput",
+              "name" : "ModelWPOrderConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Order",
+            "name" : "WPOrder",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -5238,7 +5238,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderID",
+          "name" : "WPOrderID",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -5256,7 +5256,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "boxOrderId",
+          "name" : "boxWPOrderId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -5319,7 +5319,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderID",
+          "name" : "WPOrderID",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -5430,7 +5430,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderID",
+          "name" : "WPOrderID",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -5448,7 +5448,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "boxOrderId",
+          "name" : "boxWPOrderId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -5493,7 +5493,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "CreateOrderInput",
+        "name" : "CreateWPOrderInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -5506,7 +5506,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderNumber",
+          "name" : "WPOrderNumber",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -5515,20 +5515,20 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderStatus",
+          "name" : "WPOrderStatus",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
             "name" : null,
             "ofType" : {
               "kind" : "ENUM",
-              "name" : "ORDER_STATUS",
+              "name" : "WPORDER_STATUS",
               "ofType" : null
             }
           },
           "defaultValue" : null
         }, {
-          "name" : "dishes",
+          "name" : "WPDishes",
           "description" : null,
           "type" : {
             "kind" : "LIST",
@@ -5538,7 +5538,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DishInput",
+                "name" : "WPDishInput",
                 "ofType" : null
               }
             }
@@ -5607,7 +5607,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderCustomerId",
+          "name" : "wPOrderCustomerId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -5616,7 +5616,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderAddressId",
+          "name" : "wPOrderAddressId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -5630,7 +5630,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DishInput",
+        "name" : "WPDishInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -5691,11 +5691,11 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelOrderConditionInput",
+        "name" : "ModelWPOrderConditionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "orderNumber",
+          "name" : "WPOrderNumber",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -5704,11 +5704,11 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderStatus",
+          "name" : "WPOrderStatus",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelORDER_STATUSInput",
+            "name" : "ModelWPORDER_STATUSInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -5765,7 +5765,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderConditionInput",
+              "name" : "ModelWPOrderConditionInput",
               "ofType" : null
             }
           },
@@ -5778,7 +5778,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelOrderConditionInput",
+              "name" : "ModelWPOrderConditionInput",
               "ofType" : null
             }
           },
@@ -5788,7 +5788,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelOrderConditionInput",
+            "name" : "ModelWPOrderConditionInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -5798,7 +5798,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "UpdateOrderInput",
+        "name" : "UpdateWPOrderInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -5815,7 +5815,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderNumber",
+          "name" : "WPOrderNumber",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -5824,16 +5824,16 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderStatus",
+          "name" : "WPOrderStatus",
           "description" : null,
           "type" : {
             "kind" : "ENUM",
-            "name" : "ORDER_STATUS",
+            "name" : "WPORDER_STATUS",
             "ofType" : null
           },
           "defaultValue" : null
         }, {
-          "name" : "dishes",
+          "name" : "WPDishes",
           "description" : null,
           "type" : {
             "kind" : "LIST",
@@ -5843,7 +5843,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DishInput",
+                "name" : "WPDishInput",
                 "ofType" : null
               }
             }
@@ -5904,7 +5904,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderCustomerId",
+          "name" : "wPOrderCustomerId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -5913,7 +5913,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "orderAddressId",
+          "name" : "wPOrderAddressId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -5927,7 +5927,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DeleteOrderInput",
+        "name" : "DeleteWPOrderInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -6666,34 +6666,34 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onCreateOrder",
+          "name" : "onCreateWPOrder",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Order",
+            "name" : "WPOrder",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onUpdateOrder",
+          "name" : "onUpdateWPOrder",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Order",
+            "name" : "WPOrder",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onDeleteOrder",
+          "name" : "onDeleteWPOrder",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Order",
+            "name" : "WPOrder",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -7598,23 +7598,10 @@
         "onFragment" : false,
         "onField" : true
       }, {
-        "name" : "aws_auth",
-        "description" : "Directs the schema to enforce authorization on a field",
-        "locations" : [ "FIELD_DEFINITION" ],
-        "args" : [ {
-          "name" : "cognito_groups",
-          "description" : "List of cognito user pool groups which have access on this field",
-          "type" : {
-            "kind" : "LIST",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        } ],
+        "name" : "aws_oidc",
+        "description" : "Tells the service this field/object has access authorized by an OIDC token.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false
@@ -7640,6 +7627,51 @@
         "onFragment" : false,
         "onField" : false
       }, {
+        "name" : "aws_api_key",
+        "description" : "Tells the service this field/object has access authorized by an API key.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "aws_cognito_user_pools",
+        "description" : "Tells the service this field/object has access authorized by a Cognito User Pools token.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ {
+          "name" : "cognito_groups",
+          "description" : "List of cognito user pool groups which have access on this field",
+          "type" : {
+            "kind" : "LIST",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        } ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "aws_lambda",
+        "description" : "Tells the service this field/object has access authorized by a Lambda Authorizer.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "aws_iam",
+        "description" : "Tells the service this field/object has access authorized by sigv4 signing.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
         "name" : "aws_publish",
         "description" : "Tells the service which subscriptions will be published to when this mutation is called. This directive is deprecated use @aws_susbscribe directive instead.",
         "locations" : [ "FIELD_DEFINITION" ],
@@ -7661,22 +7693,6 @@
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "aws_oidc",
-        "description" : "Tells the service this field/object has access authorized by an OIDC token.",
-        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
-        "args" : [ ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
-        "name" : "aws_lambda",
-        "description" : "Tells the service this field/object has access authorized by a Lambda Authorizer.",
-        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
-        "args" : [ ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
         "name" : "deprecated",
         "description" : null,
         "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
@@ -7694,25 +7710,9 @@
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "aws_api_key",
-        "description" : "Tells the service this field/object has access authorized by an API key.",
-        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
-        "args" : [ ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
-        "name" : "aws_iam",
-        "description" : "Tells the service this field/object has access authorized by sigv4 signing.",
-        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
-        "args" : [ ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
-        "name" : "aws_cognito_user_pools",
-        "description" : "Tells the service this field/object has access authorized by a Cognito User Pools token.",
-        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "name" : "aws_auth",
+        "description" : "Directs the schema to enforce authorization on a field",
+        "locations" : [ "FIELD_DEFINITION" ],
         "args" : [ {
           "name" : "cognito_groups",
           "description" : "List of cognito user pool groups which have access on this field",

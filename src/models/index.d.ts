@@ -1,6 +1,6 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
-export enum OrderStatus {
+export enum WporderStatus {
   PROCESSING = "PROCESSING",
   COMPLETED = "COMPLETED",
   CANCELLED = "CANCELLED"
@@ -32,12 +32,12 @@ export enum Role {
   GUEST = "GUEST"
 }
 
-export declare class Dish {
+export declare class WPDish {
   readonly name: string;
   readonly dishType: string;
   readonly quantity: number;
   readonly weekDay: WeekDay | keyof typeof WeekDay;
-  constructor(init: ModelInit<Dish>);
+  constructor(init: ModelInit<WPDish>);
 }
 
 export declare class Coordinate {
@@ -60,30 +60,30 @@ export declare class Address {
   readonly city: string;
   readonly postCode: string;
   readonly coordinateID?: string;
-  readonly addressOrders?: Order[];
+  readonly addressWPOrders?: WPOrder[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Address>);
   static copyOf(source: Address, mutator: (draft: MutableModel<Address>) => MutableModel<Address> | void): Address;
 }
 
-export declare class Order {
+export declare class WPOrder {
   readonly id: string;
-  readonly orderNumber?: string;
-  readonly orderStatus: OrderStatus | keyof typeof OrderStatus;
-  readonly dishes?: Dish[];
+  readonly WPOrderNumber?: string;
+  readonly WPOrderStatus: WporderStatus | keyof typeof WporderStatus;
+  readonly WPDishes?: WPDish[];
   readonly finalPrice: number;
   readonly customerComment?: string;
   readonly customerID?: string;
   readonly customer?: Customer;
-  readonly orderBoxes?: Box[];
+  readonly WPOrderBoxes?: Box[];
   readonly addressID?: string;
   readonly address?: Address;
   readonly createdAtWp: number;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Order>);
-  static copyOf(source: Order, mutator: (draft: MutableModel<Order>) => MutableModel<Order> | void): Order;
+  constructor(init: ModelInit<WPOrder>);
+  static copyOf(source: WPOrder, mutator: (draft: MutableModel<WPOrder>) => MutableModel<WPOrder> | void): WPOrder;
 }
 
 export declare class Customer {
@@ -94,7 +94,7 @@ export declare class Customer {
   readonly lastName?: string;
   readonly email: string;
   readonly phoneNumber?: string;
-  readonly customerOrders?: Order[];
+  readonly customerWPOrders?: WPOrder[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Customer>);
@@ -108,8 +108,8 @@ export declare class Box {
   readonly qrCode: string;
   readonly customerComment?: string;
   readonly weekDay: WeekDay | keyof typeof WeekDay;
-  readonly orderID?: string;
-  readonly order?: Order;
+  readonly WPOrderID?: string;
+  readonly WPOrder?: WPOrder;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Box>);

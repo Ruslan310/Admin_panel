@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Button, Layout, Table, Tabs, Typography} from 'antd';
-import {Box, Customer, OrderStatus, WeekDay} from "../models";
+import {Box, Customer, WporderStatus, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import moment from 'moment';
@@ -29,7 +29,7 @@ const BoxesPage: React.FC = () => {
   const [boxes, setBoxes] = useState<Box[]>([]);
 
   const fetchBoxes = async () => {
-    const fetchedBoxes = (await DataStore.query(Box)).filter(box => box.order?.orderStatus === OrderStatus.PROCESSING);
+    const fetchedBoxes = (await DataStore.query(Box)).filter(box => box.WPOrder?.WPOrderStatus === WporderStatus.PROCESSING);
     setBoxes(fetchedBoxes);
   }
 
@@ -64,14 +64,14 @@ const BoxesPage: React.FC = () => {
     for (let i = 0; i < currentDayBoxes.length; i++) {
       const box = currentDayBoxes[i];
       let customer;
-      if (box.order?.customerID) {
-        customer = await DataStore.query(Customer, box.order.customerID)
+      if (box.WPOrder?.customerID) {
+        customer = await DataStore.query(Customer, box.WPOrder.customerID)
       }
       if (!customer) {
-        console.log('cannot find customer', box.order?.customerID)
+        console.log('cannot find customer', box.WPOrder?.customerID)
       }
       printBoxes.push({
-        orderNumber: box.order?.orderNumber || "",
+        orderNumber: box.WPOrder?.WPOrderNumber || "",
         firstName: customer?.firstName || "",
         lastName: customer?.lastName || "",
         dishName: box.sticker,

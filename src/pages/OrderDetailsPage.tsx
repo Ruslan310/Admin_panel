@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Checkbox, Descriptions, Divider, Layout, Table} from 'antd';
-import {Address, Box, Coordinate, Customer, Dish, Order, User, WeekDay} from "../models";
+import {Address, Box, Coordinate, Customer, WPDish, WPOrder, User, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {useParams} from 'react-router-dom';
@@ -17,8 +17,8 @@ const OrderDetailsPage: React.FC = () => {
   }>();
   const [boxes, setBoxes] = useState<Box[]>([]);
   const [filteredBoxes, setFilteredBoxes] = useState<Box[]>([]);
-  const [filteredDishes, setFilteredDishes] = useState<(Dish)[]>();
-  const [currentOrder, setCurrentOrder] = useState<Order>();
+  const [filteredDishes, setFilteredDishes] = useState<(WPDish)[]>();
+  const [currentOrder, setCurrentOrder] = useState<WPOrder>();
   const [isLoading, setLoading] = useState(true)
   const [checkedList, setCheckedList] = React.useState<WeekDay[]>(Object.values(WeekDay));
   const [indeterminate, setIndeterminate] = React.useState(false);
@@ -27,10 +27,10 @@ const OrderDetailsPage: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const fetchedBoxes = await DataStore.query(Box, box => box.orderID("eq", orderId))
-      const fetchedOrder = await DataStore.query(Order, orderId);
+      const fetchedBoxes = await DataStore.query(Box, box => box.WPOrderID("eq", orderId))
+      const fetchedOrder = await DataStore.query(WPOrder, orderId);
       setCurrentOrder(fetchedOrder);
-      setFilteredDishes(fetchedOrder?.dishes);
+      setFilteredDishes(fetchedOrder?.WPDishes);
       if (fetchedOrder && fetchedOrder.address) {
         await loadAssignedDriverName(fetchedOrder.address.id)
       }
@@ -42,7 +42,7 @@ const OrderDetailsPage: React.FC = () => {
       }
 
       DataStore.observe(Box).subscribe(async (message) => {
-        if (message.opType === 'INSERT' && message.element.orderID === orderId) {
+        if (message.opType === 'INSERT' && message.element.WPOrderID === orderId) {
           const newBox = await DataStore.query(Box, message.element.id) as Box;
           fetchedBoxes.push(newBox);
           setBoxes([...fetchedBoxes]);
@@ -63,7 +63,7 @@ const OrderDetailsPage: React.FC = () => {
     setCheckedList(list);
     setIndeterminate(!!list.length && list.length < Object.values(WeekDay).length);
     setCheckAll(list.length === Object.values(WeekDay).length);
-    const currentFilteredDishes = currentOrder?.dishes?.filter(dish => list.includes(dish.weekDay as WeekDay))
+    const currentFilteredDishes = currentOrder?.WPDishes?.filter(dish => list.includes(dish.weekDay as WeekDay))
     const currentFilteredBoxes = boxes.filter(box => list.includes(box.weekDay as WeekDay))
     setFilteredDishes(currentFilteredDishes);
     setFilteredBoxes(currentFilteredBoxes);
@@ -73,7 +73,7 @@ const OrderDetailsPage: React.FC = () => {
     setCheckedList(e.target.checked ? Object.values(WeekDay) : []);
     if (e.target.checked) {
       setFilteredBoxes(boxes)
-      setFilteredDishes(currentOrder?.dishes)
+      setFilteredDishes(currentOrder?.WPDishes)
     } else {
       setFilteredBoxes([])
       setFilteredDishes([])
@@ -103,7 +103,7 @@ const OrderDetailsPage: React.FC = () => {
     },
   ];
 
-  const dishesColumns: ColumnsType<Dish> = [
+  const dishesColumns: ColumnsType<WPDish> = [
     {
       title: 'Name',
       render: (value, record, index) => {
@@ -153,7 +153,7 @@ const OrderDetailsPage: React.FC = () => {
         <Descriptions.Item label="Phone number">{currentOrder.customer?.phoneNumber}</Descriptions.Item>
         <Descriptions.Item label="Email">{currentOrder.customer?.email}</Descriptions.Item>
         <Descriptions.Item label="Created">{currentOrder.createdAt}</Descriptions.Item>
-        <Descriptions.Item label="WP Status">{currentOrder.orderStatus}</Descriptions.Item>
+        <Descriptions.Item label="WP Status">{currentOrder.WPOrderStatus}</Descriptions.Item>
         <Descriptions.Item label="Order total price">{currentOrder.finalPrice}</Descriptions.Item>
         <Descriptions.Item label="Assigned driver">{assignedDriver}</Descriptions.Item>
       </Descriptions>}

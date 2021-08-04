@@ -11,14 +11,13 @@ import {
   Radio,
   Select,
   Space,
-  Spin,
   Table, Tabs,
   Typography
 } from 'antd';
-import {Address, Coordinate, Order, OrderStatus, Role, User, WeekDay} from "../models";
+import {Address, Coordinate, WPOrder, WporderStatus, Role, User, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
-import {stringifyAddress, today} from "../utils/utils";
+import {today} from "../utils/utils";
 import ManyPointsMapComponent from "../components/ManyPointsMapComponent";
 import {ALL_DRIVERS} from "../constants";
 
@@ -43,7 +42,7 @@ export interface Body {
 
 interface CoordinateWithOrders {
   coordinate: Coordinate,
-  orders: Order[],
+  orders: WPOrder[],
 }
 
 interface CoordinatesByDays {
@@ -96,9 +95,9 @@ const MapCoordinatesPage: React.FC = () => {
       };
       const coordinateAddresses = await DataStore.query(Address, address => address.coordinateID("eq", fetchedCoordinate.id))
       for (const coordinateAddress of coordinateAddresses) {
-        const addressOrders = await DataStore.query(Order, order => order
+        const addressOrders = await DataStore.query(WPOrder, order => order
           .addressID("eq", coordinateAddress.id)
-          .orderStatus("eq", OrderStatus.PROCESSING)
+          .WPOrderStatus("eq", WporderStatus.PROCESSING)
         );
 
         for (const addressOrder of addressOrders) {
@@ -110,8 +109,8 @@ const MapCoordinatesPage: React.FC = () => {
       for (const weekDay of Object.values(WeekDay)) {
         for (const order of coordinateWithOrders.orders) {
           if (addedToDaysArray) break;
-          if (order.dishes) {
-            for (const dish of order.dishes) {
+          if (order.WPDishes) {
+            for (const dish of order.WPDishes) {
               if (dish.weekDay === weekDay) {
                 fetchedCoordinatesByDays[weekDay].push(coordinateWithOrders);
                 addedToDaysArray = true;
@@ -148,13 +147,13 @@ const MapCoordinatesPage: React.FC = () => {
     return coordinatesForTheDay;
   }
 
-  const getOrdersForThisCoordinate = (targetCoordinateId: string): Order[] => {
-    const targetOrders: Order[] = [];
+  const getOrdersForThisCoordinate = (targetCoordinateId: string): WPOrder[] => {
+    const targetOrders: WPOrder[] = [];
     const targetCoordinateFromSelectedDays = coordinatesByDays[selectedDay].find(coordinate => coordinate.coordinate.id === targetCoordinateId);
     if (targetCoordinateFromSelectedDays) {
       for (const order of targetCoordinateFromSelectedDays.orders) {
-        if (order.dishes) {
-          for (const dish of order.dishes) {
+        if (order.WPDishes) {
+          for (const dish of order.WPDishes) {
             if (dish.weekDay === selectedDay) {
               targetOrders.push(order);
               break;
@@ -366,7 +365,7 @@ const MapCoordinatesPage: React.FC = () => {
                 dataSource={getOrdersForThisCoordinate(record.id)}
                 renderItem={item =>
                   <List.Item
-                    key={item.id}>{item.orderNumber} {item.customer?.firstName} {item.customer?.lastName} {item.customer?.company}</List.Item>}
+                    key={item.id}>{item.WPOrderNumber} {item.customer?.firstName} {item.customer?.lastName} {item.customer?.company}</List.Item>}
               />
             },
             rowExpandable: record => true,

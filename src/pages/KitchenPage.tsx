@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Layout, Table, Tabs} from 'antd';
-import {Order, OrderStatus, WeekDay} from "../models";
+import {WPOrder, WporderStatus, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
 import Title from "antd/es/typography/Title";
 import {today} from "../utils/utils";
@@ -22,11 +22,11 @@ const KitchenPage: React.FC = () => {
   const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
 
   const fetchOrders = async () => {
-    const fetchedOrders = await DataStore.query(Order, order => order.orderStatus("eq", OrderStatus.PROCESSING));
+    const fetchedOrders = await DataStore.query(WPOrder, order => order.WPOrderStatus("eq", WporderStatus.PROCESSING));
     let newItems: KitchenDish[] = [];
     for (const order of fetchedOrders) {
-      if (order.dishes) {
-        for (const dish of order.dishes) {
+      if (order.WPDishes) {
+        for (const dish of order.WPDishes) {
           let found = newItems.find(kitchenDish => kitchenDish.name === dish.name);
           if (found) {
             found.quantity = found.quantity + dish.quantity
@@ -42,7 +42,7 @@ const KitchenPage: React.FC = () => {
   useEffect(() => {
     fetchOrders();
 
-    const ordersSubscription = DataStore.observe(Order).subscribe(async (message) => {
+    const ordersSubscription = DataStore.observe(WPOrder).subscribe(async (message) => {
       await fetchOrders();
     });
 

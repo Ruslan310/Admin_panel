@@ -245,13 +245,13 @@ export const getAddress = /* GraphQL */ `
     }
   }
 `;
-export const listAddresss = /* GraphQL */ `
-  query ListAddresss(
+export const listAddresses = /* GraphQL */ `
+  query ListAddresses(
     $filter: ModelAddressFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listAddresss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listAddresses(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         address1
@@ -639,13 +639,13 @@ export const getBox = /* GraphQL */ `
     }
   }
 `;
-export const listBoxs = /* GraphQL */ `
-  query ListBoxs(
+export const listBoxes = /* GraphQL */ `
+  query ListBoxes(
     $filter: ModelBoxFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBoxs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listBoxes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         sticker

@@ -1,37 +1,19 @@
 {
-  "dev": {
+  "main": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-dnreact-dev-222115-authRole",
-      "UnauthRoleArn": "arn:aws:iam::150977011093:role/amplify-dnreact-dev-222115-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::150977011093:role/amplify-dnreact-dev-222115-authRole",
+      "AuthRoleName": "amplify-dnreact-main-173858-authRole",
+      "UnauthRoleArn": "arn:aws:iam::150977011093:role/amplify-dnreact-main-173858-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::150977011093:role/amplify-dnreact-main-173858-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-dnreact-dev-222115-deployment",
-      "UnauthRoleName": "amplify-dnreact-dev-222115-unauthRole",
-      "StackName": "amplify-dnreact-dev-222115",
-      "StackId": "arn:aws:cloudformation:us-east-1:150977011093:stack/amplify-dnreact-dev-222115/d0d0c870-f3c6-11eb-a542-0e713d9d57d5",
-      "AmplifyAppId": "d21mksgutceozs"
+      "DeploymentBucketName": "amplify-dnreact-main-173858-deployment",
+      "UnauthRoleName": "amplify-dnreact-main-173858-unauthRole",
+      "StackName": "amplify-dnreact-main-173858",
+      "StackId": "arn:aws:cloudformation:us-east-1:150977011093:stack/amplify-dnreact-main-173858/e157f840-f5fa-11eb-9f57-1271b8f35690",
+      "AmplifyAppId": "d2a0xfo5dr8o61"
     },
     "categories": {
       "auth": {
-        "devDnreactUsers": {}
-      }
-    }
-  },
-  "prod": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-dnreact-prod-232915-authRole",
-      "UnauthRoleArn": "arn:aws:iam::150977011093:role/amplify-dnreact-prod-232915-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::150977011093:role/amplify-dnreact-prod-232915-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-dnreact-prod-232915-deployment",
-      "UnauthRoleName": "amplify-dnreact-prod-232915-unauthRole",
-      "StackName": "amplify-dnreact-prod-232915",
-      "StackId": "arn:aws:cloudformation:us-east-1:150977011093:stack/amplify-dnreact-prod-232915/a4bc0e00-f562-11eb-98ab-123bd221e837",
-      "AmplifyAppId": "d21mksgutceozs"
-    },
-    "categories": {
-      "auth": {
-        "devDnreactUsers": {}
+        "dnreact": {}
       }
     }
   }

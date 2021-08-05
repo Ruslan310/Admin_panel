@@ -156,16 +156,16 @@ const OrdersPage: React.FC = () => {
     </Row>
   );
 
-  const deleteOrderWithBoxes = async () => {
+  const deleteOrderWithBoxes = async (orderId?: string) => {
     setDeleting(true)
-    if (targetOrder) {
-      const boxes = await DataStore.query(Box, box => box.WPOrderID("eq", targetOrder.id))
+    if (orderId) {
+      const boxes = await DataStore.query(Box, box => box.WPOrderID("eq", orderId))
       if (boxes) {
         for (const box of boxes) {
           await DataStore.delete(Box, box.id)
         }
       }
-      await DataStore.delete(WPOrder, targetOrder.id);
+      await DataStore.delete(WPOrder, orderId);
     }
     setDeleting(false)
     setTargetOrder(undefined);
@@ -303,13 +303,13 @@ const OrdersPage: React.FC = () => {
       <Content>
         <Title>Orders ({filteredOrders.length})</Title>
         <Space>
-          {/*<Button onClick={async () => {*/}
-          {/*  for (const order of orders) {*/}
-          {/*    await deleteOrderWithBoxes(order.id);*/}
-          {/*  }*/}
-          {/*}} type="primary" htmlType="submit">*/}
-          {/*  Delete all orders*/}
-          {/*</Button>*/}
+          <Button onClick={async () => {
+            for (const order of orders) {
+              await deleteOrderWithBoxes(order.id);
+            }
+          }} type="primary" htmlType="submit">
+            Delete all orders
+          </Button>
           <Button onClick={async () => {
             await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')
           }} type="default">
@@ -351,7 +351,7 @@ const OrdersPage: React.FC = () => {
       <Modal
         title="Are sure you want to delete order?"
         visible={isDeleteOrderConfirm}
-        onOk={deleteOrderWithBoxes}
+        onOk={() => deleteOrderWithBoxes(targetOrder?.id)}
         confirmLoading={isDeleting}
         onCancel={() => {
           setTargetOrder(undefined);

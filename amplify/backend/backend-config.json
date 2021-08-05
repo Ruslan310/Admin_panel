@@ -1,6 +1,6 @@
 {
   "auth": {
-    "devDnreactUsers": {
+    "dnreact": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -16,7 +16,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authdevDnreactUsers"
+              "userPoolId": "authdnreact"
             }
           },
           "additionalAuthenticationProviders": [
@@ -30,12 +30,6 @@
           ]
         }
       }
-    }
-  },
-  "hosting": {
-    "S3AndCloudFront": {
-      "service": "S3AndCloudFront",
-      "providerPlugin": "awscloudformation"
     }
   }
 }

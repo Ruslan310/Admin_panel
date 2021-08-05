@@ -40,6 +40,30 @@ export declare class WPDish {
   constructor(init: ModelInit<WPDish>);
 }
 
+type CoordinateMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type AddressMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type WPOrderMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type CustomerMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type BoxMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type UserMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 export declare class Coordinate {
   readonly id: string;
   readonly latitude: number;
@@ -49,8 +73,8 @@ export declare class Coordinate {
   readonly coordinateAddresses?: (Address | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Coordinate>);
-  static copyOf(source: Coordinate, mutator: (draft: MutableModel<Coordinate>) => MutableModel<Coordinate> | void): Coordinate;
+  constructor(init: ModelInit<Coordinate, CoordinateMetaData>);
+  static copyOf(source: Coordinate, mutator: (draft: MutableModel<Coordinate, CoordinateMetaData>) => MutableModel<Coordinate, CoordinateMetaData> | void): Coordinate;
 }
 
 export declare class Address {
@@ -63,8 +87,8 @@ export declare class Address {
   readonly addressWPOrders?: WPOrder[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Address>);
-  static copyOf(source: Address, mutator: (draft: MutableModel<Address>) => MutableModel<Address> | void): Address;
+  constructor(init: ModelInit<Address, AddressMetaData>);
+  static copyOf(source: Address, mutator: (draft: MutableModel<Address, AddressMetaData>) => MutableModel<Address, AddressMetaData> | void): Address;
 }
 
 export declare class WPOrder {
@@ -82,8 +106,8 @@ export declare class WPOrder {
   readonly createdAtWp: number;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<WPOrder>);
-  static copyOf(source: WPOrder, mutator: (draft: MutableModel<WPOrder>) => MutableModel<WPOrder> | void): WPOrder;
+  constructor(init: ModelInit<WPOrder, WPOrderMetaData>);
+  static copyOf(source: WPOrder, mutator: (draft: MutableModel<WPOrder, WPOrderMetaData>) => MutableModel<WPOrder, WPOrderMetaData> | void): WPOrder;
 }
 
 export declare class Customer {
@@ -97,8 +121,8 @@ export declare class Customer {
   readonly customerWPOrders?: WPOrder[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Customer>);
-  static copyOf(source: Customer, mutator: (draft: MutableModel<Customer>) => MutableModel<Customer> | void): Customer;
+  constructor(init: ModelInit<Customer, CustomerMetaData>);
+  static copyOf(source: Customer, mutator: (draft: MutableModel<Customer, CustomerMetaData>) => MutableModel<Customer, CustomerMetaData> | void): Customer;
 }
 
 export declare class Box {
@@ -112,8 +136,8 @@ export declare class Box {
   readonly WPOrder?: WPOrder;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Box>);
-  static copyOf(source: Box, mutator: (draft: MutableModel<Box>) => MutableModel<Box> | void): Box;
+  constructor(init: ModelInit<Box, BoxMetaData>);
+  static copyOf(source: Box, mutator: (draft: MutableModel<Box, BoxMetaData>) => MutableModel<Box, BoxMetaData> | void): Box;
 }
 
 export declare class User {
@@ -127,6 +151,6 @@ export declare class User {
   readonly assignedDriverCoordinates?: Coordinate[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<User>);
-  static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
+  constructor(init: ModelInit<User, UserMetaData>);
+  static copyOf(source: User, mutator: (draft: MutableModel<User, UserMetaData>) => MutableModel<User, UserMetaData> | void): User;
 }

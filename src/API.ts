@@ -3149,14 +3149,14 @@ export type GetAddressQuery = {
   } | null,
 };
 
-export type ListAddresssQueryVariables = {
+export type ListAddressesQueryVariables = {
   filter?: ModelAddressFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListAddresssQuery = {
-  listAddresss?:  {
+export type ListAddressesQuery = {
+  listAddresses?:  {
     __typename: "ModelAddressConnection",
     items?:  Array< {
       __typename: "Address",
@@ -3574,14 +3574,14 @@ export type GetBoxQuery = {
   } | null,
 };
 
-export type ListBoxsQueryVariables = {
+export type ListBoxesQueryVariables = {
   filter?: ModelBoxFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListBoxsQuery = {
-  listBoxs?:  {
+export type ListBoxesQuery = {
+  listBoxes?:  {
     __typename: "ModelBoxConnection",
     items?:  Array< {
       __typename: "Box",

@@ -91,7 +91,6 @@ const MainRouter: React.FC = () => {
     <Layout>
       <Header style={{background: '#fff', padding: 0, paddingLeft: 16}}>
         {collapsed ? <MenuUnfoldOutlined onClick={onCollapse}/> : <MenuFoldOutlined onClick={onCollapse}/>}
-        <Text strong>{' =========ENVIRONMENT:' + process.env.NODE_ENV + '========='}</Text>
       </Header>
       <Content style={{margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280}}>
         <Route exact path="/" component={OrdersPage}/>

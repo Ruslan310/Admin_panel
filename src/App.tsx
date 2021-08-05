@@ -29,8 +29,13 @@ const AuthStateApp: React.FC = () => {
     <AmplifyAuthenticator>
       <AmplifySignUp
         headerText="Sign Up"
-        usernameAlias="email"
         formFields={[
+          {
+            type: 'username',
+            label: 'Username *',
+            placeholder: 'Enter your username',
+            required: true,
+          },
           {
             type: 'email',
             label: 'Email *',

@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Layout, Table, Tabs} from 'antd';
+import {Layout, Table, Tabs, Typography} from 'antd';
 import {WPOrder, WporderStatus, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
-import Title from "antd/es/typography/Title";
 import {today} from "../utils/utils";
 
 const {Content} = Layout;
 const {TabPane} = Tabs;
+const {Title} = Typography;
 
 interface KitchenDish {
   name: string;

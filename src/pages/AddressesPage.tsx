@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Layout, Modal, Select, Table} from 'antd';
+import {Button, Layout, Modal, Select, Table, Typography} from 'antd';
 import {Address, Coordinate} from "../models";
 import {ColumnsType} from "antd/es/table";
-import Title from "antd/es/typography/Title";
 import {stringifyAddress} from "../utils/utils";
 
 const {Content} = Layout;
 const width300 = {width: 300}
+const {Title} = Typography;
 
 const AddressesPage: React.FC = () => {
   const [addresses, setAddresses] = useState<Address[]>([]);

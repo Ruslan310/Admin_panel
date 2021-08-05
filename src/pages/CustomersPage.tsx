@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Layout, Table} from 'antd';
-import {Address, Coordinate, Customer} from "../models";
+import {Layout, Table, Typography} from 'antd';
+import {Customer} from "../models";
 import {ColumnsType} from "antd/es/table";
-import Title from "antd/es/typography/Title";
 
 const {Content} = Layout;
+const {Title} = Typography;
 
 const CustomersPage: React.FC = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);

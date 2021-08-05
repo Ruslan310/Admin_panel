@@ -2,14 +2,13 @@ import React, {useState} from 'react'
 import { CSVLink} from "react-csv";
 
 import {Button, Input, InputNumber, Layout, Progress, Radio, Space, Typography} from 'antd';
-import Title from "antd/es/typography/Title";
 import {DataStore} from 'aws-amplify';
 import {WPOrder} from "../models";
 import moment from "moment-timezone";
 import {fullName} from "../utils/utils";
 import {Data} from "react-csv/components/CommonPropTypes";
 
-const {Text} = Typography;
+const {Text, Title} = Typography;
 
 moment.tz.setDefault("Africa/Nouakchott");
 

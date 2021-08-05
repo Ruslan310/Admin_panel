@@ -4,13 +4,12 @@ import {DataStore} from 'aws-amplify'
 import {Button, Layout, Table, Tabs, Typography} from 'antd';
 import {Box, Customer, WporderStatus, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
-import Title from "antd/es/typography/Title";
 import moment from 'moment';
 import jsPDF from "jspdf";
 
 const {Content} = Layout;
 const {TabPane} = Tabs;
-const {Text} = Typography;
+const {Text, Title} = Typography;
 
 interface Sticker {
   orderNumber: string;

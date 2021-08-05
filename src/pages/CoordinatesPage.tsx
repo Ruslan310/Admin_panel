@@ -11,15 +11,15 @@ import {
   List,
   Modal,
   Spin,
-  Table,
+  Table, Typography,
 } from 'antd';
 import {Address, Coordinate} from "../models";
 import {ColumnsType} from "antd/es/table";
-import Title from "antd/es/typography/Title";
 import {stringifyAddress} from "../utils/utils";
 import ManyPointsMapComponent from "../components/ManyPointsMapComponent";
 
 const {Content} = Layout;
+const {Title} = Typography;
 
 const width300 = {width: 300}
 

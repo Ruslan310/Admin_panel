@@ -19,7 +19,6 @@ import {
 import {Address, Box, Coordinate, WPOrder, WporderStatus, User} from "../models";
 import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
-import Title from "antd/es/typography/Title";
 import {useHistory} from "react-router-dom";
 import {fullName, stringifyAddress} from "../utils/utils";
 import moment from "moment-timezone";
@@ -27,7 +26,7 @@ import moment from "moment-timezone";
 moment.tz.setDefault("Africa/Nouakchott");
 
 const {Content} = Layout;
-const {Text} = Typography;
+const {Text, Title} = Typography;
 
 const width300 = {width: 300}
 
@@ -298,15 +297,6 @@ const OrdersPage: React.FC = () => {
       ),
     });
   }
-
-  // if (orders) {
-  //   const tar = orders.find(order => order.orderNumber === "DN-11237")
-  //   if (tar) {
-  //     console.log(stringifyAddress(tar.address))
-  //     console.log(tar.addressID)
-  //     console.log(tar.customer?.lastName)
-  //   }
-  // }
 
   return (
     <>

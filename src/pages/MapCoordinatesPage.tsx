@@ -16,13 +16,12 @@ import {
 } from 'antd';
 import {Address, Coordinate, WPOrder, WporderStatus, Role, User, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
-import Title from "antd/es/typography/Title";
 import {today} from "../utils/utils";
 import ManyPointsMapComponent from "../components/ManyPointsMapComponent";
 import {ALL_DRIVERS} from "../constants";
 
 const {Content} = Layout;
-const {Text} = Typography;
+const {Text, Title} = Typography;
 const {TabPane} = Tabs;
 
 const width300 = {width: 300}

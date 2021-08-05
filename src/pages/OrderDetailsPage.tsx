@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Checkbox, Descriptions, Divider, Layout, Table} from 'antd';
+import {Checkbox, Descriptions, Divider, Layout, Table, Typography} from 'antd';
 import {Address, Box, Coordinate, Customer, WPDish, WPOrder, User, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
-import Title from "antd/es/typography/Title";
 import {useParams} from 'react-router-dom';
 import {CheckboxChangeEvent} from "antd/es/checkbox";
 import {stringifyAddress} from "../utils/utils";
 
 const {Content} = Layout;
+const {Title} = Typography;
 
 const OrderDetailsPage: React.FC = () => {
   const {orderId} = useParams<{

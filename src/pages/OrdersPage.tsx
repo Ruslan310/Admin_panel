@@ -302,20 +302,20 @@ const OrdersPage: React.FC = () => {
     <>
       <Content>
         <Title>Orders ({filteredOrders.length})</Title>
-        <Space>
-          <Button onClick={async () => {
-            for (const order of orders) {
-              await deleteOrderWithBoxes(order.id);
-            }
-          }} type="primary" htmlType="submit">
-            Delete all orders
-          </Button>
-          <Button onClick={async () => {
-            await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')
-          }} type="default">
-            Sync orders from wp
-          </Button>
-        </Space>
+        {/*<Space>*/}
+        {/*  <Button onClick={async () => {*/}
+        {/*    for (const order of orders) {*/}
+        {/*      await deleteOrderWithBoxes(order.id);*/}
+        {/*    }*/}
+        {/*  }} type="primary" htmlType="submit">*/}
+        {/*    Delete all orders*/}
+        {/*  </Button>*/}
+        {/*  <Button onClick={async () => {*/}
+        {/*    await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')*/}
+        {/*  }} type="default">*/}
+        {/*    Sync orders from wp*/}
+        {/*  </Button>*/}
+        {/*</Space>*/}
         <Checkbox.Group options={Object.values(WporderStatus)} value={checkedStatusesList} onChange={(list) => {
           setCheckedStatusesList(list as Array<WporderStatus>);
           setFilteredOrders(

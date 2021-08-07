@@ -12,7 +12,6 @@ import {
   Modal,
   Row,
   Select,
-  Space,
   Table,
   Typography
 } from 'antd';
@@ -47,6 +46,7 @@ const OrdersPage: React.FC = () => {
 
   const fetchOrders = async () => {
     const fetchedOrders = await DataStore.query(WPOrder);
+    console.log('orders for orders fetched: ', fetchedOrders.length)
     setOrders(fetchedOrders);
     setFilteredOrders(fetchedOrders.filter(order => checkedStatusesList.includes(order.WPOrderStatus as WporderStatus)));
     setLoading(false)
@@ -54,6 +54,7 @@ const OrdersPage: React.FC = () => {
 
   const fetchAddresses = async () => {
     const fetchedAddresses = await DataStore.query(Address);
+    console.log('addresses for orders fetched: ', fetchedAddresses.length)
     setAddresses(fetchedAddresses);
     setLoading(false)
   }
@@ -62,7 +63,6 @@ const OrdersPage: React.FC = () => {
     fetchOrders();
     fetchAddresses();
     const ordersSubscription = DataStore.observe(WPOrder).subscribe(async (message) => {
-      console.log('message.element.addressID:', message.element)
       await fetchOrders();
     });
     const addressesSubscription = DataStore.observe(Address).subscribe(async (message) => {

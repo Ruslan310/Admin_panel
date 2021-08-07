@@ -22,7 +22,9 @@ const KitchenPage: React.FC = () => {
   const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
 
   const fetchOrders = async () => {
+    console.log('start fetching orders for kitchen')
     const fetchedOrders = await DataStore.query(WPOrder, order => order.WPOrderStatus("eq", WporderStatus.PROCESSING));
+    console.log('orders for kitchen fteched: ', fetchedOrders.length)
     let newItems: KitchenDish[] = [];
     for (const order of fetchedOrders) {
       if (order.WPDishes) {

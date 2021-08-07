@@ -1,4 +1,4 @@
-import {Layout, Menu, Typography} from "antd";
+import {Layout, Menu, Spin, Typography} from "antd";
 import {
   CompassOutlined,
   HomeOutlined,
@@ -23,31 +23,58 @@ import KitchenPage from "./pages/KitchenPage";
 import BoxesPage from "./pages/BoxesPage";
 import ReportsPage from "./pages/ReportsPage";
 import MapCoordinatesPage from "./pages/MapCoordinatesPage";
+import {DataStore, Hub} from "aws-amplify";
+import { LoadingOutlined } from '@ant-design/icons';
+
+const antIcon = <LoadingOutlined style={{
+  fontSize: 124,
+  position: 'absolute',
+  top: 200,
+  left: '47%',
+}} spin />;
+
+// Return value should be component
+const CustomSpinner = () => <Spin indicator={antIcon} />
+
 
 const {Header, Content, Footer, Sider} = Layout;
-const { SubMenu } = Menu;
-const {Text} = Typography;
+const {SubMenu} = Menu;
 
 const MainRouter: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false)
+  const [isSyncing, setSyncing] = useState(true)
 
   const onCollapse = () => {
     setCollapsed(!collapsed)
   }
 
   useEffect(() => {
-    // history.push("/orders");
+    console.log('useEffect router')
+    DataStore.start();
+    const listener = Hub.listen("datastore", async hubData => {
+      const {event, data} = hubData.payload;
+      console.log(event)
+      if (event === "ready") {
+        setSyncing(false)
+      }
+    })
+    return () => {
+      listener();
+    }
   }, [])
+
+  if (isSyncing) {
+    return <CustomSpinner/>
+  }
 
   const path = window.location.pathname.replace(new RegExp("/(\\w*)"), "$1")
   return <Layout style={{minHeight: '100vh'}}>
-
     <Sider
       collapsible
       collapsed={collapsed}
       onCollapse={onCollapse}>
       <div className="logo"/>
-      <Menu theme="dark" defaultSelectedKeys={[path ? path: 'orders']} mode="inline">
+      <Menu theme="dark" defaultSelectedKeys={[path ? path : 'orders']} mode="inline">
         <Menu.Item key="orders" icon={<ReconciliationOutlined/>}>
           <span>Orders</span>
           <Link to="/"/>
@@ -56,11 +83,11 @@ const MainRouter: React.FC = () => {
           <span>Kitchen</span>
           <Link to="/kitchen"/>
         </Menu.Item>
-        <Menu.Item key="boxes" icon={<CodeSandboxOutlined />}>
+        <Menu.Item key="boxes" icon={<CodeSandboxOutlined/>}>
           <span>Boxes</span>
           <Link to="/boxes"/>
         </Menu.Item>
-        <SubMenu key="sub1" icon={<CompassOutlined />} title="Coordinates">
+        <SubMenu key="sub1" icon={<CompassOutlined/>} title="Coordinates">
           <Menu.Item key="coordinates/dictionary">
             <span>Dictionary</span>
             <Link to="/coordinates/dictionary"/>
@@ -78,7 +105,7 @@ const MainRouter: React.FC = () => {
           <span>Customers</span>
           <Link to="/customers"/>
         </Menu.Item>
-        <Menu.Item key="reports" icon={<LineChartOutlined />}>
+        <Menu.Item key="reports" icon={<LineChartOutlined/>}>
           <span>Reports</span>
           <Link to="/reports"/>
         </Menu.Item>

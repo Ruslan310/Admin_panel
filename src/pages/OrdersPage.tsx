@@ -227,22 +227,22 @@ const OrdersPage: React.FC = () => {
         return <Button type={'primary'} onClick={() => history.push("/orderDetails/" + record.id)}>Details</Button>
       }
     },
-    // {
-    //   title: 'Created in WP',
-    //   render: (value, record, index) => {
-    //     return <Text>{moment.unix(record.createdAtWp).format("HH:mm DD-MM-YYYY")}</Text>
-    //   },
-    //   sorter: (a, b) => {
-    //     if (a.createdAtWp < b.createdAtWp) {
-    //       return -1;
-    //     }
-    //     if (a.createdAtWp > b.createdAtWp) {
-    //       return 1;
-    //     }
-    //     return 0;
-    //   },
-    //   defaultSortOrder: "descend"
-    // },
+    {
+      title: 'Created in WP',
+      render: (value, record, index) => {
+        return <Text>{moment.unix(record.createdAtWp).format("HH:mm DD-MM-YYYY")}</Text>
+      },
+      sorter: (a, b) => {
+        if (a.createdAtWp < b.createdAtWp) {
+          return -1;
+        }
+        if (a.createdAtWp > b.createdAtWp) {
+          return 1;
+        }
+        return 0;
+      },
+      defaultSortOrder: "descend"
+    },
     {
       title: 'Address',
       render: (value, record, index) => {

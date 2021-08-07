@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "ProductAtWarhouse": {
-            "name": "ProductAtWarhouse",
+        "ProductAtWarehouse": {
+            "name": "ProductAtWarehouse",
             "fields": {
                 "id": {
                     "name": "id",
@@ -41,20 +41,20 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "productAtWarhouseProductId"
+                        "targetName": "productAtWarehouseProductId"
                     }
                 },
-                "warhouse": {
-                    "name": "warhouse",
+                "warehouse": {
+                    "name": "warehouse",
                     "isArray": false,
                     "type": {
-                        "model": "Warhouse"
+                        "model": "Warehouse"
                     },
                     "isRequired": true,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "productAtWarhouseWarhouseId"
+                        "targetName": "productAtWarehouseWarehouseId"
                     }
                 },
                 "createdAt": {
@@ -75,7 +75,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "ProductAtWarhouses",
+            "pluralName": "ProductAtWarehouses",
             "attributes": [
                 {
                     "type": "model",
@@ -478,8 +478,8 @@ export const schema = {
                 }
             ]
         },
-        "Warhouse": {
-            "name": "Warhouse",
+        "Warehouse": {
+            "name": "Warehouse",
             "fields": {
                 "id": {
                     "name": "id",
@@ -505,7 +505,7 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "warhouseAddressId"
+                        "targetName": "warehouseAddressId"
                     }
                 },
                 "createdAt": {
@@ -526,7 +526,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Warhouses",
+            "pluralName": "Warehouses",
             "attributes": [
                 {
                     "type": "model",
@@ -1153,7 +1153,7 @@ export const schema = {
                     "name": "product",
                     "isArray": false,
                     "type": {
-                        "model": "ProductAtWarhouse"
+                        "model": "ProductAtWarehouse"
                     },
                     "isRequired": true,
                     "attributes": [],
@@ -1614,5 +1614,5 @@ export const schema = {
             }
         }
     },
-    "version": "966aaeb25bf950d2dc4c5bc909f407ed"
+    "version": "4023b7b58518c986c2377c1fa4c04c09"
 };

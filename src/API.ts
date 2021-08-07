@@ -2,23 +2,23 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateProductAtWarhouseInput = {
+export type CreateProductAtWarehouseInput = {
   id?: string | null,
   quantity: number,
   maxQuantity: number,
   minQuantity: number,
   _version?: number | null,
-  productAtWarhouseProductId: string,
-  productAtWarhouseWarhouseId: string,
+  productAtWarehouseProductId: string,
+  productAtWarehouseWarehouseId: string,
 };
 
-export type ModelProductAtWarhouseConditionInput = {
+export type ModelProductAtWarehouseConditionInput = {
   quantity?: ModelIntInput | null,
   maxQuantity?: ModelIntInput | null,
   minQuantity?: ModelIntInput | null,
-  and?: Array< ModelProductAtWarhouseConditionInput | null > | null,
-  or?: Array< ModelProductAtWarhouseConditionInput | null > | null,
-  not?: ModelProductAtWarhouseConditionInput | null,
+  and?: Array< ModelProductAtWarehouseConditionInput | null > | null,
+  or?: Array< ModelProductAtWarehouseConditionInput | null > | null,
+  not?: ModelProductAtWarehouseConditionInput | null,
 };
 
 export type ModelIntInput = {
@@ -47,8 +47,8 @@ export enum ModelAttributeTypes {
 }
 
 
-export type ProductAtWarhouse = {
-  __typename: "ProductAtWarhouse",
+export type ProductAtWarehouse = {
+  __typename: "ProductAtWarehouse",
   id: string,
   quantity: number,
   maxQuantity: number,
@@ -59,7 +59,7 @@ export type ProductAtWarhouse = {
   createdAt: string,
   updatedAt: string,
   product: Product,
-  warhouse: Warhouse,
+  warehouse: Warehouse,
 };
 
 export type Product = {
@@ -138,8 +138,8 @@ export type ModelCategoryConnection = {
   startedAt?: number | null,
 };
 
-export type Warhouse = {
-  __typename: "Warhouse",
+export type Warehouse = {
+  __typename: "Warehouse",
   id: string,
   name: string,
   _version: number,
@@ -271,17 +271,17 @@ export type Customer = {
   customerWPOrders?: ModelWPOrderConnection | null,
 };
 
-export type UpdateProductAtWarhouseInput = {
+export type UpdateProductAtWarehouseInput = {
   id: string,
   quantity?: number | null,
   maxQuantity?: number | null,
   minQuantity?: number | null,
   _version?: number | null,
-  productAtWarhouseProductId?: string | null,
-  productAtWarhouseWarhouseId?: string | null,
+  productAtWarehouseProductId?: string | null,
+  productAtWarehouseWarehouseId?: string | null,
 };
 
-export type DeleteProductAtWarhouseInput = {
+export type DeleteProductAtWarehouseInput = {
   id: string,
   _version?: number | null,
 };
@@ -325,7 +325,7 @@ export type ProductFromSupplier = {
   _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
-  product: ProductAtWarhouse,
+  product: ProductAtWarehouse,
   supplier: Supplier,
 };
 
@@ -548,28 +548,28 @@ export type DeleteDepartmentInput = {
   _version?: number | null,
 };
 
-export type CreateWarhouseInput = {
+export type CreateWarehouseInput = {
   id?: string | null,
   name: string,
   _version?: number | null,
-  warhouseAddressId: string,
+  warehouseAddressId: string,
 };
 
-export type ModelWarhouseConditionInput = {
+export type ModelWarehouseConditionInput = {
   name?: ModelStringInput | null,
-  and?: Array< ModelWarhouseConditionInput | null > | null,
-  or?: Array< ModelWarhouseConditionInput | null > | null,
-  not?: ModelWarhouseConditionInput | null,
+  and?: Array< ModelWarehouseConditionInput | null > | null,
+  or?: Array< ModelWarehouseConditionInput | null > | null,
+  not?: ModelWarehouseConditionInput | null,
 };
 
-export type UpdateWarhouseInput = {
+export type UpdateWarehouseInput = {
   id: string,
   name?: string | null,
   _version?: number | null,
-  warhouseAddressId?: string | null,
+  warehouseAddressId?: string | null,
 };
 
-export type DeleteWarhouseInput = {
+export type DeleteWarehouseInput = {
   id: string,
   _version?: number | null,
 };
@@ -891,19 +891,19 @@ export type DeleteCustomerInput = {
   _version?: number | null,
 };
 
-export type ModelProductAtWarhouseFilterInput = {
+export type ModelProductAtWarehouseFilterInput = {
   id?: ModelIDInput | null,
   quantity?: ModelIntInput | null,
   maxQuantity?: ModelIntInput | null,
   minQuantity?: ModelIntInput | null,
-  and?: Array< ModelProductAtWarhouseFilterInput | null > | null,
-  or?: Array< ModelProductAtWarhouseFilterInput | null > | null,
-  not?: ModelProductAtWarhouseFilterInput | null,
+  and?: Array< ModelProductAtWarehouseFilterInput | null > | null,
+  or?: Array< ModelProductAtWarehouseFilterInput | null > | null,
+  not?: ModelProductAtWarehouseFilterInput | null,
 };
 
-export type ModelProductAtWarhouseConnection = {
-  __typename: "ModelProductAtWarhouseConnection",
-  items?:  Array<ProductAtWarhouse | null > | null,
+export type ModelProductAtWarehouseConnection = {
+  __typename: "ModelProductAtWarehouseConnection",
+  items?:  Array<ProductAtWarehouse | null > | null,
   nextToken?: string | null,
   startedAt?: number | null,
 };
@@ -985,17 +985,17 @@ export type ModelDepartmentConnection = {
   startedAt?: number | null,
 };
 
-export type ModelWarhouseFilterInput = {
+export type ModelWarehouseFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
-  and?: Array< ModelWarhouseFilterInput | null > | null,
-  or?: Array< ModelWarhouseFilterInput | null > | null,
-  not?: ModelWarhouseFilterInput | null,
+  and?: Array< ModelWarehouseFilterInput | null > | null,
+  or?: Array< ModelWarehouseFilterInput | null > | null,
+  not?: ModelWarehouseFilterInput | null,
 };
 
-export type ModelWarhouseConnection = {
-  __typename: "ModelWarhouseConnection",
-  items?:  Array<Warhouse | null > | null,
+export type ModelWarehouseConnection = {
+  __typename: "ModelWarehouseConnection",
+  items?:  Array<Warehouse | null > | null,
   nextToken?: string | null,
   startedAt?: number | null,
 };
@@ -1096,14 +1096,14 @@ export type ModelCustomerConnection = {
   startedAt?: number | null,
 };
 
-export type CreateProductAtWarhouseMutationVariables = {
-  input: CreateProductAtWarhouseInput,
-  condition?: ModelProductAtWarhouseConditionInput | null,
+export type CreateProductAtWarehouseMutationVariables = {
+  input: CreateProductAtWarehouseInput,
+  condition?: ModelProductAtWarehouseConditionInput | null,
 };
 
-export type CreateProductAtWarhouseMutation = {
-  createProductAtWarhouse?:  {
-    __typename: "ProductAtWarhouse",
+export type CreateProductAtWarehouseMutation = {
+  createProductAtWarehouse?:  {
+    __typename: "ProductAtWarehouse",
     id: string,
     quantity: number,
     maxQuantity: number,
@@ -1181,8 +1181,8 @@ export type CreateProductAtWarhouseMutation = {
         },
       },
     },
-    warhouse:  {
-      __typename: "Warhouse",
+    warehouse:  {
+      __typename: "Warehouse",
       id: string,
       name: string,
       _version: number,
@@ -1229,14 +1229,14 @@ export type CreateProductAtWarhouseMutation = {
   } | null,
 };
 
-export type UpdateProductAtWarhouseMutationVariables = {
-  input: UpdateProductAtWarhouseInput,
-  condition?: ModelProductAtWarhouseConditionInput | null,
+export type UpdateProductAtWarehouseMutationVariables = {
+  input: UpdateProductAtWarehouseInput,
+  condition?: ModelProductAtWarehouseConditionInput | null,
 };
 
-export type UpdateProductAtWarhouseMutation = {
-  updateProductAtWarhouse?:  {
-    __typename: "ProductAtWarhouse",
+export type UpdateProductAtWarehouseMutation = {
+  updateProductAtWarehouse?:  {
+    __typename: "ProductAtWarehouse",
     id: string,
     quantity: number,
     maxQuantity: number,
@@ -1314,8 +1314,8 @@ export type UpdateProductAtWarhouseMutation = {
         },
       },
     },
-    warhouse:  {
-      __typename: "Warhouse",
+    warehouse:  {
+      __typename: "Warehouse",
       id: string,
       name: string,
       _version: number,
@@ -1362,14 +1362,14 @@ export type UpdateProductAtWarhouseMutation = {
   } | null,
 };
 
-export type DeleteProductAtWarhouseMutationVariables = {
-  input: DeleteProductAtWarhouseInput,
-  condition?: ModelProductAtWarhouseConditionInput | null,
+export type DeleteProductAtWarehouseMutationVariables = {
+  input: DeleteProductAtWarehouseInput,
+  condition?: ModelProductAtWarehouseConditionInput | null,
 };
 
-export type DeleteProductAtWarhouseMutation = {
-  deleteProductAtWarhouse?:  {
-    __typename: "ProductAtWarhouse",
+export type DeleteProductAtWarehouseMutation = {
+  deleteProductAtWarehouse?:  {
+    __typename: "ProductAtWarehouse",
     id: string,
     quantity: number,
     maxQuantity: number,
@@ -1447,8 +1447,8 @@ export type DeleteProductAtWarhouseMutation = {
         },
       },
     },
-    warhouse:  {
-      __typename: "Warhouse",
+    warehouse:  {
+      __typename: "Warehouse",
       id: string,
       name: string,
       _version: number,
@@ -1512,7 +1512,7 @@ export type CreateProductFromSupplierMutation = {
     createdAt: string,
     updatedAt: string,
     product:  {
-      __typename: "ProductAtWarhouse",
+      __typename: "ProductAtWarehouse",
       id: string,
       quantity: number,
       maxQuantity: number,
@@ -1562,8 +1562,8 @@ export type CreateProductFromSupplierMutation = {
           },
         },
       },
-      warhouse:  {
-        __typename: "Warhouse",
+      warehouse:  {
+        __typename: "Warehouse",
         id: string,
         name: string,
         _version: number,
@@ -1659,7 +1659,7 @@ export type UpdateProductFromSupplierMutation = {
     createdAt: string,
     updatedAt: string,
     product:  {
-      __typename: "ProductAtWarhouse",
+      __typename: "ProductAtWarehouse",
       id: string,
       quantity: number,
       maxQuantity: number,
@@ -1709,8 +1709,8 @@ export type UpdateProductFromSupplierMutation = {
           },
         },
       },
-      warhouse:  {
-        __typename: "Warhouse",
+      warehouse:  {
+        __typename: "Warehouse",
         id: string,
         name: string,
         _version: number,
@@ -1806,7 +1806,7 @@ export type DeleteProductFromSupplierMutation = {
     createdAt: string,
     updatedAt: string,
     product:  {
-      __typename: "ProductAtWarhouse",
+      __typename: "ProductAtWarehouse",
       id: string,
       quantity: number,
       maxQuantity: number,
@@ -1856,8 +1856,8 @@ export type DeleteProductFromSupplierMutation = {
           },
         },
       },
-      warhouse:  {
-        __typename: "Warhouse",
+      warehouse:  {
+        __typename: "Warehouse",
         id: string,
         name: string,
         _version: number,
@@ -3487,14 +3487,14 @@ export type DeleteDepartmentMutation = {
   } | null,
 };
 
-export type CreateWarhouseMutationVariables = {
-  input: CreateWarhouseInput,
-  condition?: ModelWarhouseConditionInput | null,
+export type CreateWarehouseMutationVariables = {
+  input: CreateWarehouseInput,
+  condition?: ModelWarehouseConditionInput | null,
 };
 
-export type CreateWarhouseMutation = {
-  createWarhouse?:  {
-    __typename: "Warhouse",
+export type CreateWarehouseMutation = {
+  createWarehouse?:  {
+    __typename: "Warehouse",
     id: string,
     name: string,
     _version: number,
@@ -3581,14 +3581,14 @@ export type CreateWarhouseMutation = {
   } | null,
 };
 
-export type UpdateWarhouseMutationVariables = {
-  input: UpdateWarhouseInput,
-  condition?: ModelWarhouseConditionInput | null,
+export type UpdateWarehouseMutationVariables = {
+  input: UpdateWarehouseInput,
+  condition?: ModelWarehouseConditionInput | null,
 };
 
-export type UpdateWarhouseMutation = {
-  updateWarhouse?:  {
-    __typename: "Warhouse",
+export type UpdateWarehouseMutation = {
+  updateWarehouse?:  {
+    __typename: "Warehouse",
     id: string,
     name: string,
     _version: number,
@@ -3675,14 +3675,14 @@ export type UpdateWarhouseMutation = {
   } | null,
 };
 
-export type DeleteWarhouseMutationVariables = {
-  input: DeleteWarhouseInput,
-  condition?: ModelWarhouseConditionInput | null,
+export type DeleteWarehouseMutationVariables = {
+  input: DeleteWarehouseInput,
+  condition?: ModelWarehouseConditionInput | null,
 };
 
-export type DeleteWarhouseMutation = {
-  deleteWarhouse?:  {
-    __typename: "Warhouse",
+export type DeleteWarehouseMutation = {
+  deleteWarehouse?:  {
+    __typename: "Warehouse",
     id: string,
     name: string,
     _version: number,
@@ -6031,13 +6031,13 @@ export type DeleteCustomerMutation = {
   } | null,
 };
 
-export type GetProductAtWarhouseQueryVariables = {
+export type GetProductAtWarehouseQueryVariables = {
   id: string,
 };
 
-export type GetProductAtWarhouseQuery = {
-  getProductAtWarhouse?:  {
-    __typename: "ProductAtWarhouse",
+export type GetProductAtWarehouseQuery = {
+  getProductAtWarehouse?:  {
+    __typename: "ProductAtWarehouse",
     id: string,
     quantity: number,
     maxQuantity: number,
@@ -6115,8 +6115,8 @@ export type GetProductAtWarhouseQuery = {
         },
       },
     },
-    warhouse:  {
-      __typename: "Warhouse",
+    warehouse:  {
+      __typename: "Warehouse",
       id: string,
       name: string,
       _version: number,
@@ -6163,17 +6163,17 @@ export type GetProductAtWarhouseQuery = {
   } | null,
 };
 
-export type ListProductAtWarhousesQueryVariables = {
-  filter?: ModelProductAtWarhouseFilterInput | null,
+export type ListProductAtWarehousesQueryVariables = {
+  filter?: ModelProductAtWarehouseFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListProductAtWarhousesQuery = {
-  listProductAtWarhouses?:  {
-    __typename: "ModelProductAtWarhouseConnection",
+export type ListProductAtWarehousesQuery = {
+  listProductAtWarehouses?:  {
+    __typename: "ModelProductAtWarehouseConnection",
     items?:  Array< {
-      __typename: "ProductAtWarhouse",
+      __typename: "ProductAtWarehouse",
       id: string,
       quantity: number,
       maxQuantity: number,
@@ -6223,8 +6223,8 @@ export type ListProductAtWarhousesQuery = {
           },
         },
       },
-      warhouse:  {
-        __typename: "Warhouse",
+      warehouse:  {
+        __typename: "Warehouse",
         id: string,
         name: string,
         _version: number,
@@ -6258,18 +6258,18 @@ export type ListProductAtWarhousesQuery = {
   } | null,
 };
 
-export type SyncProductAtWarhousesQueryVariables = {
-  filter?: ModelProductAtWarhouseFilterInput | null,
+export type SyncProductAtWarehousesQueryVariables = {
+  filter?: ModelProductAtWarehouseFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
   lastSync?: number | null,
 };
 
-export type SyncProductAtWarhousesQuery = {
-  syncProductAtWarhouses?:  {
-    __typename: "ModelProductAtWarhouseConnection",
+export type SyncProductAtWarehousesQuery = {
+  syncProductAtWarehouses?:  {
+    __typename: "ModelProductAtWarehouseConnection",
     items?:  Array< {
-      __typename: "ProductAtWarhouse",
+      __typename: "ProductAtWarehouse",
       id: string,
       quantity: number,
       maxQuantity: number,
@@ -6319,8 +6319,8 @@ export type SyncProductAtWarhousesQuery = {
           },
         },
       },
-      warhouse:  {
-        __typename: "Warhouse",
+      warehouse:  {
+        __typename: "Warehouse",
         id: string,
         name: string,
         _version: number,
@@ -6370,7 +6370,7 @@ export type GetProductFromSupplierQuery = {
     createdAt: string,
     updatedAt: string,
     product:  {
-      __typename: "ProductAtWarhouse",
+      __typename: "ProductAtWarehouse",
       id: string,
       quantity: number,
       maxQuantity: number,
@@ -6420,8 +6420,8 @@ export type GetProductFromSupplierQuery = {
           },
         },
       },
-      warhouse:  {
-        __typename: "Warhouse",
+      warehouse:  {
+        __typename: "Warehouse",
         id: string,
         name: string,
         _version: number,
@@ -6520,7 +6520,7 @@ export type ListProductFromSuppliersQuery = {
       createdAt: string,
       updatedAt: string,
       product:  {
-        __typename: "ProductAtWarhouse",
+        __typename: "ProductAtWarehouse",
         id: string,
         quantity: number,
         maxQuantity: number,
@@ -6554,8 +6554,8 @@ export type ListProductFromSuppliersQuery = {
             updatedAt: string,
           },
         },
-        warhouse:  {
-          __typename: "Warhouse",
+        warehouse:  {
+          __typename: "Warehouse",
           id: string,
           name: string,
           _version: number,
@@ -6637,7 +6637,7 @@ export type SyncProductFromSuppliersQuery = {
       createdAt: string,
       updatedAt: string,
       product:  {
-        __typename: "ProductAtWarhouse",
+        __typename: "ProductAtWarehouse",
         id: string,
         quantity: number,
         maxQuantity: number,
@@ -6671,8 +6671,8 @@ export type SyncProductFromSuppliersQuery = {
             updatedAt: string,
           },
         },
-        warhouse:  {
-          __typename: "Warhouse",
+        warehouse:  {
+          __typename: "Warehouse",
           id: string,
           name: string,
           _version: number,
@@ -8004,13 +8004,13 @@ export type SyncDepartmentsQuery = {
   } | null,
 };
 
-export type GetWarhouseQueryVariables = {
+export type GetWarehouseQueryVariables = {
   id: string,
 };
 
-export type GetWarhouseQuery = {
-  getWarhouse?:  {
-    __typename: "Warhouse",
+export type GetWarehouseQuery = {
+  getWarehouse?:  {
+    __typename: "Warehouse",
     id: string,
     name: string,
     _version: number,
@@ -8097,17 +8097,17 @@ export type GetWarhouseQuery = {
   } | null,
 };
 
-export type ListWarhousesQueryVariables = {
-  filter?: ModelWarhouseFilterInput | null,
+export type ListWarehousesQueryVariables = {
+  filter?: ModelWarehouseFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListWarhousesQuery = {
-  listWarhouses?:  {
-    __typename: "ModelWarhouseConnection",
+export type ListWarehousesQuery = {
+  listWarehouses?:  {
+    __typename: "ModelWarehouseConnection",
     items?:  Array< {
-      __typename: "Warhouse",
+      __typename: "Warehouse",
       id: string,
       name: string,
       _version: number,
@@ -8156,18 +8156,18 @@ export type ListWarhousesQuery = {
   } | null,
 };
 
-export type SyncWarhousesQueryVariables = {
-  filter?: ModelWarhouseFilterInput | null,
+export type SyncWarehousesQueryVariables = {
+  filter?: ModelWarehouseFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
   lastSync?: number | null,
 };
 
-export type SyncWarhousesQuery = {
-  syncWarhouses?:  {
-    __typename: "ModelWarhouseConnection",
+export type SyncWarehousesQuery = {
+  syncWarehouses?:  {
+    __typename: "ModelWarehouseConnection",
     items?:  Array< {
-      __typename: "Warhouse",
+      __typename: "Warehouse",
       id: string,
       name: string,
       _version: number,
@@ -10379,9 +10379,9 @@ export type SyncCustomersQuery = {
   } | null,
 };
 
-export type OnCreateProductAtWarhouseSubscription = {
-  onCreateProductAtWarhouse?:  {
-    __typename: "ProductAtWarhouse",
+export type OnCreateProductAtWarehouseSubscription = {
+  onCreateProductAtWarehouse?:  {
+    __typename: "ProductAtWarehouse",
     id: string,
     quantity: number,
     maxQuantity: number,
@@ -10459,8 +10459,8 @@ export type OnCreateProductAtWarhouseSubscription = {
         },
       },
     },
-    warhouse:  {
-      __typename: "Warhouse",
+    warehouse:  {
+      __typename: "Warehouse",
       id: string,
       name: string,
       _version: number,
@@ -10507,9 +10507,9 @@ export type OnCreateProductAtWarhouseSubscription = {
   } | null,
 };
 
-export type OnUpdateProductAtWarhouseSubscription = {
-  onUpdateProductAtWarhouse?:  {
-    __typename: "ProductAtWarhouse",
+export type OnUpdateProductAtWarehouseSubscription = {
+  onUpdateProductAtWarehouse?:  {
+    __typename: "ProductAtWarehouse",
     id: string,
     quantity: number,
     maxQuantity: number,
@@ -10587,8 +10587,8 @@ export type OnUpdateProductAtWarhouseSubscription = {
         },
       },
     },
-    warhouse:  {
-      __typename: "Warhouse",
+    warehouse:  {
+      __typename: "Warehouse",
       id: string,
       name: string,
       _version: number,
@@ -10635,9 +10635,9 @@ export type OnUpdateProductAtWarhouseSubscription = {
   } | null,
 };
 
-export type OnDeleteProductAtWarhouseSubscription = {
-  onDeleteProductAtWarhouse?:  {
-    __typename: "ProductAtWarhouse",
+export type OnDeleteProductAtWarehouseSubscription = {
+  onDeleteProductAtWarehouse?:  {
+    __typename: "ProductAtWarehouse",
     id: string,
     quantity: number,
     maxQuantity: number,
@@ -10715,8 +10715,8 @@ export type OnDeleteProductAtWarhouseSubscription = {
         },
       },
     },
-    warhouse:  {
-      __typename: "Warhouse",
+    warehouse:  {
+      __typename: "Warehouse",
       id: string,
       name: string,
       _version: number,
@@ -10775,7 +10775,7 @@ export type OnCreateProductFromSupplierSubscription = {
     createdAt: string,
     updatedAt: string,
     product:  {
-      __typename: "ProductAtWarhouse",
+      __typename: "ProductAtWarehouse",
       id: string,
       quantity: number,
       maxQuantity: number,
@@ -10825,8 +10825,8 @@ export type OnCreateProductFromSupplierSubscription = {
           },
         },
       },
-      warhouse:  {
-        __typename: "Warhouse",
+      warehouse:  {
+        __typename: "Warehouse",
         id: string,
         name: string,
         _version: number,
@@ -10917,7 +10917,7 @@ export type OnUpdateProductFromSupplierSubscription = {
     createdAt: string,
     updatedAt: string,
     product:  {
-      __typename: "ProductAtWarhouse",
+      __typename: "ProductAtWarehouse",
       id: string,
       quantity: number,
       maxQuantity: number,
@@ -10967,8 +10967,8 @@ export type OnUpdateProductFromSupplierSubscription = {
           },
         },
       },
-      warhouse:  {
-        __typename: "Warhouse",
+      warehouse:  {
+        __typename: "Warehouse",
         id: string,
         name: string,
         _version: number,
@@ -11059,7 +11059,7 @@ export type OnDeleteProductFromSupplierSubscription = {
     createdAt: string,
     updatedAt: string,
     product:  {
-      __typename: "ProductAtWarhouse",
+      __typename: "ProductAtWarehouse",
       id: string,
       quantity: number,
       maxQuantity: number,
@@ -11109,8 +11109,8 @@ export type OnDeleteProductFromSupplierSubscription = {
           },
         },
       },
-      warhouse:  {
-        __typename: "Warhouse",
+      warehouse:  {
+        __typename: "Warehouse",
         id: string,
         name: string,
         _version: number,
@@ -12665,9 +12665,9 @@ export type OnDeleteDepartmentSubscription = {
   } | null,
 };
 
-export type OnCreateWarhouseSubscription = {
-  onCreateWarhouse?:  {
-    __typename: "Warhouse",
+export type OnCreateWarehouseSubscription = {
+  onCreateWarehouse?:  {
+    __typename: "Warehouse",
     id: string,
     name: string,
     _version: number,
@@ -12754,9 +12754,9 @@ export type OnCreateWarhouseSubscription = {
   } | null,
 };
 
-export type OnUpdateWarhouseSubscription = {
-  onUpdateWarhouse?:  {
-    __typename: "Warhouse",
+export type OnUpdateWarehouseSubscription = {
+  onUpdateWarehouse?:  {
+    __typename: "Warehouse",
     id: string,
     name: string,
     _version: number,
@@ -12843,9 +12843,9 @@ export type OnUpdateWarhouseSubscription = {
   } | null,
 };
 
-export type OnDeleteWarhouseSubscription = {
-  onDeleteWarhouse?:  {
-    __typename: "Warhouse",
+export type OnDeleteWarehouseSubscription = {
+  onDeleteWarehouse?:  {
+    __typename: "Warehouse",
     id: string,
     name: string,
     _version: number,

@@ -2,6 +2,2400 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createProductAtWarehouse = /* GraphQL */ `
+  mutation CreateProductAtWarehouse(
+    $input: CreateProductAtWarehouseInput!
+    $condition: ModelProductAtWarehouseConditionInput
+  ) {
+    createProductAtWarehouse(input: $input, condition: $condition) {
+      id
+      quantity
+      maxQuantity
+      minQuantity
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      product {
+        id
+        name
+        measurement
+        qrcCode
+        typeID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        type {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              qrcCode
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+      }
+      warehouse {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressWPOrders {
+            items {
+              id
+              WPOrderNumber
+              WPOrderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              createdAtWp
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const updateProductAtWarehouse = /* GraphQL */ `
+  mutation UpdateProductAtWarehouse(
+    $input: UpdateProductAtWarehouseInput!
+    $condition: ModelProductAtWarehouseConditionInput
+  ) {
+    updateProductAtWarehouse(input: $input, condition: $condition) {
+      id
+      quantity
+      maxQuantity
+      minQuantity
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      product {
+        id
+        name
+        measurement
+        qrcCode
+        typeID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        type {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              qrcCode
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+      }
+      warehouse {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressWPOrders {
+            items {
+              id
+              WPOrderNumber
+              WPOrderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              createdAtWp
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const deleteProductAtWarehouse = /* GraphQL */ `
+  mutation DeleteProductAtWarehouse(
+    $input: DeleteProductAtWarehouseInput!
+    $condition: ModelProductAtWarehouseConditionInput
+  ) {
+    deleteProductAtWarehouse(input: $input, condition: $condition) {
+      id
+      quantity
+      maxQuantity
+      minQuantity
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      product {
+        id
+        name
+        measurement
+        qrcCode
+        typeID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        type {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              qrcCode
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+      }
+      warehouse {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressWPOrders {
+            items {
+              id
+              WPOrderNumber
+              WPOrderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              createdAtWp
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const createProductFromSupplier = /* GraphQL */ `
+  mutation CreateProductFromSupplier(
+    $input: CreateProductFromSupplierInput!
+    $condition: ModelProductFromSupplierConditionInput
+  ) {
+    createProductFromSupplier(input: $input, condition: $condition) {
+      id
+      price
+      qualit
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      product {
+        id
+        quantity
+        maxQuantity
+        minQuantity
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        product {
+          id
+          name
+          measurement
+          qrcCode
+          typeID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          type {
+            id
+            name
+            categoryID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            category {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        warehouse {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressWPOrders {
+              nextToken
+              startedAt
+            }
+          }
+        }
+      }
+      supplier {
+        id
+        name
+        phoneNumber
+        email
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressWPOrders {
+            items {
+              id
+              WPOrderNumber
+              WPOrderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              createdAtWp
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const updateProductFromSupplier = /* GraphQL */ `
+  mutation UpdateProductFromSupplier(
+    $input: UpdateProductFromSupplierInput!
+    $condition: ModelProductFromSupplierConditionInput
+  ) {
+    updateProductFromSupplier(input: $input, condition: $condition) {
+      id
+      price
+      qualit
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      product {
+        id
+        quantity
+        maxQuantity
+        minQuantity
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        product {
+          id
+          name
+          measurement
+          qrcCode
+          typeID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          type {
+            id
+            name
+            categoryID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            category {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        warehouse {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressWPOrders {
+              nextToken
+              startedAt
+            }
+          }
+        }
+      }
+      supplier {
+        id
+        name
+        phoneNumber
+        email
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressWPOrders {
+            items {
+              id
+              WPOrderNumber
+              WPOrderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              createdAtWp
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const deleteProductFromSupplier = /* GraphQL */ `
+  mutation DeleteProductFromSupplier(
+    $input: DeleteProductFromSupplierInput!
+    $condition: ModelProductFromSupplierConditionInput
+  ) {
+    deleteProductFromSupplier(input: $input, condition: $condition) {
+      id
+      price
+      qualit
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      product {
+        id
+        quantity
+        maxQuantity
+        minQuantity
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        product {
+          id
+          name
+          measurement
+          qrcCode
+          typeID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          type {
+            id
+            name
+            categoryID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            category {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        warehouse {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          address {
+            id
+            address1
+            address2
+            city
+            postCode
+            coordinateID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            addressWPOrders {
+              nextToken
+              startedAt
+            }
+          }
+        }
+      }
+      supplier {
+        id
+        name
+        phoneNumber
+        email
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressWPOrders {
+            items {
+              id
+              WPOrderNumber
+              WPOrderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              createdAtWp
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const createSupplier = /* GraphQL */ `
+  mutation CreateSupplier(
+    $input: CreateSupplierInput!
+    $condition: ModelSupplierConditionInput
+  ) {
+    createSupplier(input: $input, condition: $condition) {
+      id
+      name
+      phoneNumber
+      email
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      address {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressWPOrders {
+          items {
+            id
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            createdAtWp
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            WPOrderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const updateSupplier = /* GraphQL */ `
+  mutation UpdateSupplier(
+    $input: UpdateSupplierInput!
+    $condition: ModelSupplierConditionInput
+  ) {
+    updateSupplier(input: $input, condition: $condition) {
+      id
+      name
+      phoneNumber
+      email
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      address {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressWPOrders {
+          items {
+            id
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            createdAtWp
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            WPOrderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const deleteSupplier = /* GraphQL */ `
+  mutation DeleteSupplier(
+    $input: DeleteSupplierInput!
+    $condition: ModelSupplierConditionInput
+  ) {
+    deleteSupplier(input: $input, condition: $condition) {
+      id
+      name
+      phoneNumber
+      email
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      address {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressWPOrders {
+          items {
+            id
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            createdAtWp
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            WPOrderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const createProduct = /* GraphQL */ `
+  mutation CreateProduct(
+    $input: CreateProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    createProduct(input: $input, condition: $condition) {
+      id
+      name
+      measurement
+      qrcCode
+      typeID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      type {
+        id
+        name
+        categoryID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        products {
+          items {
+            id
+            name
+            measurement
+            qrcCode
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        category {
+          id
+          name
+          departmentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          types {
+            items {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          department {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            categories {
+              nextToken
+              startedAt
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const updateProduct = /* GraphQL */ `
+  mutation UpdateProduct(
+    $input: UpdateProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    updateProduct(input: $input, condition: $condition) {
+      id
+      name
+      measurement
+      qrcCode
+      typeID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      type {
+        id
+        name
+        categoryID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        products {
+          items {
+            id
+            name
+            measurement
+            qrcCode
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        category {
+          id
+          name
+          departmentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          types {
+            items {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          department {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            categories {
+              nextToken
+              startedAt
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const deleteProduct = /* GraphQL */ `
+  mutation DeleteProduct(
+    $input: DeleteProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    deleteProduct(input: $input, condition: $condition) {
+      id
+      name
+      measurement
+      qrcCode
+      typeID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      type {
+        id
+        name
+        categoryID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        products {
+          items {
+            id
+            name
+            measurement
+            qrcCode
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        category {
+          id
+          name
+          departmentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          types {
+            items {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          department {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            categories {
+              nextToken
+              startedAt
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const createType = /* GraphQL */ `
+  mutation CreateType(
+    $input: CreateTypeInput!
+    $condition: ModelTypeConditionInput
+  ) {
+    createType(input: $input, condition: $condition) {
+      id
+      name
+      categoryID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      products {
+        items {
+          id
+          name
+          measurement
+          qrcCode
+          typeID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          type {
+            id
+            name
+            categoryID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            category {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      category {
+        id
+        name
+        departmentID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        types {
+          items {
+            id
+            name
+            categoryID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            category {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        department {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          categories {
+            items {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const updateType = /* GraphQL */ `
+  mutation UpdateType(
+    $input: UpdateTypeInput!
+    $condition: ModelTypeConditionInput
+  ) {
+    updateType(input: $input, condition: $condition) {
+      id
+      name
+      categoryID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      products {
+        items {
+          id
+          name
+          measurement
+          qrcCode
+          typeID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          type {
+            id
+            name
+            categoryID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            category {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      category {
+        id
+        name
+        departmentID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        types {
+          items {
+            id
+            name
+            categoryID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            category {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        department {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          categories {
+            items {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const deleteType = /* GraphQL */ `
+  mutation DeleteType(
+    $input: DeleteTypeInput!
+    $condition: ModelTypeConditionInput
+  ) {
+    deleteType(input: $input, condition: $condition) {
+      id
+      name
+      categoryID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      products {
+        items {
+          id
+          name
+          measurement
+          qrcCode
+          typeID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          type {
+            id
+            name
+            categoryID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            category {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      category {
+        id
+        name
+        departmentID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        types {
+          items {
+            id
+            name
+            categoryID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            category {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        department {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          categories {
+            items {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const createCategory = /* GraphQL */ `
+  mutation CreateCategory(
+    $input: CreateCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    createCategory(input: $input, condition: $condition) {
+      id
+      name
+      departmentID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      types {
+        items {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              qrcCode
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      department {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        categories {
+          items {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const updateCategory = /* GraphQL */ `
+  mutation UpdateCategory(
+    $input: UpdateCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    updateCategory(input: $input, condition: $condition) {
+      id
+      name
+      departmentID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      types {
+        items {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              qrcCode
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      department {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        categories {
+          items {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const deleteCategory = /* GraphQL */ `
+  mutation DeleteCategory(
+    $input: DeleteCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    deleteCategory(input: $input, condition: $condition) {
+      id
+      name
+      departmentID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      types {
+        items {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              qrcCode
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      department {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        categories {
+          items {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const createDepartment = /* GraphQL */ `
+  mutation CreateDepartment(
+    $input: CreateDepartmentInput!
+    $condition: ModelDepartmentConditionInput
+  ) {
+    createDepartment(input: $input, condition: $condition) {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      categories {
+        items {
+          id
+          name
+          departmentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          types {
+            items {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          department {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            categories {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const updateDepartment = /* GraphQL */ `
+  mutation UpdateDepartment(
+    $input: UpdateDepartmentInput!
+    $condition: ModelDepartmentConditionInput
+  ) {
+    updateDepartment(input: $input, condition: $condition) {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      categories {
+        items {
+          id
+          name
+          departmentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          types {
+            items {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          department {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            categories {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const deleteDepartment = /* GraphQL */ `
+  mutation DeleteDepartment(
+    $input: DeleteDepartmentInput!
+    $condition: ModelDepartmentConditionInput
+  ) {
+    deleteDepartment(input: $input, condition: $condition) {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      categories {
+        items {
+          id
+          name
+          departmentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          types {
+            items {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          department {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            categories {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const createWarehouse = /* GraphQL */ `
+  mutation CreateWarehouse(
+    $input: CreateWarehouseInput!
+    $condition: ModelWarehouseConditionInput
+  ) {
+    createWarehouse(input: $input, condition: $condition) {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      address {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressWPOrders {
+          items {
+            id
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            createdAtWp
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            WPOrderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const updateWarehouse = /* GraphQL */ `
+  mutation UpdateWarehouse(
+    $input: UpdateWarehouseInput!
+    $condition: ModelWarehouseConditionInput
+  ) {
+    updateWarehouse(input: $input, condition: $condition) {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      address {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressWPOrders {
+          items {
+            id
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            createdAtWp
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            WPOrderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const deleteWarehouse = /* GraphQL */ `
+  mutation DeleteWarehouse(
+    $input: DeleteWarehouseInput!
+    $condition: ModelWarehouseConditionInput
+  ) {
+    deleteWarehouse(input: $input, condition: $condition) {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      address {
+        id
+        address1
+        address2
+        city
+        postCode
+        coordinateID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        addressWPOrders {
+          items {
+            id
+            WPOrderNumber
+            WPOrderStatus
+            WPDishes {
+              name
+              dishType
+              quantity
+              weekDay
+            }
+            finalPrice
+            customerComment
+            customerID
+            addressID
+            createdAtWp
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            WPOrderBoxes {
+              nextToken
+              startedAt
+            }
+            customer {
+              id
+              wpId
+              company
+              firstName
+              lastName
+              email
+              phoneNumber
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
 export const createCoordinate = /* GraphQL */ `
   mutation CreateCoordinate(
     $input: CreateCoordinateInput!

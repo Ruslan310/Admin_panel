@@ -25,6 +25,7 @@ import ReportsPage from "./pages/ReportsPage";
 import MapCoordinatesPage from "./pages/MapCoordinatesPage";
 import {DataStore, Hub} from "aws-amplify";
 import { LoadingOutlined } from '@ant-design/icons';
+import WarehousesPage from "./pages/stocktaking/WarehousesPage";
 
 const antIcon = <LoadingOutlined style={{
   fontSize: 124,
@@ -87,7 +88,7 @@ const MainRouter: React.FC = () => {
           <span>Boxes</span>
           <Link to="/boxes"/>
         </Menu.Item>
-        <SubMenu key="sub1" icon={<CompassOutlined/>} title="Coordinates">
+        <SubMenu key="coordinatesSubMenu" icon={<CompassOutlined/>} title="Coordinates">
           <Menu.Item key="coordinates/dictionary">
             <span>Dictionary</span>
             <Link to="/coordinates/dictionary"/>
@@ -95,6 +96,12 @@ const MainRouter: React.FC = () => {
           <Menu.Item key="coordinates/map">
             <span>Days maps</span>
             <Link to="/coordinates/map"/>
+          </Menu.Item>
+        </SubMenu>
+        <SubMenu key="stocktakingSubMenu" icon={<ReconciliationOutlined />} title="Stocktaking">
+          <Menu.Item key="stocktaking/warehouses">
+            <span>Warehouses</span>
+            <Link to="/stocktaking/warehouses"/>
           </Menu.Item>
         </SubMenu>
         <Menu.Item key="addresses" icon={<HomeOutlined/>}>
@@ -131,6 +138,13 @@ const MainRouter: React.FC = () => {
         <Route exact path="/profile" component={ProfilePage}/>
         <Route exact path="/reports" component={ReportsPage}/>
         <Route exact path="/orderDetails/:orderId" component={OrderDetailsPage}/>
+        <Route exact path="/stocktaking/products" component={ProfilePage}/>
+        <Route exact path="/stocktaking/products/:productId" component={ProfilePage}/>
+        <Route exact path="/stocktaking/warehouses" component={WarehousesPage}/>
+        <Route exact path="/stocktaking/warehouses/:warehouseId" component={ProfilePage}/>
+        <Route exact path="/stocktaking/departments" component={ProfilePage}/>
+        <Route exact path="/stocktaking/categories" component={ProfilePage}/>
+        <Route exact path="/stocktaking/types" component={ProfilePage}/>
       </Content>
       <Footer style={{textAlign: 'center'}}>
         DINENATION GROUP

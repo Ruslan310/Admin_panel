@@ -40,7 +40,7 @@ export declare class WPDish {
   constructor(init: ModelInit<WPDish>);
 }
 
-type ProductAtWarhouseMetaData = {
+type ProductAtWarehouseMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -60,7 +60,7 @@ type DepartmentMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type WarhouseMetaData = {
+type WarehouseMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -96,17 +96,17 @@ type UserMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class ProductAtWarhouse {
+export declare class ProductAtWarehouse {
   readonly id: string;
   readonly quantity: number;
   readonly maxQuantity: number;
   readonly minQuantity: number;
   readonly product: Product;
-  readonly warhouse: Warhouse;
+  readonly warehouse: Warehouse;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<ProductAtWarhouse, ProductAtWarhouseMetaData>);
-  static copyOf(source: ProductAtWarhouse, mutator: (draft: MutableModel<ProductAtWarhouse, ProductAtWarhouseMetaData>) => MutableModel<ProductAtWarhouse, ProductAtWarhouseMetaData> | void): ProductAtWarhouse;
+  constructor(init: ModelInit<ProductAtWarehouse, ProductAtWarehouseMetaData>);
+  static copyOf(source: ProductAtWarehouse, mutator: (draft: MutableModel<ProductAtWarehouse, ProductAtWarehouseMetaData>) => MutableModel<ProductAtWarehouse, ProductAtWarehouseMetaData> | void): ProductAtWarehouse;
 }
 
 export declare class Product {
@@ -156,14 +156,14 @@ export declare class Department {
   static copyOf(source: Department, mutator: (draft: MutableModel<Department, DepartmentMetaData>) => MutableModel<Department, DepartmentMetaData> | void): Department;
 }
 
-export declare class Warhouse {
+export declare class Warehouse {
   readonly id: string;
   readonly name: string;
   readonly address: Address;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Warhouse, WarhouseMetaData>);
-  static copyOf(source: Warhouse, mutator: (draft: MutableModel<Warhouse, WarhouseMetaData>) => MutableModel<Warhouse, WarhouseMetaData> | void): Warhouse;
+  constructor(init: ModelInit<Warehouse, WarehouseMetaData>);
+  static copyOf(source: Warehouse, mutator: (draft: MutableModel<Warehouse, WarehouseMetaData>) => MutableModel<Warehouse, WarehouseMetaData> | void): Warehouse;
 }
 
 export declare class Address {
@@ -233,7 +233,7 @@ export declare class ProductFromSupplier {
   readonly id: string;
   readonly price: number;
   readonly qualit?: number;
-  readonly product: ProductAtWarhouse;
+  readonly product: ProductAtWarehouse;
   readonly supplier: Supplier;
   readonly createdAt?: string;
   readonly updatedAt?: string;

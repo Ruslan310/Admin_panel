@@ -34,15 +34,15 @@ const Role = {
   "GUEST": "GUEST"
 };
 
-const { ProductAtWarhouse, Product, Type, Category, Department, Warhouse, Address, WPOrder, Customer, Box, ProductFromSupplier, Supplier, Coordinate, User, WPDish } = initSchema(schema);
+const { ProductAtWarehouse, Product, Type, Category, Department, Warehouse, Address, WPOrder, Customer, Box, ProductFromSupplier, Supplier, Coordinate, User, WPDish } = initSchema(schema);
 
 export {
-  ProductAtWarhouse,
+  ProductAtWarehouse,
   Product,
   Type,
   Category,
   Department,
-  Warhouse,
+  Warehouse,
   Address,
   WPOrder,
   Customer,

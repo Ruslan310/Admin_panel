@@ -40,7 +40,27 @@ export declare class WPDish {
   constructor(init: ModelInit<WPDish>);
 }
 
-type CoordinateMetaData = {
+type ProductAtWarhouseMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type ProductMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type TypeMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type CategoryMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type DepartmentMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type WarhouseMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -60,21 +80,90 @@ type BoxMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
+type ProductFromSupplierMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type SupplierMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type CoordinateMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 type UserMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class Coordinate {
+export declare class ProductAtWarhouse {
   readonly id: string;
-  readonly latitude: number;
-  readonly longitude: number;
-  readonly name: string;
-  readonly userID?: string;
-  readonly coordinateAddresses?: (Address | null)[];
+  readonly quantity: number;
+  readonly maxQuantity: number;
+  readonly minQuantity: number;
+  readonly product: Product;
+  readonly warhouse: Warhouse;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Coordinate, CoordinateMetaData>);
-  static copyOf(source: Coordinate, mutator: (draft: MutableModel<Coordinate, CoordinateMetaData>) => MutableModel<Coordinate, CoordinateMetaData> | void): Coordinate;
+  constructor(init: ModelInit<ProductAtWarhouse, ProductAtWarhouseMetaData>);
+  static copyOf(source: ProductAtWarhouse, mutator: (draft: MutableModel<ProductAtWarhouse, ProductAtWarhouseMetaData>) => MutableModel<ProductAtWarhouse, ProductAtWarhouseMetaData> | void): ProductAtWarhouse;
+}
+
+export declare class Product {
+  readonly id: string;
+  readonly name: string;
+  readonly measurement: string;
+  readonly qrcCode: string;
+  readonly type: Type;
+  readonly typeID?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Product, ProductMetaData>);
+  static copyOf(source: Product, mutator: (draft: MutableModel<Product, ProductMetaData>) => MutableModel<Product, ProductMetaData> | void): Product;
+}
+
+export declare class Type {
+  readonly id: string;
+  readonly name: string;
+  readonly category: Category;
+  readonly categoryID?: string;
+  readonly products?: (Product | null)[];
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Type, TypeMetaData>);
+  static copyOf(source: Type, mutator: (draft: MutableModel<Type, TypeMetaData>) => MutableModel<Type, TypeMetaData> | void): Type;
+}
+
+export declare class Category {
+  readonly id: string;
+  readonly name: string;
+  readonly department: Department;
+  readonly departmentID?: string;
+  readonly types?: (Type | null)[];
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Category, CategoryMetaData>);
+  static copyOf(source: Category, mutator: (draft: MutableModel<Category, CategoryMetaData>) => MutableModel<Category, CategoryMetaData> | void): Category;
+}
+
+export declare class Department {
+  readonly id: string;
+  readonly name: string;
+  readonly categories?: (Category | null)[];
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Department, DepartmentMetaData>);
+  static copyOf(source: Department, mutator: (draft: MutableModel<Department, DepartmentMetaData>) => MutableModel<Department, DepartmentMetaData> | void): Department;
+}
+
+export declare class Warhouse {
+  readonly id: string;
+  readonly name: string;
+  readonly address: Address;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Warhouse, WarhouseMetaData>);
+  static copyOf(source: Warhouse, mutator: (draft: MutableModel<Warhouse, WarhouseMetaData>) => MutableModel<Warhouse, WarhouseMetaData> | void): Warhouse;
 }
 
 export declare class Address {
@@ -138,6 +227,43 @@ export declare class Box {
   readonly updatedAt?: string;
   constructor(init: ModelInit<Box, BoxMetaData>);
   static copyOf(source: Box, mutator: (draft: MutableModel<Box, BoxMetaData>) => MutableModel<Box, BoxMetaData> | void): Box;
+}
+
+export declare class ProductFromSupplier {
+  readonly id: string;
+  readonly price: number;
+  readonly qualit?: number;
+  readonly product: ProductAtWarhouse;
+  readonly supplier: Supplier;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<ProductFromSupplier, ProductFromSupplierMetaData>);
+  static copyOf(source: ProductFromSupplier, mutator: (draft: MutableModel<ProductFromSupplier, ProductFromSupplierMetaData>) => MutableModel<ProductFromSupplier, ProductFromSupplierMetaData> | void): ProductFromSupplier;
+}
+
+export declare class Supplier {
+  readonly id: string;
+  readonly name: string;
+  readonly phoneNumber?: string;
+  readonly email?: string;
+  readonly address: Address;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Supplier, SupplierMetaData>);
+  static copyOf(source: Supplier, mutator: (draft: MutableModel<Supplier, SupplierMetaData>) => MutableModel<Supplier, SupplierMetaData> | void): Supplier;
+}
+
+export declare class Coordinate {
+  readonly id: string;
+  readonly latitude: number;
+  readonly longitude: number;
+  readonly name: string;
+  readonly userID?: string;
+  readonly coordinateAddresses?: (Address | null)[];
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Coordinate, CoordinateMetaData>);
+  static copyOf(source: Coordinate, mutator: (draft: MutableModel<Coordinate, CoordinateMetaData>) => MutableModel<Coordinate, CoordinateMetaData> | void): Coordinate;
 }
 
 export declare class User {

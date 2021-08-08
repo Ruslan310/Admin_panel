@@ -3,10 +3,10 @@ import {DataStore} from 'aws-amplify'
 
 import {Button, Form, Input, Layout, Modal, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {Department} from "../../models";
+import {Category, Department} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
 
-const {confirm} = Modal;
+const {confirm, error} = Modal;
 
 const {Content} = Layout;
 const {Title} = Typography;
@@ -42,26 +42,34 @@ const DepartmentsPage: React.FC = () => {
     {
       title: 'Delete',
       render: (value, record, index) => {
-        return <Button danger type={'primary'} onClick={() => showDeleteConfirm(record)}>Delete</Button>
+        return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
       }
     }
   ];
 
-  const showDeleteConfirm = (department: Department) => {
-    confirm({
-      title: 'Are you sure delete this department?',
-      icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-      content: `Delete department with name "${department.name}"`,
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      async onOk() {
-        await DataStore.delete(Department, department.id);
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
+  const tryToDelete = async (department: Department) => {
+    const categories = await DataStore.query(Category, category => category.departmentID("eq", department.id))
+    if (categories && categories.length > 0) {
+      error({
+        title: 'You cannot delete this department!',
+        content: `This department has ${categories.length} categories, remove categories first.`,
+      });
+    } else {
+      confirm({
+        title: 'Are you sure delete this department?',
+        icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+        content: `Delete department with name "${department.name}"`,
+        okText: 'Yes',
+        okType: 'danger',
+        cancelText: 'No',
+        async onOk() {
+          await DataStore.delete(Department, department.id);
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+      });
+    }
   }
 
   return (

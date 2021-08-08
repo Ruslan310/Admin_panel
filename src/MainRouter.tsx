@@ -27,6 +27,7 @@ import {DataStore, Hub} from "aws-amplify";
 import { LoadingOutlined } from '@ant-design/icons';
 import WarehousesPage from "./pages/stocktaking/WarehousesPage";
 import DepartmentsPage from "./pages/stocktaking/DepartmentsPage";
+import CategoriesPage from "./pages/stocktaking/CategoriesPage";
 
 const antIcon = <LoadingOutlined style={{
   fontSize: 124,
@@ -108,6 +109,10 @@ const MainRouter: React.FC = () => {
             <span>Departments</span>
             <Link to="/stocktaking/departments"/>
           </Menu.Item>
+          <Menu.Item key="stocktaking/categories">
+            <span>Categories</span>
+            <Link to="/stocktaking/categories"/>
+          </Menu.Item>
         </SubMenu>
         <Menu.Item key="addresses" icon={<HomeOutlined/>}>
           <span>Addresses</span>
@@ -148,7 +153,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/stocktaking/warehouses" component={WarehousesPage}/>
         <Route exact path="/stocktaking/warehouses/:warehouseId" component={ProfilePage}/>
         <Route exact path="/stocktaking/departments" component={DepartmentsPage}/>
-        <Route exact path="/stocktaking/categories" component={ProfilePage}/>
+        <Route exact path="/stocktaking/categories" component={CategoriesPage}/>
         <Route exact path="/stocktaking/types" component={ProfilePage}/>
       </Content>
       <Footer style={{textAlign: 'center'}}>

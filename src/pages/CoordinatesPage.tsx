@@ -15,7 +15,7 @@ import {
 } from 'antd';
 import {Address, Coordinate} from "../models";
 import {ColumnsType} from "antd/es/table";
-import {stringifyAddress} from "../utils/utils";
+import {googleMapLink, stringifyAddress} from "../utils/utils";
 import ManyPointsMapComponent from "../components/ManyPointsMapComponent";
 
 const {Content} = Layout;
@@ -65,7 +65,7 @@ const CoordinatesPage: React.FC = () => {
       title: 'Link to map',
       render: (value, record, index) => {
         return <a target={"_blank"}
-                  href={`https://www.google.com/maps/place/${record.latitude},${record.longitude}`}>{`https://www.google.com/maps/place/${record.longitude},${record.latitude}`}</a>
+                  href={googleMapLink(record.latitude, record.longitude)}>{googleMapLink(record.latitude, record.longitude)}</a>
       },
     },
     {

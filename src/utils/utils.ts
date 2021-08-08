@@ -10,3 +10,5 @@ export const fullName = (customer?: Customer) => {
 }
 
 export const today = moment().format('dddd');
+
+export const googleMapLink = (latitude: number, longitude: number) => `https://www.google.com/maps/place/${latitude},${longitude}`;

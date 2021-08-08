@@ -213,7 +213,7 @@ const AddressesPage: React.FC = () => {
                 );
               }
             }} type="primary" htmlType="submit">
-              Submit
+              Create
             </Button>
           </Form.Item>
         </Form>

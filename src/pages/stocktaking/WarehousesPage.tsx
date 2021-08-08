@@ -160,7 +160,7 @@ const WarehousesPage: React.FC = () => {
               );
             }
           }} type="primary" htmlType="submit">
-            Submit
+            Create
           </Button>
         </Form.Item>
       </Form>

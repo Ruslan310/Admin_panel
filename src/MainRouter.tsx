@@ -26,6 +26,7 @@ import MapCoordinatesPage from "./pages/MapCoordinatesPage";
 import {DataStore, Hub} from "aws-amplify";
 import { LoadingOutlined } from '@ant-design/icons';
 import WarehousesPage from "./pages/stocktaking/WarehousesPage";
+import DepartmentsPage from "./pages/stocktaking/DepartmentsPage";
 
 const antIcon = <LoadingOutlined style={{
   fontSize: 124,
@@ -103,6 +104,10 @@ const MainRouter: React.FC = () => {
             <span>Warehouses</span>
             <Link to="/stocktaking/warehouses"/>
           </Menu.Item>
+          <Menu.Item key="stocktaking/departments">
+            <span>Departments</span>
+            <Link to="/stocktaking/departments"/>
+          </Menu.Item>
         </SubMenu>
         <Menu.Item key="addresses" icon={<HomeOutlined/>}>
           <span>Addresses</span>
@@ -142,7 +147,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/stocktaking/products/:productId" component={ProfilePage}/>
         <Route exact path="/stocktaking/warehouses" component={WarehousesPage}/>
         <Route exact path="/stocktaking/warehouses/:warehouseId" component={ProfilePage}/>
-        <Route exact path="/stocktaking/departments" component={ProfilePage}/>
+        <Route exact path="/stocktaking/departments" component={DepartmentsPage}/>
         <Route exact path="/stocktaking/categories" component={ProfilePage}/>
         <Route exact path="/stocktaking/types" component={ProfilePage}/>
       </Content>

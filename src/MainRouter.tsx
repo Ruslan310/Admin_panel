@@ -28,6 +28,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import WarehousesPage from "./pages/stocktaking/WarehousesPage";
 import DepartmentsPage from "./pages/stocktaking/DepartmentsPage";
 import CategoriesPage from "./pages/stocktaking/CategoriesPage";
+import TypesPage from "./pages/stocktaking/TypesPage";
 
 const antIcon = <LoadingOutlined style={{
   fontSize: 124,
@@ -113,6 +114,10 @@ const MainRouter: React.FC = () => {
             <span>Categories</span>
             <Link to="/stocktaking/categories"/>
           </Menu.Item>
+          <Menu.Item key="stocktaking/types">
+            <span>Types</span>
+            <Link to="/stocktaking/types"/>
+          </Menu.Item>
         </SubMenu>
         <Menu.Item key="addresses" icon={<HomeOutlined/>}>
           <span>Addresses</span>
@@ -154,7 +159,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/stocktaking/warehouses/:warehouseId" component={ProfilePage}/>
         <Route exact path="/stocktaking/departments" component={DepartmentsPage}/>
         <Route exact path="/stocktaking/categories" component={CategoriesPage}/>
-        <Route exact path="/stocktaking/types" component={ProfilePage}/>
+        <Route exact path="/stocktaking/types" component={TypesPage}/>
       </Content>
       <Footer style={{textAlign: 'center'}}>
         DINENATION GROUP

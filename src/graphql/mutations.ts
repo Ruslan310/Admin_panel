@@ -12,6 +12,7 @@ export const createProductAtWarehouse = /* GraphQL */ `
       quantity
       maxQuantity
       minQuantity
+      qrCode
       _version
       _deleted
       _lastChangedAt
@@ -21,7 +22,6 @@ export const createProductAtWarehouse = /* GraphQL */ `
         id
         name
         measurement
-        qrcCode
         typeID
         _version
         _deleted
@@ -42,7 +42,6 @@ export const createProductAtWarehouse = /* GraphQL */ `
               id
               name
               measurement
-              qrcCode
               typeID
               _version
               _deleted
@@ -132,6 +131,7 @@ export const updateProductAtWarehouse = /* GraphQL */ `
       quantity
       maxQuantity
       minQuantity
+      qrCode
       _version
       _deleted
       _lastChangedAt
@@ -141,7 +141,6 @@ export const updateProductAtWarehouse = /* GraphQL */ `
         id
         name
         measurement
-        qrcCode
         typeID
         _version
         _deleted
@@ -162,7 +161,6 @@ export const updateProductAtWarehouse = /* GraphQL */ `
               id
               name
               measurement
-              qrcCode
               typeID
               _version
               _deleted
@@ -252,6 +250,7 @@ export const deleteProductAtWarehouse = /* GraphQL */ `
       quantity
       maxQuantity
       minQuantity
+      qrCode
       _version
       _deleted
       _lastChangedAt
@@ -261,7 +260,6 @@ export const deleteProductAtWarehouse = /* GraphQL */ `
         id
         name
         measurement
-        qrcCode
         typeID
         _version
         _deleted
@@ -282,7 +280,6 @@ export const deleteProductAtWarehouse = /* GraphQL */ `
               id
               name
               measurement
-              qrcCode
               typeID
               _version
               _deleted
@@ -381,6 +378,7 @@ export const createProductFromSupplier = /* GraphQL */ `
         quantity
         maxQuantity
         minQuantity
+        qrCode
         _version
         _deleted
         _lastChangedAt
@@ -390,7 +388,6 @@ export const createProductFromSupplier = /* GraphQL */ `
           id
           name
           measurement
-          qrcCode
           typeID
           _version
           _deleted
@@ -514,6 +511,7 @@ export const updateProductFromSupplier = /* GraphQL */ `
         quantity
         maxQuantity
         minQuantity
+        qrCode
         _version
         _deleted
         _lastChangedAt
@@ -523,7 +521,6 @@ export const updateProductFromSupplier = /* GraphQL */ `
           id
           name
           measurement
-          qrcCode
           typeID
           _version
           _deleted
@@ -647,6 +644,7 @@ export const deleteProductFromSupplier = /* GraphQL */ `
         quantity
         maxQuantity
         minQuantity
+        qrCode
         _version
         _deleted
         _lastChangedAt
@@ -656,7 +654,6 @@ export const deleteProductFromSupplier = /* GraphQL */ `
           id
           name
           measurement
-          qrcCode
           typeID
           _version
           _deleted
@@ -1031,7 +1028,6 @@ export const createProduct = /* GraphQL */ `
       id
       name
       measurement
-      qrcCode
       typeID
       _version
       _deleted
@@ -1052,7 +1048,6 @@ export const createProduct = /* GraphQL */ `
             id
             name
             measurement
-            qrcCode
             typeID
             _version
             _deleted
@@ -1123,7 +1118,6 @@ export const updateProduct = /* GraphQL */ `
       id
       name
       measurement
-      qrcCode
       typeID
       _version
       _deleted
@@ -1144,7 +1138,6 @@ export const updateProduct = /* GraphQL */ `
             id
             name
             measurement
-            qrcCode
             typeID
             _version
             _deleted
@@ -1215,7 +1208,6 @@ export const deleteProduct = /* GraphQL */ `
       id
       name
       measurement
-      qrcCode
       typeID
       _version
       _deleted
@@ -1236,7 +1228,6 @@ export const deleteProduct = /* GraphQL */ `
             id
             name
             measurement
-            qrcCode
             typeID
             _version
             _deleted
@@ -1317,7 +1308,6 @@ export const createType = /* GraphQL */ `
           id
           name
           measurement
-          qrcCode
           typeID
           _version
           _deleted
@@ -1435,7 +1425,6 @@ export const updateType = /* GraphQL */ `
           id
           name
           measurement
-          qrcCode
           typeID
           _version
           _deleted
@@ -1553,7 +1542,6 @@ export const deleteType = /* GraphQL */ `
           id
           name
           measurement
-          qrcCode
           typeID
           _version
           _deleted
@@ -1681,7 +1669,6 @@ export const createCategory = /* GraphQL */ `
               id
               name
               measurement
-              qrcCode
               typeID
               _version
               _deleted
@@ -1787,7 +1774,6 @@ export const updateCategory = /* GraphQL */ `
               id
               name
               measurement
-              qrcCode
               typeID
               _version
               _deleted
@@ -1893,7 +1879,6 @@ export const deleteCategory = /* GraphQL */ `
               id
               name
               measurement
-              qrcCode
               typeID
               _version
               _deleted

@@ -103,6 +103,7 @@ export declare class ProductAtWarehouse {
   readonly minQuantity: number;
   readonly product: Product;
   readonly warehouse: Warehouse;
+  readonly qrCode?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<ProductAtWarehouse, ProductAtWarehouseMetaData>);
@@ -113,7 +114,6 @@ export declare class Product {
   readonly id: string;
   readonly name: string;
   readonly measurement: string;
-  readonly qrcCode: string;
   readonly type: Type;
   readonly typeID?: string;
   readonly createdAt?: string;

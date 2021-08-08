@@ -57,6 +57,13 @@ export const schema = {
                         "targetName": "productAtWarehouseWarehouseId"
                     }
                 },
+                "qrCode": {
+                    "name": "qrCode",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -118,13 +125,6 @@ export const schema = {
                 },
                 "measurement": {
                     "name": "measurement",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "qrcCode": {
-                    "name": "qrcCode",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -1614,5 +1614,5 @@ export const schema = {
             }
         }
     },
-    "version": "ea5f57064673c56bed88045b13b7e43e"
+    "version": "e46f4c6f054a62a88cce208bddffcba7"
 };

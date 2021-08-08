@@ -29,6 +29,7 @@ import WarehousesPage from "./pages/stocktaking/WarehousesPage";
 import DepartmentsPage from "./pages/stocktaking/DepartmentsPage";
 import CategoriesPage from "./pages/stocktaking/CategoriesPage";
 import TypesPage from "./pages/stocktaking/TypesPage";
+import SuppliersPage from "./pages/stocktaking/SuppliersPage";
 
 const antIcon = <LoadingOutlined style={{
   fontSize: 124,
@@ -118,6 +119,10 @@ const MainRouter: React.FC = () => {
             <span>Types</span>
             <Link to="/stocktaking/types"/>
           </Menu.Item>
+          <Menu.Item key="stocktaking/suppliers">
+            <span>Suppliers</span>
+            <Link to="/stocktaking/suppliers"/>
+          </Menu.Item>
         </SubMenu>
         <Menu.Item key="addresses" icon={<HomeOutlined/>}>
           <span>Addresses</span>
@@ -160,6 +165,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/stocktaking/departments" component={DepartmentsPage}/>
         <Route exact path="/stocktaking/categories" component={CategoriesPage}/>
         <Route exact path="/stocktaking/types" component={TypesPage}/>
+        <Route exact path="/stocktaking/suppliers" component={SuppliersPage}/>
       </Content>
       <Footer style={{textAlign: 'center'}}>
         DINENATION GROUP

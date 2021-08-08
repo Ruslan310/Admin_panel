@@ -358,7 +358,7 @@ export const onCreateProductFromSupplier = /* GraphQL */ `
     onCreateProductFromSupplier {
       id
       price
-      qualit
+      quality
       _version
       _deleted
       _lastChangedAt
@@ -488,7 +488,7 @@ export const onUpdateProductFromSupplier = /* GraphQL */ `
     onUpdateProductFromSupplier {
       id
       price
-      qualit
+      quality
       _version
       _deleted
       _lastChangedAt
@@ -618,7 +618,7 @@ export const onDeleteProductFromSupplier = /* GraphQL */ `
     onDeleteProductFromSupplier {
       id
       price
-      qualit
+      quality
       _version
       _deleted
       _lastChangedAt

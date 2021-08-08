@@ -1142,8 +1142,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "qualit": {
-                    "name": "qualit",
+                "quality": {
+                    "name": "quality",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": false,
@@ -1614,5 +1614,5 @@ export const schema = {
             }
         }
     },
-    "version": "4023b7b58518c986c2377c1fa4c04c09"
+    "version": "ea5f57064673c56bed88045b13b7e43e"
 };

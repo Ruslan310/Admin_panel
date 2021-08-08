@@ -232,7 +232,7 @@ export declare class Box {
 export declare class ProductFromSupplier {
   readonly id: string;
   readonly price: number;
-  readonly qualit?: number;
+  readonly quality?: number;
   readonly product: ProductAtWarehouse;
   readonly supplier: Supplier;
   readonly createdAt?: string;

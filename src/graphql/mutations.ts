@@ -370,7 +370,7 @@ export const createProductFromSupplier = /* GraphQL */ `
     createProductFromSupplier(input: $input, condition: $condition) {
       id
       price
-      qualit
+      quality
       _version
       _deleted
       _lastChangedAt
@@ -503,7 +503,7 @@ export const updateProductFromSupplier = /* GraphQL */ `
     updateProductFromSupplier(input: $input, condition: $condition) {
       id
       price
-      qualit
+      quality
       _version
       _deleted
       _lastChangedAt
@@ -636,7 +636,7 @@ export const deleteProductFromSupplier = /* GraphQL */ `
     deleteProductFromSupplier(input: $input, condition: $condition) {
       id
       price
-      qualit
+      quality
       _version
       _deleted
       _lastChangedAt

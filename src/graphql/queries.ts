@@ -304,7 +304,7 @@ export const getProductFromSupplier = /* GraphQL */ `
     getProductFromSupplier(id: $id) {
       id
       price
-      qualit
+      quality
       _version
       _deleted
       _lastChangedAt
@@ -443,7 +443,7 @@ export const listProductFromSuppliers = /* GraphQL */ `
       items {
         id
         price
-        qualit
+        quality
         _version
         _deleted
         _lastChangedAt
@@ -554,7 +554,7 @@ export const syncProductFromSuppliers = /* GraphQL */ `
       items {
         id
         price
-        qualit
+        quality
         _version
         _deleted
         _lastChangedAt

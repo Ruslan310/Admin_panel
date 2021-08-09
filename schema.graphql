@@ -1,0 +1,167 @@
+type ProductAtWarehouse @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    quantity: Int!
+    maxQuantity: Int!
+    minQuantity: Int!
+    product: Product! @connection
+    warehouse: Warehouse! @connection
+    qrCode: String
+}
+
+type ProductFromSupplier @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    price: Float!
+    quality: Int
+    product: ProductAtWarehouse! @connection
+    supplier: Supplier! @connection
+}
+
+type Supplier @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    name: String!
+    phoneNumber: String
+    email: String
+    address: Address! @connection
+}
+
+type Product @model @auth(rules: [{allow: private}]) @key(name: "byType", fields: ["typeID"]) {
+    id: ID!
+    name: String!
+    measurement: String!
+    type: Type! @connection
+    typeID: ID
+}
+
+type Type @model @auth(rules: [{allow: private}]) @key(name: "byCategory", fields: ["categoryID"]) {
+    id: ID!
+    name: String!
+    category: Category! @connection
+    categoryID: ID
+    products: [Product] @connection(keyName: "byType", fields: ["id"])
+}
+
+type Category @model @auth(rules: [{allow: private}]) @key(name: "byDepartment", fields: ["departmentID"]) {
+    id: ID!
+    name: String!
+    department: Department! @connection
+    departmentID: ID
+    types: [Type] @connection(keyName: "byCategory", fields: ["id"])
+}
+
+type Department @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    name: String!
+    categories: [Category] @connection(keyName: "byDepartment", fields: ["id"])
+}
+
+type Warehouse @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    name: String!
+    address: Address! @connection
+}
+
+type Coordinate @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byUser", fields: ["userID"]) {
+    id: ID!
+    latitude: Float!
+    longitude: Float!
+    name: String!
+    userID: ID
+    coordinateAddresses: [Address] @connection(keyName: "byCoordinate", fields: ["id"])
+}
+
+type Address @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byCoordinate", fields: ["coordinateID"]) @key(name: "byPostCode", fields: ["postCode"], queryField: "byPostCode") {
+    id: ID!
+    address1: String!
+    address2: String!
+    city: String!
+    postCode: String!
+    coordinateID: ID
+    addressWPOrders: [WPOrder!] @connection(keyName: "byAddress", fields: ["id"])
+}
+
+type Box @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byWPOrder", fields: ["WPOrderID"]) {
+    id: ID!
+    sticker: String!
+    boxStatus: BOX_STATUS!
+    qrCode: String!
+    customerComment: String
+    weekDay: WEEK_DAY!
+    WPOrderID: ID
+    WPOrder: WPOrder @connection
+}
+
+type WPOrder @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byCustomer", fields: ["customerID"]) @key(name: "byAddress", fields: ["addressID"]) @key(name: "byWPOrderNumber", fields: ["WPOrderNumber"], queryField: "byWPOrderNumber") {
+    id: ID!
+    WPOrderNumber: String
+    WPOrderStatus: WPORDER_STATUS!
+    WPDishes: [WPDish!]
+    finalPrice: Float!
+    customerComment: String
+    customerID: ID
+    customer: Customer @connection
+    WPOrderBoxes: [Box!] @connection(keyName: "byWPOrder", fields: ["id"])
+    addressID: ID
+    address: Address @connection
+    createdAtWp: AWSTimestamp!
+}
+
+enum WEEK_DAY {
+    MONDAY
+    TUESDAY
+    WEDNESDAY
+    THURSDAY
+    FRIDAY
+    SATURDAY
+    SUNDAY
+    WITHOUT_DAY
+}
+
+enum BOX_STATUS {
+    PRINTED
+    COOKED
+    IN_DELIVERY
+    DELIVERED
+    CANCELLED
+}
+
+enum WPORDER_STATUS {
+    PROCESSING
+    COMPLETED
+    CANCELLED
+}
+
+enum Role {
+    DELIVERY
+    KITCHEN
+    ADMIN
+    GUEST
+}
+
+type User @model @auth(rules: [{allow: public}, {allow: private}]) {
+    id: ID!
+    sub: String!
+    email: String!
+    role: Role!
+    firstName: String
+    lastName: String
+    avatar: String
+    assignedDriverCoordinates: [Coordinate!] @connection(keyName: "byUser", fields: ["id"])
+}
+
+type Customer @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byEmail", fields: ["email"], queryField: "byEmail") {
+    id: ID!
+    wpId: Int
+    company: String
+    firstName: String
+    lastName: String
+    email: String!
+    phoneNumber: String
+    customerWPOrders: [WPOrder!] @connection(keyName: "byCustomer", fields: ["id"])
+}
+
+type WPDish {
+    name: String!
+    dishType: String!
+    quantity: Int!
+    weekDay: WEEK_DAY!
+}

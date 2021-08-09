@@ -18,7 +18,6 @@ const DepartmentsPage: React.FC = () => {
 
   const fetchDepartments = async () => {
     const fetchedDepartments = await DataStore.query(Department);
-    console.log('departments:', departments);
     setDepartments(fetchedDepartments);
   }
 

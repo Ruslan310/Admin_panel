@@ -30,6 +30,7 @@ import DepartmentsPage from "./pages/stocktaking/DepartmentsPage";
 import CategoriesPage from "./pages/stocktaking/CategoriesPage";
 import TypesPage from "./pages/stocktaking/TypesPage";
 import SuppliersPage from "./pages/stocktaking/SuppliersPage";
+import ProductsPage from "./pages/stocktaking/ProductsPage";
 
 const antIcon = <LoadingOutlined style={{
   fontSize: 124,
@@ -107,6 +108,10 @@ const MainRouter: React.FC = () => {
             <span>Warehouses</span>
             <Link to="/stocktaking/warehouses"/>
           </Menu.Item>
+          <Menu.Item key="stocktaking/products">
+            <span>Products</span>
+            <Link to="/stocktaking/products"/>
+          </Menu.Item>
           <Menu.Item key="stocktaking/departments">
             <span>Departments</span>
             <Link to="/stocktaking/departments"/>
@@ -158,7 +163,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/profile" component={ProfilePage}/>
         <Route exact path="/reports" component={ReportsPage}/>
         <Route exact path="/orderDetails/:orderId" component={OrderDetailsPage}/>
-        <Route exact path="/stocktaking/products" component={ProfilePage}/>
+        <Route exact path="/stocktaking/products" component={ProductsPage}/>
         <Route exact path="/stocktaking/products/:productId" component={ProfilePage}/>
         <Route exact path="/stocktaking/warehouses" component={WarehousesPage}/>
         <Route exact path="/stocktaking/warehouses/:warehouseId" component={ProfilePage}/>

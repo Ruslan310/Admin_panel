@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import {ColumnsType} from "antd/es/table";
 import {useParams} from 'react-router-dom';
-import {Button, Form, InputNumber, Layout, Modal, Select, Table, Typography} from "antd";
+import {Button, Col, Form, Input, InputNumber, Layout, Modal, Row, Select, Table, Typography} from "antd";
 import {Product, ProductAtWarehouse, Warehouse} from "../../models";
 import {DataStore} from 'aws-amplify'
 import {CloseCircleOutlined} from "@ant-design/icons";
@@ -19,8 +19,10 @@ const WarehouseDetailsPage: React.FC = () => {
     warehouseId: string
   }>();
   const [warehouseProducts, setWarehouseProducts] = useState<ProductAtWarehouse[]>([]);
+  const [filteredWarehouseProducts, setFilteredWarehouseProducts] = useState<ProductAtWarehouse[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [productId, setProductId] = useState('');
+  const [searchName, setSearchName] = useState('');
   const [warehouse, setWarehouse] = useState<Warehouse>();
   const [isLoading, setLoading] = useState(true)
   const [quantity, setQuantity] = useState<number>(0)
@@ -30,6 +32,7 @@ const WarehouseDetailsPage: React.FC = () => {
   const fetchWarehouseProducts = async () => {
     const fetchedWarehouseProducts = (await DataStore.query(ProductAtWarehouse)).filter(product => product.warehouse.id === warehouseId);
     setWarehouseProducts(fetchedWarehouseProducts);
+    setFilteredWarehouseProducts(fetchedWarehouseProducts);
   }
 
   const fetchProducts = async () => {
@@ -63,12 +66,42 @@ const WarehouseDetailsPage: React.FC = () => {
     }
   }, []);
 
+  const nameFilter = (
+    <Row>
+      <Col className="gutter-row" span={6}>
+        <Typography>Product name</Typography>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <Input
+          placeholder="Search Name"
+          value={searchName}
+          onChange={e => {
+            const currValue = e.target.value;
+            setSearchName(currValue);
+            const filteredData = warehouseProducts
+              .filter(warehouseProduct => warehouseProduct.product.name.toLowerCase().includes(currValue.toLowerCase()));
+            setFilteredWarehouseProducts(filteredData);
+          }}
+        />
+      </Col>
+    </Row>
+  );
+
   const boxesColumns: ColumnsType<ProductAtWarehouse> = [
     {
-      title: 'Name',
+      title: nameFilter,
       render: (value, record, index) => {
         return record.product.name
       },
+      sorter: (a, b) => {
+        if (a.product.name < b.product.name) {
+          return -1;
+        }
+        if (a.product.name > b.product.name) {
+          return 1;
+        }
+        return 0;
+      }
     },
     {
       title: 'Quantity',
@@ -191,7 +224,7 @@ const WarehouseDetailsPage: React.FC = () => {
         size={"middle"}
         rowKey="id"
         columns={boxesColumns}
-        dataSource={warehouseProducts}
+        dataSource={filteredWarehouseProducts}
       />
     </Content>
   )

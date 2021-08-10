@@ -1,11 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Form, Input, Layout, Modal, Select, Table, Typography} from 'antd';
+import {Button, Col, Form, Input, Layout, Modal, Row, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {Category, Department, Product, ProductAtWarehouse, ProductFromSupplier, Type} from "../../models";
+import {
+  Category,
+  Department,
+  Product,
+  ProductAtWarehouse,
+  ProductFromSupplier,
+  Type,
+  WporderStatus
+} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
-import {Simulate} from "react-dom/test-utils";
+import {fullName} from "../../utils/utils";
 
 const {confirm, error} = Modal;
 
@@ -15,6 +23,7 @@ const width300 = {width: 300}
 
 const ProductsPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [types, setTypes] = useState<Type[]>([]);
@@ -23,11 +32,13 @@ const ProductsPage: React.FC = () => {
   const [departmentId, setDepartmentId] = useState();
   const [name, setName] = useState('');
   const [measurement, setMeasurement] = useState('');
+  const [searchName, setSearchName] = useState('');
   const [form] = Form.useForm();
 
   const fetchProducts = async () => {
     const fetchedProducts = await DataStore.query(Product);
     setProducts(fetchedProducts);
+    setFilteredProducts(fetchedProducts)
   }
 
   const fetchDepartments = async () => {
@@ -76,10 +87,40 @@ const ProductsPage: React.FC = () => {
     }
   }, []);
 
+  const nameFilter = (
+    <Row>
+      <Col className="gutter-row" span={6}>
+        <Typography>Product name</Typography>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <Input
+          placeholder="Search Name"
+          value={searchName}
+          onChange={e => {
+            const currValue = e.target.value;
+            setSearchName(currValue);
+            const filteredData = products
+              .filter(product => product.name.toLowerCase().includes(currValue.toLowerCase()));
+            setFilteredProducts(filteredData);
+          }}
+        />
+      </Col>
+    </Row>
+  );
+
   const columns: ColumnsType<Product> = [
     {
-      title: 'Name',
+      title: nameFilter,
       dataIndex: 'name',
+      sorter: (a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      }
     },
     {
       title: 'Measurement',
@@ -249,7 +290,7 @@ const ProductsPage: React.FC = () => {
         size={"middle"}
         rowKey="id"
         columns={columns}
-        dataSource={products}
+        dataSource={filteredProducts}
       />
     </Content>
   )

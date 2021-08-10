@@ -26,7 +26,7 @@ const OrderDetailsPage: React.FC = () => {
   const [assignedDriver, setAssignedDriver] = React.useState<string>();
 
   const fetchBoxes = async () => {
-    const fetchedBoxes = await DataStore.query(Box);
+    const fetchedBoxes = await DataStore.query(Box, box => box.WPOrderID("eq", orderId));
     setBoxes(fetchedBoxes);
     setFilteredBoxes(fetchedBoxes.filter(box => checkedList.includes(box.weekDay as WeekDay)));
   }
@@ -55,8 +55,8 @@ const OrderDetailsPage: React.FC = () => {
     }
   }, []);
 
-  const fullName = (customer: Customer) => {
-    return `${customer.firstName} ${customer.lastName}`
+  const fullName = (customer?: Customer) => {
+    return `${customer?.firstName} ${customer?.lastName}`
   }
 
   const onChange = (list: any) => {
@@ -150,6 +150,7 @@ const OrderDetailsPage: React.FC = () => {
     <Content>
       {currentOrder && <Descriptions title="Order details">
         <Descriptions.Item label="Full address">{stringifyAddress(currentOrder.address)}</Descriptions.Item>
+        <Descriptions.Item label="Full name">{fullName(currentOrder.customer)}</Descriptions.Item>
         <Descriptions.Item label="Phone number">{currentOrder.customer?.phoneNumber}</Descriptions.Item>
         <Descriptions.Item label="Email">{currentOrder.customer?.email}</Descriptions.Item>
         <Descriptions.Item label="Created">{currentOrder.createdAt}</Descriptions.Item>

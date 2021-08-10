@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import {ColumnsType} from "antd/es/table";
 import {useParams} from 'react-router-dom';
-import {Button, Form, InputNumber, Layout, Modal, Select, Table, Typography} from "antd";
+import {Button, Col, Form, Input, InputNumber, Layout, Modal, Row, Select, Table, Typography} from "antd";
 import {Product, ProductFromSupplier, Supplier} from "../../models";
 import {DataStore} from 'aws-amplify'
 import {CloseCircleOutlined} from "@ant-design/icons";
@@ -18,8 +18,10 @@ const SupplierDetailsPage: React.FC = () => {
     supplierId: string
   }>();
   const [supplierProducts, setSupplierProducts] = useState<ProductFromSupplier[]>([]);
+  const [filteredSupplierProducts, setFilteredSupplierProducts] = useState<ProductFromSupplier[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [productId, setProductId] = useState('');
+  const [searchName, setSearchName] = useState('');
   const [supplier, setSupplier] = useState<Supplier>();
   const [isLoading, setLoading] = useState(true)
   const [quality, setQuality] = useState<number>()
@@ -28,6 +30,7 @@ const SupplierDetailsPage: React.FC = () => {
   const fetchSupplierProducts = async () => {
     const fetchedSupplierProducts = (await DataStore.query(ProductFromSupplier)).filter(product => product.supplier.id === supplierId);
     setSupplierProducts(fetchedSupplierProducts);
+    setFilteredSupplierProducts(fetchedSupplierProducts);
   }
 
   const fetchProducts = async () => {
@@ -61,12 +64,42 @@ const SupplierDetailsPage: React.FC = () => {
     }
   }, []);
 
+  const nameFilter = (
+    <Row>
+      <Col className="gutter-row" span={6}>
+        <Typography>Product name</Typography>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <Input
+          placeholder="Search Name"
+          value={searchName}
+          onChange={e => {
+            const currValue = e.target.value;
+            setSearchName(currValue);
+            const filteredData = supplierProducts
+              .filter(supplierProduct => supplierProduct.product.name.toLowerCase().includes(currValue.toLowerCase()));
+            setFilteredSupplierProducts(filteredData);
+          }}
+        />
+      </Col>
+    </Row>
+  );
+
   const boxesColumns: ColumnsType<ProductFromSupplier> = [
     {
-      title: 'Name',
+      title: nameFilter,
       render: (value, record, index) => {
         return record.product.name
       },
+      sorter: (a, b) => {
+        if (a.product.name < b.product.name) {
+          return -1;
+        }
+        if (a.product.name > b.product.name) {
+          return 1;
+        }
+        return 0;
+      }
     },
     {
       title: 'Price',
@@ -189,7 +222,7 @@ const SupplierDetailsPage: React.FC = () => {
         size={"middle"}
         rowKey="id"
         columns={boxesColumns}
-        dataSource={supplierProducts}
+        dataSource={filteredSupplierProducts}
       />
     </Content>
   )

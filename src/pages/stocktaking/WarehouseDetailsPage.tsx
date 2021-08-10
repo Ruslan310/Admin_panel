@@ -3,9 +3,10 @@ import React, {useEffect, useState} from 'react'
 import {ColumnsType} from "antd/es/table";
 import {useParams} from 'react-router-dom';
 import {Button, Form, InputNumber, Layout, Modal, Select, Table, Typography} from "antd";
-import {Product, ProductFromSupplier, Supplier} from "../../models";
+import {Product, ProductAtWarehouse, Warehouse} from "../../models";
 import {DataStore} from 'aws-amplify'
 import {CloseCircleOutlined} from "@ant-design/icons";
+import {MAX_QUANTITY} from "../../utils/utils";
 
 const {confirm, error} = Modal;
 
@@ -13,21 +14,22 @@ const {Content} = Layout;
 const {Title} = Typography;
 const width300 = {width: 300}
 
-const SupplierDetailsPage: React.FC = () => {
-  const {supplierId} = useParams<{
-    supplierId: string
+const WarehouseDetailsPage: React.FC = () => {
+  const {warehouseId} = useParams<{
+    warehouseId: string
   }>();
-  const [supplierProducts, setSupplierProducts] = useState<ProductFromSupplier[]>([]);
+  const [warehouseProducts, setWarehouseProducts] = useState<ProductAtWarehouse[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [productId, setProductId] = useState('');
-  const [supplier, setSupplier] = useState<Supplier>();
+  const [warehouse, setWarehouse] = useState<Warehouse>();
   const [isLoading, setLoading] = useState(true)
-  const [quality, setQuality] = useState<number>()
-  const [price, setPrice] = useState<number>()
+  const [quantity, setQuantity] = useState<number>(0)
+  const [minQuantity, setMinQuantity] = useState<number>(0)
+  const [maxQuantity, setMaxQuantity] = useState<number>(MAX_QUANTITY)
 
-  const fetchSupplierProducts = async () => {
-    const fetchedSupplierProducts = (await DataStore.query(ProductFromSupplier)).filter(product => product.supplier.id === supplierId);
-    setSupplierProducts(fetchedSupplierProducts);
+  const fetchWarehouseProducts = async () => {
+    const fetchedWarehouseProducts = (await DataStore.query(ProductAtWarehouse)).filter(product => product.warehouse.id === warehouseId);
+    setWarehouseProducts(fetchedWarehouseProducts);
   }
 
   const fetchProducts = async () => {
@@ -35,20 +37,20 @@ const SupplierDetailsPage: React.FC = () => {
     setProducts(fetchedProducts);
   }
 
-  const fetchCurrentSupplier = async () => {
-    const fetchedSupplier = await DataStore.query(Supplier, supplierId);
-    console.log(fetchedSupplier)
-    setSupplier(fetchedSupplier);
+  const fetchCurrentWarehouse = async () => {
+    const fetchedWarehouse = await DataStore.query(Warehouse, warehouseId);
+    console.log(fetchedWarehouse)
+    setWarehouse(fetchedWarehouse);
   }
 
   useEffect(() => {
-    fetchCurrentSupplier();
-    fetchSupplierProducts();
+    fetchCurrentWarehouse();
+    fetchWarehouseProducts();
     fetchProducts();
     setLoading(false);
 
-    const productsSupplierSubscription = DataStore.observe(ProductFromSupplier).subscribe(async (message) => {
-      await fetchSupplierProducts();
+    const productsWarehouseSubscription = DataStore.observe(ProductAtWarehouse).subscribe(async (message) => {
+      await fetchWarehouseProducts();
     });
 
     const productsSubscription = DataStore.observe(Product).subscribe(async (message) => {
@@ -56,12 +58,12 @@ const SupplierDetailsPage: React.FC = () => {
     });
 
     return () => {
-      productsSupplierSubscription.unsubscribe();
+      productsWarehouseSubscription.unsubscribe();
       productsSubscription.unsubscribe();
     }
   }, []);
 
-  const boxesColumns: ColumnsType<ProductFromSupplier> = [
+  const boxesColumns: ColumnsType<ProductAtWarehouse> = [
     {
       title: 'Name',
       render: (value, record, index) => {
@@ -69,35 +71,27 @@ const SupplierDetailsPage: React.FC = () => {
       },
     },
     {
-      title: 'Price',
+      title: 'Quantity',
       render: (value, record, index) => {
-        return record.price
+        return record.quantity
       },
       sorter: (a, b) => {
-        if (a.price < b.price) {
+        if (a.quantity < b.quantity) {
           return -1;
         }
-        if (a.price > b.price) {
+        if (a.quantity > b.quantity) {
           return 1;
         }
         return 0;
       }
     },
     {
-      title: 'Quality',
-      render: (value, record, index) => {
-        return record.quality
-      },
-      sorter: (a, b) => {
-        if (!a.quality || !b.quality) return -1;
-        if (a.quality < b.quality) {
-          return -1;
-        }
-        if (a.quality > b.quality) {
-          return 1;
-        }
-        return 0;
-      }
+      title: 'Min',
+      dataIndex: 'minQuantity'
+    },
+    {
+      title: 'Max',
+      dataIndex: 'maxQuantity'
     },
     {
       title: 'Delete',
@@ -107,16 +101,16 @@ const SupplierDetailsPage: React.FC = () => {
     }
   ];
 
-  const tryToDelete = async (productFromSupplier: ProductFromSupplier) => {
+  const tryToDelete = async (productAtWarehouse: ProductAtWarehouse) => {
     confirm({
-      title: 'Are you sure delete this product for this supplier?',
+      title: 'Are you sure delete this product for this warehouse?',
       icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-      content: `Delete product with name "${productFromSupplier.product.name}" from supplier`,
+      content: `Delete product with name "${productAtWarehouse.product.name}" from warehouse`,
       okText: 'Yes',
       okType: 'danger',
       cancelText: 'No',
       async onOk() {
-        await DataStore.delete(ProductFromSupplier, productFromSupplier.id);
+        await DataStore.delete(ProductAtWarehouse, productAtWarehouse.id);
       },
       onCancel() {
         console.log('Cancel');
@@ -126,7 +120,7 @@ const SupplierDetailsPage: React.FC = () => {
 
   return (
     <Content>
-      <Title>{supplier?.name} products</Title>
+      <Title>{warehouse?.name} products</Title>
       <Form
         labelCol={{span: 4}}
         wrapperCol={{span: 14}}
@@ -149,33 +143,41 @@ const SupplierDetailsPage: React.FC = () => {
                                                       value={product.id}>{product.name}</Select.Option>)}
           </Select>
         </Form.Item>
-        <Form.Item label="Price" name="price"
-                   rules={[{required: true, message: 'Please enter price!'}]}>
+        <Form.Item label="Quantity" name="quantity" initialValue={0}>
           <InputNumber<number>
             style={width300}
-            placeholder={'Enter price'}
-            value={price}
-            onChange={(e) => setPrice(e)}
+            placeholder={'Enter quantity'}
+            value={quantity}
+            onChange={(e) => setQuantity(e)}
           />
         </Form.Item>
-        <Form.Item label="Quality" name="quality">
+        <Form.Item label="Min quantity" name="minQuantity" initialValue={0}>
           <InputNumber<number>
             style={width300}
-            placeholder={'Enter quality'}
-            value={quality}
-            onChange={(e) => setQuality(e)}
+            placeholder={'Enter minimum quantity'}
+            value={minQuantity}
+            onChange={(e) => setMinQuantity(e)}
+          />
+        </Form.Item>
+        <Form.Item label="Max quantity" name="maxQuantity" initialValue={MAX_QUANTITY}>
+          <InputNumber<number>
+            style={width300}
+            placeholder={'Enter maximum quantity'}
+            value={maxQuantity}
+            onChange={(e) => setMaxQuantity(e)}
           />
         </Form.Item>
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
-            if (productId && price) {
+            if (productId) {
               const product = await DataStore.query(Product, productId);
               await DataStore.save(
-                new ProductFromSupplier({
+                new ProductAtWarehouse({
                   product,
-                  quality,
-                  price,
-                  supplier,
+                  quantity,
+                  minQuantity,
+                  maxQuantity,
+                  warehouse,
                 })
               );
             }
@@ -189,10 +191,10 @@ const SupplierDetailsPage: React.FC = () => {
         size={"middle"}
         rowKey="id"
         columns={boxesColumns}
-        dataSource={supplierProducts}
+        dataSource={warehouseProducts}
       />
     </Content>
   )
 }
 
-export default SupplierDetailsPage;
+export default WarehouseDetailsPage;

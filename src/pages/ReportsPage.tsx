@@ -95,7 +95,7 @@ const AddressesPage: React.FC = () => {
         </Space>
         <Space>
           <Text>Company coverage: </Text>
-          <InputNumber value={companyCoverage} onChange={(e) => setCompanyCoverage(e)}/>
+          <InputNumber<number> value={companyCoverage} onChange={(e) => setCompanyCoverage(e)}/>
         </Space>
       </Space>
       {progress > 0 && <Progress percent={progress}/>}

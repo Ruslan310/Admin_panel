@@ -219,24 +219,24 @@ const CoordinatesPage: React.FC = () => {
             />
           </Form.Item>
           <Form.Item label="latitude">
-            <InputNumber<string>
+            <InputNumber<number>
               style={width300}
-              value={editedLatitude.toString()}
-              min="-50"
-              max="50"
-              step="0.000001"
-              onChange={(value) => setEditedLatitude(parseFloat(value))}
+              value={editedLatitude}
+              min={-50}
+              max={50}
+              step={0.000001}
+              onChange={(value) => setEditedLatitude(value)}
               stringMode
             />
           </Form.Item>
           <Form.Item label="longitude">
-            <InputNumber<string>
+            <InputNumber<number>
               style={width300}
-              value={editedLongitude.toString()}
-              min="-50"
-              max="50"
-              step="0.000001"
-              onChange={(value) => setEditedLongitude(parseFloat(value))}
+              value={editedLongitude}
+              min={-50}
+              max={50}
+              step={0.000001}
+              onChange={(value) => setEditedLongitude(value)}
               stringMode
             />
           </Form.Item>
@@ -289,24 +289,24 @@ const CoordinatesPage: React.FC = () => {
             />
           </Form.Item>
           <Form.Item label="latitude">
-            <InputNumber<string>
+            <InputNumber<number>
               style={width300}
-              value={latitude.toString()}
-              min="-50"
-              max="50"
-              step="0.000001"
-              onChange={(value) => setLatitude(parseFloat(value))}
+              value={latitude}
+              min={-50}
+              max={50}
+              step={0.000001}
+              onChange={(value) => setLatitude(value)}
               stringMode
             />
           </Form.Item>
           <Form.Item label="longitude">
-            <InputNumber<string>
+            <InputNumber<number>
               style={width300}
-              value={longitude.toString()}
-              min="-50"
-              max="50"
-              step="0.000001"
-              onChange={(value) => setLongitude(parseFloat(value))}
+              value={longitude}
+              min={-50}
+              max={50}
+              step={0.000001}
+              onChange={(value) => setLongitude(value)}
               stringMode
             />
           </Form.Item>

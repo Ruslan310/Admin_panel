@@ -3,17 +3,19 @@ import {DataStore} from 'aws-amplify'
 
 import {Button, Form, Input, Layout, Modal, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {Address, Coordinate, Warehouse} from "../../models";
+import {Address, Coordinate, ProductAtWarehouse, ProductFromSupplier, Warehouse} from "../../models";
 import {googleMapLink, stringifyAddress} from "../../utils/utils";
 import {CloseCircleOutlined} from "@ant-design/icons";
+import {useHistory} from "react-router-dom";
 
-const {confirm} = Modal;
+const {confirm, error} = Modal;
 
 const {Content} = Layout;
 const {Title} = Typography;
 const width300 = {width: 300}
 
 const WarehousesPage: React.FC = () => {
+  const history = useHistory();
   const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
   const [name, setName] = useState('');
   const [addressId, setAddressId] = useState('');
@@ -72,6 +74,13 @@ const WarehousesPage: React.FC = () => {
       },
     },
     {
+      title: 'Details',
+      render: (value, record, index) => {
+        return <Button type={'primary'}
+                       onClick={() => history.push("/stocktaking/warehouseDetails/" + record.id)}>Details</Button>
+      }
+    },
+    {
       title: 'Map link',
       render: (value, record, index) => {
         const coordinate = coordinates.find(coordinate => coordinate.id === record.address.coordinateID);
@@ -85,26 +94,34 @@ const WarehousesPage: React.FC = () => {
     {
       title: 'Delete',
       render: (value, record, index) => {
-        return <Button danger type={'primary'} onClick={() => showDeleteConfirm(record)}>Delete</Button>
+        return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
       }
     }
   ];
 
-  const showDeleteConfirm = (warehouse: Warehouse) => {
-    confirm({
-      title: 'Are you sure delete this warehouse?',
-      icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-      content: `Delete warehouse with name "${warehouse.name}"`,
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      async onOk() {
-        await DataStore.delete(Warehouse, warehouse.id);
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
+  const tryToDelete = async (warehouse: Warehouse) => {
+    const warehouseProducts = (await DataStore.query(ProductAtWarehouse)).filter(productAtWarehouse => productAtWarehouse.warehouse.id === warehouse.id);
+    if (warehouseProducts && warehouseProducts.length > 0) {
+      error({
+        title: 'You cannot delete this warehouse!',
+        content: `This warehouse has ${warehouseProducts.length} products, remove products first.`,
+      });
+    } else {
+      confirm({
+        title: 'Are you sure delete this warehouse?',
+        icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+        content: `Delete warehouse with name "${warehouse.name}"`,
+        okText: 'Yes',
+        okType: 'danger',
+        cancelText: 'No',
+        async onOk() {
+          await DataStore.delete(Warehouse, warehouse.id);
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+      });
+    }
   }
 
   return (

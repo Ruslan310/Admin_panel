@@ -2,52 +2,107 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateProductAtWarehouseInput = {
+export type CreateDishComponentInput = {
   id?: string | null,
-  quantity: number,
-  maxQuantity: number,
-  minQuantity: number,
-  qrCode?: string | null,
   _version?: number | null,
-  productAtWarehouseProductId: string,
-  productAtWarehouseWarehouseId: string,
+  dishComponentDishId: string,
+  dishComponentComponentId: string,
 };
 
-export type ModelProductAtWarehouseConditionInput = {
-  quantity?: ModelIntInput | null,
-  maxQuantity?: ModelIntInput | null,
-  minQuantity?: ModelIntInput | null,
-  qrCode?: ModelStringInput | null,
-  and?: Array< ModelProductAtWarehouseConditionInput | null > | null,
-  or?: Array< ModelProductAtWarehouseConditionInput | null > | null,
-  not?: ModelProductAtWarehouseConditionInput | null,
+export type ModelDishComponentConditionInput = {
+  and?: Array< ModelDishComponentConditionInput | null > | null,
+  or?: Array< ModelDishComponentConditionInput | null > | null,
+  not?: ModelDishComponentConditionInput | null,
 };
 
-export type ModelIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
+export type DishComponent = {
+  __typename: "DishComponent",
+  id: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  createdAt: string,
+  updatedAt: string,
+  dish: Dish,
+  component: Component,
 };
 
-export enum ModelAttributeTypes {
-  binary = "binary",
-  binarySet = "binarySet",
-  bool = "bool",
-  list = "list",
-  map = "map",
-  number = "number",
-  numberSet = "numberSet",
-  string = "string",
-  stringSet = "stringSet",
-  _null = "_null",
+export type Dish = {
+  __typename: "Dish",
+  id: string,
+  name: string,
+  description?: string | null,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type Component = {
+  __typename: "Component",
+  id: string,
+  name: string,
+  type: COMPONENT_TYPE,
+  packageType: PACKAGE_TYPE,
+  callories: number,
+  carbons: number,
+  fat: number,
+  proteins: number,
+  recipe: string,
+  price: number,
+  picture: string,
+  weightInGramm: number,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export enum COMPONENT_TYPE {
+  MAIN = "MAIN",
+  SIDE = "SIDE",
+  SOUP = "SOUP",
+  SALAD = "SALAD",
+  DESSERT = "DESSERT",
 }
 
+
+export enum PACKAGE_TYPE {
+  HOT = "HOT",
+  COLD = "COLD",
+  DESSERT = "DESSERT",
+  SOUP = "SOUP",
+}
+
+
+export type UpdateDishComponentInput = {
+  id: string,
+  _version?: number | null,
+  dishComponentDishId?: string | null,
+  dishComponentComponentId?: string | null,
+};
+
+export type DeleteDishComponentInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateDishInput = {
+  id?: string | null,
+  name: string,
+  description?: string | null,
+  _version?: number | null,
+};
+
+export type ModelDishConditionInput = {
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelDishConditionInput | null > | null,
+  or?: Array< ModelDishConditionInput | null > | null,
+  not?: ModelDishConditionInput | null,
+};
 
 export type ModelStringInput = {
   ne?: string | null,
@@ -65,6 +120,20 @@ export type ModelStringInput = {
   size?: ModelSizeInput | null,
 };
 
+export enum ModelAttributeTypes {
+  binary = "binary",
+  binarySet = "binarySet",
+  bool = "bool",
+  list = "list",
+  map = "map",
+  number = "number",
+  numberSet = "numberSet",
+  string = "string",
+  stringSet = "stringSet",
+  _null = "_null",
+}
+
+
 export type ModelSizeInput = {
   ne?: number | null,
   eq?: number | null,
@@ -75,20 +144,41 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ProductAtWarehouse = {
-  __typename: "ProductAtWarehouse",
+export type UpdateDishInput = {
   id: string,
-  quantity: number,
-  maxQuantity: number,
-  minQuantity: number,
-  qrCode?: string | null,
+  name?: string | null,
+  description?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteDishInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateComponentProductInput = {
+  id?: string | null,
+  _version?: number | null,
+  componentProductComponentId: string,
+  componentProductProductId: string,
+};
+
+export type ModelComponentProductConditionInput = {
+  and?: Array< ModelComponentProductConditionInput | null > | null,
+  or?: Array< ModelComponentProductConditionInput | null > | null,
+  not?: ModelComponentProductConditionInput | null,
+};
+
+export type ComponentProduct = {
+  __typename: "ComponentProduct",
+  id: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
+  component: Component,
   product: Product,
-  warehouse: Warehouse,
 };
 
 export type Product = {
@@ -164,6 +254,143 @@ export type ModelCategoryConnection = {
   items?:  Array<Category | null > | null,
   nextToken?: string | null,
   startedAt?: number | null,
+};
+
+export type UpdateComponentProductInput = {
+  id: string,
+  _version?: number | null,
+  componentProductComponentId?: string | null,
+  componentProductProductId?: string | null,
+};
+
+export type DeleteComponentProductInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateComponentInput = {
+  id?: string | null,
+  name: string,
+  type: COMPONENT_TYPE,
+  packageType: PACKAGE_TYPE,
+  callories: number,
+  carbons: number,
+  fat: number,
+  proteins: number,
+  recipe: string,
+  price: number,
+  picture: string,
+  weightInGramm: number,
+  _version?: number | null,
+};
+
+export type ModelComponentConditionInput = {
+  name?: ModelStringInput | null,
+  type?: ModelCOMPONENT_TYPEInput | null,
+  packageType?: ModelPACKAGE_TYPEInput | null,
+  callories?: ModelIntInput | null,
+  carbons?: ModelIntInput | null,
+  fat?: ModelIntInput | null,
+  proteins?: ModelIntInput | null,
+  recipe?: ModelStringInput | null,
+  price?: ModelFloatInput | null,
+  picture?: ModelStringInput | null,
+  weightInGramm?: ModelIntInput | null,
+  and?: Array< ModelComponentConditionInput | null > | null,
+  or?: Array< ModelComponentConditionInput | null > | null,
+  not?: ModelComponentConditionInput | null,
+};
+
+export type ModelCOMPONENT_TYPEInput = {
+  eq?: COMPONENT_TYPE | null,
+  ne?: COMPONENT_TYPE | null,
+};
+
+export type ModelPACKAGE_TYPEInput = {
+  eq?: PACKAGE_TYPE | null,
+  ne?: PACKAGE_TYPE | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type UpdateComponentInput = {
+  id: string,
+  name?: string | null,
+  type?: COMPONENT_TYPE | null,
+  packageType?: PACKAGE_TYPE | null,
+  callories?: number | null,
+  carbons?: number | null,
+  fat?: number | null,
+  proteins?: number | null,
+  recipe?: string | null,
+  price?: number | null,
+  picture?: string | null,
+  weightInGramm?: number | null,
+  _version?: number | null,
+};
+
+export type DeleteComponentInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateProductAtWarehouseInput = {
+  id?: string | null,
+  quantity: number,
+  maxQuantity: number,
+  minQuantity: number,
+  qrCode?: string | null,
+  _version?: number | null,
+  productAtWarehouseProductId: string,
+  productAtWarehouseWarehouseId: string,
+};
+
+export type ModelProductAtWarehouseConditionInput = {
+  quantity?: ModelIntInput | null,
+  maxQuantity?: ModelIntInput | null,
+  minQuantity?: ModelIntInput | null,
+  qrCode?: ModelStringInput | null,
+  and?: Array< ModelProductAtWarehouseConditionInput | null > | null,
+  or?: Array< ModelProductAtWarehouseConditionInput | null > | null,
+  not?: ModelProductAtWarehouseConditionInput | null,
+};
+
+export type ProductAtWarehouse = {
+  __typename: "ProductAtWarehouse",
+  id: string,
+  quantity: number,
+  maxQuantity: number,
+  minQuantity: number,
+  qrCode?: string | null,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  createdAt: string,
+  updatedAt: string,
+  product: Product,
+  warehouse: Warehouse,
 };
 
 export type Warehouse = {
@@ -330,18 +557,6 @@ export type ModelProductFromSupplierConditionInput = {
   and?: Array< ModelProductFromSupplierConditionInput | null > | null,
   or?: Array< ModelProductFromSupplierConditionInput | null > | null,
   not?: ModelProductFromSupplierConditionInput | null,
-};
-
-export type ModelFloatInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
 };
 
 export type ProductFromSupplier = {
@@ -891,6 +1106,75 @@ export type DeleteCustomerInput = {
   _version?: number | null,
 };
 
+export type ModelDishComponentFilterInput = {
+  id?: ModelIDInput | null,
+  and?: Array< ModelDishComponentFilterInput | null > | null,
+  or?: Array< ModelDishComponentFilterInput | null > | null,
+  not?: ModelDishComponentFilterInput | null,
+};
+
+export type ModelDishComponentConnection = {
+  __typename: "ModelDishComponentConnection",
+  items?:  Array<DishComponent | null > | null,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type ModelDishFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelDishFilterInput | null > | null,
+  or?: Array< ModelDishFilterInput | null > | null,
+  not?: ModelDishFilterInput | null,
+};
+
+export type ModelDishConnection = {
+  __typename: "ModelDishConnection",
+  items?:  Array<Dish | null > | null,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type ModelComponentProductFilterInput = {
+  id?: ModelIDInput | null,
+  and?: Array< ModelComponentProductFilterInput | null > | null,
+  or?: Array< ModelComponentProductFilterInput | null > | null,
+  not?: ModelComponentProductFilterInput | null,
+};
+
+export type ModelComponentProductConnection = {
+  __typename: "ModelComponentProductConnection",
+  items?:  Array<ComponentProduct | null > | null,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type ModelComponentFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  type?: ModelCOMPONENT_TYPEInput | null,
+  packageType?: ModelPACKAGE_TYPEInput | null,
+  callories?: ModelIntInput | null,
+  carbons?: ModelIntInput | null,
+  fat?: ModelIntInput | null,
+  proteins?: ModelIntInput | null,
+  recipe?: ModelStringInput | null,
+  price?: ModelFloatInput | null,
+  picture?: ModelStringInput | null,
+  weightInGramm?: ModelIntInput | null,
+  and?: Array< ModelComponentFilterInput | null > | null,
+  or?: Array< ModelComponentFilterInput | null > | null,
+  not?: ModelComponentFilterInput | null,
+};
+
+export type ModelComponentConnection = {
+  __typename: "ModelComponentConnection",
+  items?:  Array<Component | null > | null,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
 export type ModelProductAtWarehouseFilterInput = {
   id?: ModelIDInput | null,
   quantity?: ModelIntInput | null,
@@ -1094,6 +1378,600 @@ export type ModelCustomerConnection = {
   items?:  Array<Customer | null > | null,
   nextToken?: string | null,
   startedAt?: number | null,
+};
+
+export type CreateDishComponentMutationVariables = {
+  input: CreateDishComponentInput,
+  condition?: ModelDishComponentConditionInput | null,
+};
+
+export type CreateDishComponentMutation = {
+  createDishComponent?:  {
+    __typename: "DishComponent",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    dish:  {
+      __typename: "Dish",
+      id: string,
+      name: string,
+      description?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+  } | null,
+};
+
+export type UpdateDishComponentMutationVariables = {
+  input: UpdateDishComponentInput,
+  condition?: ModelDishComponentConditionInput | null,
+};
+
+export type UpdateDishComponentMutation = {
+  updateDishComponent?:  {
+    __typename: "DishComponent",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    dish:  {
+      __typename: "Dish",
+      id: string,
+      name: string,
+      description?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+  } | null,
+};
+
+export type DeleteDishComponentMutationVariables = {
+  input: DeleteDishComponentInput,
+  condition?: ModelDishComponentConditionInput | null,
+};
+
+export type DeleteDishComponentMutation = {
+  deleteDishComponent?:  {
+    __typename: "DishComponent",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    dish:  {
+      __typename: "Dish",
+      id: string,
+      name: string,
+      description?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+  } | null,
+};
+
+export type CreateDishMutationVariables = {
+  input: CreateDishInput,
+  condition?: ModelDishConditionInput | null,
+};
+
+export type CreateDishMutation = {
+  createDish?:  {
+    __typename: "Dish",
+    id: string,
+    name: string,
+    description?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateDishMutationVariables = {
+  input: UpdateDishInput,
+  condition?: ModelDishConditionInput | null,
+};
+
+export type UpdateDishMutation = {
+  updateDish?:  {
+    __typename: "Dish",
+    id: string,
+    name: string,
+    description?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteDishMutationVariables = {
+  input: DeleteDishInput,
+  condition?: ModelDishConditionInput | null,
+};
+
+export type DeleteDishMutation = {
+  deleteDish?:  {
+    __typename: "Dish",
+    id: string,
+    name: string,
+    description?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateComponentProductMutationVariables = {
+  input: CreateComponentProductInput,
+  condition?: ModelComponentProductConditionInput | null,
+};
+
+export type CreateComponentProductMutation = {
+  createComponentProduct?:  {
+    __typename: "ComponentProduct",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    product:  {
+      __typename: "Product",
+      id: string,
+      name: string,
+      measurement: string,
+      typeID?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      type:  {
+        __typename: "Type",
+        id: string,
+        name: string,
+        categoryID?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        products?:  {
+          __typename: "ModelProductConnection",
+          items?:  Array< {
+            __typename: "Product",
+            id: string,
+            name: string,
+            measurement: string,
+            typeID?: string | null,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          } | null > | null,
+          nextToken?: string | null,
+          startedAt?: number | null,
+        } | null,
+        category:  {
+          __typename: "Category",
+          id: string,
+          name: string,
+          departmentID?: string | null,
+          _version: number,
+          _deleted?: boolean | null,
+          _lastChangedAt: number,
+          createdAt: string,
+          updatedAt: string,
+          types?:  {
+            __typename: "ModelTypeConnection",
+            nextToken?: string | null,
+            startedAt?: number | null,
+          } | null,
+          department:  {
+            __typename: "Department",
+            id: string,
+            name: string,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          },
+        },
+      },
+    },
+  } | null,
+};
+
+export type UpdateComponentProductMutationVariables = {
+  input: UpdateComponentProductInput,
+  condition?: ModelComponentProductConditionInput | null,
+};
+
+export type UpdateComponentProductMutation = {
+  updateComponentProduct?:  {
+    __typename: "ComponentProduct",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    product:  {
+      __typename: "Product",
+      id: string,
+      name: string,
+      measurement: string,
+      typeID?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      type:  {
+        __typename: "Type",
+        id: string,
+        name: string,
+        categoryID?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        products?:  {
+          __typename: "ModelProductConnection",
+          items?:  Array< {
+            __typename: "Product",
+            id: string,
+            name: string,
+            measurement: string,
+            typeID?: string | null,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          } | null > | null,
+          nextToken?: string | null,
+          startedAt?: number | null,
+        } | null,
+        category:  {
+          __typename: "Category",
+          id: string,
+          name: string,
+          departmentID?: string | null,
+          _version: number,
+          _deleted?: boolean | null,
+          _lastChangedAt: number,
+          createdAt: string,
+          updatedAt: string,
+          types?:  {
+            __typename: "ModelTypeConnection",
+            nextToken?: string | null,
+            startedAt?: number | null,
+          } | null,
+          department:  {
+            __typename: "Department",
+            id: string,
+            name: string,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          },
+        },
+      },
+    },
+  } | null,
+};
+
+export type DeleteComponentProductMutationVariables = {
+  input: DeleteComponentProductInput,
+  condition?: ModelComponentProductConditionInput | null,
+};
+
+export type DeleteComponentProductMutation = {
+  deleteComponentProduct?:  {
+    __typename: "ComponentProduct",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    product:  {
+      __typename: "Product",
+      id: string,
+      name: string,
+      measurement: string,
+      typeID?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      type:  {
+        __typename: "Type",
+        id: string,
+        name: string,
+        categoryID?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        products?:  {
+          __typename: "ModelProductConnection",
+          items?:  Array< {
+            __typename: "Product",
+            id: string,
+            name: string,
+            measurement: string,
+            typeID?: string | null,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          } | null > | null,
+          nextToken?: string | null,
+          startedAt?: number | null,
+        } | null,
+        category:  {
+          __typename: "Category",
+          id: string,
+          name: string,
+          departmentID?: string | null,
+          _version: number,
+          _deleted?: boolean | null,
+          _lastChangedAt: number,
+          createdAt: string,
+          updatedAt: string,
+          types?:  {
+            __typename: "ModelTypeConnection",
+            nextToken?: string | null,
+            startedAt?: number | null,
+          } | null,
+          department:  {
+            __typename: "Department",
+            id: string,
+            name: string,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          },
+        },
+      },
+    },
+  } | null,
+};
+
+export type CreateComponentMutationVariables = {
+  input: CreateComponentInput,
+  condition?: ModelComponentConditionInput | null,
+};
+
+export type CreateComponentMutation = {
+  createComponent?:  {
+    __typename: "Component",
+    id: string,
+    name: string,
+    type: COMPONENT_TYPE,
+    packageType: PACKAGE_TYPE,
+    callories: number,
+    carbons: number,
+    fat: number,
+    proteins: number,
+    recipe: string,
+    price: number,
+    picture: string,
+    weightInGramm: number,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateComponentMutationVariables = {
+  input: UpdateComponentInput,
+  condition?: ModelComponentConditionInput | null,
+};
+
+export type UpdateComponentMutation = {
+  updateComponent?:  {
+    __typename: "Component",
+    id: string,
+    name: string,
+    type: COMPONENT_TYPE,
+    packageType: PACKAGE_TYPE,
+    callories: number,
+    carbons: number,
+    fat: number,
+    proteins: number,
+    recipe: string,
+    price: number,
+    picture: string,
+    weightInGramm: number,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteComponentMutationVariables = {
+  input: DeleteComponentInput,
+  condition?: ModelComponentConditionInput | null,
+};
+
+export type DeleteComponentMutation = {
+  deleteComponent?:  {
+    __typename: "Component",
+    id: string,
+    name: string,
+    type: COMPONENT_TYPE,
+    packageType: PACKAGE_TYPE,
+    callories: number,
+    carbons: number,
+    fat: number,
+    proteins: number,
+    recipe: string,
+    price: number,
+    picture: string,
+    weightInGramm: number,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
 export type CreateProductAtWarehouseMutationVariables = {
@@ -5971,6 +6849,594 @@ export type DeleteCustomerMutation = {
   } | null,
 };
 
+export type GetDishComponentQueryVariables = {
+  id: string,
+};
+
+export type GetDishComponentQuery = {
+  getDishComponent?:  {
+    __typename: "DishComponent",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    dish:  {
+      __typename: "Dish",
+      id: string,
+      name: string,
+      description?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+  } | null,
+};
+
+export type ListDishComponentsQueryVariables = {
+  filter?: ModelDishComponentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListDishComponentsQuery = {
+  listDishComponents?:  {
+    __typename: "ModelDishComponentConnection",
+    items?:  Array< {
+      __typename: "DishComponent",
+      id: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      dish:  {
+        __typename: "Dish",
+        id: string,
+        name: string,
+        description?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      },
+      component:  {
+        __typename: "Component",
+        id: string,
+        name: string,
+        type: COMPONENT_TYPE,
+        packageType: PACKAGE_TYPE,
+        callories: number,
+        carbons: number,
+        fat: number,
+        proteins: number,
+        recipe: string,
+        price: number,
+        picture: string,
+        weightInGramm: number,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      },
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncDishComponentsQueryVariables = {
+  filter?: ModelDishComponentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncDishComponentsQuery = {
+  syncDishComponents?:  {
+    __typename: "ModelDishComponentConnection",
+    items?:  Array< {
+      __typename: "DishComponent",
+      id: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      dish:  {
+        __typename: "Dish",
+        id: string,
+        name: string,
+        description?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      },
+      component:  {
+        __typename: "Component",
+        id: string,
+        name: string,
+        type: COMPONENT_TYPE,
+        packageType: PACKAGE_TYPE,
+        callories: number,
+        carbons: number,
+        fat: number,
+        proteins: number,
+        recipe: string,
+        price: number,
+        picture: string,
+        weightInGramm: number,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      },
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type GetDishQueryVariables = {
+  id: string,
+};
+
+export type GetDishQuery = {
+  getDish?:  {
+    __typename: "Dish",
+    id: string,
+    name: string,
+    description?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListDishesQueryVariables = {
+  filter?: ModelDishFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListDishesQuery = {
+  listDishes?:  {
+    __typename: "ModelDishConnection",
+    items?:  Array< {
+      __typename: "Dish",
+      id: string,
+      name: string,
+      description?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncDishesQueryVariables = {
+  filter?: ModelDishFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncDishesQuery = {
+  syncDishes?:  {
+    __typename: "ModelDishConnection",
+    items?:  Array< {
+      __typename: "Dish",
+      id: string,
+      name: string,
+      description?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type GetComponentProductQueryVariables = {
+  id: string,
+};
+
+export type GetComponentProductQuery = {
+  getComponentProduct?:  {
+    __typename: "ComponentProduct",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    product:  {
+      __typename: "Product",
+      id: string,
+      name: string,
+      measurement: string,
+      typeID?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      type:  {
+        __typename: "Type",
+        id: string,
+        name: string,
+        categoryID?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        products?:  {
+          __typename: "ModelProductConnection",
+          items?:  Array< {
+            __typename: "Product",
+            id: string,
+            name: string,
+            measurement: string,
+            typeID?: string | null,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          } | null > | null,
+          nextToken?: string | null,
+          startedAt?: number | null,
+        } | null,
+        category:  {
+          __typename: "Category",
+          id: string,
+          name: string,
+          departmentID?: string | null,
+          _version: number,
+          _deleted?: boolean | null,
+          _lastChangedAt: number,
+          createdAt: string,
+          updatedAt: string,
+          types?:  {
+            __typename: "ModelTypeConnection",
+            nextToken?: string | null,
+            startedAt?: number | null,
+          } | null,
+          department:  {
+            __typename: "Department",
+            id: string,
+            name: string,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          },
+        },
+      },
+    },
+  } | null,
+};
+
+export type ListComponentProductsQueryVariables = {
+  filter?: ModelComponentProductFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListComponentProductsQuery = {
+  listComponentProducts?:  {
+    __typename: "ModelComponentProductConnection",
+    items?:  Array< {
+      __typename: "ComponentProduct",
+      id: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      component:  {
+        __typename: "Component",
+        id: string,
+        name: string,
+        type: COMPONENT_TYPE,
+        packageType: PACKAGE_TYPE,
+        callories: number,
+        carbons: number,
+        fat: number,
+        proteins: number,
+        recipe: string,
+        price: number,
+        picture: string,
+        weightInGramm: number,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      },
+      product:  {
+        __typename: "Product",
+        id: string,
+        name: string,
+        measurement: string,
+        typeID?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        type:  {
+          __typename: "Type",
+          id: string,
+          name: string,
+          categoryID?: string | null,
+          _version: number,
+          _deleted?: boolean | null,
+          _lastChangedAt: number,
+          createdAt: string,
+          updatedAt: string,
+          products?:  {
+            __typename: "ModelProductConnection",
+            nextToken?: string | null,
+            startedAt?: number | null,
+          } | null,
+          category:  {
+            __typename: "Category",
+            id: string,
+            name: string,
+            departmentID?: string | null,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          },
+        },
+      },
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncComponentProductsQueryVariables = {
+  filter?: ModelComponentProductFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncComponentProductsQuery = {
+  syncComponentProducts?:  {
+    __typename: "ModelComponentProductConnection",
+    items?:  Array< {
+      __typename: "ComponentProduct",
+      id: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      component:  {
+        __typename: "Component",
+        id: string,
+        name: string,
+        type: COMPONENT_TYPE,
+        packageType: PACKAGE_TYPE,
+        callories: number,
+        carbons: number,
+        fat: number,
+        proteins: number,
+        recipe: string,
+        price: number,
+        picture: string,
+        weightInGramm: number,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      },
+      product:  {
+        __typename: "Product",
+        id: string,
+        name: string,
+        measurement: string,
+        typeID?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        type:  {
+          __typename: "Type",
+          id: string,
+          name: string,
+          categoryID?: string | null,
+          _version: number,
+          _deleted?: boolean | null,
+          _lastChangedAt: number,
+          createdAt: string,
+          updatedAt: string,
+          products?:  {
+            __typename: "ModelProductConnection",
+            nextToken?: string | null,
+            startedAt?: number | null,
+          } | null,
+          category:  {
+            __typename: "Category",
+            id: string,
+            name: string,
+            departmentID?: string | null,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          },
+        },
+      },
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type GetComponentQueryVariables = {
+  id: string,
+};
+
+export type GetComponentQuery = {
+  getComponent?:  {
+    __typename: "Component",
+    id: string,
+    name: string,
+    type: COMPONENT_TYPE,
+    packageType: PACKAGE_TYPE,
+    callories: number,
+    carbons: number,
+    fat: number,
+    proteins: number,
+    recipe: string,
+    price: number,
+    picture: string,
+    weightInGramm: number,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListComponentsQueryVariables = {
+  filter?: ModelComponentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListComponentsQuery = {
+  listComponents?:  {
+    __typename: "ModelComponentConnection",
+    items?:  Array< {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncComponentsQueryVariables = {
+  filter?: ModelComponentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncComponentsQuery = {
+  syncComponents?:  {
+    __typename: "ModelComponentConnection",
+    items?:  Array< {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
 export type GetProductAtWarehouseQueryVariables = {
   id: string,
 };
@@ -10248,6 +11714,540 @@ export type SyncCustomersQuery = {
     } | null > | null,
     nextToken?: string | null,
     startedAt?: number | null,
+  } | null,
+};
+
+export type OnCreateDishComponentSubscription = {
+  onCreateDishComponent?:  {
+    __typename: "DishComponent",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    dish:  {
+      __typename: "Dish",
+      id: string,
+      name: string,
+      description?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+  } | null,
+};
+
+export type OnUpdateDishComponentSubscription = {
+  onUpdateDishComponent?:  {
+    __typename: "DishComponent",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    dish:  {
+      __typename: "Dish",
+      id: string,
+      name: string,
+      description?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+  } | null,
+};
+
+export type OnDeleteDishComponentSubscription = {
+  onDeleteDishComponent?:  {
+    __typename: "DishComponent",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    dish:  {
+      __typename: "Dish",
+      id: string,
+      name: string,
+      description?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+  } | null,
+};
+
+export type OnCreateDishSubscription = {
+  onCreateDish?:  {
+    __typename: "Dish",
+    id: string,
+    name: string,
+    description?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateDishSubscription = {
+  onUpdateDish?:  {
+    __typename: "Dish",
+    id: string,
+    name: string,
+    description?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteDishSubscription = {
+  onDeleteDish?:  {
+    __typename: "Dish",
+    id: string,
+    name: string,
+    description?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateComponentProductSubscription = {
+  onCreateComponentProduct?:  {
+    __typename: "ComponentProduct",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    product:  {
+      __typename: "Product",
+      id: string,
+      name: string,
+      measurement: string,
+      typeID?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      type:  {
+        __typename: "Type",
+        id: string,
+        name: string,
+        categoryID?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        products?:  {
+          __typename: "ModelProductConnection",
+          items?:  Array< {
+            __typename: "Product",
+            id: string,
+            name: string,
+            measurement: string,
+            typeID?: string | null,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          } | null > | null,
+          nextToken?: string | null,
+          startedAt?: number | null,
+        } | null,
+        category:  {
+          __typename: "Category",
+          id: string,
+          name: string,
+          departmentID?: string | null,
+          _version: number,
+          _deleted?: boolean | null,
+          _lastChangedAt: number,
+          createdAt: string,
+          updatedAt: string,
+          types?:  {
+            __typename: "ModelTypeConnection",
+            nextToken?: string | null,
+            startedAt?: number | null,
+          } | null,
+          department:  {
+            __typename: "Department",
+            id: string,
+            name: string,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          },
+        },
+      },
+    },
+  } | null,
+};
+
+export type OnUpdateComponentProductSubscription = {
+  onUpdateComponentProduct?:  {
+    __typename: "ComponentProduct",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    product:  {
+      __typename: "Product",
+      id: string,
+      name: string,
+      measurement: string,
+      typeID?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      type:  {
+        __typename: "Type",
+        id: string,
+        name: string,
+        categoryID?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        products?:  {
+          __typename: "ModelProductConnection",
+          items?:  Array< {
+            __typename: "Product",
+            id: string,
+            name: string,
+            measurement: string,
+            typeID?: string | null,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          } | null > | null,
+          nextToken?: string | null,
+          startedAt?: number | null,
+        } | null,
+        category:  {
+          __typename: "Category",
+          id: string,
+          name: string,
+          departmentID?: string | null,
+          _version: number,
+          _deleted?: boolean | null,
+          _lastChangedAt: number,
+          createdAt: string,
+          updatedAt: string,
+          types?:  {
+            __typename: "ModelTypeConnection",
+            nextToken?: string | null,
+            startedAt?: number | null,
+          } | null,
+          department:  {
+            __typename: "Department",
+            id: string,
+            name: string,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          },
+        },
+      },
+    },
+  } | null,
+};
+
+export type OnDeleteComponentProductSubscription = {
+  onDeleteComponentProduct?:  {
+    __typename: "ComponentProduct",
+    id: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    component:  {
+      __typename: "Component",
+      id: string,
+      name: string,
+      type: COMPONENT_TYPE,
+      packageType: PACKAGE_TYPE,
+      callories: number,
+      carbons: number,
+      fat: number,
+      proteins: number,
+      recipe: string,
+      price: number,
+      picture: string,
+      weightInGramm: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    },
+    product:  {
+      __typename: "Product",
+      id: string,
+      name: string,
+      measurement: string,
+      typeID?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      type:  {
+        __typename: "Type",
+        id: string,
+        name: string,
+        categoryID?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        products?:  {
+          __typename: "ModelProductConnection",
+          items?:  Array< {
+            __typename: "Product",
+            id: string,
+            name: string,
+            measurement: string,
+            typeID?: string | null,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          } | null > | null,
+          nextToken?: string | null,
+          startedAt?: number | null,
+        } | null,
+        category:  {
+          __typename: "Category",
+          id: string,
+          name: string,
+          departmentID?: string | null,
+          _version: number,
+          _deleted?: boolean | null,
+          _lastChangedAt: number,
+          createdAt: string,
+          updatedAt: string,
+          types?:  {
+            __typename: "ModelTypeConnection",
+            nextToken?: string | null,
+            startedAt?: number | null,
+          } | null,
+          department:  {
+            __typename: "Department",
+            id: string,
+            name: string,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          },
+        },
+      },
+    },
+  } | null,
+};
+
+export type OnCreateComponentSubscription = {
+  onCreateComponent?:  {
+    __typename: "Component",
+    id: string,
+    name: string,
+    type: COMPONENT_TYPE,
+    packageType: PACKAGE_TYPE,
+    callories: number,
+    carbons: number,
+    fat: number,
+    proteins: number,
+    recipe: string,
+    price: number,
+    picture: string,
+    weightInGramm: number,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateComponentSubscription = {
+  onUpdateComponent?:  {
+    __typename: "Component",
+    id: string,
+    name: string,
+    type: COMPONENT_TYPE,
+    packageType: PACKAGE_TYPE,
+    callories: number,
+    carbons: number,
+    fat: number,
+    proteins: number,
+    recipe: string,
+    price: number,
+    picture: string,
+    weightInGramm: number,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteComponentSubscription = {
+  onDeleteComponent?:  {
+    __typename: "Component",
+    id: string,
+    name: string,
+    type: COMPONENT_TYPE,
+    packageType: PACKAGE_TYPE,
+    callories: number,
+    carbons: number,
+    fat: number,
+    proteins: number,
+    recipe: string,
+    price: number,
+    picture: string,
+    weightInGramm: number,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 

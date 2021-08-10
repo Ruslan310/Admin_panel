@@ -1,5 +1,20 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
+export enum ComponentType {
+  MAIN = "MAIN",
+  SIDE = "SIDE",
+  SOUP = "SOUP",
+  SALAD = "SALAD",
+  DESSERT = "DESSERT"
+}
+
+export enum PackageType {
+  HOT = "HOT",
+  COLD = "COLD",
+  DESSERT = "DESSERT",
+  SOUP = "SOUP"
+}
+
 export enum WporderStatus {
   PROCESSING = "PROCESSING",
   COMPLETED = "COMPLETED",
@@ -40,7 +55,19 @@ export declare class WPDish {
   constructor(init: ModelInit<WPDish>);
 }
 
-type ProductAtWarehouseMetaData = {
+type DishComponentMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type DishMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type ComponentMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type ComponentProductMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -57,6 +84,10 @@ type CategoryMetaData = {
 }
 
 type DepartmentMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type ProductAtWarehouseMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -96,18 +127,53 @@ type UserMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class ProductAtWarehouse {
+export declare class DishComponent {
   readonly id: string;
-  readonly quantity: number;
-  readonly maxQuantity: number;
-  readonly minQuantity: number;
-  readonly product: Product;
-  readonly warehouse: Warehouse;
-  readonly qrCode?: string;
+  readonly dish: Dish;
+  readonly component: Component;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<ProductAtWarehouse, ProductAtWarehouseMetaData>);
-  static copyOf(source: ProductAtWarehouse, mutator: (draft: MutableModel<ProductAtWarehouse, ProductAtWarehouseMetaData>) => MutableModel<ProductAtWarehouse, ProductAtWarehouseMetaData> | void): ProductAtWarehouse;
+  constructor(init: ModelInit<DishComponent, DishComponentMetaData>);
+  static copyOf(source: DishComponent, mutator: (draft: MutableModel<DishComponent, DishComponentMetaData>) => MutableModel<DishComponent, DishComponentMetaData> | void): DishComponent;
+}
+
+export declare class Dish {
+  readonly id: string;
+  readonly name: string;
+  readonly description?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Dish, DishMetaData>);
+  static copyOf(source: Dish, mutator: (draft: MutableModel<Dish, DishMetaData>) => MutableModel<Dish, DishMetaData> | void): Dish;
+}
+
+export declare class Component {
+  readonly id: string;
+  readonly name: string;
+  readonly type: ComponentType | keyof typeof ComponentType;
+  readonly packageType: PackageType | keyof typeof PackageType;
+  readonly callories: number;
+  readonly carbons: number;
+  readonly fat: number;
+  readonly proteins: number;
+  readonly recipe: string;
+  readonly price: number;
+  readonly picture: string;
+  readonly weightInGramm: number;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Component, ComponentMetaData>);
+  static copyOf(source: Component, mutator: (draft: MutableModel<Component, ComponentMetaData>) => MutableModel<Component, ComponentMetaData> | void): Component;
+}
+
+export declare class ComponentProduct {
+  readonly id: string;
+  readonly component: Component;
+  readonly product: Product;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<ComponentProduct, ComponentProductMetaData>);
+  static copyOf(source: ComponentProduct, mutator: (draft: MutableModel<ComponentProduct, ComponentProductMetaData>) => MutableModel<ComponentProduct, ComponentProductMetaData> | void): ComponentProduct;
 }
 
 export declare class Product {
@@ -154,6 +220,20 @@ export declare class Department {
   readonly updatedAt?: string;
   constructor(init: ModelInit<Department, DepartmentMetaData>);
   static copyOf(source: Department, mutator: (draft: MutableModel<Department, DepartmentMetaData>) => MutableModel<Department, DepartmentMetaData> | void): Department;
+}
+
+export declare class ProductAtWarehouse {
+  readonly id: string;
+  readonly quantity: number;
+  readonly maxQuantity: number;
+  readonly minQuantity: number;
+  readonly product: Product;
+  readonly warehouse: Warehouse;
+  readonly qrCode?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<ProductAtWarehouse, ProductAtWarehouseMetaData>);
+  static copyOf(source: ProductAtWarehouse, mutator: (draft: MutableModel<ProductAtWarehouse, ProductAtWarehouseMetaData>) => MutableModel<ProductAtWarehouse, ProductAtWarehouseMetaData> | void): ProductAtWarehouse;
 }
 
 export declare class Warehouse {

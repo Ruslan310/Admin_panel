@@ -2,6 +2,21 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const ComponentType = {
+  "MAIN": "MAIN",
+  "SIDE": "SIDE",
+  "SOUP": "SOUP",
+  "SALAD": "SALAD",
+  "DESSERT": "DESSERT"
+};
+
+const PackageType = {
+  "HOT": "HOT",
+  "COLD": "COLD",
+  "DESSERT": "DESSERT",
+  "SOUP": "SOUP"
+};
+
 const WporderStatus = {
   "PROCESSING": "PROCESSING",
   "COMPLETED": "COMPLETED",
@@ -34,14 +49,18 @@ const Role = {
   "GUEST": "GUEST"
 };
 
-const { ProductAtWarehouse, Product, Type, Category, Department, Warehouse, Address, WPOrder, Customer, Box, ProductFromSupplier, Supplier, Coordinate, User, WPDish } = initSchema(schema);
+const { DishComponent, Dish, Component, ComponentProduct, Product, Type, Category, Department, ProductAtWarehouse, Warehouse, Address, WPOrder, Customer, Box, ProductFromSupplier, Supplier, Coordinate, User, WPDish } = initSchema(schema);
 
 export {
-  ProductAtWarehouse,
+  DishComponent,
+  Dish,
+  Component,
+  ComponentProduct,
   Product,
   Type,
   Category,
   Department,
+  ProductAtWarehouse,
   Warehouse,
   Address,
   WPOrder,
@@ -51,6 +70,8 @@ export {
   Supplier,
   Coordinate,
   User,
+  ComponentType,
+  PackageType,
   WporderStatus,
   WeekDay,
   BoxStatus,

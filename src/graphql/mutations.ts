@@ -2,6 +2,546 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createDishComponent = /* GraphQL */ `
+  mutation CreateDishComponent(
+    $input: CreateDishComponentInput!
+    $condition: ModelDishComponentConditionInput
+  ) {
+    createDishComponent(input: $input, condition: $condition) {
+      id
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      dish {
+        id
+        name
+        description
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      component {
+        id
+        name
+        type
+        packageType
+        callories
+        carbons
+        fat
+        proteins
+        recipe
+        price
+        picture
+        weightInGramm
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const updateDishComponent = /* GraphQL */ `
+  mutation UpdateDishComponent(
+    $input: UpdateDishComponentInput!
+    $condition: ModelDishComponentConditionInput
+  ) {
+    updateDishComponent(input: $input, condition: $condition) {
+      id
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      dish {
+        id
+        name
+        description
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      component {
+        id
+        name
+        type
+        packageType
+        callories
+        carbons
+        fat
+        proteins
+        recipe
+        price
+        picture
+        weightInGramm
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const deleteDishComponent = /* GraphQL */ `
+  mutation DeleteDishComponent(
+    $input: DeleteDishComponentInput!
+    $condition: ModelDishComponentConditionInput
+  ) {
+    deleteDishComponent(input: $input, condition: $condition) {
+      id
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      dish {
+        id
+        name
+        description
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      component {
+        id
+        name
+        type
+        packageType
+        callories
+        carbons
+        fat
+        proteins
+        recipe
+        price
+        picture
+        weightInGramm
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const createDish = /* GraphQL */ `
+  mutation CreateDish(
+    $input: CreateDishInput!
+    $condition: ModelDishConditionInput
+  ) {
+    createDish(input: $input, condition: $condition) {
+      id
+      name
+      description
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateDish = /* GraphQL */ `
+  mutation UpdateDish(
+    $input: UpdateDishInput!
+    $condition: ModelDishConditionInput
+  ) {
+    updateDish(input: $input, condition: $condition) {
+      id
+      name
+      description
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteDish = /* GraphQL */ `
+  mutation DeleteDish(
+    $input: DeleteDishInput!
+    $condition: ModelDishConditionInput
+  ) {
+    deleteDish(input: $input, condition: $condition) {
+      id
+      name
+      description
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createComponentProduct = /* GraphQL */ `
+  mutation CreateComponentProduct(
+    $input: CreateComponentProductInput!
+    $condition: ModelComponentProductConditionInput
+  ) {
+    createComponentProduct(input: $input, condition: $condition) {
+      id
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      component {
+        id
+        name
+        type
+        packageType
+        callories
+        carbons
+        fat
+        proteins
+        recipe
+        price
+        picture
+        weightInGramm
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      product {
+        id
+        name
+        measurement
+        typeID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        type {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const updateComponentProduct = /* GraphQL */ `
+  mutation UpdateComponentProduct(
+    $input: UpdateComponentProductInput!
+    $condition: ModelComponentProductConditionInput
+  ) {
+    updateComponentProduct(input: $input, condition: $condition) {
+      id
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      component {
+        id
+        name
+        type
+        packageType
+        callories
+        carbons
+        fat
+        proteins
+        recipe
+        price
+        picture
+        weightInGramm
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      product {
+        id
+        name
+        measurement
+        typeID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        type {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const deleteComponentProduct = /* GraphQL */ `
+  mutation DeleteComponentProduct(
+    $input: DeleteComponentProductInput!
+    $condition: ModelComponentProductConditionInput
+  ) {
+    deleteComponentProduct(input: $input, condition: $condition) {
+      id
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      component {
+        id
+        name
+        type
+        packageType
+        callories
+        carbons
+        fat
+        proteins
+        recipe
+        price
+        picture
+        weightInGramm
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      product {
+        id
+        name
+        measurement
+        typeID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        type {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const createComponent = /* GraphQL */ `
+  mutation CreateComponent(
+    $input: CreateComponentInput!
+    $condition: ModelComponentConditionInput
+  ) {
+    createComponent(input: $input, condition: $condition) {
+      id
+      name
+      type
+      packageType
+      callories
+      carbons
+      fat
+      proteins
+      recipe
+      price
+      picture
+      weightInGramm
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateComponent = /* GraphQL */ `
+  mutation UpdateComponent(
+    $input: UpdateComponentInput!
+    $condition: ModelComponentConditionInput
+  ) {
+    updateComponent(input: $input, condition: $condition) {
+      id
+      name
+      type
+      packageType
+      callories
+      carbons
+      fat
+      proteins
+      recipe
+      price
+      picture
+      weightInGramm
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteComponent = /* GraphQL */ `
+  mutation DeleteComponent(
+    $input: DeleteComponentInput!
+    $condition: ModelComponentConditionInput
+  ) {
+    deleteComponent(input: $input, condition: $condition) {
+      id
+      name
+      type
+      packageType
+      callories
+      carbons
+      fat
+      proteins
+      recipe
+      price
+      picture
+      weightInGramm
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createProductAtWarehouse = /* GraphQL */ `
   mutation CreateProductAtWarehouse(
     $input: CreateProductAtWarehouseInput!

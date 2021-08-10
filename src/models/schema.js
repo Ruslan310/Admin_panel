@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "ProductAtWarehouse": {
-            "name": "ProductAtWarehouse",
+        "DishComponent": {
+            "name": "DishComponent",
             "fields": {
                 "id": {
                     "name": "id",
@@ -10,55 +10,93 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "quantity": {
-                    "name": "quantity",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "maxQuantity": {
-                    "name": "maxQuantity",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "minQuantity": {
-                    "name": "minQuantity",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "product": {
-                    "name": "product",
+                "dish": {
+                    "name": "dish",
                     "isArray": false,
                     "type": {
-                        "model": "Product"
+                        "model": "Dish"
                     },
                     "isRequired": true,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "productAtWarehouseProductId"
+                        "targetName": "dishComponentDishId"
                     }
                 },
-                "warehouse": {
-                    "name": "warehouse",
+                "component": {
+                    "name": "component",
                     "isArray": false,
                     "type": {
-                        "model": "Warehouse"
+                        "model": "Component"
                     },
                     "isRequired": true,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "productAtWarehouseWarehouseId"
+                        "targetName": "dishComponentComponentId"
                     }
                 },
-                "qrCode": {
-                    "name": "qrCode",
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "DishComponents",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "private",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Dish": {
+            "name": "Dish",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "description": {
+                    "name": "description",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -82,7 +120,218 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "ProductAtWarehouses",
+            "pluralName": "Dishes",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "private",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Component": {
+            "name": "Component",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "type": {
+                    "name": "type",
+                    "isArray": false,
+                    "type": {
+                        "enum": "ComponentType"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "packageType": {
+                    "name": "packageType",
+                    "isArray": false,
+                    "type": {
+                        "enum": "PackageType"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "callories": {
+                    "name": "callories",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "carbons": {
+                    "name": "carbons",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "fat": {
+                    "name": "fat",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "proteins": {
+                    "name": "proteins",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "recipe": {
+                    "name": "recipe",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "price": {
+                    "name": "price",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "picture": {
+                    "name": "picture",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "weightInGramm": {
+                    "name": "weightInGramm",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Components",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "private",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "ComponentProduct": {
+            "name": "ComponentProduct",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "component": {
+                    "name": "component",
+                    "isArray": false,
+                    "type": {
+                        "model": "Component"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "componentProductComponentId"
+                    }
+                },
+                "product": {
+                    "name": "product",
+                    "isArray": false,
+                    "type": {
+                        "model": "Product"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "componentProductProductId"
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "ComponentProducts",
             "attributes": [
                 {
                     "type": "model",
@@ -455,6 +704,112 @@ export const schema = {
             },
             "syncable": true,
             "pluralName": "Departments",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "private",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "ProductAtWarehouse": {
+            "name": "ProductAtWarehouse",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "quantity": {
+                    "name": "quantity",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "maxQuantity": {
+                    "name": "maxQuantity",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "minQuantity": {
+                    "name": "minQuantity",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "product": {
+                    "name": "product",
+                    "isArray": false,
+                    "type": {
+                        "model": "Product"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "productAtWarehouseProductId"
+                    }
+                },
+                "warehouse": {
+                    "name": "warehouse",
+                    "isArray": false,
+                    "type": {
+                        "model": "Warehouse"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "productAtWarehouseWarehouseId"
+                    }
+                },
+                "qrCode": {
+                    "name": "qrCode",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "ProductAtWarehouses",
             "attributes": [
                 {
                     "type": "model",
@@ -1536,6 +1891,25 @@ export const schema = {
         }
     },
     "enums": {
+        "ComponentType": {
+            "name": "ComponentType",
+            "values": [
+                "MAIN",
+                "SIDE",
+                "SOUP",
+                "SALAD",
+                "DESSERT"
+            ]
+        },
+        "PackageType": {
+            "name": "PackageType",
+            "values": [
+                "HOT",
+                "COLD",
+                "DESSERT",
+                "SOUP"
+            ]
+        },
         "WporderStatus": {
             "name": "WporderStatus",
             "values": [
@@ -1614,5 +1988,5 @@ export const schema = {
             }
         }
     },
-    "version": "421f535f8b76ab277e129ab1dcf4a954"
+    "version": "2160c9b1950ff19ad27d2b868e05d8ab"
 };

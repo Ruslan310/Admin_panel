@@ -2,6 +2,554 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getDishComponent = /* GraphQL */ `
+  query GetDishComponent($id: ID!) {
+    getDishComponent(id: $id) {
+      id
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      dish {
+        id
+        name
+        description
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      component {
+        id
+        name
+        type
+        packageType
+        callories
+        carbons
+        fat
+        proteins
+        recipe
+        price
+        picture
+        weightInGramm
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const listDishComponents = /* GraphQL */ `
+  query ListDishComponents(
+    $filter: ModelDishComponentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDishComponents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        dish {
+          id
+          name
+          description
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        component {
+          id
+          name
+          type
+          packageType
+          callories
+          carbons
+          fat
+          proteins
+          recipe
+          price
+          picture
+          weightInGramm
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncDishComponents = /* GraphQL */ `
+  query SyncDishComponents(
+    $filter: ModelDishComponentFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncDishComponents(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        dish {
+          id
+          name
+          description
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        component {
+          id
+          name
+          type
+          packageType
+          callories
+          carbons
+          fat
+          proteins
+          recipe
+          price
+          picture
+          weightInGramm
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getDish = /* GraphQL */ `
+  query GetDish($id: ID!) {
+    getDish(id: $id) {
+      id
+      name
+      description
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listDishes = /* GraphQL */ `
+  query ListDishes(
+    $filter: ModelDishFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDishes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncDishes = /* GraphQL */ `
+  query SyncDishes(
+    $filter: ModelDishFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncDishes(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        description
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getComponentProduct = /* GraphQL */ `
+  query GetComponentProduct($id: ID!) {
+    getComponentProduct(id: $id) {
+      id
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      component {
+        id
+        name
+        type
+        packageType
+        callories
+        carbons
+        fat
+        proteins
+        recipe
+        price
+        picture
+        weightInGramm
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      product {
+        id
+        name
+        measurement
+        typeID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        type {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const listComponentProducts = /* GraphQL */ `
+  query ListComponentProducts(
+    $filter: ModelComponentProductFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listComponentProducts(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        component {
+          id
+          name
+          type
+          packageType
+          callories
+          carbons
+          fat
+          proteins
+          recipe
+          price
+          picture
+          weightInGramm
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        product {
+          id
+          name
+          measurement
+          typeID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          type {
+            id
+            name
+            categoryID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            category {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncComponentProducts = /* GraphQL */ `
+  query SyncComponentProducts(
+    $filter: ModelComponentProductFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncComponentProducts(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        component {
+          id
+          name
+          type
+          packageType
+          callories
+          carbons
+          fat
+          proteins
+          recipe
+          price
+          picture
+          weightInGramm
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        product {
+          id
+          name
+          measurement
+          typeID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          type {
+            id
+            name
+            categoryID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            category {
+              id
+              name
+              departmentID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getComponent = /* GraphQL */ `
+  query GetComponent($id: ID!) {
+    getComponent(id: $id) {
+      id
+      name
+      type
+      packageType
+      callories
+      carbons
+      fat
+      proteins
+      recipe
+      price
+      picture
+      weightInGramm
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listComponents = /* GraphQL */ `
+  query ListComponents(
+    $filter: ModelComponentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listComponents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        type
+        packageType
+        callories
+        carbons
+        fat
+        proteins
+        recipe
+        price
+        picture
+        weightInGramm
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncComponents = /* GraphQL */ `
+  query SyncComponents(
+    $filter: ModelComponentFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncComponents(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        type
+        packageType
+        callories
+        carbons
+        fat
+        proteins
+        recipe
+        price
+        picture
+        weightInGramm
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getProductAtWarehouse = /* GraphQL */ `
   query GetProductAtWarehouse($id: ID!) {
     getProductAtWarehouse(id: $id) {

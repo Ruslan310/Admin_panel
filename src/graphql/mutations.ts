@@ -373,79 +373,6 @@ export const createProductFromSupplier = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      product {
-        id
-        quantity
-        maxQuantity
-        minQuantity
-        qrCode
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        product {
-          id
-          name
-          measurement
-          typeID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          type {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        warehouse {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
       supplier {
         id
         name
@@ -486,6 +413,65 @@ export const createProductFromSupplier = /* GraphQL */ `
             }
             nextToken
             startedAt
+          }
+        }
+      }
+      product {
+        id
+        name
+        measurement
+        typeID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        type {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
           }
         }
       }
@@ -506,79 +492,6 @@ export const updateProductFromSupplier = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      product {
-        id
-        quantity
-        maxQuantity
-        minQuantity
-        qrCode
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        product {
-          id
-          name
-          measurement
-          typeID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          type {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        warehouse {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
       supplier {
         id
         name
@@ -619,6 +532,65 @@ export const updateProductFromSupplier = /* GraphQL */ `
             }
             nextToken
             startedAt
+          }
+        }
+      }
+      product {
+        id
+        name
+        measurement
+        typeID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        type {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
           }
         }
       }
@@ -639,79 +611,6 @@ export const deleteProductFromSupplier = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      product {
-        id
-        quantity
-        maxQuantity
-        minQuantity
-        qrCode
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        product {
-          id
-          name
-          measurement
-          typeID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          type {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        warehouse {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
       supplier {
         id
         name
@@ -752,6 +651,65 @@ export const deleteProductFromSupplier = /* GraphQL */ `
             }
             nextToken
             startedAt
+          }
+        }
+      }
+      product {
+        id
+        name
+        measurement
+        typeID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        type {
+          id
+          name
+          categoryID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          products {
+            items {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          category {
+            id
+            name
+            departmentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            types {
+              nextToken
+              startedAt
+            }
+            department {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
           }
         }
       }

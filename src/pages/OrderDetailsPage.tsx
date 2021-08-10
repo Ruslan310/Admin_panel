@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Checkbox, Descriptions, Divider, Layout, Table, Typography} from 'antd';
-import {Address, Box, Coordinate, Customer, WPDish, WPOrder, User, WeekDay} from "../models";
+import {Address, Box, Coordinate, Customer, WPDish, WPOrder, User, WeekDay, WporderStatus} from "../models";
 import {ColumnsType} from "antd/es/table";
 import {useParams} from 'react-router-dom';
 import {CheckboxChangeEvent} from "antd/es/checkbox";
@@ -25,34 +25,34 @@ const OrderDetailsPage: React.FC = () => {
   const [checkAll, setCheckAll] = React.useState(true);
   const [assignedDriver, setAssignedDriver] = React.useState<string>();
 
+  const fetchBoxes = async () => {
+    const fetchedBoxes = await DataStore.query(Box);
+    setBoxes(fetchedBoxes);
+    setFilteredBoxes(fetchedBoxes.filter(box => checkedList.includes(box.weekDay as WeekDay)));
+  }
+
+  const fetchCurrentOrder = async () => {
+    const fetchedOrder = await DataStore.query(WPOrder, orderId);
+    setCurrentOrder(fetchedOrder);
+    setFilteredDishes(fetchedOrder?.WPDishes);
+    if (fetchedOrder && fetchedOrder.address) {
+      await loadAssignedDriverName(fetchedOrder.address.id)
+    }
+  }
+
   useEffect(() => {
-    (async () => {
-      const fetchedBoxes = await DataStore.query(Box, box => box.WPOrderID("eq", orderId))
-      const fetchedOrder = await DataStore.query(WPOrder, orderId);
-      setCurrentOrder(fetchedOrder);
-      setFilteredDishes(fetchedOrder?.WPDishes);
-      if (fetchedOrder && fetchedOrder.address) {
-        await loadAssignedDriverName(fetchedOrder.address.id)
-      }
+    fetchCurrentOrder();
+    fetchBoxes();
+    setLoading(false)
 
-      if (fetchedBoxes.length > 0) {
-        setBoxes(fetchedBoxes);
-        setFilteredBoxes(fetchedBoxes);
-        setLoading(false)
-      }
+    const boxesSubscription = DataStore.observe(Box).subscribe(async (message) => {
+      fetchCurrentOrder();
+      await fetchBoxes();
+    });
 
-      DataStore.observe(Box).subscribe(async (message) => {
-        if (message.opType === 'INSERT' && message.element.WPOrderID === orderId) {
-          const newBox = await DataStore.query(Box, message.element.id) as Box;
-          fetchedBoxes.push(newBox);
-          setBoxes([...fetchedBoxes]);
-          setFilteredBoxes([...fetchedBoxes]);
-          if (isLoading && fetchedBoxes.length > 0) {
-            setLoading(false)
-          }
-        }
-      });
-    })();
+    return () => {
+      boxesSubscription.unsubscribe();
+    }
   }, []);
 
   const fullName = (customer: Customer) => {

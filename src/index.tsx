@@ -7,7 +7,7 @@ import Amplify from "aws-amplify";
 import awsExports from './aws-exports';
 
 Amplify.configure(awsExports);
-// Amplify.Logger.LOG_LEVEL = 'DEBUG';
+Amplify.Logger.LOG_LEVEL = 'DEBUG';
 
 ReactDOM.render(
   <React.StrictMode>

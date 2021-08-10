@@ -6,6 +6,7 @@ import {ColumnsType} from "antd/es/table";
 import {Address, Category, Coordinate, ProductFromSupplier, Supplier, Warehouse} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
 import {googleMapLink, stringifyAddress} from "../../utils/utils";
+import {useHistory} from "react-router-dom";
 
 const {confirm, error} = Modal;
 
@@ -14,6 +15,7 @@ const {Title} = Typography;
 const width300 = {width: 300}
 
 const SuppliersPage: React.FC = () => {
+  const history = useHistory();
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -75,6 +77,12 @@ const SuppliersPage: React.FC = () => {
     {
       title: 'Phone number',
       dataIndex: 'phoneNumber',
+    },
+    {
+      title: 'Details',
+      render: (value, record, index) => {
+        return <Button type={'primary'} onClick={() => history.push("/stocktaking/supplierDetails/" + record.id)}>Details</Button>
+      }
     },
     {
       title: 'Map link',

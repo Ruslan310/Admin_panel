@@ -1153,7 +1153,7 @@ export const schema = {
                     "name": "product",
                     "isArray": false,
                     "type": {
-                        "model": "ProductAtWarehouse"
+                        "model": "Product"
                     },
                     "isRequired": true,
                     "attributes": [],
@@ -1614,5 +1614,5 @@ export const schema = {
             }
         }
     },
-    "version": "e46f4c6f054a62a88cce208bddffcba7"
+    "version": "421f535f8b76ab277e129ab1dcf4a954"
 };

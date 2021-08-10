@@ -233,7 +233,7 @@ export declare class ProductFromSupplier {
   readonly id: string;
   readonly price: number;
   readonly quality?: number;
-  readonly product: ProductAtWarehouse;
+  readonly product: Product;
   readonly supplier: Supplier;
   readonly createdAt?: string;
   readonly updatedAt?: string;

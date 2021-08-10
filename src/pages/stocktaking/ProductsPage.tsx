@@ -3,10 +3,11 @@ import {DataStore} from 'aws-amplify'
 
 import {Button, Form, Input, Layout, Modal, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {Category, Department, Product, Type} from "../../models";
+import {Category, Department, Product, ProductAtWarehouse, ProductFromSupplier, Type} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
+import {Simulate} from "react-dom/test-utils";
 
-const {confirm} = Modal;
+const {confirm, error} = Modal;
 
 const {Content} = Layout;
 const {Title} = Typography;
@@ -102,20 +103,34 @@ const ProductsPage: React.FC = () => {
   ];
 
   const tryToDelete = async (product: Product) => {
-    confirm({
-      title: 'Are you sure delete this product?',
-      icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-      content: `Delete product with name "${product.name}"`,
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      async onOk() {
-        await DataStore.delete(Product, product.id);
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
+    const productsFromSupplier = (await DataStore.query(ProductFromSupplier)).filter(productFromSupplier => productFromSupplier.product.id === product.id);
+    const productsAtWarehouse = (await DataStore.query(ProductAtWarehouse)).filter(productAtWarehouse => productAtWarehouse.product.id === product.id);
+    if (productsFromSupplier && productsFromSupplier.length > 0) {
+      error({
+        title: 'You cannot delete this product!',
+        content: `This product has ${productsFromSupplier.length} products for suppliers, remove products from suppliers first.`,
+      });
+    } else if (productsAtWarehouse && productsAtWarehouse.length > 0) {
+      error({
+        title: 'You cannot delete this product!',
+        content: `This product has ${productsAtWarehouse.length} products at warehouses, remove products from warehouses first.`,
+      });
+    } else {
+      confirm({
+        title: 'Are you sure delete this product?',
+        icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+        content: `Delete product with name "${product.name}"`,
+        okText: 'Yes',
+        okType: 'danger',
+        cancelText: 'No',
+        async onOk() {
+          await DataStore.delete(Product, product.id);
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+      });
+    }
   }
 
   return (
@@ -215,11 +230,13 @@ const ProductsPage: React.FC = () => {
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             if (name && measurement && typeId) {
+              const type = types.find(type => type.id === typeId);
               await DataStore.save(
                 new Product({
                   name,
                   measurement,
                   typeID: typeId,
+                  type,
                 })
               );
             }

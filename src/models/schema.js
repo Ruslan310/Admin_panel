@@ -179,8 +179,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "callories": {
-                    "name": "callories",
+                "calories": {
+                    "name": "calories",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": true,
@@ -193,8 +193,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "fat": {
-                    "name": "fat",
+                "fats": {
+                    "name": "fats",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": true,
@@ -228,8 +228,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "weightInGramm": {
-                    "name": "weightInGramm",
+                "weightInGram": {
+                    "name": "weightInGram",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": true,
@@ -1988,5 +1988,5 @@ export const schema = {
             }
         }
     },
-    "version": "2160c9b1950ff19ad27d2b868e05d8ab"
+    "version": "8f4eb3c6d6c9a6a477622cf4f028fe1b"
 };

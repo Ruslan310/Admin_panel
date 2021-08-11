@@ -226,7 +226,6 @@ const CoordinatesPage: React.FC = () => {
               max={50}
               step={0.000001}
               onChange={(value) => setEditedLatitude(value)}
-              stringMode
             />
           </Form.Item>
           <Form.Item label="longitude">
@@ -237,7 +236,6 @@ const CoordinatesPage: React.FC = () => {
               max={50}
               step={0.000001}
               onChange={(value) => setEditedLongitude(value)}
-              stringMode
             />
           </Form.Item>
         </Form>

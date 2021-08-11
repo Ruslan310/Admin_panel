@@ -9,7 +9,7 @@ import {
   UsergroupAddOutlined,
   FileSearchOutlined,
   CodeSandboxOutlined,
-  LineChartOutlined,
+  LineChartOutlined, HeartOutlined,
 } from "@ant-design/icons";
 import {Link, Route} from "react-router-dom";
 import OrdersPage from "./pages/OrdersPage";
@@ -33,6 +33,7 @@ import SuppliersPage from "./pages/stocktaking/SuppliersPage";
 import ProductsPage from "./pages/stocktaking/ProductsPage";
 import SupplierDetailsPage from "./pages/stocktaking/SupplierDetailsPage";
 import WarehouseDetailsPage from "./pages/stocktaking/WarehouseDetailsPage";
+import ComponentsPage from "./pages/healthy/ComponentsPage";
 
 const antIcon = <LoadingOutlined style={{
   fontSize: 124,
@@ -131,6 +132,16 @@ const MainRouter: React.FC = () => {
             <Link to="/stocktaking/suppliers"/>
           </Menu.Item>
         </SubMenu>
+        <SubMenu key="healthyMenu" icon={<HeartOutlined />} title="Healthy food">
+          <Menu.Item key="healthy/components">
+            <span>Components</span>
+            <Link to="/healthy/components"/>
+          </Menu.Item>
+          <Menu.Item key="healthy/dishes">
+            <span>Dishes</span>
+            <Link to="/healthy/dishes"/>
+          </Menu.Item>
+        </SubMenu>
         <Menu.Item key="addresses" icon={<HomeOutlined/>}>
           <span>Addresses</span>
           <Link to="/addresses"/>
@@ -173,6 +184,8 @@ const MainRouter: React.FC = () => {
         <Route exact path="/stocktaking/types" component={TypesPage}/>
         <Route exact path="/stocktaking/suppliers" component={SuppliersPage}/>
         <Route exact path="/stocktaking/supplierDetails/:supplierId" component={SupplierDetailsPage}/>
+        <Route exact path="/healthy/components" component={ComponentsPage}/>
+        <Route exact path="/healthy/dishes" component={ComponentsPage}/>
       </Content>
       <Footer style={{textAlign: 'center'}}>
         DINENATION GROUP

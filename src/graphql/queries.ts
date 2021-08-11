@@ -26,14 +26,14 @@ export const getDishComponent = /* GraphQL */ `
         name
         type
         packageType
-        callories
+        calories
         carbons
-        fat
+        fats
         proteins
         recipe
         price
         picture
-        weightInGramm
+        weightInGram
         _version
         _deleted
         _lastChangedAt
@@ -72,14 +72,14 @@ export const listDishComponents = /* GraphQL */ `
           name
           type
           packageType
-          callories
+          calories
           carbons
-          fat
+          fats
           proteins
           recipe
           price
           picture
-          weightInGramm
+          weightInGram
           _version
           _deleted
           _lastChangedAt
@@ -127,14 +127,14 @@ export const syncDishComponents = /* GraphQL */ `
           name
           type
           packageType
-          callories
+          calories
           carbons
-          fat
+          fats
           proteins
           recipe
           price
           picture
-          weightInGramm
+          weightInGram
           _version
           _deleted
           _lastChangedAt
@@ -225,14 +225,14 @@ export const getComponentProduct = /* GraphQL */ `
         name
         type
         packageType
-        callories
+        calories
         carbons
-        fat
+        fats
         proteins
         recipe
         price
         picture
-        weightInGramm
+        weightInGram
         _version
         _deleted
         _lastChangedAt
@@ -324,14 +324,14 @@ export const listComponentProducts = /* GraphQL */ `
           name
           type
           packageType
-          callories
+          calories
           carbons
-          fat
+          fats
           proteins
           recipe
           price
           picture
-          weightInGramm
+          weightInGram
           _version
           _deleted
           _lastChangedAt
@@ -404,14 +404,14 @@ export const syncComponentProducts = /* GraphQL */ `
           name
           type
           packageType
-          callories
+          calories
           carbons
-          fat
+          fats
           proteins
           recipe
           price
           picture
-          weightInGramm
+          weightInGram
           _version
           _deleted
           _lastChangedAt
@@ -466,14 +466,14 @@ export const getComponent = /* GraphQL */ `
       name
       type
       packageType
-      callories
+      calories
       carbons
-      fat
+      fats
       proteins
       recipe
       price
       picture
-      weightInGramm
+      weightInGram
       _version
       _deleted
       _lastChangedAt
@@ -494,14 +494,14 @@ export const listComponents = /* GraphQL */ `
         name
         type
         packageType
-        callories
+        calories
         carbons
-        fat
+        fats
         proteins
         recipe
         price
         picture
-        weightInGramm
+        weightInGram
         _version
         _deleted
         _lastChangedAt
@@ -531,14 +531,14 @@ export const syncComponents = /* GraphQL */ `
         name
         type
         packageType
-        callories
+        calories
         carbons
-        fat
+        fats
         proteins
         recipe
         price
         picture
-        weightInGramm
+        weightInGram
         _version
         _deleted
         _lastChangedAt

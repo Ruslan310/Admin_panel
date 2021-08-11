@@ -29,14 +29,14 @@ export const createDishComponent = /* GraphQL */ `
         name
         type
         packageType
-        callories
+        calories
         carbons
-        fat
+        fats
         proteins
         recipe
         price
         picture
-        weightInGramm
+        weightInGram
         _version
         _deleted
         _lastChangedAt
@@ -73,14 +73,14 @@ export const updateDishComponent = /* GraphQL */ `
         name
         type
         packageType
-        callories
+        calories
         carbons
-        fat
+        fats
         proteins
         recipe
         price
         picture
-        weightInGramm
+        weightInGram
         _version
         _deleted
         _lastChangedAt
@@ -117,14 +117,14 @@ export const deleteDishComponent = /* GraphQL */ `
         name
         type
         packageType
-        callories
+        calories
         carbons
-        fat
+        fats
         proteins
         recipe
         price
         picture
-        weightInGramm
+        weightInGram
         _version
         _deleted
         _lastChangedAt
@@ -202,14 +202,14 @@ export const createComponentProduct = /* GraphQL */ `
         name
         type
         packageType
-        callories
+        calories
         carbons
-        fat
+        fats
         proteins
         recipe
         price
         picture
-        weightInGramm
+        weightInGram
         _version
         _deleted
         _lastChangedAt
@@ -295,14 +295,14 @@ export const updateComponentProduct = /* GraphQL */ `
         name
         type
         packageType
-        callories
+        calories
         carbons
-        fat
+        fats
         proteins
         recipe
         price
         picture
-        weightInGramm
+        weightInGram
         _version
         _deleted
         _lastChangedAt
@@ -388,14 +388,14 @@ export const deleteComponentProduct = /* GraphQL */ `
         name
         type
         packageType
-        callories
+        calories
         carbons
-        fat
+        fats
         proteins
         recipe
         price
         picture
-        weightInGramm
+        weightInGram
         _version
         _deleted
         _lastChangedAt
@@ -474,14 +474,14 @@ export const createComponent = /* GraphQL */ `
       name
       type
       packageType
-      callories
+      calories
       carbons
-      fat
+      fats
       proteins
       recipe
       price
       picture
-      weightInGramm
+      weightInGram
       _version
       _deleted
       _lastChangedAt
@@ -500,14 +500,14 @@ export const updateComponent = /* GraphQL */ `
       name
       type
       packageType
-      callories
+      calories
       carbons
-      fat
+      fats
       proteins
       recipe
       price
       picture
-      weightInGramm
+      weightInGram
       _version
       _deleted
       _lastChangedAt
@@ -526,14 +526,14 @@ export const deleteComponent = /* GraphQL */ `
       name
       type
       packageType
-      callories
+      calories
       carbons
-      fat
+      fats
       proteins
       recipe
       price
       picture
-      weightInGramm
+      weightInGram
       _version
       _deleted
       _lastChangedAt

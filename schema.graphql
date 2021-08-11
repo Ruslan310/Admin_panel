@@ -21,14 +21,14 @@ type Component @model @auth(rules: [{allow: private}]) {
     name: String!
     type: COMPONENT_TYPE!
     packageType: PACKAGE_TYPE!
-    callories: Int!
+    calories: Int!
     carbons: Int!
-    fat: Int!
+    fats: Int!
     proteins: Int!
     recipe: String!
     price: Float!
     picture: String!
-    weightInGramm: Int!
+    weightInGram: Int!
 }
 
 type ProductAtWarehouse @model @auth(rules: [{allow: private}]) {

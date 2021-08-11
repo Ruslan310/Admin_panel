@@ -152,14 +152,14 @@ export declare class Component {
   readonly name: string;
   readonly type: ComponentType | keyof typeof ComponentType;
   readonly packageType: PackageType | keyof typeof PackageType;
-  readonly callories: number;
+  readonly calories: number;
   readonly carbons: number;
-  readonly fat: number;
+  readonly fats: number;
   readonly proteins: number;
   readonly recipe: string;
   readonly price: number;
   readonly picture: string;
-  readonly weightInGramm: number;
+  readonly weightInGram: number;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Component, ComponentMetaData>);

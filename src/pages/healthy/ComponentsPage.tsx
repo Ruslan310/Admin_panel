@@ -14,13 +14,15 @@ import {
   Select,
   Table,
   Typography,
-  Upload
+  Upload,
+  Image, Spin, Descriptions, Tag
 } from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {Component, ComponentType, DishComponent, PackageType,} from "../../models";
+import {Component, ComponentProduct, ComponentType, DishComponent, PackageType, Product,} from "../../models";
 import {CloseCircleOutlined, LoadingOutlined, PlusOutlined} from "@ant-design/icons";
 import {IMAGE_URL_PREFIX} from "../../utils/utils";
 import {RcFile} from "antd/es/upload";
+import {EURO, GRAM} from "../../constants";
 
 const {confirm, error} = Modal;
 
@@ -32,15 +34,23 @@ const width300 = {width: 300}
 const ComponentsPage: React.FC = () => {
   const [components, setComponents] = useState<Component[]>([]);
   const [filteredComponents, setFilteredComponents] = useState<Component[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [picture, setPicture] = useState('');
   const [searchName, setSearchName] = useState('');
   const [loadingImage, setLoadingImage] = useState(false);
+  const [isLoadingProducts, setLoadingProducts] = useState(false);
+  const [componentProducts, setComponentProducts] = useState<ComponentProduct[]>([]);
   const [form] = Form.useForm();
 
   const fetchComponents = async () => {
     const fetchedComponents = await DataStore.query(Component);
     setComponents(fetchedComponents);
     setFilteredComponents(fetchedComponents)
+  }
+
+  const fetchProducts = async () => {
+    const fetchedProducts = await DataStore.query(Product);
+    setProducts(fetchedProducts);
   }
 
   useEffect(() => {
@@ -50,10 +60,24 @@ const ComponentsPage: React.FC = () => {
       await fetchComponents();
     });
 
+    fetchProducts();
+
+    const productsSubscription = DataStore.observe(Product).subscribe(async (message) => {
+      await fetchProducts();
+    });
+
     return () => {
       componentsSubscription.unsubscribe();
+      productsSubscription.unsubscribe();
     }
   }, []);
+
+  const loadComponentProducts = async (componentId: string) => {
+    setLoadingProducts(true);
+    const allComponentProducts = await DataStore.query(ComponentProduct)
+    setComponentProducts([...allComponentProducts.filter(componentProduct => componentProduct.component.id === componentId)]);
+    setLoadingProducts(false);
+  }
 
   const nameFilter = (
     <Row>
@@ -88,6 +112,28 @@ const ComponentsPage: React.FC = () => {
           return 1;
         }
         return 0;
+      }
+    },
+    {
+      title: "Price",
+      render: (value, record, index) => {
+        return record.price + ' ' + EURO
+      }
+    },
+    {
+      title: "Weight",
+      render: (value, record, index) => {
+        return record.weightInGram + ' ' + GRAM
+      }
+    },
+    {
+
+      title: "Picture",
+      render: (value, record, index) => {
+        return <Image
+          height={50}
+          src={value.picture}
+        />
       }
     },
     {
@@ -190,7 +236,7 @@ const ComponentsPage: React.FC = () => {
           >
             <InputNumber<number>/>
           </Form.Item>
-          <span style={{display: 'inline-block', width: '60px', lineHeight: '32px'}}>€</span>
+          <span style={{display: 'inline-block', width: '60px', lineHeight: '32px'}}>{EURO}</span>
           <span style={{display: 'inline-block', width: '60px', lineHeight: '32px'}}>Weight:</span>
           <Form.Item
             name="weightInGram"
@@ -199,7 +245,7 @@ const ComponentsPage: React.FC = () => {
           >
             <InputNumber<number>/>
           </Form.Item>
-          <span style={{display: 'inline-block', width: '60px', lineHeight: '32px'}}>gram</span>
+          <span style={{display: 'inline-block', width: '60px', lineHeight: '32px'}}>{GRAM}</span>
         </Form.Item>
 
         <Form.Item label="Calories" style={{marginBottom: 0}}>
@@ -283,12 +329,30 @@ const ComponentsPage: React.FC = () => {
             {picture ? <img src={picture} alt="component photo" style={{width: '100%'}}/> : uploadButton}
           </Upload>
         </Form.Item>
+        <Form.Item
+          label="Products"
+          name="products"
+          rules={[{required: true, message: 'Please enter at least 1 product!'}]}
+        >
+          <Select
+            mode="multiple"
+            allowClear
+            style={{width: '100%'}}
+            placeholder="Please select products"
+            onChange={(value, option) => {
+              console.log('value: ', value);
+            }}
+          >
+            {products.map((product) => <Select.Option key={product.id}
+                                                      value={product.id}>{product.name}</Select.Option>)}
+          </Select>
+        </Form.Item>
 
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             try {
               await form.validateFields();
-              await DataStore.save(
+              const addedComponent = await DataStore.save(
                 new Component({
                   calories: form.getFieldValue("calories"),
                   carbons: form.getFieldValue("carbons"),
@@ -303,6 +367,15 @@ const ComponentsPage: React.FC = () => {
                   weightInGram: form.getFieldValue("weightInGram")
                 })
               );
+              for (const addedProductId of form.getFieldValue("products")) {
+                const product = products.find(product => product.id === addedProductId);
+                if (product) {
+                  await DataStore.save(new ComponentProduct({
+                    component: addedComponent,
+                    product,
+                  }));
+                }
+              }
               form.resetFields();
               setPicture('');
             } catch (e) {
@@ -314,6 +387,33 @@ const ComponentsPage: React.FC = () => {
         </Form.Item>
       </Form>
       <Table
+        expandable={{
+          expandedRowRender: record => {
+            if (isLoadingProducts) {
+              return <Spin size="large"/>
+            } else {
+              return <Descriptions title="Component details">
+                <Descriptions.Item label="Products">{componentProducts.map(componentProduct => {
+                  return <Tag color="green">{componentProduct.product.name}</Tag>
+                })}</Descriptions.Item>
+                <Descriptions.Item label="Calories">{record.calories}</Descriptions.Item>
+                <Descriptions.Item label="Carbons">{record.carbons}</Descriptions.Item>
+                <Descriptions.Item label="Fats">{record.fats}</Descriptions.Item>
+                <Descriptions.Item label="Package type">{record.packageType}</Descriptions.Item>
+                <Descriptions.Item label="Proteins">{record.proteins}</Descriptions.Item>
+                <Descriptions.Item label="Recipe">{record.recipe}</Descriptions.Item>
+                <Descriptions.Item label="Component type">{record.type}</Descriptions.Item>
+                <Descriptions.Item label="Weight in gram">{record.weightInGram}</Descriptions.Item>
+              </Descriptions>
+            }
+          },
+          rowExpandable: record => true,
+          onExpand: async (expanded, record) => {
+            if (expanded) {
+              await loadComponentProducts(record.id)
+            }
+          }
+        }}
         size={"middle"}
         rowKey="id"
         columns={columns}

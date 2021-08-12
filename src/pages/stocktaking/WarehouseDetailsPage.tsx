@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 
 import {ColumnsType} from "antd/es/table";
-import {useParams} from 'react-router-dom';
-import {Button, Col, Form, Input, InputNumber, Layout, Modal, Row, Select, Table, Typography} from "antd";
+import {useHistory, useParams} from 'react-router-dom';
+import {Button, Col, Form, Input, InputNumber, Layout, Modal, PageHeader, Row, Select, Table, Typography} from "antd";
 import {Product, ProductAtWarehouse, Warehouse} from "../../models";
 import {DataStore} from 'aws-amplify'
 import {CloseCircleOutlined} from "@ant-design/icons";
@@ -11,7 +11,6 @@ import {MAX_QUANTITY} from "../../utils/utils";
 const {confirm, error} = Modal;
 
 const {Content} = Layout;
-const {Title} = Typography;
 const width300 = {width: 300}
 
 const WarehouseDetailsPage: React.FC = () => {
@@ -28,6 +27,7 @@ const WarehouseDetailsPage: React.FC = () => {
   const [quantity, setQuantity] = useState<number>(0)
   const [minQuantity, setMinQuantity] = useState<number>(0)
   const [maxQuantity, setMaxQuantity] = useState<number>(MAX_QUANTITY)
+  const history = useHistory();
 
   const fetchWarehouseProducts = async () => {
     const fetchedWarehouseProducts = (await DataStore.query(ProductAtWarehouse)).filter(product => product.warehouse.id === warehouseId);
@@ -153,7 +153,11 @@ const WarehouseDetailsPage: React.FC = () => {
 
   return (
     <Content>
-      <Title>{warehouse?.name} products</Title>
+      <PageHeader
+        className="site-page-header"
+        onBack={() => history.goBack()}
+        title={`"${warehouse?.name}" products`}
+      />
       <Form
         labelCol={{span: 4}}
         wrapperCol={{span: 14}}

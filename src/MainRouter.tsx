@@ -187,7 +187,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/stocktaking/supplierDetails/:supplierId" component={SupplierDetailsPage}/>
         <Route exact path="/healthy/components" component={ComponentsPage}/>
         <Route exact path="/healthy/componentDetails/:componentId" component={ComponentDetailsPage}/>
-        <Route exact path="/healthy/dishes" component={ComponentsPage}/>
+        <Route exact path="/healthy/dishes" component={ProfilePage}/>
       </Content>
       <Footer style={{textAlign: 'center'}}>
         DINENATION GROUP

@@ -4,7 +4,7 @@ import {DataStore} from 'aws-amplify'
 import {Button, Col, Form, Input, Layout, Modal, Row, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {
-  Category,
+  Category, ComponentProduct,
   Department,
   Product,
   ProductAtWarehouse,
@@ -146,10 +146,16 @@ const ProductsPage: React.FC = () => {
   const tryToDelete = async (product: Product) => {
     const productsFromSupplier = (await DataStore.query(ProductFromSupplier)).filter(productFromSupplier => productFromSupplier.product.id === product.id);
     const productsAtWarehouse = (await DataStore.query(ProductAtWarehouse)).filter(productAtWarehouse => productAtWarehouse.product.id === product.id);
+    const componentProducts = (await DataStore.query(ComponentProduct)).filter(componentProduct => componentProduct.product.id === product.id);
     if (productsFromSupplier && productsFromSupplier.length > 0) {
       error({
         title: 'You cannot delete this product!',
         content: `This product has ${productsFromSupplier.length} products for suppliers, remove products from suppliers first.`,
+      });
+    } else if (componentProducts && componentProducts.length > 0) {
+      error({
+        title: 'You cannot delete this product!',
+        content: `This product has ${componentProducts.length} products in components, remove products from components first.`,
       });
     } else if (productsAtWarehouse && productsAtWarehouse.length > 0) {
       error({

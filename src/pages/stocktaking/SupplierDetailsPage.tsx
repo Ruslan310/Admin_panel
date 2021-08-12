@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 
 import {ColumnsType} from "antd/es/table";
-import {useParams} from 'react-router-dom';
-import {Button, Col, Form, Input, InputNumber, Layout, Modal, Row, Select, Table, Typography} from "antd";
+import {useHistory, useParams} from 'react-router-dom';
+import {Button, Col, Form, Input, InputNumber, Layout, Modal, PageHeader, Row, Select, Table, Typography} from "antd";
 import {Product, ProductFromSupplier, Supplier} from "../../models";
 import {DataStore} from 'aws-amplify'
 import {CloseCircleOutlined} from "@ant-design/icons";
@@ -10,7 +10,6 @@ import {CloseCircleOutlined} from "@ant-design/icons";
 const {confirm, error} = Modal;
 
 const {Content} = Layout;
-const {Title} = Typography;
 const width300 = {width: 300}
 
 const SupplierDetailsPage: React.FC = () => {
@@ -25,7 +24,8 @@ const SupplierDetailsPage: React.FC = () => {
   const [supplier, setSupplier] = useState<Supplier>();
   const [isLoading, setLoading] = useState(true)
   const [quality, setQuality] = useState<number>()
-  const [price, setPrice] = useState<number>()
+  const [price, setPrice] = useState<number>();
+  const history = useHistory();
 
   const fetchSupplierProducts = async () => {
     const fetchedSupplierProducts = (await DataStore.query(ProductFromSupplier)).filter(product => product.supplier.id === supplierId);
@@ -159,7 +159,11 @@ const SupplierDetailsPage: React.FC = () => {
 
   return (
     <Content>
-      <Title>{supplier?.name} products</Title>
+      <PageHeader
+        className="site-page-header"
+        onBack={() => history.goBack()}
+        title={`"${supplier?.name}" products`}
+      />
       <Form
         labelCol={{span: 4}}
         wrapperCol={{span: 14}}

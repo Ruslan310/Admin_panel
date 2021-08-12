@@ -34,6 +34,7 @@ import ProductsPage from "./pages/stocktaking/ProductsPage";
 import SupplierDetailsPage from "./pages/stocktaking/SupplierDetailsPage";
 import WarehouseDetailsPage from "./pages/stocktaking/WarehouseDetailsPage";
 import ComponentsPage from "./pages/healthy/ComponentsPage";
+import ComponentDetailsPage from "./pages/healthy/ComponentDetailsPage";
 
 const antIcon = <LoadingOutlined style={{
   fontSize: 124,
@@ -185,6 +186,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/stocktaking/suppliers" component={SuppliersPage}/>
         <Route exact path="/stocktaking/supplierDetails/:supplierId" component={SupplierDetailsPage}/>
         <Route exact path="/healthy/components" component={ComponentsPage}/>
+        <Route exact path="/healthy/componentDetails/:componentId" component={ComponentDetailsPage}/>
         <Route exact path="/healthy/dishes" component={ComponentsPage}/>
       </Content>
       <Footer style={{textAlign: 'center'}}>

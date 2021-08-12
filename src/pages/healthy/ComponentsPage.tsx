@@ -23,6 +23,7 @@ import {CloseCircleOutlined, LoadingOutlined, PlusOutlined} from "@ant-design/ic
 import {IMAGE_URL_PREFIX} from "../../utils/utils";
 import {RcFile} from "antd/es/upload";
 import {EURO, GRAM} from "../../constants";
+import {useHistory} from "react-router-dom";
 
 const {confirm, error} = Modal;
 
@@ -37,10 +38,11 @@ const ComponentsPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [picture, setPicture] = useState('');
   const [searchName, setSearchName] = useState('');
-  const [loadingImage, setLoadingImage] = useState(false);
+  const [isLoadingImage, setLoadingImage] = useState(false);
   const [isLoadingProducts, setLoadingProducts] = useState(false);
   const [componentProducts, setComponentProducts] = useState<ComponentProduct[]>([]);
   const [form] = Form.useForm();
+  const history = useHistory();
 
   const fetchComponents = async () => {
     const fetchedComponents = await DataStore.query(Component);
@@ -137,6 +139,12 @@ const ComponentsPage: React.FC = () => {
       }
     },
     {
+      title: 'Edit',
+      render: (value, record, index) => {
+        return <Button type={'primary'} onClick={() => history.push("/healthy/componentDetails/" + record.id)}>Edit</Button>
+      }
+    },
+    {
       title: 'Delete',
       render: (value, record, index) => {
         return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
@@ -171,7 +179,7 @@ const ComponentsPage: React.FC = () => {
 
   const uploadButton = (
     <div>
-      {loadingImage ? <LoadingOutlined/> : <PlusOutlined/>}
+      {isLoadingImage ? <LoadingOutlined/> : <PlusOutlined/>}
       <div style={{marginTop: 8}}>Upload</div>
     </div>
   );

@@ -1,35 +1,40 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
+import {DataStore, Storage} from 'aws-amplify'
 
-import {Button, Col, Form, Input, InputNumber, Layout, Modal, Row, Select, Table, Typography} from 'antd';
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  InputNumber,
+  Layout,
+  message,
+  Modal,
+  Row,
+  Select,
+  Table,
+  Typography,
+  Upload
+} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {Component, ComponentType, DishComponent, PackageType,} from "../../models";
-import {CloseCircleOutlined} from "@ant-design/icons";
+import {CloseCircleOutlined, LoadingOutlined, PlusOutlined} from "@ant-design/icons";
+import {IMAGE_URL_PREFIX} from "../../utils/utils";
+import {RcFile} from "antd/es/upload";
 
 const {confirm, error} = Modal;
 
 const {Content} = Layout;
 const {Title} = Typography;
-const { TextArea } = Input;
+const {TextArea} = Input;
 const width300 = {width: 300}
 
 const ComponentsPage: React.FC = () => {
   const [components, setComponents] = useState<Component[]>([]);
   const [filteredComponents, setFilteredComponents] = useState<Component[]>([]);
-
-  const [name, setName] = useState('');
-  const [componentType, setComponentType] = useState<ComponentType>();
-  const [packageType, setPackageType] = useState<PackageType>();
-  const [price, setPrice] = useState<number>();
-  const [weightInGram, setWeightInGram] = useState<number>();
-  const [calories, setCalories] = useState<number>();
-  const [fats, setFats] = useState<number>();
-  const [proteins, setProteins] = useState<number>();
-  const [carbons, setCarbons] = useState<number>();
-  const [recipe, setRecipe] = useState('');
-
-
+  const [picture, setPicture] = useState('');
   const [searchName, setSearchName] = useState('');
+  const [loadingImage, setLoadingImage] = useState(false);
   const [form] = Form.useForm();
 
   const fetchComponents = async () => {
@@ -50,8 +55,6 @@ const ComponentsPage: React.FC = () => {
     }
   }, []);
 
-  // readonly recipe: string;
-  // readonly picture: string;
   const nameFilter = (
     <Row>
       <Col className="gutter-row" span={6}>
@@ -120,6 +123,13 @@ const ComponentsPage: React.FC = () => {
     }
   }
 
+  const uploadButton = (
+    <div>
+      {loadingImage ? <LoadingOutlined/> : <PlusOutlined/>}
+      <div style={{marginTop: 8}}>Upload</div>
+    </div>
+  );
+
   return (
     <Content>
       <Title>Components</Title>
@@ -134,8 +144,6 @@ const ComponentsPage: React.FC = () => {
           <Input
             style={width300}
             placeholder={'Enter name'}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
           />
         </Form.Item>
 
@@ -151,11 +159,7 @@ const ComponentsPage: React.FC = () => {
               filterOption={(input, option) =>
                 option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
-              value={componentType}
-              style={width300}
-              onSelect={async (value) => {
-                setComponentType(value)
-              }}>
+              style={width300}>
               {Object.values(ComponentType).map((type) => <Select.Option key={type}
                                                                          value={type}>{type}</Select.Option>)}
             </Select>
@@ -171,11 +175,7 @@ const ComponentsPage: React.FC = () => {
               filterOption={(input, option) =>
                 option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
-              value={packageType}
-              style={width300}
-              onSelect={async (value) => {
-                setPackageType(value)
-              }}>
+              style={width300}>
               {Object.values(PackageType).map((type) => <Select.Option key={type}
                                                                        value={type}>{type}</Select.Option>)}
             </Select>
@@ -188,10 +188,7 @@ const ComponentsPage: React.FC = () => {
             rules={[{required: true, message: 'Please enter price!'}]}
             style={{display: 'inline-block', width: '11%'}}
           >
-            <InputNumber<number>
-              value={price}
-              onChange={(value) => setPrice(value)}
-            />
+            <InputNumber<number>/>
           </Form.Item>
           <span style={{display: 'inline-block', width: '60px', lineHeight: '32px'}}>€</span>
           <span style={{display: 'inline-block', width: '60px', lineHeight: '32px'}}>Weight:</span>
@@ -200,10 +197,7 @@ const ComponentsPage: React.FC = () => {
             rules={[{required: true, message: 'Please enter weight!'}]}
             style={{display: 'inline-block', width: '11%'}}
           >
-            <InputNumber<number>
-              value={weightInGram}
-              onChange={(value) => setWeightInGram(value)}
-            />
+            <InputNumber<number>/>
           </Form.Item>
           <span style={{display: 'inline-block', width: '60px', lineHeight: '32px'}}>gram</span>
         </Form.Item>
@@ -214,10 +208,7 @@ const ComponentsPage: React.FC = () => {
             rules={[{required: true, message: 'Please enter calories!'}]}
             style={{display: 'inline-block', width: '13%'}}
           >
-            <InputNumber<number>
-              value={calories}
-              onChange={(value) => setCalories(value)}
-            />
+            <InputNumber<number>/>
           </Form.Item>
           <span style={{display: 'inline-block', width: '38px', lineHeight: '32px'}}>Fats:</span>
           <Form.Item
@@ -225,10 +216,7 @@ const ComponentsPage: React.FC = () => {
             rules={[{required: true, message: 'Please enter fats!'}]}
             style={{display: 'inline-block', width: '13%'}}
           >
-            <InputNumber<number>
-              value={fats}
-              onChange={(value) => setFats(value)}
-            />
+            <InputNumber<number>/>
           </Form.Item>
           <span style={{display: 'inline-block', width: '65px', lineHeight: '32px'}}>Carbons:</span>
           <Form.Item
@@ -236,10 +224,7 @@ const ComponentsPage: React.FC = () => {
             rules={[{required: true, message: 'Please enter carbons!'}]}
             style={{display: 'inline-block', width: '13%'}}
           >
-            <InputNumber<number>
-              value={carbons}
-              onChange={(value) => setCarbons(value)}
-            />
+            <InputNumber<number>/>
           </Form.Item>
           <span style={{display: 'inline-block', width: '65px', lineHeight: '32px'}}>Proteins:</span>
           <Form.Item
@@ -247,10 +232,7 @@ const ComponentsPage: React.FC = () => {
             rules={[{required: true, message: 'Please enter proteins!'}]}
             style={{display: 'inline-block', width: '11%'}}
           >
-            <InputNumber<number>
-              value={proteins}
-              onChange={(value) => setProteins(value)}
-            />
+            <InputNumber<number>/>
           </Form.Item>
         </Form.Item>
         <Form.Item
@@ -260,20 +242,71 @@ const ComponentsPage: React.FC = () => {
         >
           <TextArea
             style={{width: 600}}
-            value={recipe}
-            onChange={(e) => setRecipe(e.target.value)}
             rows={4}
           />
+        </Form.Item>
+        <Form.Item
+          label="Picture"
+          name="picture"
+          rules={[{required: true, message: 'Please enter picture!'}]}
+        >
+          <Upload
+            name="avatar"
+            listType="picture-card"
+            className="avatar-uploader"
+            showUploadList={false}
+            customRequest={async (options) => {
+              setLoadingImage(true)
+              try {
+                const res: any = await Storage.put((options.file as RcFile).name, options.file, {
+                  contentType: 'image/png' // contentType is optional
+                });
+                setPicture(IMAGE_URL_PREFIX + encodeURIComponent(res.key));
+              } catch (error) {
+                console.log('Error uploading file: ', error);
+              } finally {
+                setLoadingImage(false);
+              }
+            }}
+            beforeUpload={async (file) => {
+              const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+              if (!isJpgOrPng) {
+                await message.error('You can only upload JPG/PNG file!');
+              }
+              const isLt2M = file.size / 1024 / 1024 < 2;
+              if (!isLt2M) {
+                await message.error('Image must smaller than 2MB!');
+              }
+              return isJpgOrPng && isLt2M;
+            }}
+          >
+            {picture ? <img src={picture} alt="component photo" style={{width: '100%'}}/> : uploadButton}
+          </Upload>
         </Form.Item>
 
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
-            if (name) {
+            try {
+              await form.validateFields();
               await DataStore.save(
                 new Component({
-                  name,
+                  calories: form.getFieldValue("calories"),
+                  carbons: form.getFieldValue("carbons"),
+                  fats: form.getFieldValue("fats"),
+                  name: form.getFieldValue("name"),
+                  packageType: form.getFieldValue("packageType"),
+                  picture: picture,
+                  price: form.getFieldValue("price"),
+                  proteins: form.getFieldValue("proteins"),
+                  recipe: form.getFieldValue("recipe"),
+                  type: form.getFieldValue("componentType"),
+                  weightInGram: form.getFieldValue("weightInGram")
                 })
               );
+              form.resetFields();
+              setPicture('');
+            } catch (e) {
+              console.log('validations errors: ', e);
             }
           }} type="primary" htmlType="submit">
             Create

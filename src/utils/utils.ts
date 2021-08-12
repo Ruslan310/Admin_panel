@@ -14,3 +14,4 @@ export const today = moment().format('dddd');
 export const googleMapLink = (latitude: number, longitude: number) => `https://www.google.com/maps/place/${latitude},${longitude}`;
 
 export const MAX_QUANTITY = 1000000;
+export const IMAGE_URL_PREFIX = 'https://images173858-main.s3.amazonaws.com/public/'

@@ -7,9 +7,8 @@ import {
   Input,
   InputNumber,
   Layout,
-  message, PageHeader,
+  message, Modal, PageHeader,
   Select, Tag,
-  Typography,
   Upload,
 } from 'antd';
 import {Component, ComponentProduct, ComponentType, PackageType, Product,} from "../../models";
@@ -20,7 +19,6 @@ import {EURO, GRAM} from "../../constants";
 import {useHistory, useParams} from "react-router-dom";
 
 const {Content} = Layout;
-const {Title} = Typography;
 const {TextArea} = Input;
 const width300 = {width: 300}
 
@@ -65,8 +63,13 @@ const ComponentsPage: React.FC = () => {
       await fetchProducts();
     });
 
+    const componentProductsSubscription = DataStore.observe(ComponentProduct).subscribe(async (message) => {
+      await fetchComponentProducts(componentId);
+    });
+
     return () => {
       productsSubscription.unsubscribe();
+      componentProductsSubscription.unsubscribe();
     }
   }, []);
 
@@ -255,8 +258,30 @@ const ComponentsPage: React.FC = () => {
             name="products"
           >
             {componentProducts && componentProducts.map(componentProduct => {
-              return <Tag color="green">{componentProduct.product.name}</Tag>
+              return <Tag id={componentProduct.id} closable={componentProducts.length > 1} onClose={async () => {
+                await DataStore.delete(ComponentProduct, componentProduct.id)
+              }} color="green">{componentProduct.product.name}</Tag>
             })}
+            <Select
+              placeholder="Select component type"
+              showSearch
+              filterOption={(input, option) =>
+                option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              onSelect={async (value) => {
+                const product = products.find(product => product.id === value);
+                if (product) {
+                  const newComponentProduct = await DataStore.save(new ComponentProduct({
+                    component: currentComponent,
+                    product: product,
+                  }));
+                  setComponentProducts([...componentProducts, newComponentProduct])
+                }
+              }}
+              style={width300}>
+              {products.map((product) => <Select.Option key={product.id}
+                                                        value={product.id}>{product.name}</Select.Option>)}
+            </Select>
           </Form.Item>
 
           <Form.Item wrapperCol={{offset: 4, span: 16}}>

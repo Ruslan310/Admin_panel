@@ -168,6 +168,10 @@ const ComponentsPage: React.FC = () => {
         okType: 'danger',
         cancelText: 'No',
         async onOk() {
+          const componentProducts = (await DataStore.query(ComponentProduct)).filter(componentProduct => componentProduct.component.id === component.id);
+          for (const componentProduct of componentProducts) {
+            await DataStore.delete(ComponentProduct, componentProduct.id)
+          }
           await DataStore.delete(Component, component.id);
         },
         onCancel() {

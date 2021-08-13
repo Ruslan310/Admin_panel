@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
-import { CSVLink} from "react-csv";
+import {CSVLink} from "react-csv";
 
 import {Button, Input, InputNumber, Layout, Progress, Radio, Space, Typography} from 'antd';
 import {DataStore} from 'aws-amplify';
-import {WPOrder} from "../models";
+import {WPOrder, WporderStatus} from "../models";
 import moment from "moment-timezone";
 import {fullName} from "../utils/utils";
 import {Data} from "react-csv/components/CommonPropTypes";
@@ -41,15 +41,17 @@ const AddressesPage: React.FC = () => {
       <Title>Reports</Title>
       <Space direction={"vertical"}>
         <Button onClick={async () => {
-          const orders = await DataStore.query(WPOrder, order => order.createdAtWp("between", [startDate.unix(), endDate.unix()]));
-          const companyOrders = orders.filter(order => targetCompany ? order.customer?.company?.toLowerCase().includes(targetCompany) : true)
+          const orders = await DataStore.query(WPOrder, order => order.createdAtWp("between", [startDate.unix(), endDate.unix()]).WPOrderStatus("ne", WporderStatus.CANCELLED));
+          const companyOrders = orders.filter(order => {
+            return targetCompany ? order.customer?.company?.toLowerCase().includes(targetCompany.toLowerCase()) : true
+          })
           const invoice: InvoiceOrderItem[] = [];
           setProgress(1);
           let count = 1;
           for (const order of companyOrders) {
             const found = invoice.find(item => fullName(order.customer) === item.fullName);
             if (found) {
-              found.companyPayment = Math.round((found.companyPayment + order.finalPrice) * 100) / 100;
+              found.total = Math.round((found.total + order.finalPrice) * 100) / 100;
             } else {
               const newItem: InvoiceOrderItem = {
                 fullName: fullName(order.customer),

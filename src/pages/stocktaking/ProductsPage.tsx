@@ -10,10 +10,8 @@ import {
   ProductAtWarehouse,
   ProductFromSupplier,
   Type,
-  WporderStatus
 } from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
-import {fullName} from "../../utils/utils";
 
 const {confirm, error} = Modal;
 

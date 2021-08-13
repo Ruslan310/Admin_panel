@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {CSVLink} from "react-csv";
 
-import {Button, Input, InputNumber, Layout, Progress, Radio, Space, Typography} from 'antd';
+import {Button, Checkbox, Input, InputNumber, Layout, Progress, Radio, Space, Typography} from 'antd';
 import {DataStore} from 'aws-amplify';
 import {WPOrder, WporderStatus} from "../models";
 import moment from "moment-timezone";
@@ -35,6 +35,7 @@ const AddressesPage: React.FC = () => {
   const [targetCompany, setTargetCompany] = useState('');
   const [companyCoverage, setCompanyCoverage] = useState(0);
   const [csvData, setCsvData] = useState<Data>([]);
+  const [isWithoutTax, setWithoutTax] = useState(false);
 
   return (
     <Content>
@@ -48,25 +49,29 @@ const AddressesPage: React.FC = () => {
           const invoice: InvoiceOrderItem[] = [];
           setProgress(1);
           let count = 1;
+          let coef = 100;
+          if (isWithoutTax) {
+            coef = 95;
+          }
           for (const order of companyOrders) {
             const found = invoice.find(item => fullName(order.customer) === item.fullName);
             if (found) {
-              found.total = Math.round((found.total + order.finalPrice) * 100) / 100;
+              found.total = Math.ceil((found.total + order.finalPrice) * coef) / 100;
             } else {
               const newItem: InvoiceOrderItem = {
                 fullName: fullName(order.customer),
-                total: Math.round(order.finalPrice * 100) / 100,
+                total: Math.ceil(order.finalPrice * coef) / 100,
                 companyPayment: 0,
                 customerPayment: 0,
               };
               invoice.push(newItem)
             }
             count++;
-            setProgress(Math.round((count/companyOrders.length)*90))
+            setProgress(Math.ceil((count/companyOrders.length)*90))
           }
           for (const invoiceItem of invoice) {
             if (invoiceItem.total > companyCoverage) {
-              invoiceItem.customerPayment = Math.round((invoiceItem.total - companyCoverage) * 100) / 100;
+              invoiceItem.customerPayment = Math.ceil((invoiceItem.total - companyCoverage) * 100) / 100;
               invoiceItem.companyPayment = companyCoverage;
             } else {
               invoiceItem.companyPayment = invoiceItem.total;
@@ -99,6 +104,11 @@ const AddressesPage: React.FC = () => {
           <Text>Company coverage: </Text>
           <InputNumber<number> value={companyCoverage} onChange={(e) => setCompanyCoverage(e)}/>
         </Space>
+        <Checkbox
+          checked={isWithoutTax}
+          onChange={(e) => {
+            setWithoutTax(e.target.checked)
+          }}>Without 5% tax</Checkbox>
       </Space>
       {progress > 0 && <Progress percent={progress}/>}
       {progress === 100 && <CSVLink data={csvData}>Download report</CSVLink>}

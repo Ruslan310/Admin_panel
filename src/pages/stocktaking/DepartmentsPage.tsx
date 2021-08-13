@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Form, Input, Layout, Modal, Table, Typography} from 'antd';
+import {Button, Col, Form, Input, Layout, Modal, Row, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {Category, Department} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
@@ -14,11 +14,14 @@ const width300 = {width: 300}
 
 const DepartmentsPage: React.FC = () => {
   const [departments, setDepartments] = useState<Department[]>([]);
+  const [filteredDepartments, setFilteredDepartments] = useState<Department[]>([]);
   const [name, setName] = useState('');
+  const [searchName, setSearchName] = useState('');
 
   const fetchDepartments = async () => {
     const fetchedDepartments = await DataStore.query(Department);
     setDepartments(fetchedDepartments);
+    setFilteredDepartments(fetchedDepartments);
   }
 
   useEffect(() => {
@@ -33,9 +36,30 @@ const DepartmentsPage: React.FC = () => {
     }
   }, []);
 
+  const nameFilter = (
+    <Row>
+      <Col className="gutter-row" span={6}>
+        <Typography>Department name</Typography>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <Input
+          placeholder="Search Name"
+          value={searchName}
+          onChange={e => {
+            const currValue = e.target.value;
+            setSearchName(currValue);
+            const filteredData = departments
+              .filter(department => department.name.toLowerCase().includes(currValue.toLowerCase()));
+            setFilteredDepartments(filteredData);
+          }}
+        />
+      </Col>
+    </Row>
+  );
+
   const columns: ColumnsType<Department> = [
     {
-      title: 'Name',
+      title: nameFilter,
       dataIndex: 'name',
     },
     {
@@ -113,7 +137,7 @@ const DepartmentsPage: React.FC = () => {
         size={"middle"}
         rowKey="id"
         columns={columns}
-        dataSource={departments}
+        dataSource={filteredDepartments}
       />
     </Content>
   )

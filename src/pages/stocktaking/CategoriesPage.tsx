@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Form, Input, Layout, Modal, Select, Table, Typography} from 'antd';
+import {Button, Col, Form, Input, Layout, Modal, Row, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {Category, Department, Type} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
@@ -14,7 +14,9 @@ const width300 = {width: 300}
 
 const CategoriesPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [filteredCategories, setFilteredCategories] = useState<Category[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
+  const [searchName, setSearchName] = useState('');
   const [departmentId, setDepartmentId] = useState('');
   const [name, setName] = useState('');
 
@@ -22,6 +24,7 @@ const CategoriesPage: React.FC = () => {
     const fetchedCategories = await DataStore.query(Category);
     console.log('categories:', categories);
     setCategories(fetchedCategories);
+    setFilteredCategories(fetchedCategories);
   }
 
   const fetchDepartments = async () => {
@@ -49,9 +52,30 @@ const CategoriesPage: React.FC = () => {
     }
   }, []);
 
+  const nameFilter = (
+    <Row>
+      <Col className="gutter-row" span={6}>
+        <Typography>Category name</Typography>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <Input
+          placeholder="Search Name"
+          value={searchName}
+          onChange={e => {
+            const currValue = e.target.value;
+            setSearchName(currValue);
+            const filteredData = categories
+              .filter(category => category.name.toLowerCase().includes(currValue.toLowerCase()));
+            setFilteredCategories(filteredData);
+          }}
+        />
+      </Col>
+    </Row>
+  );
+
   const columns: ColumnsType<Category> = [
     {
-      title: 'Name',
+      title: nameFilter,
       dataIndex: 'name',
     },
     {
@@ -155,7 +179,7 @@ const CategoriesPage: React.FC = () => {
         size={"middle"}
         rowKey="id"
         columns={columns}
-        dataSource={categories}
+        dataSource={filteredCategories}
       />
     </Content>
   )

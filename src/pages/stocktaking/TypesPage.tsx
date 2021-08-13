@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
-import {Button, Form, Input, Layout, Modal, Select, Table, Typography} from 'antd';
+import {Button, Col, Form, Input, Layout, Modal, Row, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {Type, Category, Product} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
@@ -14,14 +14,17 @@ const width300 = {width: 300}
 
 const TypesPage: React.FC = () => {
   const [types, setTypes] = useState<Type[]>([]);
+  const [filteredTypes, setFilteredTypes] = useState<Type[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [categoryId, setCategoryId] = useState('');
   const [name, setName] = useState('');
+  const [searchName, setSearchName] = useState('');
 
   const fetchTypes = async () => {
     const fetchedTypes = await DataStore.query(Type);
     console.log('types:', types);
     setTypes(fetchedTypes);
+    setFilteredTypes(fetchedTypes);
   }
 
   const fetchCategories = async () => {
@@ -49,9 +52,30 @@ const TypesPage: React.FC = () => {
     }
   }, []);
 
+  const nameFilter = (
+    <Row>
+      <Col className="gutter-row" span={6}>
+        <Typography>Type name</Typography>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <Input
+          placeholder="Search Name"
+          value={searchName}
+          onChange={e => {
+            const currValue = e.target.value;
+            setSearchName(currValue);
+            const filteredData = types
+              .filter(type => type.name.toLowerCase().includes(currValue.toLowerCase()));
+            setFilteredTypes(filteredData);
+          }}
+        />
+      </Col>
+    </Row>
+  );
+
   const columns: ColumnsType<Type> = [
     {
-      title: 'Name',
+      title: nameFilter,
       dataIndex: 'name',
     },
     {
@@ -155,7 +179,7 @@ const TypesPage: React.FC = () => {
         size={"middle"}
         rowKey="id"
         columns={columns}
-        dataSource={types}
+        dataSource={filteredTypes}
       />
     </Content>
   )

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import Amplify from 'aws-amplify';
-import {AmplifyAuthenticator, AmplifySignUp} from '@aws-amplify/ui-react';
+import {AmplifyAuthenticator, AmplifySignIn, AmplifySignUp} from '@aws-amplify/ui-react';
 import {AuthState, onAuthUIStateChange} from '@aws-amplify/ui-components';
 import awsconfig from './aws-exports';
 import {FormFieldTypes} from '@aws-amplify/ui-components/dist/types/components/amplify-auth-fields/amplify-auth-fields-interface';
@@ -27,30 +27,7 @@ const AuthStateApp: React.FC = () => {
     </Router>
   ) : (
     <AmplifyAuthenticator>
-      <AmplifySignUp
-        headerText="Sign Up"
-        formFields={[
-          {
-            type: 'username',
-            label: 'Username *',
-            placeholder: 'Enter your username',
-            required: true,
-          },
-          {
-            type: 'email',
-            label: 'Email *',
-            placeholder: 'Enter your email',
-            required: true,
-          },
-          {
-            type: 'password',
-            label: 'Password *',
-            placeholder: 'Enter your password',
-            required: true,
-          }
-        ] as FormFieldTypes}
-        slot="sign-up"
-      />
+      <AmplifySignIn slot="sign-in" hideSignUp/>
     </AmplifyAuthenticator>
   );
 }

@@ -24,12 +24,12 @@ const KitchenPage: React.FC = () => {
   const fetchOrders = async () => {
     console.log('start fetching orders for kitchen')
     const fetchedOrders = await DataStore.query(WPOrder, order => order.WPOrderStatus("eq", WporderStatus.PROCESSING));
-    console.log('orders for kitchen fteched: ', fetchedOrders.length)
+    console.log('orders for kitchen fetched: ', fetchedOrders.length)
     let newItems: KitchenDish[] = [];
     for (const order of fetchedOrders) {
       if (order.WPDishes) {
         for (const dish of order.WPDishes) {
-          let found = newItems.find(kitchenDish => kitchenDish.name === dish.name);
+          let found = newItems.find(kitchenDish => kitchenDish.name === dish.name && kitchenDish.weekDay === dish.weekDay);
           if (found) {
             found.quantity = found.quantity + dish.quantity
           } else {

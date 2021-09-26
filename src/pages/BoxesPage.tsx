@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {DataStore} from 'aws-amplify'
 
 import {Button, Layout, Table, Tabs, Typography} from 'antd';
-import {Box, Customer, WporderStatus, WeekDay} from "../models";
+import {Address, Box, Coordinate, Customer, Role, User, WeekDay, WporderStatus} from "../models";
 import {ColumnsType} from "antd/es/table";
 import moment from 'moment';
 import jsPDF from "jspdf";
@@ -56,7 +56,6 @@ const BoxesPage: React.FC = () => {
   ];
 
   const generatePdfForPrint = async () => {
-    console.log('selcted day:', selectedDay)
     const printBoxes: Sticker[] = [];
 
     const currentDayBoxes = boxes.filter(box => box.weekDay === selectedDay);
@@ -69,35 +68,50 @@ const BoxesPage: React.FC = () => {
       if (!customer) {
         console.log('cannot find customer', box.WPOrder?.customerID)
       }
+      let driverName = 'NA';
+      if (box.WPOrder?.addressID) {
+        const address = await DataStore.query(Address, box.WPOrder?.addressID);
+        if (address?.coordinateID) {
+          const coordinate = await DataStore.query(Coordinate, address.coordinateID);
+          if (coordinate?.userID) {
+            const driver = await DataStore.query(User, coordinate.userID)
+            console.log(driver)
+            if (driver?.firstName) {
+              driverName = driver.firstName;
+            }
+          }
+        }
+      }
       printBoxes.push({
         orderNumber: box.WPOrder?.WPOrderNumber || "",
         firstName: customer?.firstName || "",
         lastName: customer?.lastName || "",
         dishName: box.sticker,
-        driverName: '',
+        driverName: driverName,
         company: customer?.company || "",
         qrCode: box.qrCode,
         boxId: box.id,
       })
     }
 
-    // let sortedStickers: Sticker[] = [];
-    // for (const user of users) {
-    //   const stickers = printBoxes.filter(sticker => sticker.driverId === user.id)
-    //     .sort((a, b) => {
-    //       if (a.dishName.toLowerCase().includes('salad')) return -1;
-    //       return 1;
-    //     });
-    //   sortedStickers = sortedStickers.concat(stickers)
-    // }
+    let sortedStickers: Sticker[] = [];
+    const drivers = await DataStore.query(User, user => user.role("eq", Role.DELIVERY));
+    for (const driver of drivers) {
+      const stickers = printBoxes.filter(sticker => sticker.driverName === driver.firstName)
+        .sort((a, b) => {
+          if (a.dishName.toLowerCase().includes('salad')) return -1;
+          return 1;
+        });
+      sortedStickers = sortedStickers.concat(stickers)
+    }
 
     const doc = new jsPDF({
       orientation: 'l',
       unit: 'mm',
       format: [60, 45],
     });
-    for (let i = 0; i < printBoxes.length; i++) {
-      const sticker = printBoxes[i]
+    for (let i = 0; i < sortedStickers.length; i++) {
+      const sticker = sortedStickers[i]
       if (i > 0) {
         doc.addPage([60, 45], "l");
       }
@@ -111,7 +125,7 @@ const BoxesPage: React.FC = () => {
       if (sticker.dishName.split("+").length > 1) {
         doc.text(sticker.dishName.split("+")[1], 2, 32)
       }
-      if (sticker.driverName) {
+      if (sticker.driverName && sticker.driverName !== 'NA') {
         doc.addImage(`assets/images/${sticker.driverName.toLowerCase()}.png`, 45, 34, 10, 10)
       }
       doc.setFont("times", "normal");

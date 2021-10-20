@@ -39,7 +39,8 @@ const BoxStatus = {
   "COOKED": "COOKED",
   "IN_DELIVERY": "IN_DELIVERY",
   "DELIVERED": "DELIVERED",
-  "CANCELLED": "CANCELLED"
+  "CANCELLED": "CANCELLED",
+  "NEW": "NEW"
 };
 
 const Role = {

@@ -37,7 +37,8 @@ export enum BoxStatus {
   COOKED = "COOKED",
   IN_DELIVERY = "IN_DELIVERY",
   DELIVERED = "DELIVERED",
-  CANCELLED = "CANCELLED"
+  CANCELLED = "CANCELLED",
+  NEW = "NEW"
 }
 
 export enum Role {
@@ -253,7 +254,7 @@ export declare class Address {
   readonly city: string;
   readonly postCode: string;
   readonly coordinateID?: string;
-  readonly addressWPOrders?: WPOrder[];
+  readonly addressWPOrders?: (WPOrder | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Address, AddressMetaData>);
@@ -269,7 +270,7 @@ export declare class WPOrder {
   readonly customerComment?: string;
   readonly customerID?: string;
   readonly customer?: Customer;
-  readonly WPOrderBoxes?: Box[];
+  readonly WPOrderBoxes?: (Box | null)[];
   readonly addressID?: string;
   readonly address?: Address;
   readonly createdAtWp: number;
@@ -287,7 +288,7 @@ export declare class Customer {
   readonly lastName?: string;
   readonly email: string;
   readonly phoneNumber?: string;
-  readonly customerWPOrders?: WPOrder[];
+  readonly customerWPOrders?: (WPOrder | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Customer, CustomerMetaData>);
@@ -354,7 +355,7 @@ export declare class User {
   readonly firstName?: string;
   readonly lastName?: string;
   readonly avatar?: string;
-  readonly assignedDriverCoordinates?: Coordinate[];
+  readonly assignedDriverCoordinates?: (Coordinate | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<User, UserMetaData>);

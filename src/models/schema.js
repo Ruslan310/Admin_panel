@@ -956,7 +956,7 @@ export const schema = {
                     "type": {
                         "model": "WPOrder"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true,
                     "association": {
@@ -1110,7 +1110,7 @@ export const schema = {
                     "type": {
                         "model": "Box"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true,
                     "association": {
@@ -1282,7 +1282,7 @@ export const schema = {
                     "type": {
                         "model": "WPOrder"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true,
                     "association": {
@@ -1830,7 +1830,7 @@ export const schema = {
                     "type": {
                         "model": "Coordinate"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true,
                     "association": {
@@ -1938,7 +1938,8 @@ export const schema = {
                 "COOKED",
                 "IN_DELIVERY",
                 "DELIVERED",
-                "CANCELLED"
+                "CANCELLED",
+                "NEW"
             ]
         },
         "Role": {
@@ -1988,5 +1989,5 @@ export const schema = {
             }
         }
     },
-    "version": "8f4eb3c6d6c9a6a477622cf4f028fe1b"
+    "version": "6e6d9a1e87b3b009c4e7ac4a72244ac4"
 };

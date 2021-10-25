@@ -501,6 +501,7 @@ export type Box = {
 };
 
 export enum BOX_STATUS {
+  NEW = "NEW",
   PRINTED = "PRINTED",
   COOKED = "COOKED",
   IN_DELIVERY = "IN_DELIVERY",
@@ -11023,6 +11024,152 @@ export type ByWPOrderNumberQuery = {
   } | null,
 };
 
+export type OrderByStatusQueryVariables = {
+  WPOrderStatus?: WPORDER_STATUS | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelWPOrderFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type OrderByStatusQuery = {
+  orderByStatus?:  {
+    __typename: "ModelWPOrderConnection",
+    items?:  Array< {
+      __typename: "WPOrder",
+      id: string,
+      WPOrderNumber?: string | null,
+      WPOrderStatus: WPORDER_STATUS,
+      WPDishes?:  Array< {
+        __typename: "WPDish",
+        name: string,
+        dishType: string,
+        quantity: number,
+        weekDay: WEEK_DAY,
+      } > | null,
+      finalPrice: number,
+      customerComment?: string | null,
+      customerID?: string | null,
+      addressID?: string | null,
+      createdAtWp: number,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      address?:  {
+        __typename: "Address",
+        id: string,
+        address1: string,
+        address2: string,
+        city: string,
+        postCode: string,
+        coordinateID?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        addressWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
+          items?:  Array< {
+            __typename: "WPOrder",
+            id: string,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
+            finalPrice: number,
+            customerComment?: string | null,
+            customerID?: string | null,
+            addressID?: string | null,
+            createdAtWp: number,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          } | null > | null,
+          nextToken?: string | null,
+          startedAt?: number | null,
+        } | null,
+      } | null,
+      WPOrderBoxes?:  {
+        __typename: "ModelBoxConnection",
+        items?:  Array< {
+          __typename: "Box",
+          id: string,
+          sticker: string,
+          boxStatus: BOX_STATUS,
+          qrCode: string,
+          customerComment?: string | null,
+          weekDay: WEEK_DAY,
+          WPOrderID?: string | null,
+          _version: number,
+          _deleted?: boolean | null,
+          _lastChangedAt: number,
+          createdAt: string,
+          updatedAt: string,
+          WPOrder?:  {
+            __typename: "WPOrder",
+            id: string,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
+            finalPrice: number,
+            customerComment?: string | null,
+            customerID?: string | null,
+            addressID?: string | null,
+            createdAtWp: number,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          } | null,
+        } | null > | null,
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      customer?:  {
+        __typename: "Customer",
+        id: string,
+        wpId?: number | null,
+        company?: string | null,
+        firstName?: string | null,
+        lastName?: string | null,
+        email: string,
+        phoneNumber?: string | null,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        customerWPOrders?:  {
+          __typename: "ModelWPOrderConnection",
+          items?:  Array< {
+            __typename: "WPOrder",
+            id: string,
+            WPOrderNumber?: string | null,
+            WPOrderStatus: WPORDER_STATUS,
+            finalPrice: number,
+            customerComment?: string | null,
+            customerID?: string | null,
+            addressID?: string | null,
+            createdAtWp: number,
+            _version: number,
+            _deleted?: boolean | null,
+            _lastChangedAt: number,
+            createdAt: string,
+            updatedAt: string,
+          } | null > | null,
+          nextToken?: string | null,
+          startedAt?: number | null,
+        } | null,
+      } | null,
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
 export type SyncWPOrdersQueryVariables = {
   filter?: ModelWPOrderFilterInput | null,
   limit?: number | null,
@@ -11235,6 +11382,60 @@ export type ListUsersQueryVariables = {
 
 export type ListUsersQuery = {
   listUsers?:  {
+    __typename: "ModelUserConnection",
+    items?:  Array< {
+      __typename: "User",
+      id: string,
+      sub: string,
+      email: string,
+      role: Role,
+      firstName?: string | null,
+      lastName?: string | null,
+      avatar?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      assignedDriverCoordinates?:  {
+        __typename: "ModelCoordinateConnection",
+        items?:  Array< {
+          __typename: "Coordinate",
+          id: string,
+          latitude: number,
+          longitude: number,
+          name: string,
+          userID?: string | null,
+          _version: number,
+          _deleted?: boolean | null,
+          _lastChangedAt: number,
+          createdAt: string,
+          updatedAt: string,
+          coordinateAddresses?:  {
+            __typename: "ModelAddressConnection",
+            nextToken?: string | null,
+            startedAt?: number | null,
+          } | null,
+        } | null > | null,
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type UserBySubQueryVariables = {
+  sub?: string | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type UserBySubQuery = {
+  userBySub?:  {
     __typename: "ModelUserConnection",
     items?:  Array< {
       __typename: "User",
@@ -11532,7 +11733,7 @@ export type ListCustomersQuery = {
   } | null,
 };
 
-export type ByEmailQueryVariables = {
+export type CustomerByEmailQueryVariables = {
   email?: string | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCustomerFilterInput | null,
@@ -11540,8 +11741,8 @@ export type ByEmailQueryVariables = {
   nextToken?: string | null,
 };
 
-export type ByEmailQuery = {
-  byEmail?:  {
+export type CustomerByEmailQuery = {
+  customerByEmail?:  {
     __typename: "ModelCustomerConnection",
     items?:  Array< {
       __typename: "Customer",

@@ -3816,6 +3816,145 @@ export const byWPOrderNumber = /* GraphQL */ `
     }
   }
 `;
+export const orderByStatus = /* GraphQL */ `
+  query OrderByStatus(
+    $WPOrderStatus: WPORDER_STATUS
+    $sortDirection: ModelSortDirection
+    $filter: ModelWPOrderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    orderByStatus(
+      WPOrderStatus: $WPOrderStatus
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        WPOrderNumber
+        WPOrderStatus
+        WPDishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        customerID
+        addressID
+        createdAtWp
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          addressWPOrders {
+            items {
+              id
+              WPOrderNumber
+              WPOrderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              createdAtWp
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+        WPOrderBoxes {
+          items {
+            id
+            sticker
+            boxStatus
+            qrCode
+            customerComment
+            weekDay
+            WPOrderID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            WPOrder {
+              id
+              WPOrderNumber
+              WPOrderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              createdAtWp
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          customerWPOrders {
+            items {
+              id
+              WPOrderNumber
+              WPOrderStatus
+              finalPrice
+              customerComment
+              customerID
+              addressID
+              createdAtWp
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const syncWPOrders = /* GraphQL */ `
   query SyncWPOrders(
     $filter: ModelWPOrderFilterInput
@@ -4011,6 +4150,60 @@ export const listUsers = /* GraphQL */ `
     $nextToken: String
   ) {
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sub
+        email
+        role
+        firstName
+        lastName
+        avatar
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        assignedDriverCoordinates {
+          items {
+            id
+            latitude
+            longitude
+            name
+            userID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            coordinateAddresses {
+              nextToken
+              startedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const userBySub = /* GraphQL */ `
+  query UserBySub(
+    $sub: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    userBySub(
+      sub: $sub
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         sub
@@ -4280,15 +4473,15 @@ export const listCustomers = /* GraphQL */ `
     }
   }
 `;
-export const byEmail = /* GraphQL */ `
-  query ByEmail(
+export const customerByEmail = /* GraphQL */ `
+  query CustomerByEmail(
     $email: String
     $sortDirection: ModelSortDirection
     $filter: ModelCustomerFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    byEmail(
+    customerByEmail(
       email: $email
       sortDirection: $sortDirection
       filter: $filter

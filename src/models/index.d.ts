@@ -33,12 +33,12 @@ export enum WeekDay {
 }
 
 export enum BoxStatus {
+  NEW = "NEW",
   PRINTED = "PRINTED",
   COOKED = "COOKED",
   IN_DELIVERY = "IN_DELIVERY",
   DELIVERED = "DELIVERED",
-  CANCELLED = "CANCELLED",
-  NEW = "NEW"
+  CANCELLED = "CANCELLED"
 }
 
 export enum Role {

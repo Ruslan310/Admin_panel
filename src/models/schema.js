@@ -1198,6 +1198,16 @@ export const schema = {
                     }
                 },
                 {
+                    "type": "key",
+                    "properties": {
+                        "name": "orderByStatus",
+                        "fields": [
+                            "WPOrderStatus"
+                        ],
+                        "queryField": "orderByStatus"
+                    }
+                },
+                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -1317,11 +1327,11 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byEmail",
+                        "name": "customerByEmail",
                         "fields": [
                             "email"
                         ],
-                        "queryField": "byEmail"
+                        "queryField": "customerByEmail"
                     }
                 },
                 {
@@ -1863,6 +1873,16 @@ export const schema = {
                     "properties": {}
                 },
                 {
+                    "type": "key",
+                    "properties": {
+                        "name": "userBySub",
+                        "fields": [
+                            "sub"
+                        ],
+                        "queryField": "userBySub"
+                    }
+                },
+                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -1934,12 +1954,12 @@ export const schema = {
         "BoxStatus": {
             "name": "BoxStatus",
             "values": [
+                "NEW",
                 "PRINTED",
                 "COOKED",
                 "IN_DELIVERY",
                 "DELIVERED",
-                "CANCELLED",
-                "NEW"
+                "CANCELLED"
             ]
         },
         "Role": {
@@ -1989,5 +2009,5 @@ export const schema = {
             }
         }
     },
-    "version": "6e6d9a1e87b3b009c4e7ac4a72244ac4"
+    "version": "f510cd7d41c2c10e5ec32b67b127748e"
 };

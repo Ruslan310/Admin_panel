@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
 import {Button, Col, Form, Input, Layout, Modal, Row, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {Type, Category, Product} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
+import {Category, Type} from "../../API";
+import {fetchCategories, fetchTypes} from "../../graphql/requests";
 
 const {confirm, error} = Modal;
 
@@ -20,36 +20,20 @@ const TypesPage: React.FC = () => {
   const [name, setName] = useState('');
   const [searchName, setSearchName] = useState('');
 
-  const fetchTypes = async () => {
-    const fetchedTypes = await DataStore.query(Type);
-    console.log('types:', types);
+  const loadTypes = async () => {
+    const fetchedTypes = await fetchTypes();
     setTypes(fetchedTypes);
     setFilteredTypes(fetchedTypes);
   }
 
-  const fetchCategories = async () => {
-    const fetchedCategories = await DataStore.query(Category);
-    console.log('categories:', categories);
+  const loadCategories = async () => {
+    const fetchedCategories = await fetchCategories();
     setCategories(fetchedCategories);
   }
 
   useEffect(() => {
-    fetchTypes();
-
-    const typesSubscription = DataStore.observe(Type).subscribe(async (message) => {
-      await fetchTypes();
-    });
-
-    fetchCategories();
-
-    const categoriesSubscription = DataStore.observe(Category).subscribe(async (message) => {
-      await fetchCategories();
-    });
-
-    return () => {
-      typesSubscription.unsubscribe();
-      categoriesSubscription.unsubscribe();
-    }
+    loadTypes();
+    loadCategories();
   }, []);
 
   const nameFilter = (
@@ -84,38 +68,38 @@ const TypesPage: React.FC = () => {
         return record.category.name;
       }
     },
-    {
-      title: 'Delete',
-      render: (value, record, index) => {
-        return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
-      }
-    }
+    // {
+    //   title: 'Delete',
+    //   render: (value, record, index) => {
+    //     return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
+    //   }
+    // }
   ];
 
-  const tryToDelete = async (type: Type) => {
-    const products = await DataStore.query(Product, product => product.typeID("eq", type.id))
-    if (products && products.length > 0) {
-      error({
-        title: 'You cannot delete this type!',
-        content: `This type has ${products.length} products, remove products first.`,
-      });
-    } else {
-      confirm({
-        title: 'Are you sure delete this type?',
-        icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-        content: `Delete type with name "${type.name}"`,
-        okText: 'Yes',
-        okType: 'danger',
-        cancelText: 'No',
-        async onOk() {
-          await DataStore.delete(Type, type.id);
-        },
-        onCancel() {
-          console.log('Cancel');
-        },
-      });
-    }
-  }
+  // const tryToDelete = async (type: Type) => {
+  //   const products = await DataStore.query(Product, product => product.typeID("eq", type.id))
+  //   if (products && products.length > 0) {
+  //     error({
+  //       title: 'You cannot delete this type!',
+  //       content: `This type has ${products.length} products, remove products first.`,
+  //     });
+  //   } else {
+  //     confirm({
+  //       title: 'Are you sure delete this type?',
+  //       icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+  //       content: `Delete type with name "${type.name}"`,
+  //       okText: 'Yes',
+  //       okType: 'danger',
+  //       cancelText: 'No',
+  //       async onOk() {
+  //         await DataStore.delete(Type, type.id);
+  //       },
+  //       onCancel() {
+  //         console.log('Cancel');
+  //       },
+  //     });
+  //   }
+  // }
 
   return (
     <Content>
@@ -161,14 +145,14 @@ const TypesPage: React.FC = () => {
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             if (name && categoryId) {
-              const category = await DataStore.query(Category, categoryId);
-              await DataStore.save(
-                new Type({
-                  name,
-                  category,
-                  categoryID: categoryId,
-                })
-              );
+              console.log('create type')
+              // await DataStore.save(
+              //   new Type({
+              //     name,
+              //     category,
+              //     categoryID: categoryId,
+              //   })
+              // );
             }
           }} type="primary" htmlType="submit">
             Create

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
 import {Button, Col, Form, Input, Layout, Modal, Row, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {Category, Department, Type} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
+import {Category, Department} from "../../API";
+import {createCategory, createDepartment, fetchCategories, fetchDepartments} from "../../graphql/requests";
 
 const {confirm, error} = Modal;
 
@@ -20,36 +20,22 @@ const CategoriesPage: React.FC = () => {
   const [departmentId, setDepartmentId] = useState('');
   const [name, setName] = useState('');
 
-  const fetchCategories = async () => {
-    const fetchedCategories = await DataStore.query(Category);
+  const loadCategories = async () => {
+    const fetchedCategories = await fetchCategories();
     console.log('categories:', categories);
     setCategories(fetchedCategories);
     setFilteredCategories(fetchedCategories);
   }
 
-  const fetchDepartments = async () => {
-    const fetchedDepartments = await DataStore.query(Department);
+  const loadDepartments = async () => {
+    const fetchedDepartments = await fetchDepartments();
     console.log('departments:', departments);
     setDepartments(fetchedDepartments);
   }
 
   useEffect(() => {
-    fetchCategories();
-
-    const categoriesSubscription = DataStore.observe(Category).subscribe(async (message) => {
-      await fetchCategories();
-    });
-
-    fetchDepartments();
-
-    const departmentsSubscription = DataStore.observe(Department).subscribe(async (message) => {
-      await fetchDepartments();
-    });
-
-    return () => {
-      categoriesSubscription.unsubscribe();
-      departmentsSubscription.unsubscribe();
-    }
+    loadCategories();
+    loadDepartments();
   }, []);
 
   const nameFilter = (
@@ -84,38 +70,38 @@ const CategoriesPage: React.FC = () => {
         return record.department.name;
       }
     },
-    {
-      title: 'Delete',
-      render: (value, record, index) => {
-        return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
-      }
-    }
+    // {
+    //   title: 'Delete',
+    //   render: (value, record, index) => {
+    //     return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
+    //   }
+    // }
   ];
 
-  const tryToDelete = async (category: Category) => {
-    const types = await DataStore.query(Type, type => type.categoryID("eq", category.id))
-    if (types && types.length > 0) {
-      error({
-        title: 'You cannot delete this category!',
-        content: `This category has ${types.length} types, remove types first.`,
-      });
-    } else {
-      confirm({
-        title: 'Are you sure delete this category?',
-        icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-        content: `Delete category with name "${category.name}"`,
-        okText: 'Yes',
-        okType: 'danger',
-        cancelText: 'No',
-        async onOk() {
-          await DataStore.delete(Category, category.id);
-        },
-        onCancel() {
-          console.log('Cancel');
-        },
-      });
-    }
-  }
+  // const tryToDelete = async (category: Category) => {
+  //   const types = await DataStore.query(Type, type => type.categoryID("eq", category.id))
+  //   if (types && types.length > 0) {
+  //     error({
+  //       title: 'You cannot delete this category!',
+  //       content: `This category has ${types.length} types, remove types first.`,
+  //     });
+  //   } else {
+  //     confirm({
+  //       title: 'Are you sure delete this category?',
+  //       icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+  //       content: `Delete category with name "${category.name}"`,
+  //       okText: 'Yes',
+  //       okType: 'danger',
+  //       cancelText: 'No',
+  //       async onOk() {
+  //         await DataStore.delete(Category, category.id);
+  //       },
+  //       onCancel() {
+  //         console.log('Cancel');
+  //       },
+  //     });
+  //   }
+  // }
 
   return (
     <Content>
@@ -161,14 +147,11 @@ const CategoriesPage: React.FC = () => {
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             if (name && departmentId) {
-              const department = await DataStore.query(Department, departmentId);
-              await DataStore.save(
-                new Category({
-                  name,
-                  department,
-                  departmentID: departmentId,
-                })
-              );
+              await createCategory({
+                categoryDepartmentId: departmentId,
+                departmentID: departmentId,
+                name: name
+              })
             }
           }} type="primary" htmlType="submit">
             Create

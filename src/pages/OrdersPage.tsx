@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
 import {
   Button,
@@ -15,12 +14,13 @@ import {
   Table,
   Typography
 } from 'antd';
-import {Address, Box, Coordinate, WPOrder, WporderStatus, User} from "../models";
 import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
 import {useHistory} from "react-router-dom";
 import {fullName, stringifyAddress} from "../utils/utils";
 import moment from "moment-timezone";
+import {fetchAddresses, fetchCoordinate, fetchOrdersByStatus, fetchUser, updateWPOrder} from "../graphql/requests";
+import {Address, WPOrder, WPORDER_STATUS} from "../API";
 
 moment.tz.setDefault("Africa/Nouakchott");
 
@@ -36,43 +36,36 @@ const OrdersPage: React.FC = () => {
   const [filteredOrders, setFilteredOrders] = useState<WPOrder[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([])
   const [isLoading, setLoading] = useState(true)
-  const [checkedStatusesList, setCheckedStatusesList] = React.useState<WporderStatus[]>([WporderStatus.PROCESSING]);
+  const [checkedStatusesList, setCheckedStatusesList] = React.useState<WPORDER_STATUS[]>([WPORDER_STATUS.PROCESSING]);
   const [searchName, setSearchName] = useState('')
   const [searchNumber, setSearchNumber] = useState('')
-  const [assignedDriverName, setAssignedDriverName] = useState<string>()
+  const [assignedDriverName, setAssignedDriverName] = useState<string>('Not assigned')
   const [isDeleteOrderConfirm, setDeleteOrderConfirm] = useState(false)
   const [isDeleting, setDeleting] = useState(false)
   const [targetOrder, setTargetOrder] = useState<WPOrder>()
 
-  const fetchOrders = async () => {
-    const fetchedOrders = await DataStore.query(WPOrder);
-    console.log('orders for orders fetched: ', fetchedOrders.length)
-    setOrders(fetchedOrders);
-    setFilteredOrders(fetchedOrders.filter(order => checkedStatusesList.includes(order.WPOrderStatus as WporderStatus)));
+  const loadOrders = async () => {
+    const concatOrders = [];
+    for (const status of checkedStatusesList) {
+      const fetchedOrders = await fetchOrdersByStatus(status);
+      console.log('orders with status ', status, ' fetched: ', fetchedOrders.length)
+      concatOrders.push(...fetchedOrders);
+    }
+    console.log('all orders', concatOrders.length)
+    setOrders(concatOrders);
+    setFilteredOrders(concatOrders)
     setLoading(false)
   }
 
-  const fetchAddresses = async () => {
-    const fetchedAddresses = await DataStore.query(Address);
+  const loadAddresses = async () => {
+    const fetchedAddresses = await fetchAddresses();
     console.log('addresses for orders fetched: ', fetchedAddresses.length)
     setAddresses(fetchedAddresses);
-    setLoading(false)
   }
 
   useEffect(() => {
-    fetchOrders();
-    fetchAddresses();
-    const ordersSubscription = DataStore.observe(WPOrder).subscribe(async (message) => {
-      await fetchOrders();
-    });
-    const addressesSubscription = DataStore.observe(Address).subscribe(async (message) => {
-      await fetchAddresses();
-    });
-
-    return () => {
-      ordersSubscription.unsubscribe();
-      addressesSubscription.unsubscribe();
-    }
+    loadOrders();
+    loadAddresses();
   }, []);
 
   const onSelectChange = (selectedRowKeys: Key[]) => {
@@ -84,31 +77,6 @@ const OrdersPage: React.FC = () => {
     onChange: onSelectChange,
     selections: [
       Table.SELECTION_ALL,
-      Table.SELECTION_INVERT,
-      Table.SELECTION_NONE,
-      {
-        key: 'odd',
-        text: 'Select Odd Row',
-        onSelect: (changableRowKeys: any) => {
-          let newSelectedRowKeys = [];
-          newSelectedRowKeys = changableRowKeys.filter((key: string, index: number) => {
-            return index % 2 === 0;
-          });
-          setSelectedRowKeys(newSelectedRowKeys);
-        },
-      },
-      {
-        key: 'even',
-        text: 'Select Even Row',
-        onSelect: (changableRowKeys: any) => {
-          let newSelectedRowKeys = [];
-          newSelectedRowKeys = changableRowKeys.filter((key: string, index: number) => {
-            return index % 2 !== 0;
-
-          });
-          setSelectedRowKeys(newSelectedRowKeys);
-        },
-      },
     ],
   };
 
@@ -125,7 +93,6 @@ const OrdersPage: React.FC = () => {
             const currValue = e.target.value;
             setSearchName(currValue);
             const filteredData = orders
-              .filter(order => checkedStatusesList.includes(order.WPOrderStatus as WporderStatus))
               .filter(order => fullName(order.customer).toLowerCase().includes(currValue.toLowerCase()));
             setFilteredOrders(filteredData);
           }}
@@ -147,7 +114,6 @@ const OrdersPage: React.FC = () => {
             const currValue = e.target.value;
             setSearchNumber(currValue);
             const filteredData = orders
-              .filter(order => checkedStatusesList.includes(order.WPOrderStatus as WporderStatus))
               .filter(order => order.WPOrderNumber?.toLowerCase().includes(currValue.toLowerCase()));
             setFilteredOrders(filteredData);
           }}
@@ -156,21 +122,21 @@ const OrdersPage: React.FC = () => {
     </Row>
   );
 
-  const deleteOrderWithBoxes = async (orderId?: string) => {
-    setDeleting(true)
-    if (orderId) {
-      const boxes = await DataStore.query(Box, box => box.WPOrderID("eq", orderId))
-      if (boxes) {
-        for (const box of boxes) {
-          await DataStore.delete(Box, box.id)
-        }
-      }
-      await DataStore.delete(WPOrder, orderId);
-    }
-    setDeleting(false)
-    setTargetOrder(undefined);
-    setDeleteOrderConfirm(false);
-  }
+  // const deleteOrderWithBoxes = async (orderId?: string) => {
+  //   setDeleting(true)
+  //   if (orderId) {
+  //     const boxes = await DataStore.query(Box, box => box.WPOrderID("eq", orderId))
+  //     if (boxes) {
+  //       for (const box of boxes) {
+  //         await DataStore.delete(Box, box.id)
+  //       }
+  //     }
+  //     await DataStore.delete(WPOrder, orderId);
+  //   }
+  //   setDeleting(false)
+  //   setTargetOrder(undefined);
+  //   setDeleteOrderConfirm(false);
+  // }
 
   const columns: ColumnsType<WPOrder> = [
     {
@@ -218,7 +184,7 @@ const OrdersPage: React.FC = () => {
     {
       title: 'Assigned driver',
       render: (value, record, index) => {
-        return <Button type={'link'} onClick={() => loadAssignedDriverName(record.address?.id)}>Driver</Button>
+        return <Button type={'link'} onClick={() => loadAssignedDriverName(record)}>Driver</Button>
       }
     },
     {
@@ -255,14 +221,12 @@ const OrdersPage: React.FC = () => {
           }}
           value={record.address?.id}
           onSelect={async (value) => {
-            setLoading(true);
-            const fullNewAddress = addresses.find(address => address.id === value);
-            await DataStore.save(
-              WPOrder.copyOf(record, updated => {
-                updated.addressID = value;
-                updated.address = fullNewAddress;
-              })
-            );
+            await updateWPOrder({
+              _version: record._version,
+              addressID: value, id:
+              record.id,
+              wPOrderAddressId: value
+            })
           }}>
           {addresses.map((address) => <Select.Option key={address.id}
                                                      value={address.id}>{stringifyAddress(address)}</Select.Option>)}
@@ -280,13 +244,11 @@ const OrdersPage: React.FC = () => {
     }
   ];
 
-  const loadAssignedDriverName = async (addressId?: string): Promise<void> => {
-    if (!addressId) return;
-    const address = await DataStore.query(Address, addressId);
-    if (address?.coordinateID) {
-      const coordinate = await DataStore.query(Coordinate, address.coordinateID);
-      if (coordinate?.userID) {
-        const driver = await DataStore.query(User, coordinate.userID);
+  const loadAssignedDriverName = async (order: WPOrder): Promise<void> => {
+    if (order.address?.coordinateID) {
+      const coordinate = await fetchCoordinate(order.address.coordinateID);
+      if (coordinate.userID) {
+        const driver = await fetchUser(coordinate.userID);
         setAssignedDriverName(driver?.email);
       }
     }
@@ -310,17 +272,16 @@ const OrdersPage: React.FC = () => {
           {/*}} type="primary" htmlType="submit">*/}
           {/*  Delete all orders*/}
           {/*</Button>*/}
-          <Button onClick={async () => {
-            await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')
-          }} type="default">
-            Sync orders from wp
-          </Button>
+          {/*<Button onClick={async () => {*/}
+          {/*  await fetch('https://gkjmmh4hi0.execute-api.us-east-1.amazonaws.com/syncOrdersInGraphQl')*/}
+          {/*}} type="default">*/}
+          {/*  Sync orders from wp*/}
+          {/*</Button>*/}
         </Space>
-        <Checkbox.Group options={Object.values(WporderStatus)} value={checkedStatusesList} onChange={(list) => {
-          setCheckedStatusesList(list as Array<WporderStatus>);
+        <Checkbox.Group options={Object.values(WPORDER_STATUS)} value={checkedStatusesList} onChange={(list) => {
+          setCheckedStatusesList(list as Array<WPORDER_STATUS>);
           setFilteredOrders(
             orders
-              .filter(order => list.includes(order.WPOrderStatus as WporderStatus))
               .filter(order => order.WPOrderNumber?.toLowerCase().includes(searchNumber.toLowerCase()))
               .filter(order => fullName(order.customer).toLowerCase().includes(searchName.toLowerCase()))
           )
@@ -348,18 +309,18 @@ const OrdersPage: React.FC = () => {
           }}
         />
       </Content>
-      <Modal
-        title="Are sure you want to delete order?"
-        visible={isDeleteOrderConfirm}
-        onOk={() => deleteOrderWithBoxes(targetOrder?.id)}
-        confirmLoading={isDeleting}
-        onCancel={() => {
-          setTargetOrder(undefined);
-          setDeleteOrderConfirm(false);
-        }}
-      >
-        <Text>You are going to delete order <Text strong>{targetOrder?.WPOrderNumber}</Text></Text>
-      </Modal>
+      {/*<Modal*/}
+      {/*  title="Are sure you want to delete order?"*/}
+      {/*  visible={isDeleteOrderConfirm}*/}
+      {/*  onOk={() => deleteOrderWithBoxes(targetOrder?.id)}*/}
+      {/*  confirmLoading={isDeleting}*/}
+      {/*  onCancel={() => {*/}
+      {/*    setTargetOrder(undefined);*/}
+      {/*    setDeleteOrderConfirm(false);*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <Text>You are going to delete order <Text strong>{targetOrder?.WPOrderNumber}</Text></Text>*/}
+      {/*</Modal>*/}
     </>
   )
 }

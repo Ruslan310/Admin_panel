@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
 import {Button, Layout, Modal, Table, Tabs, Typography} from 'antd';
-import {Address, Box, BoxStatus, Coordinate, Customer, Role, User, WeekDay, WporderStatus} from "../models";
 import {ColumnsType} from "antd/es/table";
 import moment from 'moment';
 import jsPDF from "jspdf";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
+import {Box, BOX_STATUS, Role, WEEK_DAY, WPORDER_STATUS} from "../API";
+import {fetchBoxes, fetchCoordinate, fetchUser, fetchUsers, updateBox} from "../graphql/requests";
 
 const {Content} = Layout;
 const {TabPane} = Tabs;
@@ -25,24 +25,16 @@ interface Sticker {
 
 const today = moment().format('dddd');
 const BoxesPage: React.FC = () => {
-  const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
+  const [selectedDay, setSelectedDay] = useState<WEEK_DAY>(today.toUpperCase() as WEEK_DAY);
   const [boxes, setBoxes] = useState<Box[]>([]);
 
-  const fetchBoxes = async () => {
-    const fetchedBoxes = (await DataStore.query(Box)).filter(box => box.WPOrder?.WPOrderStatus === WporderStatus.PROCESSING);
-    setBoxes(fetchedBoxes);
+  const loadBoxes = async () => {
+    const fetchedBoxes = await fetchBoxes();
+    setBoxes(fetchedBoxes.filter(box => box.WPOrder?.WPOrderStatus === WPORDER_STATUS.PROCESSING));
   }
 
   useEffect(() => {
-    fetchBoxes();
-
-    const boxesSubscription = DataStore.observe(Box).subscribe(async (message) => {
-      await fetchBoxes();
-    });
-
-    return () => {
-      boxesSubscription.unsubscribe();
-    }
+    loadBoxes();
   }, []);
 
   const columns: ColumnsType<Box> = [
@@ -61,7 +53,7 @@ const BoxesPage: React.FC = () => {
 
     const currentDayBoxes = boxes.filter(box => {
       if (newOnly) {
-        return box.weekDay === selectedDay && box.boxStatus === BoxStatus.NEW;
+        return box.weekDay === selectedDay && box.boxStatus === BOX_STATUS.NEW;
       } else {
         return box.weekDay === selectedDay;
       }
@@ -71,20 +63,12 @@ const BoxesPage: React.FC = () => {
     } else {
       for (let i = 0; i < currentDayBoxes.length; i++) {
         const box = currentDayBoxes[i];
-        let customer;
-        if (box.WPOrder?.customerID) {
-          customer = await DataStore.query(Customer, box.WPOrder.customerID)
-        }
-        if (!customer) {
-          console.log('cannot find customer', box.WPOrder?.customerID)
-        }
         let driverName = 'NA';
         if (box.WPOrder?.addressID) {
-          const address = await DataStore.query(Address, box.WPOrder?.addressID);
-          if (address?.coordinateID) {
-            const coordinate = await DataStore.query(Coordinate, address.coordinateID);
+          if (box.WPOrder.address.coordinateID) {
+            const coordinate = await fetchCoordinate(box.WPOrder.address.coordinateID);
             if (coordinate?.userID) {
-              const driver = await DataStore.query(User, coordinate.userID)
+              const driver = await fetchUser(coordinate?.userID)
               console.log(driver)
               if (driver?.firstName) {
                 driverName = driver.firstName;
@@ -94,18 +78,18 @@ const BoxesPage: React.FC = () => {
         }
         printBoxes.push({
           orderNumber: box.WPOrder?.WPOrderNumber || "",
-          firstName: customer?.firstName || "",
-          lastName: customer?.lastName || "",
+          firstName: box.WPOrder.customer?.firstName || "",
+          lastName: box.WPOrder.customer?.lastName || "",
           dishName: box.sticker,
           driverName: driverName,
-          company: customer?.company || "",
+          company: box.WPOrder.customer?.company || "",
           qrCode: box.qrCode,
           boxId: box.id,
         })
       }
 
       let sortedStickers: Sticker[] = [];
-      const drivers = await DataStore.query(User, user => user.role("eq", Role.DELIVERY));
+      const drivers = (await fetchUsers()).filter(driver => driver.role === Role.DELIVERY);
       for (const driver of drivers) {
         const stickers = printBoxes.filter(sticker => sticker.driverName === driver.firstName)
           .sort((a, b) => {
@@ -155,22 +139,23 @@ const BoxesPage: React.FC = () => {
   const changeNewToPrinted = () => {
     Modal.confirm({
       title: 'Do you want to delete these items?',
-      icon: <ExclamationCircleOutlined />,
+      icon: <ExclamationCircleOutlined/>,
       content: 'Are you sure you printed all new stickers? You cannot undo this!!!',
       onOk() {
         return new Promise(async (resolve, reject) => {
-          const currentDayNewBoxes = boxes.filter(box => box.weekDay === selectedDay && box.boxStatus === BoxStatus.NEW);
+          const currentDayNewBoxes = boxes.filter(box => box.weekDay === selectedDay && box.boxStatus === BOX_STATUS.NEW);
           for (const box of currentDayNewBoxes) {
-            await DataStore.save(
-              Box.copyOf(box, updated => {
-                updated.boxStatus = BoxStatus.PRINTED;
-              })
-            );
+            await updateBox({
+              _version: box._version,
+              boxStatus: BOX_STATUS.PRINTED,
+              id: box.id
+            });
           }
           resolve(true);
         }).catch(() => console.log('Oops errors!'));
       },
-      onCancel() {},
+      onCancel() {
+      },
     });
   };
   return (
@@ -182,18 +167,21 @@ const BoxesPage: React.FC = () => {
           <Text keyboard strong>{selectedDay}</Text>
         </>
       </Button>
-      <Button style={{marginLeft: 20}} size={"large"} onClick={() => generatePdfForPrint(true)} type="dashed" htmlType="submit">
+      <Button style={{marginLeft: 20}} size={"large"} onClick={() => generatePdfForPrint(true)} type="dashed"
+              htmlType="submit">
         <>
-          <Text style={{color: "green", fontWeight: "bold"}}>NEW ONLY ({boxes.filter(box => box.weekDay === selectedDay && box.boxStatus === BoxStatus.NEW).length})</Text>
+          <Text style={{color: "green", fontWeight: "bold"}}>NEW ONLY
+            ({boxes.filter(box => box.weekDay === selectedDay && box.boxStatus === BOX_STATUS.NEW).length})</Text>
         </>
       </Button>
       <Button style={{marginLeft: 20}} size={"large"} onClick={changeNewToPrinted} type="dashed" htmlType="submit">
         <>
-          <Text style={{color: "red", fontWeight: "bold"}}>SET NEW TO PRINTED ({boxes.filter(box => box.weekDay === selectedDay && box.boxStatus === BoxStatus.NEW).length})</Text>
+          <Text style={{color: "red", fontWeight: "bold"}}>SET NEW TO PRINTED
+            ({boxes.filter(box => box.weekDay === selectedDay && box.boxStatus === BOX_STATUS.NEW).length})</Text>
         </>
       </Button>
-      <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WeekDay)}>
-        {Object.values(WeekDay).map(weekDay => <TabPane
+      <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WEEK_DAY)}>
+        {Object.values(WEEK_DAY).map(weekDay => <TabPane
           tab={`${weekDay} (${boxes.filter(box => box.weekDay === weekDay).length})`} key={weekDay}/>)}
       </Tabs>
       {/*<Space>*/}

@@ -1,17 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
 import {Button, Col, Form, Input, Layout, Modal, Row, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {
-  Category, ComponentProduct,
-  Department,
-  Product,
-  ProductAtWarehouse,
-  ProductFromSupplier,
-  Type,
-} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
+import {createProduct, fetchCategories, fetchDepartments, fetchProducts, fetchTypes} from "../../graphql/requests";
+import {Category, Department, Product, Type} from "../../API";
 
 const {confirm, error} = Modal;
 
@@ -33,56 +26,32 @@ const ProductsPage: React.FC = () => {
   const [searchName, setSearchName] = useState('');
   const [form] = Form.useForm();
 
-  const fetchProducts = async () => {
-    const fetchedProducts = await DataStore.query(Product);
+  const loadProducts = async () => {
+    const fetchedProducts = await fetchProducts();
     setProducts(fetchedProducts);
     setFilteredProducts(fetchedProducts)
   }
 
-  const fetchDepartments = async () => {
-    const fetchedDepartments = await DataStore.query(Department);
+  const loadDepartments = async () => {
+    const fetchedDepartments = await fetchDepartments();
     setDepartments(fetchedDepartments);
   }
 
-  const fetchCategories = async () => {
-    const fetchedCategories = await DataStore.query(Category);
+  const loadCategories = async () => {
+    const fetchedCategories = await fetchCategories();
     setCategories(fetchedCategories);
   }
 
-  const fetchTypes = async () => {
-    const fetchedTypes = await DataStore.query(Type);
+  const loadTypes = async () => {
+    const fetchedTypes = await fetchTypes();
     setTypes(fetchedTypes);
   }
 
   useEffect(() => {
-    fetchProducts();
-
-    const productsSubscription = DataStore.observe(Product).subscribe(async (message) => {
-      await fetchProducts();
-    });
-
-    fetchDepartments();
-    fetchCategories();
-    fetchTypes();
-
-    const departmentsSubscription = DataStore.observe(Department).subscribe(async (message) => {
-      await fetchDepartments();
-    });
-
-    const categoriesSubscription = DataStore.observe(Category).subscribe(async (message) => {
-      await fetchCategories();
-    });
-
-    const typesSubscription = DataStore.observe(Type).subscribe(async (message) => {
-      await fetchTypes();
-    });
-
-    return () => {
-      productsSubscription.unsubscribe();
-      departmentsSubscription.unsubscribe();
-      categoriesSubscription.unsubscribe();
-      typesSubscription.unsubscribe();
-    }
+    loadProducts();
+    loadDepartments();
+    loadCategories();
+    loadTypes();
   }, []);
 
   const nameFilter = (
@@ -133,50 +102,50 @@ const ProductsPage: React.FC = () => {
         return `${department?.name} => ${category?.name} => ${type?.name}`
       }
     },
-    {
-      title: 'Delete',
-      render: (value, record, index) => {
-        return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
-      }
-    }
+    // {
+    //   title: 'Delete',
+    //   render: (value, record, index) => {
+    //     return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
+    //   }
+    // }
   ];
 
-  const tryToDelete = async (product: Product) => {
-    const productsFromSupplier = (await DataStore.query(ProductFromSupplier)).filter(productFromSupplier => productFromSupplier.product.id === product.id);
-    const productsAtWarehouse = (await DataStore.query(ProductAtWarehouse)).filter(productAtWarehouse => productAtWarehouse.product.id === product.id);
-    const componentProducts = (await DataStore.query(ComponentProduct)).filter(componentProduct => componentProduct.product.id === product.id);
-    if (productsFromSupplier && productsFromSupplier.length > 0) {
-      error({
-        title: 'You cannot delete this product!',
-        content: `This product has ${productsFromSupplier.length} products for suppliers, remove products from suppliers first.`,
-      });
-    } else if (componentProducts && componentProducts.length > 0) {
-      error({
-        title: 'You cannot delete this product!',
-        content: `This product has ${componentProducts.length} products in components, remove products from components first.`,
-      });
-    } else if (productsAtWarehouse && productsAtWarehouse.length > 0) {
-      error({
-        title: 'You cannot delete this product!',
-        content: `This product has ${productsAtWarehouse.length} products at warehouses, remove products from warehouses first.`,
-      });
-    } else {
-      confirm({
-        title: 'Are you sure delete this product?',
-        icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-        content: `Delete product with name "${product.name}"`,
-        okText: 'Yes',
-        okType: 'danger',
-        cancelText: 'No',
-        async onOk() {
-          await DataStore.delete(Product, product.id);
-        },
-        onCancel() {
-          console.log('Cancel');
-        },
-      });
-    }
-  }
+  // const tryToDelete = async (product: Product) => {
+  //   const productsFromSupplier = (await DataStore.query(ProductFromSupplier)).filter(productFromSupplier => productFromSupplier.product.id === product.id);
+  //   const productsAtWarehouse = (await DataStore.query(ProductAtWarehouse)).filter(productAtWarehouse => productAtWarehouse.product.id === product.id);
+  //   const componentProducts = (await DataStore.query(ComponentProduct)).filter(componentProduct => componentProduct.product.id === product.id);
+  //   if (productsFromSupplier && productsFromSupplier.length > 0) {
+  //     error({
+  //       title: 'You cannot delete this product!',
+  //       content: `This product has ${productsFromSupplier.length} products for suppliers, remove products from suppliers first.`,
+  //     });
+  //   } else if (componentProducts && componentProducts.length > 0) {
+  //     error({
+  //       title: 'You cannot delete this product!',
+  //       content: `This product has ${componentProducts.length} products in components, remove products from components first.`,
+  //     });
+  //   } else if (productsAtWarehouse && productsAtWarehouse.length > 0) {
+  //     error({
+  //       title: 'You cannot delete this product!',
+  //       content: `This product has ${productsAtWarehouse.length} products at warehouses, remove products from warehouses first.`,
+  //     });
+  //   } else {
+  //     confirm({
+  //       title: 'Are you sure delete this product?',
+  //       icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+  //       content: `Delete product with name "${product.name}"`,
+  //       okText: 'Yes',
+  //       okType: 'danger',
+  //       cancelText: 'No',
+  //       async onOk() {
+  //         await DataStore.delete(Product, product.id);
+  //       },
+  //       onCancel() {
+  //         console.log('Cancel');
+  //       },
+  //     });
+  //   }
+  // }
 
   return (
     <Content>
@@ -234,7 +203,7 @@ const ProductsPage: React.FC = () => {
         </Form.Item>
         <Form.Item
           label="Category" name="category"
-                   rules={[{required: true, message: 'Please enter category!'}]}>
+          rules={[{required: true, message: 'Please enter category!'}]}>
           <Select
             disabled={!departmentId}
             placeholder="Select category"
@@ -275,15 +244,12 @@ const ProductsPage: React.FC = () => {
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             if (name && measurement && typeId) {
-              const type = types.find(type => type.id === typeId);
-              await DataStore.save(
-                new Product({
-                  name,
-                  measurement,
-                  typeID: typeId,
-                  type,
-                })
-              );
+              await createProduct({
+                measurement: measurement,
+                name: name,
+                productTypeId: typeId!,
+                typeID: typeId
+              })
             }
           }} type="primary" htmlType="submit">
             Create

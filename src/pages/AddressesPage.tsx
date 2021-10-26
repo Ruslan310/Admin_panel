@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
-import {Button, Col, Form, Input, InputNumber, Layout, Modal, Row, Select, Table, Typography} from 'antd';
-import {Address, Coordinate, WporderStatus} from "../models";
+import {Button, Col, Form, Input, Layout, Modal, Row, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {fullName, stringifyAddress} from "../utils/utils";
+import {stringifyAddress} from "../utils/utils";
+import {Address, Coordinate} from "../API";
+import {createAddress, fetchAddresses, fetchCoordinates, updateAddress, updateCoordinate} from "../graphql/requests";
 
 const {Content} = Layout;
 const width300 = {width: 300}
@@ -23,33 +23,19 @@ const AddressesPage: React.FC = () => {
   const [coordinateId, setCoordinateId] = useState();
   const [searchAddress, setSearchAddress] = useState('');
 
-  const fetchCoordinates = async () => {
-    const fetchedCoordinates = await DataStore.query(Coordinate);
+  const loadCoordinates = async () => {
+    const fetchedCoordinates = await fetchCoordinates();
     setCoordinates(fetchedCoordinates);
   }
 
-  const fetchAddresses = async () => {
-    const fetchedAddresses = await DataStore.query(Address);
+  const loadAddresses = async () => {
+    const fetchedAddresses = await fetchAddresses();
     setAddresses(fetchedAddresses);
-    setFilteredAddresses(fetchedAddresses)
   }
 
   useEffect(() => {
-    fetchCoordinates();
-    fetchAddresses();
-
-    const coordinatesSubscription = DataStore.observe(Coordinate).subscribe(async (message) => {
-      await fetchCoordinates();
-    });
-
-    const addressesSubscription = DataStore.observe(Address).subscribe(async (message) => {
-      await fetchAddresses();
-    });
-
-    return () => {
-      coordinatesSubscription.unsubscribe();
-      addressesSubscription.unsubscribe();
-    }
+    loadCoordinates();
+    loadAddresses();
   }, []);
 
   const addressFilter = (
@@ -99,14 +85,10 @@ const AddressesPage: React.FC = () => {
           filterOption={(input, option) =>
             option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
           }
-          value={record.coordinateID}
+          value={record.coordinateID!}
           style={width300}
           onSelect={async (value) => {
-            await DataStore.save(
-              Address.copyOf(record, updated => {
-                updated.coordinateID = value;
-              })
-            );
+            await updateAddress({_version: record._version, coordinateID: value, id: record.id});
           }}>
           {coordinates.map((coord) => <Select.Option key={coord.id}
                                                      value={coord.id}>{coord.name}</Select.Option>)}
@@ -133,13 +115,13 @@ const AddressesPage: React.FC = () => {
     }
   ];
 
-  const deleteAddress = async () => {
-    if (targetAddress) {
-      await DataStore.delete(Address, targetAddress.id);
-    }
-    setTargetAddress(undefined);
-    setDeleteConfirmationShow(false);
-  };
+  // const deleteAddress = async () => {
+  //   if (targetAddress) {
+  //     await DataStore.delete(Address, targetAddress.id);
+  //   }
+  //   setTargetAddress(undefined);
+  //   setDeleteConfirmationShow(false);
+  // };
 
   return (
     <>
@@ -202,15 +184,13 @@ const AddressesPage: React.FC = () => {
           <Form.Item wrapperCol={{offset: 4, span: 16}}>
             <Button onClick={async () => {
               if (address1) {
-                await DataStore.save(
-                  new Address({
-                    address1: address1,
-                    address2: address2,
-                    city: city,
-                    postCode: postCode,
-                    coordinateID: coordinateId,
-                  })
-                );
+                await createAddress({
+                  address1: address1,
+                  address2: address2,
+                  city: city,
+                  postCode: postCode,
+                  coordinateID: coordinateId,
+                });
               }
             }} type="primary" htmlType="submit">
               Create
@@ -231,17 +211,17 @@ const AddressesPage: React.FC = () => {
           dataSource={filteredAddresses}
         />
       </Content>
-      <Modal
-        title="Are sure you want to delete address?"
-        visible={isDeleteConfirmationShow}
-        onOk={deleteAddress}
-        onCancel={() => {
-          setTargetAddress(undefined);
-          setDeleteConfirmationShow(false);
-        }}
-      >
-        <p>You want to delete address "{stringifyAddress(targetAddress)}"</p>
-      </Modal>
+      {/*<Modal*/}
+      {/*  title="Are sure you want to delete address?"*/}
+      {/*  visible={isDeleteConfirmationShow}*/}
+      {/*  onOk={deleteAddress}*/}
+      {/*  onCancel={() => {*/}
+      {/*    setTargetAddress(undefined);*/}
+      {/*    setDeleteConfirmationShow(false);*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <p>You want to delete address "{stringifyAddress(targetAddress)}"</p>*/}
+      {/*</Modal>*/}
     </>
   )
 }

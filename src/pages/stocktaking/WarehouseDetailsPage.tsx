@@ -3,10 +3,10 @@ import React, {useEffect, useState} from 'react'
 import {ColumnsType} from "antd/es/table";
 import {useHistory, useParams} from 'react-router-dom';
 import {Button, Col, Form, Input, InputNumber, Layout, Modal, PageHeader, Row, Select, Table, Typography} from "antd";
-import {Product, ProductAtWarehouse, Warehouse} from "../../models";
-import {DataStore} from 'aws-amplify'
 import {CloseCircleOutlined} from "@ant-design/icons";
 import {MAX_QUANTITY} from "../../utils/utils";
+import {Product, ProductAtWarehouse, Warehouse} from "../../API";
+import {fetchProducts, fetchUser, fetchWarehouse} from "../../graphql/requests";
 
 const {confirm, error} = Modal;
 
@@ -29,41 +29,20 @@ const WarehouseDetailsPage: React.FC = () => {
   const [maxQuantity, setMaxQuantity] = useState<number>(MAX_QUANTITY)
   const history = useHistory();
 
-  const fetchWarehouseProducts = async () => {
-    const fetchedWarehouseProducts = (await DataStore.query(ProductAtWarehouse)).filter(product => product.warehouse.id === warehouseId);
-    setWarehouseProducts(fetchedWarehouseProducts);
-    setFilteredWarehouseProducts(fetchedWarehouseProducts);
-  }
-
-  const fetchProducts = async () => {
-    const fetchedProducts = await DataStore.query(Product);
+  const loadProducts = async () => {
+    const fetchedProducts = await fetchProducts();
     setProducts(fetchedProducts);
   }
 
-  const fetchCurrentWarehouse = async () => {
-    const fetchedWarehouse = await DataStore.query(Warehouse, warehouseId);
-    console.log(fetchedWarehouse)
+  const loadCurrentWarehouse = async () => {
+    const fetchedWarehouse = await fetchWarehouse(warehouseId);
     setWarehouse(fetchedWarehouse);
   }
 
   useEffect(() => {
-    fetchCurrentWarehouse();
-    fetchWarehouseProducts();
-    fetchProducts();
+    loadCurrentWarehouse();
+    loadProducts();
     setLoading(false);
-
-    const productsWarehouseSubscription = DataStore.observe(ProductAtWarehouse).subscribe(async (message) => {
-      await fetchWarehouseProducts();
-    });
-
-    const productsSubscription = DataStore.observe(Product).subscribe(async (message) => {
-      await fetchProducts();
-    });
-
-    return () => {
-      productsWarehouseSubscription.unsubscribe();
-      productsSubscription.unsubscribe();
-    }
   }, []);
 
   const nameFilter = (
@@ -126,30 +105,30 @@ const WarehouseDetailsPage: React.FC = () => {
       title: 'Max',
       dataIndex: 'maxQuantity'
     },
-    {
-      title: 'Delete',
-      render: (value, record, index) => {
-        return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
-      }
-    }
+    // {
+    //   title: 'Delete',
+    //   render: (value, record, index) => {
+    //     return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
+    //   }
+    // }
   ];
 
-  const tryToDelete = async (productAtWarehouse: ProductAtWarehouse) => {
-    confirm({
-      title: 'Are you sure delete this product for this warehouse?',
-      icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-      content: `Delete product with name "${productAtWarehouse.product.name}" from warehouse`,
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      async onOk() {
-        await DataStore.delete(ProductAtWarehouse, productAtWarehouse.id);
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
-  }
+  // const tryToDelete = async (productAtWarehouse: ProductAtWarehouse) => {
+  //   confirm({
+  //     title: 'Are you sure delete this product for this warehouse?',
+  //     icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+  //     content: `Delete product with name "${productAtWarehouse.product.name}" from warehouse`,
+  //     okText: 'Yes',
+  //     okType: 'danger',
+  //     cancelText: 'No',
+  //     async onOk() {
+  //       await DataStore.delete(ProductAtWarehouse, productAtWarehouse.id);
+  //     },
+  //     onCancel() {
+  //       console.log('Cancel');
+  //     },
+  //   });
+  // }
 
   return (
     <Content>
@@ -207,16 +186,16 @@ const WarehouseDetailsPage: React.FC = () => {
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             if (productId) {
-              const product = await DataStore.query(Product, productId);
-              await DataStore.save(
-                new ProductAtWarehouse({
-                  product,
-                  quantity,
-                  minQuantity,
-                  maxQuantity,
-                  warehouse,
-                })
-              );
+              console.log('create product in warehouse')
+              // await DataStore.save(
+              //   new ProductAtWarehouse({
+              //     product,
+              //     quantity,
+              //     minQuantity,
+              //     maxQuantity,
+              //     warehouse,
+              //   })
+              // );
             }
           }} type="primary" htmlType="submit">
             Create

@@ -7,16 +7,21 @@ import {
   Input,
   InputNumber,
   Layout,
-  message, Modal, PageHeader,
+  message, PageHeader,
   Select, Tag,
   Upload,
 } from 'antd';
-import {Component, ComponentProduct, ComponentType, PackageType, Product,} from "../../models";
 import {LoadingOutlined, PlusOutlined} from "@ant-design/icons";
 import {IMAGE_URL_PREFIX} from "../../utils/utils";
 import {RcFile} from "antd/es/upload";
 import {EURO, GRAM} from "../../constants";
 import {useHistory, useParams} from "react-router-dom";
+import {Component, COMPONENT_TYPE, PACKAGE_TYPE, Product} from "../../API";
+import {
+  fetchComponent,
+  fetchProducts,
+  updateComponent
+} from "../../graphql/requests";
 
 const {Content} = Layout;
 const {TextArea} = Input;
@@ -28,49 +33,28 @@ const ComponentsPage: React.FC = () => {
     componentId: string
   }>();
   const [currentComponent, setCurrentComponent] = useState<Component>();
-  const [componentProducts, setComponentProducts] = useState<ComponentProduct[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [picture, setPicture] = useState('');
   const [isLoadingImage, setLoadingImage] = useState(false);
   const [form] = Form.useForm();
   const history = useHistory();
 
-  const fetchCurrentComponent = async () => {
-    const fetchedComponent = await DataStore.query(Component, componentId);
+  const loadCurrentComponent = async () => {
+    const fetchedComponent = await fetchComponent(componentId);
     setCurrentComponent(fetchedComponent);
     if (fetchedComponent) {
-      fetchComponentProducts(fetchedComponent.id);
       setPicture(fetchedComponent.picture)
     }
   }
 
-  const fetchComponentProducts = async (componentId: string) => {
-    const allComponentProducts = await DataStore.query(ComponentProduct)
-    setComponentProducts([...allComponentProducts.filter(componentProduct => componentProduct.component.id === componentId)]);
-  }
-
-  const fetchProducts = async () => {
-    const fetchedProducts = await DataStore.query(Product);
+  const loadProducts = async () => {
+    const fetchedProducts = await fetchProducts();
     setProducts(fetchedProducts);
   }
 
   useEffect(() => {
-    fetchCurrentComponent();
-
-    fetchProducts();
-
-    const productsSubscription = DataStore.observe(Product).subscribe(async (message) => {
-      await fetchProducts();
-    });
-
-    const componentProductsSubscription = DataStore.observe(ComponentProduct).subscribe(async (message) => {
-      await fetchComponentProducts(componentId);
-    });
-
-    return () => {
-      productsSubscription.unsubscribe();
-      componentProductsSubscription.unsubscribe();
-    }
+    loadCurrentComponent();
+    loadProducts();
   }, []);
 
   const uploadButton = (
@@ -114,15 +98,15 @@ const ComponentsPage: React.FC = () => {
               initialValue={currentComponent.type}
               style={{display: 'inline-block', width: '37%'}}
             >
-              <Select<ComponentType>
+              <Select<COMPONENT_TYPE>
                 placeholder="Select component type"
                 showSearch
                 filterOption={(input, option) =>
                   option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
                 style={width300}>
-                {Object.values(ComponentType).map((type) => <Select.Option key={type}
-                                                                           value={type}>{type}</Select.Option>)}
+                {Object.values(COMPONENT_TYPE).map((type) => <Select.Option key={type}
+                                                                            value={type}>{type}</Select.Option>)}
               </Select>
             </Form.Item>
             <Form.Item
@@ -131,15 +115,15 @@ const ComponentsPage: React.FC = () => {
               rules={[{required: true, message: 'Please enter package type!'}]}
               style={{display: 'inline-block'}}
             >
-              <Select<PackageType>
+              <Select<PACKAGE_TYPE>
                 placeholder="Select package type"
                 showSearch
                 filterOption={(input, option) =>
                   option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
                 style={width300}>
-                {Object.values(PackageType).map((type) => <Select.Option key={type}
-                                                                         value={type}>{type}</Select.Option>)}
+                {Object.values(PACKAGE_TYPE).map((type) => <Select.Option key={type}
+                                                                          value={type}>{type}</Select.Option>)}
               </Select>
             </Form.Item>
           </Form.Item>
@@ -257,10 +241,12 @@ const ComponentsPage: React.FC = () => {
             label="Products"
             name="products"
           >
-            {componentProducts && componentProducts.map(componentProduct => {
-              return <Tag id={componentProduct.id} closable={componentProducts.length > 1} onClose={async () => {
-                await DataStore.delete(ComponentProduct, componentProduct.id)
-              }} color="green">{componentProduct.product.name}</Tag>
+            {currentComponent.products?.items && currentComponent.products?.items.map(componentProduct => {
+              return <Tag id={componentProduct!.id} closable={currentComponent.products!.items!.length > 1}
+                          onClose={async () => {
+                            // await DataStore.delete(ComponentProduct, componentProduct.id)
+                            console.log('remove product from component')
+                          }} color="green">{componentProduct!.product.name}</Tag>
             })}
             <Select
               placeholder="Select component type"
@@ -271,11 +257,10 @@ const ComponentsPage: React.FC = () => {
               onSelect={async (value) => {
                 const product = products.find(product => product.id === value);
                 if (product) {
-                  const newComponentProduct = await DataStore.save(new ComponentProduct({
-                    component: currentComponent,
-                    product: product,
-                  }));
-                  setComponentProducts([...componentProducts, newComponentProduct])
+                  // const newComponentProduct = await DataStore.save(new ComponentProduct({
+                  //   component: currentComponent,
+                  //   product: product,
+                  // }));
                 }
               }}
               style={width300}>
@@ -290,22 +275,24 @@ const ComponentsPage: React.FC = () => {
                 if (currentComponent) {
                   await form.validateFields();
                   message.loading({content: 'Saving component...', key});
-                  await DataStore.save(
-                    Component.copyOf(currentComponent, updated => {
-                      updated.calories = form.getFieldValue("calories");
-                      updated.carbons = form.getFieldValue("carbons");
-                      updated.fats = form.getFieldValue("fats");
-                      updated.name = form.getFieldValue("name");
-                      updated.packageType = form.getFieldValue("packageType");
-                      updated.picture = picture;
-                      updated.price = form.getFieldValue("price");
-                      updated.proteins = form.getFieldValue("proteins");
-                      updated.recipe = form.getFieldValue("recipe");
-                      updated.type = form.getFieldValue("componentType");
-                      updated.weightInGram = form.getFieldValue("weightInGram");
-                    })
+                  await updateComponent(
+                    {
+                      id: currentComponent.id,
+                      _version: currentComponent._version,
+                      calories: form.getFieldValue("calories"),
+                      carbons: form.getFieldValue("carbons"),
+                      fats: form.getFieldValue("fats"),
+                      name: form.getFieldValue("name"),
+                      packageType: form.getFieldValue("packageType"),
+                      picture: picture,
+                      price: form.getFieldValue("price"),
+                      proteins: form.getFieldValue("proteins"),
+                      recipe: form.getFieldValue("recipe"),
+                      type: form.getFieldValue("componentType"),
+                      weightInGram: form.getFieldValue("weightInGram")
+                    }
                   );
-                  await fetchCurrentComponent();
+                  await loadCurrentComponent();
                   message.success({content: 'Component successfully saved!', key, duration: 2});
                 }
               } catch (e) {

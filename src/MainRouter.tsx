@@ -52,29 +52,9 @@ const {SubMenu} = Menu;
 
 const MainRouter: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false)
-  const [isSyncing, setSyncing] = useState(true)
 
   const onCollapse = () => {
     setCollapsed(!collapsed)
-  }
-
-  useEffect(() => {
-    console.log('useEffect router')
-    DataStore.start();
-    const listener = Hub.listen("datastore", async hubData => {
-      const {event, data} = hubData.payload;
-      console.log(event)
-      if (event === "ready") {
-        setSyncing(false)
-      }
-    })
-    return () => {
-      listener();
-    }
-  }, [])
-
-  if (isSyncing) {
-    return <CustomSpinner/>
   }
 
   const path = window.location.pathname.replace(new RegExp("/(\\w*)"), "$1")

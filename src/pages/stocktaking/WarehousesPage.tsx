@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
 import {Button, Form, Input, Layout, Modal, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {Address, Coordinate, ProductAtWarehouse, ProductFromSupplier, Warehouse} from "../../models";
 import {googleMapLink, stringifyAddress} from "../../utils/utils";
 import {CloseCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
+import {Address, Coordinate, Warehouse} from "../../API";
+import {createWarehouse, fetchAddresses, fetchCoordinates, fetchWarehouses} from "../../graphql/requests";
 
 const {confirm, error} = Modal;
 
@@ -22,44 +22,25 @@ const WarehousesPage: React.FC = () => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
 
-  const fetchWarehouses = async () => {
-    const fetchedWarehouses = await DataStore.query(Warehouse);
-    console.log('warehoueses:', warehouses);
+  const loadWarehouses = async () => {
+    const fetchedWarehouses = await fetchWarehouses();
     setWarehouses(fetchedWarehouses);
   }
 
-  const fetchAddresses = async () => {
-    const fetchedAddresses = await DataStore.query(Address);
+  const loadAddresses = async () => {
+    const fetchedAddresses = await fetchAddresses();
     setAddresses(fetchedAddresses);
   }
 
-  const fetchCoordinates = async () => {
-    const fetchedCoordinates = await DataStore.query(Coordinate);
+  const loadCoordinates = async () => {
+    const fetchedCoordinates = await fetchCoordinates();
     setCoordinates(fetchedCoordinates);
   }
 
   useEffect(() => {
-    fetchWarehouses();
-    fetchAddresses();
-    fetchCoordinates();
-
-    const warehousesSubscription = DataStore.observe(Warehouse).subscribe(async (message) => {
-      await fetchWarehouses();
-    });
-
-    const addressesSubscription = DataStore.observe(Address).subscribe(async (message) => {
-      await fetchAddresses();
-    });
-
-    const coordinatesSubscription = DataStore.observe(Coordinate).subscribe(async (message) => {
-      await fetchCoordinates();
-    });
-
-    return () => {
-      warehousesSubscription.unsubscribe();
-      addressesSubscription.unsubscribe();
-      coordinatesSubscription.unsubscribe();
-    }
+    loadWarehouses();
+    loadAddresses();
+    loadCoordinates();
   }, []);
 
   const columns: ColumnsType<Warehouse> = [
@@ -91,38 +72,38 @@ const WarehousesPage: React.FC = () => {
         return;
       },
     },
-    {
-      title: 'Delete',
-      render: (value, record, index) => {
-        return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
-      }
-    }
+    // {
+    //   title: 'Delete',
+    //   render: (value, record, index) => {
+    //     return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
+    //   }
+    // }
   ];
 
-  const tryToDelete = async (warehouse: Warehouse) => {
-    const warehouseProducts = (await DataStore.query(ProductAtWarehouse)).filter(productAtWarehouse => productAtWarehouse.warehouse.id === warehouse.id);
-    if (warehouseProducts && warehouseProducts.length > 0) {
-      error({
-        title: 'You cannot delete this warehouse!',
-        content: `This warehouse has ${warehouseProducts.length} products, remove products first.`,
-      });
-    } else {
-      confirm({
-        title: 'Are you sure delete this warehouse?',
-        icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-        content: `Delete warehouse with name "${warehouse.name}"`,
-        okText: 'Yes',
-        okType: 'danger',
-        cancelText: 'No',
-        async onOk() {
-          await DataStore.delete(Warehouse, warehouse.id);
-        },
-        onCancel() {
-          console.log('Cancel');
-        },
-      });
-    }
-  }
+  // const tryToDelete = async (warehouse: Warehouse) => {
+  //   const warehouseProducts = (await DataStore.query(ProductAtWarehouse)).filter(productAtWarehouse => productAtWarehouse.warehouse.id === warehouse.id);
+  //   if (warehouseProducts && warehouseProducts.length > 0) {
+  //     error({
+  //       title: 'You cannot delete this warehouse!',
+  //       content: `This warehouse has ${warehouseProducts.length} products, remove products first.`,
+  //     });
+  //   } else {
+  //     confirm({
+  //       title: 'Are you sure delete this warehouse?',
+  //       icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+  //       content: `Delete warehouse with name "${warehouse.name}"`,
+  //       okText: 'Yes',
+  //       okType: 'danger',
+  //       cancelText: 'No',
+  //       async onOk() {
+  //         await DataStore.delete(Warehouse, warehouse.id);
+  //       },
+  //       onCancel() {
+  //         console.log('Cancel');
+  //       },
+  //     });
+  //   }
+  // }
 
   return (
     <Content>
@@ -168,13 +149,10 @@ const WarehousesPage: React.FC = () => {
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             if (name && addressId) {
-              const address = await DataStore.query(Address, addressId);
-              await DataStore.save(
-                new Warehouse({
-                  name: name,
-                  address: address,
-                })
-              );
+              await createWarehouse({
+                name: name,
+                warehouseAddressId: addressId,
+              })
             }
           }} type="primary" htmlType="submit">
             Create

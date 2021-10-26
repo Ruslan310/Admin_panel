@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
 import {
   Button,
@@ -13,10 +12,11 @@ import {
   Spin,
   Table, Typography,
 } from 'antd';
-import {Address, Coordinate} from "../models";
 import {ColumnsType} from "antd/es/table";
 import {googleMapLink, stringifyAddress} from "../utils/utils";
 import ManyPointsMapComponent from "../components/ManyPointsMapComponent";
+import {Coordinate} from "../API";
+import {createCoordinate, fetchCoordinates} from "../graphql/requests";
 
 const {Content} = Layout;
 const {Title} = Typography;
@@ -37,22 +37,16 @@ const CoordinatesPage: React.FC = () => {
   const [longitude, setLongitude] = useState(0.000000);
   const [isLoadingAddresses, setLoadingAddresses] = useState(false)
 
-  const fetchCoordinates = async () => {
-    const fetchedCoordinates = await DataStore.query(Coordinate);
+  const loadCoordinates = async () => {
+    const fetchedCoordinates = await fetchCoordinates();
     setCoordinates(fetchedCoordinates);
   }
 
   useEffect(() => {
     setLoading(true);
-    fetchCoordinates();
-    const coordinatesSubscription = DataStore.observe(Coordinate).subscribe(async (message) => {
-      await fetchCoordinates();
-    });
+    loadCoordinates();
 
     setLoading(false);
-    return () => {
-      coordinatesSubscription.unsubscribe();
-    }
 
   }, []);
 
@@ -91,53 +85,53 @@ const CoordinatesPage: React.FC = () => {
     }
   ];
 
-  const deleteCoordinate = async () => {
-    if (targetCoordinate) {
-      const addresses = await DataStore.query(Address, address => address.coordinateID("eq", targetCoordinate.id))
-      if (addresses) {
-        for (const address of addresses) {
-          await DataStore.save(
-            Address.copyOf(address, updated => {
-              updated.coordinateID = undefined;
-            })
-          );
-        }
-      }
-      await DataStore.delete(Coordinate, targetCoordinate.id);
-    }
-    setTargetCoordinate(undefined);
-    setDeleteConfirmationShow(false);
-  };
+  // const deleteCoordinate = async () => {
+  //   if (targetCoordinate) {
+  //     const addresses = await DataStore.query(Address, address => address.coordinateID("eq", targetCoordinate.id))
+  //     if (addresses) {
+  //       for (const address of addresses) {
+  //         await DataStore.save(
+  //           Address.copyOf(address, updated => {
+  //             updated.coordinateID = undefined;
+  //           })
+  //         );
+  //       }
+  //     }
+  //     await DataStore.delete(Coordinate, targetCoordinate.id);
+  //   }
+  //   setTargetCoordinate(undefined);
+  //   setDeleteConfirmationShow(false);
+  // };
 
-  const editCoordinate = async () => {
-    if (targetCoordinate && editedName) {
-      await DataStore.save(
-        Coordinate.copyOf(targetCoordinate, updated => {
-          updated.name = editedName;
-          updated.latitude = editedLatitude;
-          updated.longitude = editedLongitude;
-        })
-      );
-      setTargetCoordinate(undefined);
-      setEditShow(false);
-    }
-  };
+  // const editCoordinate = async () => {
+  //   if (targetCoordinate && editedName) {
+  //     await DataStore.save(
+  //       Coordinate.copyOf(targetCoordinate, updated => {
+  //         updated.name = editedName;
+  //         updated.latitude = editedLatitude;
+  //         updated.longitude = editedLongitude;
+  //       })
+  //     );
+  //     setTargetCoordinate(undefined);
+  //     setEditShow(false);
+  //   }
+  // };
 
-  const loadAddresses = async (coordinateId: string): Promise<void> => {
-    setLoadingAddresses(true);
-    const loadedAddresses = await DataStore.query(Address, address => address.coordinateID("eq", coordinateId))
-    const targetCoordinate = coordinates.find(coordinate => coordinate.id === coordinateId);
-    if (targetCoordinate) {
-      const targetIndex = coordinates.indexOf(targetCoordinate);
-      const newCoordinate = Coordinate.copyOf(targetCoordinate, updated => {
-        updated.coordinateAddresses = loadedAddresses;
-      })
-      const filteredCoordinates = coordinates.filter(coordinate => coordinate.id !== coordinateId);
-      filteredCoordinates.splice(targetIndex, 0, newCoordinate);
-      setCoordinates([...filteredCoordinates]);
-    }
-    setLoadingAddresses(false);
-  }
+  // const loadAddresses = async (coordinateId: string): Promise<void> => {
+  //   setLoadingAddresses(true);
+  //   const loadedAddresses = await DataStore.query(Address, address => address.coordinateID("eq", coordinateId))
+  //   const targetCoordinate = coordinates.find(coordinate => coordinate.id === coordinateId);
+  //   if (targetCoordinate) {
+  //     const targetIndex = coordinates.indexOf(targetCoordinate);
+  //     const newCoordinate = Coordinate.copyOf(targetCoordinate, updated => {
+  //       updated.coordinateAddresses = loadedAddresses;
+  //     })
+  //     const filteredCoordinates = coordinates.filter(coordinate => coordinate.id !== coordinateId);
+  //     filteredCoordinates.splice(targetIndex, 0, newCoordinate);
+  //     setCoordinates([...filteredCoordinates]);
+  //   }
+  //   setLoadingAddresses(false);
+  // }
 
   const renderMaps = () => {
     if (isLoading || coordinates.length === 0) return null;
@@ -155,91 +149,91 @@ const CoordinatesPage: React.FC = () => {
 
   return (
     <>
-      <Modal
-        title="Are sure you want to delete coordinate?"
-        visible={isDeleteConfirmationShow}
-        onOk={deleteCoordinate}
-        onCancel={() => {
-          setTargetCoordinate(undefined);
-          setDeleteConfirmationShow(false);
-        }}
-      >
-        <p>You want to delete coordinate with name "{targetCoordinate?.name}"</p>
-      </Modal>
-      <Modal
-        title="Edit coordinates"
-        visible={isEditShow}
-        onOk={editCoordinate}
-        onCancel={() => {
-          setTargetCoordinate(undefined);
-          setEditShow(false);
-        }}
-      >
-        <Form
-          labelCol={{span: 4}}
-          wrapperCol={{span: 14}}
-          layout="horizontal"
-        >
-          <Form.Item label="Edit name">
-            <Input style={width300} value={editedName} onChange={(e) => {
-              setEditedName(e.target.value)
-            }}/>
-          </Form.Item>
-          <Form.Item label="Map link">
-            <Input
-              style={width300}
-              onChange={(e) => {
-                if (e.target.value.includes('google.com')) {
-                  const latReg = new RegExp("@(-?[\\d.]*)")
-                  const latGroups = latReg.exec(e.target.value);
-                  if (latGroups) {
-                    setEditedLatitude(parseFloat(latGroups[1]))
-                  }
-                  const lonReg = new RegExp("@[-?\\d.]*,([-?\\d.]*)")
-                  const lonGroups = lonReg.exec(e.target.value);
-                  if (lonGroups) {
-                    setEditedLongitude(parseFloat(lonGroups[1]))
-                  }
-                } else if (e.target.value.includes('2gis')) {
-                  let allReg = new RegExp("\\/(\\d+[.]\\d+)%2C(\\d+.\\d+)[?]m=")
-                  const groups = allReg.exec(e.target.value);
-                  if (groups) {
-                    setEditedLatitude(parseFloat(groups[2]))
-                    setEditedLongitude(parseFloat(groups[1]))
-                  } else {
-                    let allReg = new RegExp("m=(\\d+[.]\\d+)%2C(\\d+.\\d+)")
-                    const groups = allReg.exec(e.target.value);
-                    if (groups) {
-                      setEditedLatitude(parseFloat(groups[2]))
-                      setEditedLongitude(parseFloat(groups[1]))
-                    }
-                  }
-                }
-              }}
-            />
-          </Form.Item>
-          <Form.Item label="latitude">
-            <InputNumber<number>
-              style={width300}
-              value={editedLatitude}
-              min={-50}
-              max={50}
-              step={0.000001}
-              onChange={(value) => setEditedLatitude(value)}
-            />
-          </Form.Item>
-          <Form.Item label="longitude">
-            <InputNumber<number>
-              style={width300}
-              value={editedLongitude}
-              min={-50}
-              max={50}
-              step={0.000001}
-              onChange={(value) => setEditedLongitude(value)}
-            />
-          </Form.Item>
-        </Form>
-      </Modal>
+      {/*<Modal*/}
+      {/*  title="Are sure you want to delete coordinate?"*/}
+      {/*  visible={isDeleteConfirmationShow}*/}
+      {/*  onOk={deleteCoordinate}*/}
+      {/*  onCancel={() => {*/}
+      {/*    setTargetCoordinate(undefined);*/}
+      {/*    setDeleteConfirmationShow(false);*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <p>You want to delete coordinate with name "{targetCoordinate?.name}"</p>*/}
+      {/*</Modal>*/}
+      {/*<Modal*/}
+      {/*  title="Edit coordinates"*/}
+      {/*  visible={isEditShow}*/}
+      {/*  onOk={editCoordinate}*/}
+      {/*  onCancel={() => {*/}
+      {/*    setTargetCoordinate(undefined);*/}
+      {/*    setEditShow(false);*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <Form*/}
+      {/*    labelCol={{span: 4}}*/}
+      {/*    wrapperCol={{span: 14}}*/}
+      {/*    layout="horizontal"*/}
+      {/*  >*/}
+      {/*    <Form.Item label="Edit name">*/}
+      {/*      <Input style={width300} value={editedName} onChange={(e) => {*/}
+      {/*        setEditedName(e.target.value)*/}
+      {/*      }}/>*/}
+      {/*    </Form.Item>*/}
+      {/*    <Form.Item label="Map link">*/}
+      {/*      <Input*/}
+      {/*        style={width300}*/}
+      {/*        onChange={(e) => {*/}
+      {/*          if (e.target.value.includes('google.com')) {*/}
+      {/*            const latReg = new RegExp("@(-?[\\d.]*)")*/}
+      {/*            const latGroups = latReg.exec(e.target.value);*/}
+      {/*            if (latGroups) {*/}
+      {/*              setEditedLatitude(parseFloat(latGroups[1]))*/}
+      {/*            }*/}
+      {/*            const lonReg = new RegExp("@[-?\\d.]*,([-?\\d.]*)")*/}
+      {/*            const lonGroups = lonReg.exec(e.target.value);*/}
+      {/*            if (lonGroups) {*/}
+      {/*              setEditedLongitude(parseFloat(lonGroups[1]))*/}
+      {/*            }*/}
+      {/*          } else if (e.target.value.includes('2gis')) {*/}
+      {/*            let allReg = new RegExp("\\/(\\d+[.]\\d+)%2C(\\d+.\\d+)[?]m=")*/}
+      {/*            const groups = allReg.exec(e.target.value);*/}
+      {/*            if (groups) {*/}
+      {/*              setEditedLatitude(parseFloat(groups[2]))*/}
+      {/*              setEditedLongitude(parseFloat(groups[1]))*/}
+      {/*            } else {*/}
+      {/*              let allReg = new RegExp("m=(\\d+[.]\\d+)%2C(\\d+.\\d+)")*/}
+      {/*              const groups = allReg.exec(e.target.value);*/}
+      {/*              if (groups) {*/}
+      {/*                setEditedLatitude(parseFloat(groups[2]))*/}
+      {/*                setEditedLongitude(parseFloat(groups[1]))*/}
+      {/*              }*/}
+      {/*            }*/}
+      {/*          }*/}
+      {/*        }}*/}
+      {/*      />*/}
+      {/*    </Form.Item>*/}
+      {/*    <Form.Item label="latitude">*/}
+      {/*      <InputNumber<number>*/}
+      {/*        style={width300}*/}
+      {/*        value={editedLatitude}*/}
+      {/*        min={-50}*/}
+      {/*        max={50}*/}
+      {/*        step={0.000001}*/}
+      {/*        onChange={(value) => setEditedLatitude(value)}*/}
+      {/*      />*/}
+      {/*    </Form.Item>*/}
+      {/*    <Form.Item label="longitude">*/}
+      {/*      <InputNumber<number>*/}
+      {/*        style={width300}*/}
+      {/*        value={editedLongitude}*/}
+      {/*        min={-50}*/}
+      {/*        max={50}*/}
+      {/*        step={0.000001}*/}
+      {/*        onChange={(value) => setEditedLongitude(value)}*/}
+      {/*      />*/}
+      {/*    </Form.Item>*/}
+      {/*  </Form>*/}
+      {/*</Modal>*/}
       <Content>
         <Title>Coordinates ({coordinates.length})</Title>
         <Form
@@ -311,13 +305,11 @@ const CoordinatesPage: React.FC = () => {
           <Form.Item wrapperCol={{offset: 4, span: 16}}>
             <Button onClick={async () => {
               if (name) {
-                await DataStore.save(
-                  new Coordinate({
-                    latitude: latitude,
-                    longitude: longitude,
-                    name: name,
-                  })
-                );
+                await createCoordinate({
+                  latitude: latitude,
+                  longitude: longitude,
+                  name: name,
+                })
               }
             }} type="primary" htmlType="submit">
               Create
@@ -336,17 +328,17 @@ const CoordinatesPage: React.FC = () => {
               } else {
                 return <List
                   size="small"
-                  dataSource={record.coordinateAddresses}
+                  dataSource={record.coordinateAddresses?.items || []}
                   renderItem={item => <List.Item>{stringifyAddress(item)}</List.Item>}
                 />
               }
             },
             rowExpandable: record => true,
-            onExpand: async (expanded, record) => {
-              if (expanded) {
-                await loadAddresses(record.id)
-              }
-            }
+            // onExpand: async (expanded, record) => {
+            //   if (expanded) {
+            //     await loadAddresses(record.id)
+            //   }
+            // }
           }}
         />
         <Divider/>

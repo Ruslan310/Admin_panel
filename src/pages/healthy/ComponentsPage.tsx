@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore, Storage} from 'aws-amplify'
+import {Storage} from 'aws-amplify'
 
 import {
   Button,
@@ -18,12 +18,19 @@ import {
   Image, Spin, Descriptions, Tag
 } from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {Component, ComponentProduct, ComponentType, DishComponent, PackageType, Product,} from "../../models";
 import {CloseCircleOutlined, LoadingOutlined, PlusOutlined} from "@ant-design/icons";
 import {IMAGE_URL_PREFIX} from "../../utils/utils";
 import {RcFile} from "antd/es/upload";
 import {EURO, GRAM} from "../../constants";
 import {useHistory} from "react-router-dom";
+import {Component, COMPONENT_TYPE, ComponentProduct, PACKAGE_TYPE, Product} from "../../API";
+import {
+  createComponent,
+  createComponentProduct,
+  fetchComponent,
+  fetchComponents,
+  fetchProducts
+} from "../../graphql/requests";
 
 const {confirm, error} = Modal;
 
@@ -39,47 +46,24 @@ const ComponentsPage: React.FC = () => {
   const [picture, setPicture] = useState('');
   const [searchName, setSearchName] = useState('');
   const [isLoadingImage, setLoadingImage] = useState(false);
-  const [isLoadingProducts, setLoadingProducts] = useState(false);
-  const [componentProducts, setComponentProducts] = useState<ComponentProduct[]>([]);
   const [form] = Form.useForm();
   const history = useHistory();
 
-  const fetchComponents = async () => {
-    const fetchedComponents = await DataStore.query(Component);
+  const loadComponents = async () => {
+    const fetchedComponents = await fetchComponents();
     setComponents(fetchedComponents);
     setFilteredComponents(fetchedComponents)
   }
 
-  const fetchProducts = async () => {
-    const fetchedProducts = await DataStore.query(Product);
+  const loadProducts = async () => {
+    const fetchedProducts = await fetchProducts();
     setProducts(fetchedProducts);
   }
 
   useEffect(() => {
-    fetchComponents();
-
-    const componentsSubscription = DataStore.observe(Component).subscribe(async (message) => {
-      await fetchComponents();
-    });
-
-    fetchProducts();
-
-    const productsSubscription = DataStore.observe(Product).subscribe(async (message) => {
-      await fetchProducts();
-    });
-
-    return () => {
-      componentsSubscription.unsubscribe();
-      productsSubscription.unsubscribe();
-    }
+    loadComponents();
+    loadProducts();
   }, []);
-
-  const loadComponentProducts = async (componentId: string) => {
-    setLoadingProducts(true);
-    const allComponentProducts = await DataStore.query(ComponentProduct)
-    setComponentProducts([...allComponentProducts.filter(componentProduct => componentProduct.component.id === componentId)]);
-    setLoadingProducts(false);
-  }
 
   const nameFilter = (
     <Row>
@@ -141,45 +125,46 @@ const ComponentsPage: React.FC = () => {
     {
       title: 'Edit',
       render: (value, record, index) => {
-        return <Button type={'primary'} onClick={() => history.push("/healthy/componentDetails/" + record.id)}>Edit</Button>
+        return <Button type={'primary'}
+                       onClick={() => history.push("/healthy/componentDetails/" + record.id)}>Edit</Button>
       }
     },
-    {
-      title: 'Delete',
-      render: (value, record, index) => {
-        return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
-      }
-    }
+    // {
+    //   title: 'Delete',
+    //   render: (value, record, index) => {
+    //     return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
+    //   }
+    // }
   ];
 
-  const tryToDelete = async (component: Component) => {
-    const dishes = (await DataStore.query(DishComponent)).filter(dishComponent => dishComponent.component.id === component.id)
-    if (dishes && dishes.length > 0) {
-      error({
-        title: 'You cannot delete this component!',
-        content: `This component is part of the ${dishes.length} dishes, remove dishes first.`,
-      });
-    } else {
-      confirm({
-        title: 'Are you sure delete this component?',
-        icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-        content: `Delete component with name "${component.name}"`,
-        okText: 'Yes',
-        okType: 'danger',
-        cancelText: 'No',
-        async onOk() {
-          const componentProducts = (await DataStore.query(ComponentProduct)).filter(componentProduct => componentProduct.component.id === component.id);
-          for (const componentProduct of componentProducts) {
-            await DataStore.delete(ComponentProduct, componentProduct.id)
-          }
-          await DataStore.delete(Component, component.id);
-        },
-        onCancel() {
-          console.log('Cancel');
-        },
-      });
-    }
-  }
+  // const tryToDelete = async (component: Component) => {
+  //   const dishes = (await DataStore.query(DishComponent)).filter(dishComponent => dishComponent.component.id === component.id)
+  //   if (dishes && dishes.length > 0) {
+  //     error({
+  //       title: 'You cannot delete this component!',
+  //       content: `This component is part of the ${dishes.length} dishes, remove dishes first.`,
+  //     });
+  //   } else {
+  //     confirm({
+  //       title: 'Are you sure delete this component?',
+  //       icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+  //       content: `Delete component with name "${component.name}"`,
+  //       okText: 'Yes',
+  //       okType: 'danger',
+  //       cancelText: 'No',
+  //       async onOk() {
+  //         const componentProducts = (await DataStore.query(ComponentProduct)).filter(componentProduct => componentProduct.component.id === component.id);
+  //         for (const componentProduct of componentProducts) {
+  //           await DataStore.delete(ComponentProduct, componentProduct.id)
+  //         }
+  //         await DataStore.delete(Component, component.id);
+  //       },
+  //       onCancel() {
+  //         console.log('Cancel');
+  //       },
+  //     });
+  //   }
+  // }
 
   const uploadButton = (
     <div>
@@ -211,15 +196,15 @@ const ComponentsPage: React.FC = () => {
             rules={[{required: true, message: 'Please enter component type!'}]}
             style={{display: 'inline-block', width: '37%'}}
           >
-            <Select<ComponentType>
+            <Select<COMPONENT_TYPE>
               placeholder="Select component type"
               showSearch
               filterOption={(input, option) =>
                 option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
               style={width300}>
-              {Object.values(ComponentType).map((type) => <Select.Option key={type}
-                                                                         value={type}>{type}</Select.Option>)}
+              {Object.values(COMPONENT_TYPE).map((type) => <Select.Option key={type}
+                                                                          value={type}>{type}</Select.Option>)}
             </Select>
           </Form.Item>
           <Form.Item
@@ -227,15 +212,15 @@ const ComponentsPage: React.FC = () => {
             rules={[{required: true, message: 'Please enter package type!'}]}
             style={{display: 'inline-block'}}
           >
-            <Select<PackageType>
+            <Select<PACKAGE_TYPE>
               placeholder="Select package type"
               showSearch
               filterOption={(input, option) =>
                 option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
               style={width300}>
-              {Object.values(PackageType).map((type) => <Select.Option key={type}
-                                                                       value={type}>{type}</Select.Option>)}
+              {Object.values(PACKAGE_TYPE).map((type) => <Select.Option key={type}
+                                                                        value={type}>{type}</Select.Option>)}
             </Select>
           </Form.Item>
         </Form.Item>
@@ -364,8 +349,7 @@ const ComponentsPage: React.FC = () => {
           <Button onClick={async () => {
             try {
               await form.validateFields();
-              const addedComponent = await DataStore.save(
-                new Component({
+                const addedComponent = await createComponent({
                   calories: form.getFieldValue("calories"),
                   carbons: form.getFieldValue("carbons"),
                   fats: form.getFieldValue("fats"),
@@ -378,14 +362,15 @@ const ComponentsPage: React.FC = () => {
                   type: form.getFieldValue("componentType"),
                   weightInGram: form.getFieldValue("weightInGram")
                 })
-              );
               for (const addedProductId of form.getFieldValue("products")) {
                 const product = products.find(product => product.id === addedProductId);
                 if (product) {
-                  await DataStore.save(new ComponentProduct({
-                    component: addedComponent,
-                    product,
-                  }));
+                  await createComponentProduct({
+                    componentID: addedComponent.id,
+                    componentProductComponentId: addedComponent.id,
+                    componentProductProductId: product.id,
+                    productID: product.id
+                  });
                 }
               }
               form.resetFields();
@@ -401,30 +386,21 @@ const ComponentsPage: React.FC = () => {
       <Table
         expandable={{
           expandedRowRender: record => {
-            if (isLoadingProducts) {
-              return <Spin size="large"/>
-            } else {
-              return <Descriptions title="Component details">
-                <Descriptions.Item label="Products">{componentProducts.map(componentProduct => {
-                  return <Tag color="green">{componentProduct.product.name}</Tag>
-                })}</Descriptions.Item>
-                <Descriptions.Item label="Calories">{record.calories}</Descriptions.Item>
-                <Descriptions.Item label="Carbons">{record.carbons}</Descriptions.Item>
-                <Descriptions.Item label="Fats">{record.fats}</Descriptions.Item>
-                <Descriptions.Item label="Package type">{record.packageType}</Descriptions.Item>
-                <Descriptions.Item label="Proteins">{record.proteins}</Descriptions.Item>
-                <Descriptions.Item label="Recipe">{record.recipe}</Descriptions.Item>
-                <Descriptions.Item label="Component type">{record.type}</Descriptions.Item>
-                <Descriptions.Item label="Weight in gram">{record.weightInGram}</Descriptions.Item>
-              </Descriptions>
-            }
+            return <Descriptions title="Component details">
+              <Descriptions.Item label="Products">{record.products!.items!.map(componentProduct => {
+                return <Tag color="green">{componentProduct!.product.name}</Tag>
+              })}</Descriptions.Item>
+              <Descriptions.Item label="Calories">{record.calories}</Descriptions.Item>
+              <Descriptions.Item label="Carbons">{record.carbons}</Descriptions.Item>
+              <Descriptions.Item label="Fats">{record.fats}</Descriptions.Item>
+              <Descriptions.Item label="Package type">{record.packageType}</Descriptions.Item>
+              <Descriptions.Item label="Proteins">{record.proteins}</Descriptions.Item>
+              <Descriptions.Item label="Recipe">{record.recipe}</Descriptions.Item>
+              <Descriptions.Item label="Component type">{record.type}</Descriptions.Item>
+              <Descriptions.Item label="Weight in gram">{record.weightInGram}</Descriptions.Item>
+            </Descriptions>
           },
           rowExpandable: record => true,
-          onExpand: async (expanded, record) => {
-            if (expanded) {
-              await loadComponentProducts(record.id)
-            }
-          }
         }}
         size={"middle"}
         rowKey="id"

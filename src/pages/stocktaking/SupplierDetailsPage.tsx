@@ -3,9 +3,9 @@ import React, {useEffect, useState} from 'react'
 import {ColumnsType} from "antd/es/table";
 import {useHistory, useParams} from 'react-router-dom';
 import {Button, Col, Form, Input, InputNumber, Layout, Modal, PageHeader, Row, Select, Table, Typography} from "antd";
-import {Product, ProductFromSupplier, Supplier} from "../../models";
-import {DataStore} from 'aws-amplify'
 import {CloseCircleOutlined} from "@ant-design/icons";
+import {Product, ProductFromSupplier, Supplier} from "../../API";
+import {fetchProducts, fetchSupplier} from "../../graphql/requests";
 
 const {confirm, error} = Modal;
 
@@ -16,7 +16,6 @@ const SupplierDetailsPage: React.FC = () => {
   const {supplierId} = useParams<{
     supplierId: string
   }>();
-  const [supplierProducts, setSupplierProducts] = useState<ProductFromSupplier[]>([]);
   const [filteredSupplierProducts, setFilteredSupplierProducts] = useState<ProductFromSupplier[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [productId, setProductId] = useState('');
@@ -27,41 +26,20 @@ const SupplierDetailsPage: React.FC = () => {
   const [price, setPrice] = useState<number>();
   const history = useHistory();
 
-  const fetchSupplierProducts = async () => {
-    const fetchedSupplierProducts = (await DataStore.query(ProductFromSupplier)).filter(product => product.supplier.id === supplierId);
-    setSupplierProducts(fetchedSupplierProducts);
-    setFilteredSupplierProducts(fetchedSupplierProducts);
-  }
-
-  const fetchProducts = async () => {
-    const fetchedProducts = await DataStore.query(Product);
+  const loadProducts = async () => {
+    const fetchedProducts = await fetchProducts();
     setProducts(fetchedProducts);
   }
 
-  const fetchCurrentSupplier = async () => {
-    const fetchedSupplier = await DataStore.query(Supplier, supplierId);
-    console.log(fetchedSupplier)
+  const loadCurrentSupplier = async () => {
+    const fetchedSupplier = await fetchSupplier(supplierId);
     setSupplier(fetchedSupplier);
   }
 
   useEffect(() => {
-    fetchCurrentSupplier();
-    fetchSupplierProducts();
-    fetchProducts();
+    loadCurrentSupplier();
+    loadProducts();
     setLoading(false);
-
-    const productsSupplierSubscription = DataStore.observe(ProductFromSupplier).subscribe(async (message) => {
-      await fetchSupplierProducts();
-    });
-
-    const productsSubscription = DataStore.observe(Product).subscribe(async (message) => {
-      await fetchProducts();
-    });
-
-    return () => {
-      productsSupplierSubscription.unsubscribe();
-      productsSubscription.unsubscribe();
-    }
   }, []);
 
   const nameFilter = (
@@ -76,9 +54,8 @@ const SupplierDetailsPage: React.FC = () => {
           onChange={e => {
             const currValue = e.target.value;
             setSearchName(currValue);
-            const filteredData = supplierProducts
-              .filter(supplierProduct => supplierProduct.product.name.toLowerCase().includes(currValue.toLowerCase()));
-            setFilteredSupplierProducts(filteredData);
+            const filteredData = supplier?.products?.items?.filter(supplierProduct => supplierProduct!.product.name.toLowerCase().includes(currValue.toLowerCase()));
+            setFilteredSupplierProducts(filteredData as ProductFromSupplier[]);
           }}
         />
       </Col>
@@ -132,30 +109,30 @@ const SupplierDetailsPage: React.FC = () => {
         return 0;
       }
     },
-    {
-      title: 'Delete',
-      render: (value, record, index) => {
-        return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
-      }
-    }
+    // {
+    //   title: 'Delete',
+    //   render: (value, record, index) => {
+    //     return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
+    //   }
+    // }
   ];
 
-  const tryToDelete = async (productFromSupplier: ProductFromSupplier) => {
-    confirm({
-      title: 'Are you sure delete this product for this supplier?',
-      icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-      content: `Delete product with name "${productFromSupplier.product.name}" from supplier`,
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      async onOk() {
-        await DataStore.delete(ProductFromSupplier, productFromSupplier.id);
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
-  }
+  // const tryToDelete = async (productFromSupplier: ProductFromSupplier) => {
+  //   confirm({
+  //     title: 'Are you sure delete this product for this supplier?',
+  //     icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+  //     content: `Delete product with name "${productFromSupplier.product.name}" from supplier`,
+  //     okText: 'Yes',
+  //     okType: 'danger',
+  //     cancelText: 'No',
+  //     async onOk() {
+  //       await DataStore.delete(ProductFromSupplier, productFromSupplier.id);
+  //     },
+  //     onCancel() {
+  //       console.log('Cancel');
+  //     },
+  //   });
+  // }
 
   return (
     <Content>
@@ -206,15 +183,15 @@ const SupplierDetailsPage: React.FC = () => {
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             if (productId && price) {
-              const product = await DataStore.query(Product, productId);
-              await DataStore.save(
-                new ProductFromSupplier({
-                  product,
-                  quality,
-                  price,
-                  supplier,
-                })
-              );
+              console.log('create product from supplier')
+              // await DataStore.save(
+              //   new ProductFromSupplier({
+              //     product,
+              //     quality,
+              //     price,
+              //     supplier,
+              //   })
+              // );
             }
           }} type="primary" htmlType="submit">
             Create

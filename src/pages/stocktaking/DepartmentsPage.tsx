@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
 import {Button, Col, Form, Input, Layout, Modal, Row, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {Category, Department} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
+import {Department} from "../../API";
+import {createDepartment, fetchDepartments} from "../../graphql/requests";
 
 const {confirm, error} = Modal;
 
@@ -18,22 +18,14 @@ const DepartmentsPage: React.FC = () => {
   const [name, setName] = useState('');
   const [searchName, setSearchName] = useState('');
 
-  const fetchDepartments = async () => {
-    const fetchedDepartments = await DataStore.query(Department);
+  const loadDepartments = async () => {
+    const fetchedDepartments = await fetchDepartments();
     setDepartments(fetchedDepartments);
     setFilteredDepartments(fetchedDepartments);
   }
 
   useEffect(() => {
-    fetchDepartments();
-
-    const departmentsSubscription = DataStore.observe(Department).subscribe(async (message) => {
-      await fetchDepartments();
-    });
-
-    return () => {
-      departmentsSubscription.unsubscribe();
-    }
+    loadDepartments();
   }, []);
 
   const nameFilter = (
@@ -62,38 +54,38 @@ const DepartmentsPage: React.FC = () => {
       title: nameFilter,
       dataIndex: 'name',
     },
-    {
-      title: 'Delete',
-      render: (value, record, index) => {
-        return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
-      }
-    }
+    // {
+    //   title: 'Delete',
+    //   render: (value, record, index) => {
+    //     return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
+    //   }
+    // }
   ];
 
-  const tryToDelete = async (department: Department) => {
-    const categories = await DataStore.query(Category, category => category.departmentID("eq", department.id))
-    if (categories && categories.length > 0) {
-      error({
-        title: 'You cannot delete this department!',
-        content: `This department has ${categories.length} categories, remove categories first.`,
-      });
-    } else {
-      confirm({
-        title: 'Are you sure delete this department?',
-        icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-        content: `Delete department with name "${department.name}"`,
-        okText: 'Yes',
-        okType: 'danger',
-        cancelText: 'No',
-        async onOk() {
-          await DataStore.delete(Department, department.id);
-        },
-        onCancel() {
-          console.log('Cancel');
-        },
-      });
-    }
-  }
+  // const tryToDelete = async (department: Department) => {
+  //   const categories = await DataStore.query(Category, category => category.departmentID("eq", department.id))
+  //   if (categories && categories.length > 0) {
+  //     error({
+  //       title: 'You cannot delete this department!',
+  //       content: `This department has ${categories.length} categories, remove categories first.`,
+  //     });
+  //   } else {
+  //     confirm({
+  //       title: 'Are you sure delete this department?',
+  //       icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+  //       content: `Delete department with name "${department.name}"`,
+  //       okText: 'Yes',
+  //       okType: 'danger',
+  //       cancelText: 'No',
+  //       async onOk() {
+  //         await DataStore.delete(Department, department.id);
+  //       },
+  //       onCancel() {
+  //         console.log('Cancel');
+  //       },
+  //     });
+  //   }
+  // }
 
   return (
     <Content>
@@ -122,11 +114,9 @@ const DepartmentsPage: React.FC = () => {
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             if (name) {
-              await DataStore.save(
-                new Department({
+                await createDepartment({
                   name: name,
                 })
-              );
             }
           }} type="primary" htmlType="submit">
             Create

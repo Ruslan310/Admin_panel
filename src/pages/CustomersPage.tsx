@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
 import {Layout, Table, Typography} from 'antd';
-import {Customer} from "../models";
 import {ColumnsType} from "antd/es/table";
+import {Customer} from "../API";
+import {fetchCustomers} from "../graphql/requests";
 
 const {Content} = Layout;
 const {Title} = Typography;
@@ -11,21 +11,13 @@ const {Title} = Typography;
 const CustomersPage: React.FC = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
 
-  const fetchCustomers = async () => {
-    const fetchedCustomers = await DataStore.query(Customer);
+  const loadCustomers = async () => {
+    const fetchedCustomers = await fetchCustomers();
     setCustomers(fetchedCustomers);
   }
 
   useEffect(() => {
-    fetchCustomers();
-
-    const customersSubscription = DataStore.observe(Customer).subscribe(async (message) => {
-      await fetchCustomers();
-    });
-
-    return () => {
-      customersSubscription.unsubscribe();
-    }
+    loadCustomers();
   }, []);
 
   const columns: ColumnsType<Customer> = [

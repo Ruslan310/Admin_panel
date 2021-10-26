@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
 import {Button, Form, Input, Layout, Modal, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
-import {Address, Category, Coordinate, ProductFromSupplier, Supplier, Warehouse} from "../../models";
 import {CloseCircleOutlined} from "@ant-design/icons";
 import {googleMapLink, stringifyAddress} from "../../utils/utils";
 import {useHistory} from "react-router-dom";
+import {Address, Coordinate, Supplier} from "../../API";
+import {createSupplier, fetchAddresses, fetchCoordinates, fetchSuppliers} from "../../graphql/requests";
 
 const {confirm, error} = Modal;
 
@@ -24,45 +24,25 @@ const SuppliersPage: React.FC = () => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
 
-  const fetchCoordinates = async () => {
-    const fetchedCoordinates = await DataStore.query(Coordinate);
+  const loadCoordinates = async () => {
+    const fetchedCoordinates = await fetchCoordinates();
     setCoordinates(fetchedCoordinates);
   }
 
-  const fetchAddresses = async () => {
-    const fetchedAddresses = await DataStore.query(Address);
+  const loadAddresses = async () => {
+    const fetchedAddresses = await fetchAddresses();
     setAddresses(fetchedAddresses);
   }
 
-  const fetchSuppliers = async () => {
-    const fetchedSuppliers = await DataStore.query(Supplier);
+  const loadSuppliers = async () => {
+    const fetchedSuppliers = await fetchSuppliers();
     setSuppliers(fetchedSuppliers);
   }
 
   useEffect(() => {
-    fetchSuppliers();
-
-    const suppliersSubscription = DataStore.observe(Supplier).subscribe(async (message) => {
-      await fetchSuppliers();
-    });
-
-    fetchAddresses();
-
-    const addressesSubscription = DataStore.observe(Address).subscribe(async (message) => {
-      await fetchAddresses();
-    });
-
-    fetchCoordinates();
-
-    const coordinatesSubscription = DataStore.observe(Coordinate).subscribe(async (message) => {
-      await fetchCoordinates();
-    });
-
-    return () => {
-      suppliersSubscription.unsubscribe();
-      addressesSubscription.unsubscribe();
-      coordinatesSubscription.unsubscribe();
-    }
+    loadSuppliers();
+    loadAddresses();
+    loadCoordinates();
   }, []);
 
   const columns: ColumnsType<Supplier> = [
@@ -95,38 +75,38 @@ const SuppliersPage: React.FC = () => {
         return;
       },
     },
-    {
-      title: 'Delete',
-      render: (value, record, index) => {
-        return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
-      }
-    }
+    // {
+    //   title: 'Delete',
+    //   render: (value, record, index) => {
+    //     return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
+    //   }
+    // }
   ];
 
-  const tryToDelete = async (supplier: Supplier) => {
-    const supplierProducts = (await DataStore.query(ProductFromSupplier)).filter(supplierProduct => supplierProduct.supplier.id === supplier.id);
-    if (supplierProducts && supplierProducts.length > 0) {
-      error({
-        title: 'You cannot delete this supplier!',
-        content: `This supplier has ${supplierProducts.length} products, remove products first.`,
-      });
-    } else {
-      confirm({
-        title: 'Are you sure delete this supplier?',
-        icon: <CloseCircleOutlined style={{color: 'red'}}/>,
-        content: `Delete supplier with name "${supplier.name}"`,
-        okText: 'Yes',
-        okType: 'danger',
-        cancelText: 'No',
-        async onOk() {
-          await DataStore.delete(Supplier, supplier.id);
-        },
-        onCancel() {
-          console.log('Cancel');
-        },
-      });
-    }
-  }
+  // const tryToDelete = async (supplier: Supplier) => {
+  //   const supplierProducts = (await DataStore.query(ProductFromSupplier)).filter(supplierProduct => supplierProduct.supplier.id === supplier.id);
+  //   if (supplierProducts && supplierProducts.length > 0) {
+  //     error({
+  //       title: 'You cannot delete this supplier!',
+  //       content: `This supplier has ${supplierProducts.length} products, remove products first.`,
+  //     });
+  //   } else {
+  //     confirm({
+  //       title: 'Are you sure delete this supplier?',
+  //       icon: <CloseCircleOutlined style={{color: 'red'}}/>,
+  //       content: `Delete supplier with name "${supplier.name}"`,
+  //       okText: 'Yes',
+  //       okType: 'danger',
+  //       cancelText: 'No',
+  //       async onOk() {
+  //         await DataStore.delete(Supplier, supplier.id);
+  //       },
+  //       onCancel() {
+  //         console.log('Cancel');
+  //       },
+  //     });
+  //   }
+  // }
 
   return (
     <Content>
@@ -190,15 +170,12 @@ const SuppliersPage: React.FC = () => {
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             if (name && addressId) {
-              const address = await DataStore.query(Address, addressId);
-              await DataStore.save(
-                new Supplier({
+                await createSupplier({
                   name,
                   email,
                   phoneNumber,
-                  address,
+                  supplierAddressId: addressId,
                 })
-              );
             }
           }} type="primary" htmlType="submit">
             Create

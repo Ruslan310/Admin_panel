@@ -6,6 +6,8 @@ export const onCreateDishComponent = /* GraphQL */ `
   subscription OnCreateDishComponent {
     onCreateDishComponent {
       id
+      dishID
+      componentID
       _version
       _deleted
       _lastChangedAt
@@ -20,6 +22,49 @@ export const onCreateDishComponent = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            dishID
+            componentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dish {
+              id
+              name
+              description
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
       }
       component {
         id
@@ -39,6 +84,93 @@ export const onCreateDishComponent = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        dishes {
+          items {
+            id
+            dishID
+            componentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dish {
+              id
+              name
+              description
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        products {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
       }
     }
   }
@@ -47,6 +179,8 @@ export const onUpdateDishComponent = /* GraphQL */ `
   subscription OnUpdateDishComponent {
     onUpdateDishComponent {
       id
+      dishID
+      componentID
       _version
       _deleted
       _lastChangedAt
@@ -61,6 +195,49 @@ export const onUpdateDishComponent = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            dishID
+            componentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dish {
+              id
+              name
+              description
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
       }
       component {
         id
@@ -80,6 +257,93 @@ export const onUpdateDishComponent = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        dishes {
+          items {
+            id
+            dishID
+            componentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dish {
+              id
+              name
+              description
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        products {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
       }
     }
   }
@@ -88,6 +352,8 @@ export const onDeleteDishComponent = /* GraphQL */ `
   subscription OnDeleteDishComponent {
     onDeleteDishComponent {
       id
+      dishID
+      componentID
       _version
       _deleted
       _lastChangedAt
@@ -102,6 +368,49 @@ export const onDeleteDishComponent = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            dishID
+            componentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dish {
+              id
+              name
+              description
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
       }
       component {
         id
@@ -121,6 +430,93 @@ export const onDeleteDishComponent = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        dishes {
+          items {
+            id
+            dishID
+            componentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dish {
+              id
+              name
+              description
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        products {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
       }
     }
   }
@@ -136,6 +532,61 @@ export const onCreateDish = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      components {
+        items {
+          id
+          dishID
+          componentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          dish {
+            id
+            name
+            description
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+          }
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -150,6 +601,61 @@ export const onUpdateDish = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      components {
+        items {
+          id
+          dishID
+          componentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          dish {
+            id
+            name
+            description
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+          }
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -164,6 +670,61 @@ export const onDeleteDish = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      components {
+        items {
+          id
+          dishID
+          componentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          dish {
+            id
+            name
+            description
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+          }
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -171,6 +732,8 @@ export const onCreateComponentProduct = /* GraphQL */ `
   subscription OnCreateComponentProduct {
     onCreateComponentProduct {
       id
+      componentID
+      productID
       _version
       _deleted
       _lastChangedAt
@@ -194,6 +757,93 @@ export const onCreateComponentProduct = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        dishes {
+          items {
+            id
+            dishID
+            componentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dish {
+              id
+              name
+              description
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        products {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
       }
       product {
         id
@@ -205,6 +855,126 @@ export const onCreateComponentProduct = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        warehouses {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        suppliers {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         type {
           id
           name
@@ -261,6 +1031,8 @@ export const onUpdateComponentProduct = /* GraphQL */ `
   subscription OnUpdateComponentProduct {
     onUpdateComponentProduct {
       id
+      componentID
+      productID
       _version
       _deleted
       _lastChangedAt
@@ -284,6 +1056,93 @@ export const onUpdateComponentProduct = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        dishes {
+          items {
+            id
+            dishID
+            componentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dish {
+              id
+              name
+              description
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        products {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
       }
       product {
         id
@@ -295,6 +1154,126 @@ export const onUpdateComponentProduct = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        warehouses {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        suppliers {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         type {
           id
           name
@@ -351,6 +1330,8 @@ export const onDeleteComponentProduct = /* GraphQL */ `
   subscription OnDeleteComponentProduct {
     onDeleteComponentProduct {
       id
+      componentID
+      productID
       _version
       _deleted
       _lastChangedAt
@@ -374,6 +1355,93 @@ export const onDeleteComponentProduct = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        dishes {
+          items {
+            id
+            dishID
+            componentID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dish {
+              id
+              name
+              description
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        products {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
       }
       product {
         id
@@ -385,6 +1453,126 @@ export const onDeleteComponentProduct = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        warehouses {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        suppliers {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         type {
           id
           name
@@ -457,6 +1645,135 @@ export const onCreateComponent = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      dishes {
+        items {
+          id
+          dishID
+          componentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          dish {
+            id
+            name
+            description
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+          }
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      products {
+        items {
+          id
+          componentID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -480,6 +1797,135 @@ export const onUpdateComponent = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      dishes {
+        items {
+          id
+          dishID
+          componentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          dish {
+            id
+            name
+            description
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+          }
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      products {
+        items {
+          id
+          componentID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -503,6 +1949,135 @@ export const onDeleteComponent = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      dishes {
+        items {
+          id
+          dishID
+          componentID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          dish {
+            id
+            name
+            description
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+          }
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      products {
+        items {
+          id
+          componentID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -514,6 +2089,8 @@ export const onCreateProductAtWarehouse = /* GraphQL */ `
       maxQuantity
       minQuantity
       qrCode
+      warehouseID
+      productID
       _version
       _deleted
       _lastChangedAt
@@ -529,6 +2106,126 @@ export const onCreateProductAtWarehouse = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        warehouses {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        suppliers {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         type {
           id
           name
@@ -586,6 +2283,44 @@ export const onCreateProductAtWarehouse = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        products {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         address {
           id
           address1
@@ -630,6 +2365,8 @@ export const onUpdateProductAtWarehouse = /* GraphQL */ `
       maxQuantity
       minQuantity
       qrCode
+      warehouseID
+      productID
       _version
       _deleted
       _lastChangedAt
@@ -645,6 +2382,126 @@ export const onUpdateProductAtWarehouse = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        warehouses {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        suppliers {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         type {
           id
           name
@@ -702,6 +2559,44 @@ export const onUpdateProductAtWarehouse = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        products {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         address {
           id
           address1
@@ -746,6 +2641,8 @@ export const onDeleteProductAtWarehouse = /* GraphQL */ `
       maxQuantity
       minQuantity
       qrCode
+      warehouseID
+      productID
       _version
       _deleted
       _lastChangedAt
@@ -761,6 +2658,126 @@ export const onDeleteProductAtWarehouse = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        warehouses {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        suppliers {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         type {
           id
           name
@@ -818,6 +2835,44 @@ export const onDeleteProductAtWarehouse = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        products {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         address {
           id
           address1
@@ -860,6 +2915,8 @@ export const onCreateProductFromSupplier = /* GraphQL */ `
       id
       price
       quality
+      supplierID
+      productID
       _version
       _deleted
       _lastChangedAt
@@ -875,6 +2932,44 @@ export const onCreateProductFromSupplier = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        products {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         address {
           id
           address1
@@ -918,6 +3013,126 @@ export const onCreateProductFromSupplier = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        warehouses {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        suppliers {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         type {
           id
           name
@@ -976,6 +3191,8 @@ export const onUpdateProductFromSupplier = /* GraphQL */ `
       id
       price
       quality
+      supplierID
+      productID
       _version
       _deleted
       _lastChangedAt
@@ -991,6 +3208,44 @@ export const onUpdateProductFromSupplier = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        products {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         address {
           id
           address1
@@ -1034,6 +3289,126 @@ export const onUpdateProductFromSupplier = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        warehouses {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        suppliers {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         type {
           id
           name
@@ -1092,6 +3467,8 @@ export const onDeleteProductFromSupplier = /* GraphQL */ `
       id
       price
       quality
+      supplierID
+      productID
       _version
       _deleted
       _lastChangedAt
@@ -1107,6 +3484,44 @@ export const onDeleteProductFromSupplier = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        products {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         address {
           id
           address1
@@ -1150,6 +3565,126 @@ export const onDeleteProductFromSupplier = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        components {
+          items {
+            id
+            componentID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            component {
+              id
+              name
+              type
+              packageType
+              calories
+              carbons
+              fats
+              proteins
+              recipe
+              price
+              picture
+              weightInGram
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        warehouses {
+          items {
+            id
+            quantity
+            maxQuantity
+            minQuantity
+            qrCode
+            warehouseID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            warehouse {
+              id
+              name
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
+        suppliers {
+          items {
+            id
+            price
+            quality
+            supplierID
+            productID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            supplier {
+              id
+              name
+              phoneNumber
+              email
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            product {
+              id
+              name
+              measurement
+              typeID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+          startedAt
+        }
         type {
           id
           name
@@ -1214,6 +3749,83 @@ export const onCreateSupplier = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      products {
+        items {
+          id
+          price
+          quality
+          supplierID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          supplier {
+            id
+            name
+            phoneNumber
+            email
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
       address {
         id
         address1
@@ -1298,6 +3910,83 @@ export const onUpdateSupplier = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      products {
+        items {
+          id
+          price
+          quality
+          supplierID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          supplier {
+            id
+            name
+            phoneNumber
+            email
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
       address {
         id
         address1
@@ -1382,6 +4071,83 @@ export const onDeleteSupplier = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      products {
+        items {
+          id
+          price
+          quality
+          supplierID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          supplier {
+            id
+            name
+            phoneNumber
+            email
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
       address {
         id
         address1
@@ -1466,6 +4232,234 @@ export const onCreateProduct = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      components {
+        items {
+          id
+          componentID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      warehouses {
+        items {
+          id
+          quantity
+          maxQuantity
+          minQuantity
+          qrCode
+          warehouseID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          warehouse {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      suppliers {
+        items {
+          id
+          price
+          quality
+          supplierID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          supplier {
+            id
+            name
+            phoneNumber
+            email
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
       type {
         id
         name
@@ -1486,6 +4480,18 @@ export const onCreateProduct = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
             type {
               id
               name
@@ -1553,6 +4559,234 @@ export const onUpdateProduct = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      components {
+        items {
+          id
+          componentID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      warehouses {
+        items {
+          id
+          quantity
+          maxQuantity
+          minQuantity
+          qrCode
+          warehouseID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          warehouse {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      suppliers {
+        items {
+          id
+          price
+          quality
+          supplierID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          supplier {
+            id
+            name
+            phoneNumber
+            email
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
       type {
         id
         name
@@ -1573,6 +4807,18 @@ export const onUpdateProduct = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
             type {
               id
               name
@@ -1640,6 +4886,234 @@ export const onDeleteProduct = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      components {
+        items {
+          id
+          componentID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          component {
+            id
+            name
+            type
+            packageType
+            calories
+            carbons
+            fats
+            proteins
+            recipe
+            price
+            picture
+            weightInGram
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            dishes {
+              nextToken
+              startedAt
+            }
+            products {
+              nextToken
+              startedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      warehouses {
+        items {
+          id
+          quantity
+          maxQuantity
+          minQuantity
+          qrCode
+          warehouseID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          warehouse {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
+      suppliers {
+        items {
+          id
+          price
+          quality
+          supplierID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          supplier {
+            id
+            name
+            phoneNumber
+            email
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
       type {
         id
         name
@@ -1660,6 +5134,18 @@ export const onDeleteProduct = /* GraphQL */ `
             _lastChangedAt
             createdAt
             updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
             type {
               id
               name
@@ -1737,6 +5223,54 @@ export const onCreateType = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          components {
+            items {
+              id
+              componentID
+              productID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          warehouses {
+            items {
+              id
+              quantity
+              maxQuantity
+              minQuantity
+              qrCode
+              warehouseID
+              productID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          suppliers {
+            items {
+              id
+              price
+              quality
+              supplierID
+              productID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
           type {
             id
             name
@@ -1851,6 +5385,54 @@ export const onUpdateType = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          components {
+            items {
+              id
+              componentID
+              productID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          warehouses {
+            items {
+              id
+              quantity
+              maxQuantity
+              minQuantity
+              qrCode
+              warehouseID
+              productID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          suppliers {
+            items {
+              id
+              price
+              quality
+              supplierID
+              productID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
           type {
             id
             name
@@ -1965,6 +5547,54 @@ export const onDeleteType = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+          components {
+            items {
+              id
+              componentID
+              productID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          warehouses {
+            items {
+              id
+              quantity
+              maxQuantity
+              minQuantity
+              qrCode
+              warehouseID
+              productID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
+          suppliers {
+            items {
+              id
+              price
+              quality
+              supplierID
+              productID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+            nextToken
+            startedAt
+          }
           type {
             id
             name
@@ -2535,6 +6165,83 @@ export const onCreateWarehouse = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      products {
+        items {
+          id
+          quantity
+          maxQuantity
+          minQuantity
+          qrCode
+          warehouseID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          warehouse {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
       address {
         id
         address1
@@ -2617,6 +6324,83 @@ export const onUpdateWarehouse = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      products {
+        items {
+          id
+          quantity
+          maxQuantity
+          minQuantity
+          qrCode
+          warehouseID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          warehouse {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
       address {
         id
         address1
@@ -2699,6 +6483,83 @@ export const onDeleteWarehouse = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      products {
+        items {
+          id
+          quantity
+          maxQuantity
+          minQuantity
+          qrCode
+          warehouseID
+          productID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          product {
+            id
+            name
+            measurement
+            typeID
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            components {
+              nextToken
+              startedAt
+            }
+            warehouses {
+              nextToken
+              startedAt
+            }
+            suppliers {
+              nextToken
+              startedAt
+            }
+            type {
+              id
+              name
+              categoryID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+          warehouse {
+            id
+            name
+            _version
+            _deleted
+            _lastChangedAt
+            createdAt
+            updatedAt
+            products {
+              nextToken
+              startedAt
+            }
+            address {
+              id
+              address1
+              address2
+              city
+              postCode
+              coordinateID
+              _version
+              _deleted
+              _lastChangedAt
+              createdAt
+              updatedAt
+            }
+          }
+        }
+        nextToken
+        startedAt
+      }
       address {
         id
         address1

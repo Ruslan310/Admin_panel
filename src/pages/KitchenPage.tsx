@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {DataStore} from 'aws-amplify'
 
 import {Layout, Table, Tabs, Typography} from 'antd';
-import {WPOrder, WporderStatus, WeekDay} from "../models";
 import {ColumnsType} from "antd/es/table";
 import {today} from "../utils/utils";
+import {WEEK_DAY, WPORDER_STATUS} from "../API";
+import {fetchOrdersByStatus} from "../graphql/requests";
 
 const {Content} = Layout;
 const {TabPane} = Tabs;
@@ -14,16 +14,16 @@ interface KitchenDish {
   name: string;
   dishType: string;
   quantity: number;
-  weekDay: WeekDay | keyof typeof WeekDay;
+  weekDay: WEEK_DAY | keyof typeof WEEK_DAY;
 }
 
 const KitchenPage: React.FC = () => {
   const [kitchenDishes, setKitchenDishes] = useState<KitchenDish[]>([]);
-  const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
+  const [selectedDay, setSelectedDay] = useState<WEEK_DAY>(today.toUpperCase() as WEEK_DAY);
 
-  const fetchOrders = async () => {
+  const loadOrders = async () => {
     console.log('start fetching orders for kitchen')
-    const fetchedOrders = await DataStore.query(WPOrder, order => order.WPOrderStatus("eq", WporderStatus.PROCESSING));
+    const fetchedOrders = await fetchOrdersByStatus(WPORDER_STATUS.PROCESSING)
     console.log('orders for kitchen fetched: ', fetchedOrders.length)
     let newItems: KitchenDish[] = [];
     for (const order of fetchedOrders) {
@@ -42,15 +42,7 @@ const KitchenPage: React.FC = () => {
   }
 
   useEffect(() => {
-    fetchOrders();
-
-    const ordersSubscription = DataStore.observe(WPOrder).subscribe(async (message) => {
-      await fetchOrders();
-    });
-
-    return () => {
-      ordersSubscription.unsubscribe();
-    }
+    loadOrders();
   }, []);
 
   const columns: ColumnsType<KitchenDish> = [
@@ -90,8 +82,8 @@ const KitchenPage: React.FC = () => {
   return (
     <Content>
       <Title>Kitchen</Title>
-      <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WeekDay)}>
-        {Object.values(WeekDay).map(weekDay => <TabPane tab={`${weekDay} (${kitchenDishes.filter(dish => dish.weekDay === weekDay).length})`} key={weekDay}/>)}
+      <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WEEK_DAY)}>
+        {Object.values(WEEK_DAY).map(weekDay => <TabPane tab={`${weekDay} (${kitchenDishes.filter(dish => dish.weekDay === weekDay).length})`} key={weekDay}/>)}
       </Tabs>
       <Table
         pagination={{defaultPageSize: 100, showSizeChanger: true, pageSizeOptions: ['10', '50', '100']}}

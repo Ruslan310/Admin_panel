@@ -3,13 +3,11 @@ import React, {useEffect, useState} from 'react'
 import {
   Button,
   Checkbox,
-  Col,
   Descriptions,
   Divider,
   Input,
   Layout,
   Modal,
-  Row,
   Select, Space,
   Table,
   Typography
@@ -21,6 +19,7 @@ import {fullName, stringifyAddress} from "../utils/utils";
 import moment from "moment-timezone";
 import {fetchAddresses, fetchCoordinate, fetchOrdersByStatus, fetchUser, updateWPOrder} from "../graphql/requests";
 import {Address, WPOrder, WPORDER_STATUS} from "../API";
+import {CloseOutlined} from "@ant-design/icons";
 
 moment.tz.setDefault("Africa/Nouakchott");
 
@@ -81,11 +80,8 @@ const OrdersPage: React.FC = () => {
   };
 
   const fullNameFilter = (
-    <Row>
-      <Col className="gutter-row" span={6}>
+    <>
         <Typography>Full name</Typography>
-      </Col>
-      <Col className="gutter-row" span={6}>
         <Input
           placeholder="Search Name"
           value={searchName}
@@ -97,16 +93,12 @@ const OrdersPage: React.FC = () => {
             setFilteredOrders(filteredData);
           }}
         />
-      </Col>
-    </Row>
+    </>
   );
 
   const orderNumberFilter = (
-    <Row>
-      <Col className="gutter-row" span={6}>
-        <Typography>Order #</Typography>
-      </Col>
-      <Col className="gutter-row" span={6}>
+      <>
+        <Typography>Num</Typography>
         <Input
           placeholder="Order #"
           value={searchNumber}
@@ -118,8 +110,7 @@ const OrdersPage: React.FC = () => {
             setFilteredOrders(filteredData);
           }}
         />
-      </Col>
-    </Row>
+      </>
   );
 
   // const deleteOrderWithBoxes = async (orderId?: string) => {
@@ -142,12 +133,14 @@ const OrdersPage: React.FC = () => {
     {
       title: orderNumberFilter,
       dataIndex: 'WPOrderNumber',
+      width: 100,
     },
     {
       title: fullNameFilter,
       render: (value, record, index) => {
         return fullName(record.customer)
       },
+      width: 120,
       sorter: (a, b) => {
         if (fullName(a.customer) && fullName(b.customer)) {
           if (fullName(a.customer) < fullName(b.customer)) {
@@ -164,6 +157,7 @@ const OrdersPage: React.FC = () => {
     },
     {
       title: 'Company',
+      width: 80,
       render: (value, record, index) => {
         return record.customer?.company
       },
@@ -182,9 +176,9 @@ const OrdersPage: React.FC = () => {
       }
     },
     {
-      title: 'Assigned driver',
+      title: 'Driver',
       render: (value, record, index) => {
-        return <Button type={'link'} onClick={() => loadAssignedDriverName(record)}>Driver</Button>
+        return <Button style={{width: 70}} type={'link'} onClick={() => loadAssignedDriverName(record)}>Driver</Button>
       }
     },
     {
@@ -194,9 +188,10 @@ const OrdersPage: React.FC = () => {
       }
     },
     {
-      title: 'Created in WP',
+      width: 100,
+      title: 'Created',
       render: (value, record, index) => {
-        return <Text>{moment.unix(record.createdAtWp).format("HH:mm DD-MM-YYYY")}</Text>
+        return <Text style={{fontSize: 12}}>{moment.unix(record.createdAtWp).format("HH:mm DD-MM")}</Text>
       },
       sorter: (a, b) => {
         if (a.createdAtWp < b.createdAtWp) {
@@ -219,7 +214,7 @@ const OrdersPage: React.FC = () => {
           filterOption={(input, option) => {
             return option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
           }}
-          value={record.address?.id}
+          value={stringifyAddress(record.address)}
           onSelect={async (value) => {
             await updateWPOrder({
               _version: record._version,
@@ -234,12 +229,13 @@ const OrdersPage: React.FC = () => {
       },
     },
     {
+      width: 30,
       title: 'Actions',
       render: (value, record, index) => {
-        return <Button type={'primary'} onClick={async () => {
+        return <Button shape="circle" icon={<CloseOutlined />} danger type={'primary'} onClick={async () => {
           setTargetOrder(record);
           setDeleteOrderConfirm(true);
-        }}>Delete</Button>
+        }}/>
       }
     }
   ];
@@ -288,10 +284,10 @@ const OrdersPage: React.FC = () => {
         }}/>
         <Divider/>
         <Table
+          rowClassName={'tableRow'}
           loading={isLoading}
           size={"middle"}
           rowKey="id"
-          rowSelection={rowSelection}
           columns={columns}
           dataSource={filteredOrders}
           expandable={{

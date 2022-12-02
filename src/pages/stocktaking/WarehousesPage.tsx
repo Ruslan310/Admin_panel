@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react'
 import {Button, Form, Input, Layout, Modal, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {googleMapLink, stringifyAddress} from "../../utils/utils";
-import {CloseCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import {Address, Coordinate, Warehouse} from "../../API";
 import {createWarehouse, fetchAddresses, fetchCoordinates, fetchWarehouses} from "../../graphql/requests";

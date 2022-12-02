@@ -103,7 +103,7 @@ const AddressesPage: React.FC = () => {
         </Space>
         <Space>
           <Text>Company coverage: </Text>
-          <InputNumber<number> value={companyCoverage} onChange={(e) => setCompanyCoverage(e)}/>
+          <InputNumber<number> value={companyCoverage} onChange={(e) => e && setCompanyCoverage(e)}/>
         </Space>
         <Checkbox
           checked={isWithoutTax}

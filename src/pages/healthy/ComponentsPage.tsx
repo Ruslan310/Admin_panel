@@ -196,11 +196,11 @@ const ComponentsPage: React.FC = () => {
             rules={[{required: true, message: 'Please enter component type!'}]}
             style={{display: 'inline-block', width: '37%'}}
           >
-            <Select<COMPONENT_TYPE>
+            <Select<string, { value: string; children: string }>
               placeholder="Select component type"
               showSearch
               filterOption={(input, option) =>
-                option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
               }
               style={width300}>
               {Object.values(COMPONENT_TYPE).map((type) => <Select.Option key={type}
@@ -212,11 +212,11 @@ const ComponentsPage: React.FC = () => {
             rules={[{required: true, message: 'Please enter package type!'}]}
             style={{display: 'inline-block'}}
           >
-            <Select<PACKAGE_TYPE>
+            <Select<string, { value: string; children: string }>
               placeholder="Select package type"
               showSearch
               filterOption={(input, option) =>
-                option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
               }
               style={width300}>
               {Object.values(PACKAGE_TYPE).map((type) => <Select.Option key={type}

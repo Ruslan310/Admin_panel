@@ -20,7 +20,7 @@ const AddressesPage: React.FC = () => {
   const [address2, setAddress2] = useState('');
   const [city, setCity] = useState('');
   const [postCode, setPostCode] = useState('');
-  const [coordinateId, setCoordinateId] = useState();
+  const [coordinateId, setCoordinateId] = useState<string>();
   const [searchAddress, setSearchAddress] = useState('');
 
   const loadCoordinates = async () => {
@@ -79,11 +79,11 @@ const AddressesPage: React.FC = () => {
     {
       title: 'Set coordinates',
       render: (value, record, index) => {
-        return <Select
+        return <Select<string, { value: string; children: string }>
           placeholder="Select coordinates"
           showSearch
           filterOption={(input, option) =>
-            option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
           }
           value={record.coordinateID!}
           style={width300}
@@ -166,11 +166,11 @@ const AddressesPage: React.FC = () => {
             />
           </Form.Item>
           <Form.Item label="Coordinate" name="coordinate">
-            <Select
+            <Select<string, { value: string; children: string }>
               placeholder="Select coordinates"
               showSearch
               filterOption={(input, option) =>
-                option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
               }
               value={coordinateId}
               style={width300}

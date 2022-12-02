@@ -144,11 +144,11 @@ const WarehouseDetailsPage: React.FC = () => {
       >
         <Form.Item label="Product" name="product"
                    rules={[{required: true, message: 'Please enter product!'}]}>
-          <Select
+          <Select<string, { value: string; children: string }>
             placeholder="Select product"
             showSearch
             filterOption={(input, option) =>
-              option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
             }
             value={productId}
             style={width300}
@@ -164,7 +164,7 @@ const WarehouseDetailsPage: React.FC = () => {
             style={width300}
             placeholder={'Enter quantity'}
             value={quantity}
-            onChange={(e) => setQuantity(e)}
+            onChange={(e) => e && setQuantity(e)}
           />
         </Form.Item>
         <Form.Item label="Min quantity" name="minQuantity" initialValue={0}>
@@ -172,7 +172,7 @@ const WarehouseDetailsPage: React.FC = () => {
             style={width300}
             placeholder={'Enter minimum quantity'}
             value={minQuantity}
-            onChange={(e) => setMinQuantity(e)}
+            onChange={(e) => e && setMinQuantity(e)}
           />
         </Form.Item>
         <Form.Item label="Max quantity" name="maxQuantity" initialValue={MAX_QUANTITY}>
@@ -180,7 +180,7 @@ const WarehouseDetailsPage: React.FC = () => {
             style={width300}
             placeholder={'Enter maximum quantity'}
             value={maxQuantity}
-            onChange={(e) => setMaxQuantity(e)}
+            onChange={(e) => e && setMaxQuantity(e)}
           />
         </Form.Item>
         <Form.Item wrapperCol={{offset: 4, span: 16}}>

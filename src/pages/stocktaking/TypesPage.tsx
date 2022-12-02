@@ -127,11 +127,11 @@ const TypesPage: React.FC = () => {
         </Form.Item>
         <Form.Item label="Category" name="category"
                    rules={[{required: true, message: 'Please enter category!'}]}>
-          <Select
+          <Select<string, { value: string; children: string }>
             placeholder="Select category"
             showSearch
             filterOption={(input, option) =>
-              option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
             }
             value={categoryId}
             style={width300}

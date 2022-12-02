@@ -129,11 +129,11 @@ const CategoriesPage: React.FC = () => {
         </Form.Item>
         <Form.Item label="Department" name="department"
                    rules={[{required: true, message: 'Please enter department!'}]}>
-          <Select
+          <Select<string, { value: string; children: string }>
             placeholder="Select department"
             showSearch
             filterOption={(input, option) =>
-              option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
             }
             value={departmentId}
             style={width300}

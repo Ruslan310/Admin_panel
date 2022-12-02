@@ -152,11 +152,11 @@ const SuppliersPage: React.FC = () => {
         </Form.Item>
         <Form.Item label="Address" name="address"
                    rules={[{required: true, message: 'Please enter address!'}]}>
-          <Select
+          <Select<string, { value: string; children: string }>
             placeholder="Select address"
             showSearch
             filterOption={(input, option) =>
-              option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
             }
             value={addressId}
             style={width300}

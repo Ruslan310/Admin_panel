@@ -212,12 +212,12 @@ const OrdersPage: React.FC = () => {
     {
       title: 'Address',
       render: (value, record, index) => {
-        return <Select
+        return <Select<string, { value: string; children: string }>
           placeholder="Change address"
           showSearch
           style={width300}
           filterOption={(input, option) => {
-            return option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            return option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
           }}
           value={record.address?.id}
           onSelect={async (value) => {

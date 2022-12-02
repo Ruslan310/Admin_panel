@@ -31,26 +31,27 @@ const ManyPointsMapComponent = compose(
   withScriptjs,
   withGoogleMap
 )((props: any) => (
-  <GoogleMap defaultZoom={props.zoom} defaultCenter={props.center}>
-    {props.places &&
-    props.places.map((place: any, i: number) => {
-
-      return (
-        <Marker
-          key={place.id}
-          position={{lat: place.latitude, lng: place.longitude}}
-          title="Click to zoom"
-          onClick={props.onToggleOpen.bind(this, i)}
-        >
-          {props.infoWindows[i] && props.infoWindows[i].isOpen && (
-            <InfoWindow onCloseClick={props.onToggleOpen.bind(i)}>
-              <div>{place.name}</div>
-            </InfoWindow>
-          )}
-        </Marker>
-      );
-    })}
-  </GoogleMap>
+    null
+  // <GoogleMap defaultZoom={props.zoom} defaultCenter={props.center}>
+  //   {props.places &&
+  //   props.places.map((place: any, i: number) => {
+  //
+  //     return (
+  //       <Marker
+  //         key={place.id}
+  //         position={{lat: place.latitude, lng: place.longitude}}
+  //         title="Click to zoom"
+  //         onClick={props.onToggleOpen.bind(this, i)}
+  //       >
+  //         {props.infoWindows[i] && props.infoWindows[i].isOpen && (
+  //           <InfoWindow onCloseClick={props.onToggleOpen.bind(i)}>
+  //             <div>{place.name}</div>
+  //           </InfoWindow>
+  //         )}
+  //       </Marker>
+  //     );
+  //   })}
+  // </GoogleMap>
 ));
 
 export default ManyPointsMapComponent;

@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react'
 import {Button, Checkbox, Col, Layout, List, Modal, Radio, Select, Space, Table, Tabs, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {today} from "../utils/utils";
-import ManyPointsMapComponent from "../components/ManyPointsMapComponent";
 import {ALL_DRIVERS} from "../constants";
 import {Coordinate, Role, User, WEEK_DAY, WPOrder, WPORDER_STATUS} from '../API';
 import {
@@ -187,12 +186,12 @@ const MapCoordinatesPage: React.FC = () => {
     {
       title: 'Set driver',
       render: (value, record, index) => {
-        return <Select
+        return <Select<string, { value: string; children: string }>
           placeholder="Select driver"
           showSearch
           disabled={isDriversAssigning}
           filterOption={(input, option) =>
-            option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
           }
           value={record.userID || ''}
           style={width300}
@@ -266,31 +265,31 @@ const MapCoordinatesPage: React.FC = () => {
     setDriversModalVisible(false);
   }
 
-  const renderMaps = (coordinates: Coordinate[]) => {
-    if (isLoading || coordinates.length === 0) return null;
-    if (driverOnMap === ALL_DRIVERS) {
-      return <ManyPointsMapComponent
-        // @ts-ignore
-        center={{lat: 34.6671732, lng: 33.0132906}}
-        zoom={12}
-        places={coordinates}
-      />
-    } else if (driverOnMap) {
-      return drivers.map((driver) => {
-        if (driver.id === driverOnMap) {
-          return <ManyPointsMapComponent
-            // @ts-ignore
-            center={{lat: 34.6671732, lng: 33.0132906}}
-            zoom={12}
-            key={driver.id}
-            places={coordinates.filter(coordinateWithOrders => coordinateWithOrders.userID === driver.id)}
-          />
-        } else {
-          return null;
-        }
-      })
-    }
-  }
+  // const renderMaps = (coordinates: Coordinate[]) => {
+  //   if (isLoading || coordinates.length === 0) return null;
+  //   if (driverOnMap === ALL_DRIVERS) {
+  //     return <ManyPointsMapComponent
+  //       // @ts-ignore
+  //       center={{lat: 34.6671732, lng: 33.0132906}}
+  //       zoom={12}
+  //       places={coordinates}
+  //     />
+  //   } else if (driverOnMap) {
+  //     return drivers.map((driver) => {
+  //       if (driver.id === driverOnMap) {
+  //         return <ManyPointsMapComponent
+  //           // @ts-ignore
+  //           center={{lat: 34.6671732, lng: 33.0132906}}
+  //           zoom={12}
+  //           key={driver.id}
+  //           places={coordinates.filter(coordinateWithOrders => coordinateWithOrders.userID === driver.id)}
+  //         />
+  //       } else {
+  //         return null;
+  //       }
+  //     })
+  //   }
+  // }
 
   const coordinatesForThisDay = getCoordinatesForThisDay();
   return (
@@ -358,7 +357,7 @@ const MapCoordinatesPage: React.FC = () => {
             value={driver.id}>{driver.email} ({coordinatesForThisDay.filter(coordinateWithOrders => coordinateWithOrders.userID === driver.id).length})</Radio.Button>))}
         </Radio.Group>
         <div style={{height: 30}}/>
-        {renderMaps(coordinatesForThisDay)}
+        {/*{renderMaps(coordinatesForThisDay)}*/}
       </Content>
     </>
   )

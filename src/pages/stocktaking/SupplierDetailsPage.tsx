@@ -148,11 +148,11 @@ const SupplierDetailsPage: React.FC = () => {
       >
         <Form.Item label="Product" name="product"
                    rules={[{required: true, message: 'Please enter product!'}]}>
-          <Select
+          <Select<string, { value: string; children: string }>
             placeholder="Select product"
             showSearch
             filterOption={(input, option) =>
-              option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
             }
             value={productId}
             style={width300}
@@ -169,7 +169,7 @@ const SupplierDetailsPage: React.FC = () => {
             style={width300}
             placeholder={'Enter price'}
             value={price}
-            onChange={(e) => setPrice(e)}
+            onChange={(e) => e && setPrice(e)}
           />
         </Form.Item>
         <Form.Item label="Quality" name="quality">
@@ -177,7 +177,7 @@ const SupplierDetailsPage: React.FC = () => {
             style={width300}
             placeholder={'Enter quality'}
             value={quality}
-            onChange={(e) => setQuality(e)}
+            onChange={(e) => e && setQuality(e)}
           />
         </Form.Item>
         <Form.Item wrapperCol={{offset: 4, span: 16}}>

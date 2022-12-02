@@ -14,7 +14,6 @@ import {
 } from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {googleMapLink, stringifyAddress} from "../utils/utils";
-import ManyPointsMapComponent from "../components/ManyPointsMapComponent";
 import {Coordinate} from "../API";
 import {createCoordinate, fetchCoordinates} from "../graphql/requests";
 
@@ -133,15 +132,15 @@ const CoordinatesPage: React.FC = () => {
   //   setLoadingAddresses(false);
   // }
 
-  const renderMaps = () => {
-    if (isLoading || coordinates.length === 0) return null;
-    return <ManyPointsMapComponent
-      // @ts-ignore
-      center={{lat: 34.6671732, lng: 33.0132906}}
-      zoom={12}
-      places={coordinates}
-    />
-  }
+  // const renderMaps = () => {
+  //   if (isLoading || coordinates.length === 0) return null;
+  //   return <ManyPointsMapComponent
+  //     // @ts-ignore
+  //     center={{lat: 34.6671732, lng: 33.0132906}}
+  //     zoom={12}
+  //     places={coordinates}
+  //   />
+  // }
 
   if (isLoading) {
     return <Spin size="large"/>
@@ -287,7 +286,7 @@ const CoordinatesPage: React.FC = () => {
               min={-50}
               max={50}
               step={0.000001}
-              onChange={(value) => setLatitude(value)}
+              onChange={(value) => value && setLatitude(value)}
               stringMode
             />
           </Form.Item>
@@ -298,7 +297,7 @@ const CoordinatesPage: React.FC = () => {
               min={-50}
               max={50}
               step={0.000001}
-              onChange={(value) => setLongitude(value)}
+              onChange={(value) => value && setLongitude(value)}
               stringMode
             />
           </Form.Item>
@@ -342,7 +341,7 @@ const CoordinatesPage: React.FC = () => {
           }}
         />
         <Divider/>
-        {renderMaps()}
+        {/*{renderMaps()}*/}
       </Content>
     </>
   )

@@ -3,12 +3,9 @@ import './App.css';
 import Amplify from 'aws-amplify';
 import {AmplifyAuthenticator, AmplifySignUp} from '@aws-amplify/ui-react';
 import {AuthState, onAuthUIStateChange} from '@aws-amplify/ui-components';
-import awsconfig from './aws-exports';
 import {FormFieldTypes} from '@aws-amplify/ui-components/dist/types/components/amplify-auth-fields/amplify-auth-fields-interface';
 import MainRouter from "./MainRouter";
-import {BrowserRouter as Router, Link, Route, useHistory, withRouter} from "react-router-dom";
-
-Amplify.configure(awsconfig);
+import {BrowserRouter as Router} from "react-router-dom";
 
 const AuthStateApp: React.FC = () => {
   const [authState, setAuthState] = useState<AuthState>();

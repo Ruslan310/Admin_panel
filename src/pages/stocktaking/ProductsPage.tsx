@@ -18,9 +18,9 @@ const ProductsPage: React.FC = () => {
   const [departments, setDepartments] = useState<Department[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [types, setTypes] = useState<Type[]>([]);
-  const [typeId, setTypeId] = useState();
-  const [categoryId, setCategoryId] = useState();
-  const [departmentId, setDepartmentId] = useState();
+  const [typeId, setTypeId] = useState<string>();
+  const [categoryId, setCategoryId] = useState<string>();
+  const [departmentId, setDepartmentId] = useState<string>();
   const [name, setName] = useState('');
   const [measurement, setMeasurement] = useState('');
   const [searchName, setSearchName] = useState('');
@@ -183,11 +183,11 @@ const ProductsPage: React.FC = () => {
         </Form.Item>
         <Form.Item label="Department" name="department"
                    rules={[{required: true, message: 'Please enter department!'}]}>
-          <Select
+          <Select<string, { value: string; children: string }>
             placeholder="Select department"
             showSearch
             filterOption={(input, option) =>
-              option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
             }
             value={departmentId}
             style={width300}
@@ -204,12 +204,12 @@ const ProductsPage: React.FC = () => {
         <Form.Item
           label="Category" name="category"
           rules={[{required: true, message: 'Please enter category!'}]}>
-          <Select
+          <Select<string, { value: string; children: string }>
             disabled={!departmentId}
             placeholder="Select category"
             showSearch
             filterOption={(input, option) =>
-              option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
             }
             value={categoryId}
             style={width300}
@@ -225,12 +225,12 @@ const ProductsPage: React.FC = () => {
         </Form.Item>
         <Form.Item label="Type" name="type"
                    rules={[{required: true, message: 'Please enter type!'}]}>
-          <Select
+          <Select<string, { value: string; children: string }>
             disabled={!categoryId}
             placeholder="Select type"
             showSearch
             filterOption={(input, option) =>
-              option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
             }
             value={typeId}
             style={width300}

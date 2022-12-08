@@ -4,7 +4,7 @@ import {Button, Checkbox, Col, Layout, List, Modal, Radio, Select, Space, Table,
 import {ColumnsType} from "antd/es/table";
 import {today} from "../utils/utils";
 import {ALL_DRIVERS} from "../constants";
-import {Coordinate, Role, User, WEEK_DAY, WPOrder, WPORDER_STATUS} from '../API';
+import {Coordinate, ROLE, User, WEEK_DAY, WPOrder, WPORDER_STATUS} from '../API';
 import {
   fetchCoordinate,
   fetchCoordinates,
@@ -120,8 +120,8 @@ const MapCoordinatesPage: React.FC = () => {
 
   const loadDrivers = async () => {
     const fetchedDrivers = await fetchUsers();
-    setDrivers(fetchedDrivers.filter(driver => driver.role === Role.DELIVERY));
-    setSelectedDrivers(fetchedDrivers.filter(driver => driver.role === Role.DELIVERY));
+    setDrivers(fetchedDrivers.filter(driver => driver.role === ROLE.DELIVERY));
+    setSelectedDrivers(fetchedDrivers.filter(driver => driver.role === ROLE.DELIVERY));
   }
 
   const getCoordinatesForThisDay = (): Coordinate[] => {

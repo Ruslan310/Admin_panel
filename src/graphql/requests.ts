@@ -43,7 +43,7 @@ import {
   ListSuppliersQuery,
   ListTypesQuery, ListUsersQuery,
   ListWarehousesQuery, ModelBoxFilterInput,
-  OrderByStatusQuery,
+  WPOrdersByWPOrderStatusQuery,
   Product,
   Supplier,
   Type,
@@ -58,7 +58,7 @@ import {
   UpdateWPOrderInput,
   UpdateWPOrderMutation,
   User,
-  UserBySubQuery,
+  UsersBySubQuery,
   Warehouse,
   WPOrder,
   WPORDER_STATUS,
@@ -66,11 +66,11 @@ import {
 
 export const fetchUserBySub = async (
   sub: string,
-): Promise<User | null | undefined> => {
+): Promise<any> => {
   const fetchedUserData = (await API.graphql(
-    graphqlOperation(queries.userBySub, {sub}),
-  )) as IData<UserBySubQuery>;
-  return fetchedUserData.data.userBySub?.items![0];
+    graphqlOperation(queries.usersBySub, {sub}),
+  )) as IData<UsersBySubQuery>;
+  return fetchedUserData.data.usersBySub?.items[0] || null;
 };
 
 export const updateBox = async (boxToUpdate: UpdateBoxInput): Promise<Box> => {
@@ -152,17 +152,27 @@ export const fetchOrder = async (id: string): Promise<WPOrder> => {
 
 export const fetchOrdersByStatus = async (status: WPORDER_STATUS): Promise<WPOrder[]> => {
   const fetchedOrdersData = (await API.graphql(
-    graphqlOperation(queries.orderByStatus, {
+    graphqlOperation(queries.wPOrdersByWPOrderStatus, {
       WPOrderStatus: status,
     }),
-  )) as IData<OrderByStatusQuery>;
-  return fetchedOrdersData.data.orderByStatus?.items as WPOrder[];
+  )) as IData<WPOrdersByWPOrderStatusQuery>;
+  return fetchedOrdersData.data.wPOrdersByWPOrderStatus?.items as WPOrder[];
+};
+
+export const fetchOrdersByStatusNew = async (status: WPORDER_STATUS, nextPage?: string | null): Promise<WPOrdersByWPOrderStatusQuery> => {
+  const fetchedOrdersData = (await API.graphql(
+    graphqlOperation(queries.wPOrdersByWPOrderStatus, {
+      WPOrderStatus: status,
+    }),
+  )) as IData<WPOrdersByWPOrderStatusQuery>;
+  return fetchedOrdersData.data as WPOrdersByWPOrderStatusQuery;
 };
 
 export const fetchBoxes = async (filter?: ModelBoxFilterInput): Promise<Box[]> => {
   const data = (await API.graphql(
     graphqlOperation(queries.listBoxes, {filter: filter}),
   )) as IData<ListBoxesQuery>;
+  console.log(data.data.listBoxes)
   return data.data.listBoxes?.items as Box[];
 };
 

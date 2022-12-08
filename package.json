@@ -16,7 +16,7 @@
     "@types/react-router-dom": "^5.1.8",
     "@types/recompose": "^0.30.8",
     "antd": "^4.16.8",
-    "aws-amplify": "^4.1.2",
+    "aws-amplify": "^5.0.4",
     "jspdf": "^2.3.1",
     "moment-timezone": "^0.5.33",
     "react": "^17.0.2",

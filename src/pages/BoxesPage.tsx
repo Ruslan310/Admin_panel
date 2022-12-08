@@ -5,7 +5,7 @@ import {ColumnsType} from "antd/es/table";
 import moment from 'moment';
 import jsPDF from "jspdf";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
-import {Box, BOX_STATUS, Role, WEEK_DAY, WPORDER_STATUS} from "../API";
+import {Box, BOX_STATUS, ROLE, WEEK_DAY, WPORDER_STATUS} from "../API";
 import {fetchBoxes, fetchCoordinate, fetchUser, fetchUsers, updateBox} from "../graphql/requests";
 
 const {Content} = Layout;
@@ -65,8 +65,8 @@ const BoxesPage: React.FC = () => {
         const box = currentDayBoxes[i];
         let driverName = 'NA';
         if (box.WPOrder?.addressID) {
-          if (box.WPOrder.address.coordinateID) {
-            const coordinate = await fetchCoordinate(box.WPOrder.address.coordinateID);
+          if (box.WPOrder?.address?.coordinateID) {
+            const coordinate = await fetchCoordinate(box.WPOrder?.address.coordinateID);
             if (coordinate?.userID) {
               const driver = await fetchUser(coordinate?.userID)
               console.log(driver)
@@ -78,18 +78,18 @@ const BoxesPage: React.FC = () => {
         }
         printBoxes.push({
           orderNumber: box.WPOrder?.WPOrderNumber || "",
-          firstName: box.WPOrder.customer?.firstName || "",
-          lastName: box.WPOrder.customer?.lastName || "",
+          firstName: box.WPOrder?.customer?.firstName || "",
+          lastName: box.WPOrder?.customer?.lastName || "",
           dishName: box.sticker,
           driverName: driverName,
-          company: box.WPOrder.customer?.company || "",
+          company: box.WPOrder?.customer?.company || "",
           qrCode: box.qrCode,
           boxId: box.id,
         })
       }
 
       let sortedStickers: Sticker[] = [];
-      const drivers = (await fetchUsers()).filter(driver => driver.role === Role.DELIVERY);
+      const drivers = (await fetchUsers()).filter(driver => driver.role === ROLE.DELIVERY);
       for (const driver of drivers) {
         const stickers = printBoxes.filter(sticker => sticker.driverName === driver.firstName)
           .sort((a, b) => {

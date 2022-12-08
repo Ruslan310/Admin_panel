@@ -247,7 +247,6 @@ const ProductsPage: React.FC = () => {
               await createProduct({
                 measurement: measurement,
                 name: name,
-                productTypeId: typeId!,
                 typeID: typeId
               })
             }

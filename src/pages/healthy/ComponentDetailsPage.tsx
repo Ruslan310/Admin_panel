@@ -241,13 +241,13 @@ const ComponentsPage: React.FC = () => {
             label="Products"
             name="products"
           >
-            {currentComponent.products?.items && currentComponent.products?.items.map(componentProduct => {
-              return <Tag id={componentProduct!.id} closable={currentComponent.products!.items!.length > 1}
-                          onClose={async () => {
-                            // await DataStore.delete(ComponentProduct, componentProduct.id)
-                            console.log('remove product from component')
-                          }} color="green">{componentProduct!.product.name}</Tag>
-            })}
+            {/*{currentComponent.products?.items && currentComponent.products?.items.map(componentProduct => {*/}
+            {/*  return <Tag id={componentProduct!.id} closable={currentComponent.products!.items!.length > 1}*/}
+            {/*              onClose={async () => {*/}
+            {/*                // await DataStore.delete(ComponentProduct, componentProduct.id)*/}
+            {/*                console.log('remove product from component')*/}
+            {/*              }} color="green">{componentProduct!.product.name}</Tag>*/}
+            {/*})}*/}
             <Select<string, { value: string; children: string }>
               placeholder="Select component type"
               showSearch

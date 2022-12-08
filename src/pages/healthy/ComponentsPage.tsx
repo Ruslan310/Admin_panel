@@ -366,10 +366,8 @@ const ComponentsPage: React.FC = () => {
                 const product = products.find(product => product.id === addedProductId);
                 if (product) {
                   await createComponentProduct({
-                    componentID: addedComponent.id,
                     componentProductComponentId: addedComponent.id,
                     componentProductProductId: product.id,
-                    productID: product.id
                   });
                 }
               }
@@ -384,24 +382,24 @@ const ComponentsPage: React.FC = () => {
         </Form.Item>
       </Form>
       <Table
-        expandable={{
-          expandedRowRender: record => {
-            return <Descriptions title="Component details">
-              <Descriptions.Item label="Products">{record.products!.items!.map(componentProduct => {
-                return <Tag color="green">{componentProduct!.product.name}</Tag>
-              })}</Descriptions.Item>
-              <Descriptions.Item label="Calories">{record.calories}</Descriptions.Item>
-              <Descriptions.Item label="Carbons">{record.carbons}</Descriptions.Item>
-              <Descriptions.Item label="Fats">{record.fats}</Descriptions.Item>
-              <Descriptions.Item label="Package type">{record.packageType}</Descriptions.Item>
-              <Descriptions.Item label="Proteins">{record.proteins}</Descriptions.Item>
-              <Descriptions.Item label="Recipe">{record.recipe}</Descriptions.Item>
-              <Descriptions.Item label="Component type">{record.type}</Descriptions.Item>
-              <Descriptions.Item label="Weight in gram">{record.weightInGram}</Descriptions.Item>
-            </Descriptions>
-          },
-          rowExpandable: record => true,
-        }}
+        // expandable={{
+        //   expandedRowRender: record => {
+        //     return <Descriptions title="Component details">
+        //       <Descriptions.Item label="Products">{record.products!.items!.map(componentProduct => {
+        //         return <Tag color="green">{componentProduct!.product.name}</Tag>
+        //       })}</Descriptions.Item>
+        //       <Descriptions.Item label="Calories">{record.calories}</Descriptions.Item>
+        //       <Descriptions.Item label="Carbons">{record.carbons}</Descriptions.Item>
+        //       <Descriptions.Item label="Fats">{record.fats}</Descriptions.Item>
+        //       <Descriptions.Item label="Package type">{record.packageType}</Descriptions.Item>
+        //       <Descriptions.Item label="Proteins">{record.proteins}</Descriptions.Item>
+        //       <Descriptions.Item label="Recipe">{record.recipe}</Descriptions.Item>
+        //       <Descriptions.Item label="Component type">{record.type}</Descriptions.Item>
+        //       <Descriptions.Item label="Weight in gram">{record.weightInGram}</Descriptions.Item>
+        //     </Descriptions>
+        //   },
+        //   rowExpandable: record => true,
+        // }}
         size={"middle"}
         rowKey="id"
         columns={columns}

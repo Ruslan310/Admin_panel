@@ -1,0 +1,109 @@
+type WPOrder @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  WPOrderNumber: String! @index(name: "byNumber")
+  WPOrderStatus: String!
+  WPDishes: [WPDish!]
+  finalPrice: Float!
+  customerComment: String
+  createdAtWp: AWSTimestamp!
+  boxes: [Box] @hasMany(indexName: "byWPOrder", fields: ["id"])
+  driverName: String
+  companyName: String
+  customerName: String!
+  customerAddress: String!
+  customerPhoneNumber: String
+  customerEmail: String
+  addressID: ID! @index(name: "byAddress")
+  address: Address @belongsTo(fields: ["addressID"])
+  customerID: ID! @index(name: "byCustomer")
+  customer: Customer @belongsTo(fields: ["customerID"])
+}
+
+type Address @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  address1: String!
+  address2: String!
+  city: String!
+  postCode: String! @index(name: "byPostCode")
+  WPOrders: [WPOrder] @hasMany(indexName: "byAddress", fields: ["id"])
+  coordinateID: ID @index(name: "byCoordinate")
+  coordinate: Coordinate @belongsTo(fields: ["coordinateID"])
+}
+
+type Coordinate @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  latitude: Float!
+  longitude: Float!
+  name: String!
+  userID: ID @index(name: "byUser")
+  driver: User @belongsTo(fields: ["userID"])
+  addresses: [Address] @hasMany(indexName: "byCoordinate", fields: ["id"])
+}
+
+type User @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  sub: String!
+  email: String!
+  role: ROLE!
+  firstName: String
+  lastName: String
+  avatar: String
+  coordinates: [Coordinate] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+type Customer @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  wpId: Int
+  company: String
+  firstName: String
+  lastName: String
+  email: String! @index(name: "byEmail")
+  phoneNumber: String
+  WPOrders: [WPOrder] @hasMany(indexName: "byCustomer", fields: ["id"])
+}
+
+type Box @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  sticker: String!
+  boxStatus: BOX_STATUS!
+  qrCode: String!
+  customerComment: String
+  weekDay: WEEK_DAY!
+  wporderID: ID! @index(name: "byWPOrder")
+  WPOrder: WPOrder @belongsTo(fields: ["wporderID"])
+}
+
+type WPDish {
+  name: String!
+  dishType: String!
+  quantity: Int!
+  weekDay: WEEK_DAY!
+}
+
+enum WEEK_DAY {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+  WITHOUT_DAY
+}
+
+enum BOX_STATUS {
+  NEW
+  PRINTED
+  COOKED
+  IN_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+enum ROLE {
+  DELIVERY
+  KITCHEN
+  ADMIN
+  GUEST
+}
+ 

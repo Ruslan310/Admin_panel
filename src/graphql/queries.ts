@@ -2,5791 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getDishComponent = /* GraphQL */ `
-  query GetDishComponent($id: ID!) {
-    getDishComponent(id: $id) {
-      id
-      dishID
-      componentID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      dish {
-        id
-        name
-        description
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        components {
-          items {
-            id
-            dishID
-            componentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            dish {
-              id
-              name
-              description
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      component {
-        id
-        name
-        type
-        packageType
-        calories
-        carbons
-        fats
-        proteins
-        recipe
-        price
-        picture
-        weightInGram
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        dishes {
-          items {
-            id
-            dishID
-            componentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            dish {
-              id
-              name
-              description
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        products {
-          items {
-            id
-            componentID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-    }
-  }
-`;
-export const listDishComponents = /* GraphQL */ `
-  query ListDishComponents(
-    $filter: ModelDishComponentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listDishComponents(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        dishID
-        componentID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        dish {
-          id
-          name
-          description
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          components {
-            items {
-              id
-              dishID
-              componentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        component {
-          id
-          name
-          type
-          packageType
-          calories
-          carbons
-          fats
-          proteins
-          recipe
-          price
-          picture
-          weightInGram
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          dishes {
-            items {
-              id
-              dishID
-              componentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          products {
-            items {
-              id
-              componentID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncDishComponents = /* GraphQL */ `
-  query SyncDishComponents(
-    $filter: ModelDishComponentFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncDishComponents(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        dishID
-        componentID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        dish {
-          id
-          name
-          description
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          components {
-            items {
-              id
-              dishID
-              componentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        component {
-          id
-          name
-          type
-          packageType
-          calories
-          carbons
-          fats
-          proteins
-          recipe
-          price
-          picture
-          weightInGram
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          dishes {
-            items {
-              id
-              dishID
-              componentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          products {
-            items {
-              id
-              componentID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getDish = /* GraphQL */ `
-  query GetDish($id: ID!) {
-    getDish(id: $id) {
-      id
-      name
-      description
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      components {
-        items {
-          id
-          dishID
-          componentID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          dish {
-            id
-            name
-            description
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            components {
-              nextToken
-              startedAt
-            }
-          }
-          component {
-            id
-            name
-            type
-            packageType
-            calories
-            carbons
-            fats
-            proteins
-            recipe
-            price
-            picture
-            weightInGram
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            dishes {
-              nextToken
-              startedAt
-            }
-            products {
-              nextToken
-              startedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const listDishes = /* GraphQL */ `
-  query ListDishes(
-    $filter: ModelDishFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listDishes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        description
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        components {
-          items {
-            id
-            dishID
-            componentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            dish {
-              id
-              name
-              description
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncDishes = /* GraphQL */ `
-  query SyncDishes(
-    $filter: ModelDishFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncDishes(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        description
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        components {
-          items {
-            id
-            dishID
-            componentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            dish {
-              id
-              name
-              description
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getComponentProduct = /* GraphQL */ `
-  query GetComponentProduct($id: ID!) {
-    getComponentProduct(id: $id) {
-      id
-      componentID
-      productID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      component {
-        id
-        name
-        type
-        packageType
-        calories
-        carbons
-        fats
-        proteins
-        recipe
-        price
-        picture
-        weightInGram
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        dishes {
-          items {
-            id
-            dishID
-            componentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            dish {
-              id
-              name
-              description
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        products {
-          items {
-            id
-            componentID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      product {
-        id
-        name
-        measurement
-        typeID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        components {
-          items {
-            id
-            componentID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        warehouses {
-          items {
-            id
-            quantity
-            maxQuantity
-            minQuantity
-            qrCode
-            warehouseID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            warehouse {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        suppliers {
-          items {
-            id
-            price
-            quality
-            supplierID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            supplier {
-              id
-              name
-              phoneNumber
-              email
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        type {
-          id
-          name
-          categoryID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          products {
-            items {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          category {
-            id
-            name
-            departmentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            types {
-              nextToken
-              startedAt
-            }
-            department {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-export const listComponentProducts = /* GraphQL */ `
-  query ListComponentProducts(
-    $filter: ModelComponentProductFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listComponentProducts(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        componentID
-        productID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        component {
-          id
-          name
-          type
-          packageType
-          calories
-          carbons
-          fats
-          proteins
-          recipe
-          price
-          picture
-          weightInGram
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          dishes {
-            items {
-              id
-              dishID
-              componentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          products {
-            items {
-              id
-              componentID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        product {
-          id
-          name
-          measurement
-          typeID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          components {
-            items {
-              id
-              componentID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          warehouses {
-            items {
-              id
-              quantity
-              maxQuantity
-              minQuantity
-              qrCode
-              warehouseID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          suppliers {
-            items {
-              id
-              price
-              quality
-              supplierID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          type {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncComponentProducts = /* GraphQL */ `
-  query SyncComponentProducts(
-    $filter: ModelComponentProductFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncComponentProducts(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        componentID
-        productID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        component {
-          id
-          name
-          type
-          packageType
-          calories
-          carbons
-          fats
-          proteins
-          recipe
-          price
-          picture
-          weightInGram
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          dishes {
-            items {
-              id
-              dishID
-              componentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          products {
-            items {
-              id
-              componentID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        product {
-          id
-          name
-          measurement
-          typeID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          components {
-            items {
-              id
-              componentID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          warehouses {
-            items {
-              id
-              quantity
-              maxQuantity
-              minQuantity
-              qrCode
-              warehouseID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          suppliers {
-            items {
-              id
-              price
-              quality
-              supplierID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          type {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getComponent = /* GraphQL */ `
-  query GetComponent($id: ID!) {
-    getComponent(id: $id) {
-      id
-      name
-      type
-      packageType
-      calories
-      carbons
-      fats
-      proteins
-      recipe
-      price
-      picture
-      weightInGram
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      dishes {
-        items {
-          id
-          dishID
-          componentID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          dish {
-            id
-            name
-            description
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            components {
-              nextToken
-              startedAt
-            }
-          }
-          component {
-            id
-            name
-            type
-            packageType
-            calories
-            carbons
-            fats
-            proteins
-            recipe
-            price
-            picture
-            weightInGram
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            dishes {
-              nextToken
-              startedAt
-            }
-            products {
-              nextToken
-              startedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      products {
-        items {
-          id
-          componentID
-          productID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          component {
-            id
-            name
-            type
-            packageType
-            calories
-            carbons
-            fats
-            proteins
-            recipe
-            price
-            picture
-            weightInGram
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            dishes {
-              nextToken
-              startedAt
-            }
-            products {
-              nextToken
-              startedAt
-            }
-          }
-          product {
-            id
-            name
-            measurement
-            typeID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            components {
-              nextToken
-              startedAt
-            }
-            warehouses {
-              nextToken
-              startedAt
-            }
-            suppliers {
-              nextToken
-              startedAt
-            }
-            type {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const listComponents = /* GraphQL */ `
-  query ListComponents(
-    $filter: ModelComponentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listComponents(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        type
-        packageType
-        calories
-        carbons
-        fats
-        proteins
-        recipe
-        price
-        picture
-        weightInGram
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        dishes {
-          items {
-            id
-            dishID
-            componentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            dish {
-              id
-              name
-              description
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        products {
-          items {
-            id
-            componentID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncComponents = /* GraphQL */ `
-  query SyncComponents(
-    $filter: ModelComponentFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncComponents(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        type
-        packageType
-        calories
-        carbons
-        fats
-        proteins
-        recipe
-        price
-        picture
-        weightInGram
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        dishes {
-          items {
-            id
-            dishID
-            componentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            dish {
-              id
-              name
-              description
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        products {
-          items {
-            id
-            componentID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getProductAtWarehouse = /* GraphQL */ `
-  query GetProductAtWarehouse($id: ID!) {
-    getProductAtWarehouse(id: $id) {
-      id
-      quantity
-      maxQuantity
-      minQuantity
-      qrCode
-      warehouseID
-      productID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      product {
-        id
-        name
-        measurement
-        typeID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        components {
-          items {
-            id
-            componentID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        warehouses {
-          items {
-            id
-            quantity
-            maxQuantity
-            minQuantity
-            qrCode
-            warehouseID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            warehouse {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        suppliers {
-          items {
-            id
-            price
-            quality
-            supplierID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            supplier {
-              id
-              name
-              phoneNumber
-              email
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        type {
-          id
-          name
-          categoryID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          products {
-            items {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          category {
-            id
-            name
-            departmentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            types {
-              nextToken
-              startedAt
-            }
-            department {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-      }
-      warehouse {
-        id
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        products {
-          items {
-            id
-            quantity
-            maxQuantity
-            minQuantity
-            qrCode
-            warehouseID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            warehouse {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinateID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-    }
-  }
-`;
-export const listProductAtWarehouses = /* GraphQL */ `
-  query ListProductAtWarehouses(
-    $filter: ModelProductAtWarehouseFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listProductAtWarehouses(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        quantity
-        maxQuantity
-        minQuantity
-        qrCode
-        warehouseID
-        productID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        product {
-          id
-          name
-          measurement
-          typeID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          components {
-            items {
-              id
-              componentID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          warehouses {
-            items {
-              id
-              quantity
-              maxQuantity
-              minQuantity
-              qrCode
-              warehouseID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          suppliers {
-            items {
-              id
-              price
-              quality
-              supplierID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          type {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        warehouse {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          products {
-            items {
-              id
-              quantity
-              maxQuantity
-              minQuantity
-              qrCode
-              warehouseID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncProductAtWarehouses = /* GraphQL */ `
-  query SyncProductAtWarehouses(
-    $filter: ModelProductAtWarehouseFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncProductAtWarehouses(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        quantity
-        maxQuantity
-        minQuantity
-        qrCode
-        warehouseID
-        productID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        product {
-          id
-          name
-          measurement
-          typeID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          components {
-            items {
-              id
-              componentID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          warehouses {
-            items {
-              id
-              quantity
-              maxQuantity
-              minQuantity
-              qrCode
-              warehouseID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          suppliers {
-            items {
-              id
-              price
-              quality
-              supplierID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          type {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        warehouse {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          products {
-            items {
-              id
-              quantity
-              maxQuantity
-              minQuantity
-              qrCode
-              warehouseID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getProductFromSupplier = /* GraphQL */ `
-  query GetProductFromSupplier($id: ID!) {
-    getProductFromSupplier(id: $id) {
-      id
-      price
-      quality
-      supplierID
-      productID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      supplier {
-        id
-        name
-        phoneNumber
-        email
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        products {
-          items {
-            id
-            price
-            quality
-            supplierID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            supplier {
-              id
-              name
-              phoneNumber
-              email
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinateID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-      product {
-        id
-        name
-        measurement
-        typeID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        components {
-          items {
-            id
-            componentID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        warehouses {
-          items {
-            id
-            quantity
-            maxQuantity
-            minQuantity
-            qrCode
-            warehouseID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            warehouse {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        suppliers {
-          items {
-            id
-            price
-            quality
-            supplierID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            supplier {
-              id
-              name
-              phoneNumber
-              email
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        type {
-          id
-          name
-          categoryID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          products {
-            items {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          category {
-            id
-            name
-            departmentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            types {
-              nextToken
-              startedAt
-            }
-            department {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-export const listProductFromSuppliers = /* GraphQL */ `
-  query ListProductFromSuppliers(
-    $filter: ModelProductFromSupplierFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listProductFromSuppliers(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        price
-        quality
-        supplierID
-        productID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        supplier {
-          id
-          name
-          phoneNumber
-          email
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          products {
-            items {
-              id
-              price
-              quality
-              supplierID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-        product {
-          id
-          name
-          measurement
-          typeID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          components {
-            items {
-              id
-              componentID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          warehouses {
-            items {
-              id
-              quantity
-              maxQuantity
-              minQuantity
-              qrCode
-              warehouseID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          suppliers {
-            items {
-              id
-              price
-              quality
-              supplierID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          type {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncProductFromSuppliers = /* GraphQL */ `
-  query SyncProductFromSuppliers(
-    $filter: ModelProductFromSupplierFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncProductFromSuppliers(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        price
-        quality
-        supplierID
-        productID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        supplier {
-          id
-          name
-          phoneNumber
-          email
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          products {
-            items {
-              id
-              price
-              quality
-              supplierID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-        product {
-          id
-          name
-          measurement
-          typeID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          components {
-            items {
-              id
-              componentID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          warehouses {
-            items {
-              id
-              quantity
-              maxQuantity
-              minQuantity
-              qrCode
-              warehouseID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          suppliers {
-            items {
-              id
-              price
-              quality
-              supplierID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          type {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getSupplier = /* GraphQL */ `
-  query GetSupplier($id: ID!) {
-    getSupplier(id: $id) {
-      id
-      name
-      phoneNumber
-      email
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      products {
-        items {
-          id
-          price
-          quality
-          supplierID
-          productID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          supplier {
-            id
-            name
-            phoneNumber
-            email
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          product {
-            id
-            name
-            measurement
-            typeID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            components {
-              nextToken
-              startedAt
-            }
-            warehouses {
-              nextToken
-              startedAt
-            }
-            suppliers {
-              nextToken
-              startedAt
-            }
-            type {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      address {
-        id
-        address1
-        address2
-        city
-        postCode
-        coordinateID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressWPOrders {
-          items {
-            id
-            WPOrderNumber
-            WPOrderStatus
-            WPDishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            finalPrice
-            customerComment
-            customerID
-            addressID
-            createdAtWp
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            WPOrderBoxes {
-              nextToken
-              startedAt
-            }
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-    }
-  }
-`;
-export const listSuppliers = /* GraphQL */ `
-  query ListSuppliers(
-    $filter: ModelSupplierFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listSuppliers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        phoneNumber
-        email
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        products {
-          items {
-            id
-            price
-            quality
-            supplierID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            supplier {
-              id
-              name
-              phoneNumber
-              email
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinateID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncSuppliers = /* GraphQL */ `
-  query SyncSuppliers(
-    $filter: ModelSupplierFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncSuppliers(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        phoneNumber
-        email
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        products {
-          items {
-            id
-            price
-            quality
-            supplierID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            supplier {
-              id
-              name
-              phoneNumber
-              email
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinateID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getProduct = /* GraphQL */ `
-  query GetProduct($id: ID!) {
-    getProduct(id: $id) {
-      id
-      name
-      measurement
-      typeID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      components {
-        items {
-          id
-          componentID
-          productID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          component {
-            id
-            name
-            type
-            packageType
-            calories
-            carbons
-            fats
-            proteins
-            recipe
-            price
-            picture
-            weightInGram
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            dishes {
-              nextToken
-              startedAt
-            }
-            products {
-              nextToken
-              startedAt
-            }
-          }
-          product {
-            id
-            name
-            measurement
-            typeID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            components {
-              nextToken
-              startedAt
-            }
-            warehouses {
-              nextToken
-              startedAt
-            }
-            suppliers {
-              nextToken
-              startedAt
-            }
-            type {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      warehouses {
-        items {
-          id
-          quantity
-          maxQuantity
-          minQuantity
-          qrCode
-          warehouseID
-          productID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          product {
-            id
-            name
-            measurement
-            typeID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            components {
-              nextToken
-              startedAt
-            }
-            warehouses {
-              nextToken
-              startedAt
-            }
-            suppliers {
-              nextToken
-              startedAt
-            }
-            type {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          warehouse {
-            id
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      suppliers {
-        items {
-          id
-          price
-          quality
-          supplierID
-          productID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          supplier {
-            id
-            name
-            phoneNumber
-            email
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          product {
-            id
-            name
-            measurement
-            typeID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            components {
-              nextToken
-              startedAt
-            }
-            warehouses {
-              nextToken
-              startedAt
-            }
-            suppliers {
-              nextToken
-              startedAt
-            }
-            type {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      type {
-        id
-        name
-        categoryID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        products {
-          items {
-            id
-            name
-            measurement
-            typeID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            components {
-              nextToken
-              startedAt
-            }
-            warehouses {
-              nextToken
-              startedAt
-            }
-            suppliers {
-              nextToken
-              startedAt
-            }
-            type {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        category {
-          id
-          name
-          departmentID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          types {
-            items {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          department {
-            id
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            categories {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-export const listProducts = /* GraphQL */ `
-  query ListProducts(
-    $filter: ModelProductFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        measurement
-        typeID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        components {
-          items {
-            id
-            componentID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        warehouses {
-          items {
-            id
-            quantity
-            maxQuantity
-            minQuantity
-            qrCode
-            warehouseID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            warehouse {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        suppliers {
-          items {
-            id
-            price
-            quality
-            supplierID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            supplier {
-              id
-              name
-              phoneNumber
-              email
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        type {
-          id
-          name
-          categoryID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          products {
-            items {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          category {
-            id
-            name
-            departmentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            types {
-              nextToken
-              startedAt
-            }
-            department {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncProducts = /* GraphQL */ `
-  query SyncProducts(
-    $filter: ModelProductFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncProducts(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        measurement
-        typeID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        components {
-          items {
-            id
-            componentID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            component {
-              id
-              name
-              type
-              packageType
-              calories
-              carbons
-              fats
-              proteins
-              recipe
-              price
-              picture
-              weightInGram
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        warehouses {
-          items {
-            id
-            quantity
-            maxQuantity
-            minQuantity
-            qrCode
-            warehouseID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            warehouse {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        suppliers {
-          items {
-            id
-            price
-            quality
-            supplierID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            supplier {
-              id
-              name
-              phoneNumber
-              email
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        type {
-          id
-          name
-          categoryID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          products {
-            items {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          category {
-            id
-            name
-            departmentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            types {
-              nextToken
-              startedAt
-            }
-            department {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getType = /* GraphQL */ `
-  query GetType($id: ID!) {
-    getType(id: $id) {
-      id
-      name
-      categoryID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      products {
-        items {
-          id
-          name
-          measurement
-          typeID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          components {
-            items {
-              id
-              componentID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          warehouses {
-            items {
-              id
-              quantity
-              maxQuantity
-              minQuantity
-              qrCode
-              warehouseID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          suppliers {
-            items {
-              id
-              price
-              quality
-              supplierID
-              productID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          type {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      category {
-        id
-        name
-        departmentID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        types {
-          items {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        department {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          categories {
-            items {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-    }
-  }
-`;
-export const listTypes = /* GraphQL */ `
-  query ListTypes(
-    $filter: ModelTypeFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listTypes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        categoryID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        products {
-          items {
-            id
-            name
-            measurement
-            typeID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            components {
-              nextToken
-              startedAt
-            }
-            warehouses {
-              nextToken
-              startedAt
-            }
-            suppliers {
-              nextToken
-              startedAt
-            }
-            type {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        category {
-          id
-          name
-          departmentID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          types {
-            items {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          department {
-            id
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            categories {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncTypes = /* GraphQL */ `
-  query SyncTypes(
-    $filter: ModelTypeFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncTypes(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        categoryID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        products {
-          items {
-            id
-            name
-            measurement
-            typeID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            components {
-              nextToken
-              startedAt
-            }
-            warehouses {
-              nextToken
-              startedAt
-            }
-            suppliers {
-              nextToken
-              startedAt
-            }
-            type {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        category {
-          id
-          name
-          departmentID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          types {
-            items {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          department {
-            id
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            categories {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getCategory = /* GraphQL */ `
-  query GetCategory($id: ID!) {
-    getCategory(id: $id) {
-      id
-      name
-      departmentID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      types {
-        items {
-          id
-          name
-          categoryID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          products {
-            items {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          category {
-            id
-            name
-            departmentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            types {
-              nextToken
-              startedAt
-            }
-            department {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      department {
-        id
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        categories {
-          items {
-            id
-            name
-            departmentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            types {
-              nextToken
-              startedAt
-            }
-            department {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-    }
-  }
-`;
-export const listCategories = /* GraphQL */ `
-  query ListCategories(
-    $filter: ModelCategoryFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCategories(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        departmentID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        types {
-          items {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        department {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          categories {
-            items {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncCategories = /* GraphQL */ `
-  query SyncCategories(
-    $filter: ModelCategoryFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncCategories(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        departmentID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        types {
-          items {
-            id
-            name
-            categoryID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            category {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        department {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          categories {
-            items {
-              id
-              name
-              departmentID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getDepartment = /* GraphQL */ `
-  query GetDepartment($id: ID!) {
-    getDepartment(id: $id) {
-      id
-      name
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      categories {
-        items {
-          id
-          name
-          departmentID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          types {
-            items {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          department {
-            id
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            categories {
-              nextToken
-              startedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const listDepartments = /* GraphQL */ `
-  query ListDepartments(
-    $filter: ModelDepartmentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listDepartments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        categories {
-          items {
-            id
-            name
-            departmentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            types {
-              nextToken
-              startedAt
-            }
-            department {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncDepartments = /* GraphQL */ `
-  query SyncDepartments(
-    $filter: ModelDepartmentFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncDepartments(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        categories {
-          items {
-            id
-            name
-            departmentID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            types {
-              nextToken
-              startedAt
-            }
-            department {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getWarehouse = /* GraphQL */ `
-  query GetWarehouse($id: ID!) {
-    getWarehouse(id: $id) {
-      id
-      name
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      products {
-        items {
-          id
-          quantity
-          maxQuantity
-          minQuantity
-          qrCode
-          warehouseID
-          productID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          product {
-            id
-            name
-            measurement
-            typeID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            components {
-              nextToken
-              startedAt
-            }
-            warehouses {
-              nextToken
-              startedAt
-            }
-            suppliers {
-              nextToken
-              startedAt
-            }
-            type {
-              id
-              name
-              categoryID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          warehouse {
-            id
-            name
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            products {
-              nextToken
-              startedAt
-            }
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-      address {
-        id
-        address1
-        address2
-        city
-        postCode
-        coordinateID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressWPOrders {
-          items {
-            id
-            WPOrderNumber
-            WPOrderStatus
-            WPDishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            finalPrice
-            customerComment
-            customerID
-            addressID
-            createdAtWp
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            WPOrderBoxes {
-              nextToken
-              startedAt
-            }
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-    }
-  }
-`;
-export const listWarehouses = /* GraphQL */ `
-  query ListWarehouses(
-    $filter: ModelWarehouseFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listWarehouses(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        products {
-          items {
-            id
-            quantity
-            maxQuantity
-            minQuantity
-            qrCode
-            warehouseID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            warehouse {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinateID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncWarehouses = /* GraphQL */ `
-  query SyncWarehouses(
-    $filter: ModelWarehouseFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncWarehouses(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        products {
-          items {
-            id
-            quantity
-            maxQuantity
-            minQuantity
-            qrCode
-            warehouseID
-            productID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            product {
-              id
-              name
-              measurement
-              typeID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            warehouse {
-              id
-              name
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinateID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getCoordinate = /* GraphQL */ `
-  query GetCoordinate($id: ID!) {
-    getCoordinate(id: $id) {
-      id
-      latitude
-      longitude
-      name
-      userID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      coordinateAddresses {
-        items {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinateID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const listCoordinates = /* GraphQL */ `
-  query ListCoordinates(
-    $filter: ModelCoordinateFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCoordinates(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        latitude
-        longitude
-        name
-        userID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        coordinateAddresses {
-          items {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncCoordinates = /* GraphQL */ `
-  query SyncCoordinates(
-    $filter: ModelCoordinateFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncCoordinates(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        latitude
-        longitude
-        name
-        userID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        coordinateAddresses {
-          items {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getAddress = /* GraphQL */ `
-  query GetAddress($id: ID!) {
-    getAddress(id: $id) {
-      id
-      address1
-      address2
-      city
-      postCode
-      coordinateID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      addressWPOrders {
-        items {
-          id
-          WPOrderNumber
-          WPOrderStatus
-          WPDishes {
-            name
-            dishType
-            quantity
-            weekDay
-          }
-          finalPrice
-          customerComment
-          customerID
-          addressID
-          createdAtWp
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-          WPOrderBoxes {
-            items {
-              id
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              WPOrderID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          customer {
-            id
-            wpId
-            company
-            firstName
-            lastName
-            email
-            phoneNumber
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customerWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const listAddresses = /* GraphQL */ `
-  query ListAddresses(
-    $filter: ModelAddressFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listAddresses(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        address1
-        address2
-        city
-        postCode
-        coordinateID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressWPOrders {
-          items {
-            id
-            WPOrderNumber
-            WPOrderStatus
-            WPDishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            finalPrice
-            customerComment
-            customerID
-            addressID
-            createdAtWp
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            WPOrderBoxes {
-              nextToken
-              startedAt
-            }
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const byPostCode = /* GraphQL */ `
-  query ByPostCode(
-    $postCode: String
-    $sortDirection: ModelSortDirection
-    $filter: ModelAddressFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    byPostCode(
-      postCode: $postCode
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        address1
-        address2
-        city
-        postCode
-        coordinateID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressWPOrders {
-          items {
-            id
-            WPOrderNumber
-            WPOrderStatus
-            WPDishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            finalPrice
-            customerComment
-            customerID
-            addressID
-            createdAtWp
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            WPOrderBoxes {
-              nextToken
-              startedAt
-            }
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncAddresses = /* GraphQL */ `
-  query SyncAddresses(
-    $filter: ModelAddressFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncAddresses(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        address1
-        address2
-        city
-        postCode
-        coordinateID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressWPOrders {
-          items {
-            id
-            WPOrderNumber
-            WPOrderStatus
-            WPDishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            finalPrice
-            customerComment
-            customerID
-            addressID
-            createdAtWp
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            WPOrderBoxes {
-              nextToken
-              startedAt
-            }
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getBox = /* GraphQL */ `
-  query GetBox($id: ID!) {
-    getBox(id: $id) {
-      id
-      sticker
-      boxStatus
-      qrCode
-      customerComment
-      weekDay
-      WPOrderID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      WPOrder {
-        id
-        WPOrderNumber
-        WPOrderStatus
-        WPDishes {
-          name
-          dishType
-          quantity
-          weekDay
-        }
-        finalPrice
-        customerComment
-        customerID
-        addressID
-        createdAtWp
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinateID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        WPOrderBoxes {
-          items {
-            id
-            sticker
-            boxStatus
-            qrCode
-            customerComment
-            weekDay
-            WPOrderID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            WPOrder {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          customerWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-    }
-  }
-`;
-export const listBoxes = /* GraphQL */ `
-  query ListBoxes(
-    $filter: ModelBoxFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listBoxes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        sticker
-        boxStatus
-        qrCode
-        customerComment
-        weekDay
-        WPOrderID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        WPOrder {
-          id
-          WPOrderNumber
-          WPOrderStatus
-          WPDishes {
-            name
-            dishType
-            quantity
-            weekDay
-          }
-          finalPrice
-          customerComment
-          customerID
-          addressID
-          createdAtWp
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-          WPOrderBoxes {
-            items {
-              id
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              WPOrderID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          customer {
-            id
-            wpId
-            company
-            firstName
-            lastName
-            email
-            phoneNumber
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customerWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncBoxes = /* GraphQL */ `
-  query SyncBoxes(
-    $filter: ModelBoxFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncBoxes(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        sticker
-        boxStatus
-        qrCode
-        customerComment
-        weekDay
-        WPOrderID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        WPOrder {
-          id
-          WPOrderNumber
-          WPOrderStatus
-          WPDishes {
-            name
-            dishType
-            quantity
-            weekDay
-          }
-          finalPrice
-          customerComment
-          customerID
-          addressID
-          createdAtWp
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-          WPOrderBoxes {
-            items {
-              id
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              WPOrderID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          customer {
-            id
-            wpId
-            company
-            firstName
-            lastName
-            email
-            phoneNumber
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customerWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
 export const getWPOrder = /* GraphQL */ `
   query GetWPOrder($id: ID!) {
     getWPOrder(id: $id) {
@@ -5801,84 +16,8 @@ export const getWPOrder = /* GraphQL */ `
       }
       finalPrice
       customerComment
-      customerID
-      addressID
       createdAtWp
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      address {
-        id
-        address1
-        address2
-        city
-        postCode
-        coordinateID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        addressWPOrders {
-          items {
-            id
-            WPOrderNumber
-            WPOrderStatus
-            WPDishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            finalPrice
-            customerComment
-            customerID
-            addressID
-            createdAtWp
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            WPOrderBoxes {
-              nextToken
-              startedAt
-            }
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-      }
-      WPOrderBoxes {
+      boxes {
         items {
           id
           sticker
@@ -5886,68 +25,53 @@ export const getWPOrder = /* GraphQL */ `
           qrCode
           customerComment
           weekDay
-          WPOrderID
+          wporderID
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          WPOrder {
-            id
-            WPOrderNumber
-            WPOrderStatus
-            WPDishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            finalPrice
-            customerComment
-            customerID
-            addressID
-            createdAtWp
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            WPOrderBoxes {
-              nextToken
-              startedAt
-            }
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
         }
         nextToken
         startedAt
       }
+      driverName
+      companyName
+      customerName
+      customerAddress
+      customerPhoneNumber
+      customerEmail
+      addressID
+      address {
+        id
+        address1
+        address2
+        city
+        postCode
+        WPOrders {
+          nextToken
+          startedAt
+        }
+        coordinateID
+        coordinate {
+          id
+          latitude
+          longitude
+          name
+          userID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      customerID
       customer {
         id
         wpId
@@ -5956,68 +80,21 @@ export const getWPOrder = /* GraphQL */ `
         lastName
         email
         phoneNumber
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        customerWPOrders {
-          items {
-            id
-            WPOrderNumber
-            WPOrderStatus
-            WPDishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            finalPrice
-            customerComment
-            customerID
-            addressID
-            createdAtWp
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            WPOrderBoxes {
-              nextToken
-              startedAt
-            }
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
+        WPOrders {
           nextToken
           startedAt
         }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -6040,14 +117,18 @@ export const listWPOrders = /* GraphQL */ `
         }
         finalPrice
         customerComment
-        customerID
-        addressID
         createdAtWp
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
+        boxes {
+          nextToken
+          startedAt
+        }
+        driverName
+        companyName
+        customerName
+        customerAddress
+        customerPhoneNumber
+        customerEmail
+        addressID
         address {
           id
           address1
@@ -6055,64 +136,13 @@ export const listWPOrders = /* GraphQL */ `
           city
           postCode
           coordinateID
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
         }
-        WPOrderBoxes {
-          items {
-            id
-            sticker
-            boxStatus
-            qrCode
-            customerComment
-            weekDay
-            WPOrderID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            WPOrder {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
+        customerID
         customer {
           id
           wpId
@@ -6121,309 +151,17 @@ export const listWPOrders = /* GraphQL */ `
           lastName
           email
           phoneNumber
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          customerWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
         }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const byWPOrderNumber = /* GraphQL */ `
-  query ByWPOrderNumber(
-    $WPOrderNumber: String
-    $sortDirection: ModelSortDirection
-    $filter: ModelWPOrderFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    byWPOrderNumber(
-      WPOrderNumber: $WPOrderNumber
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        WPOrderNumber
-        WPOrderStatus
-        WPDishes {
-          name
-          dishType
-          quantity
-          weekDay
-        }
-        finalPrice
-        customerComment
-        customerID
-        addressID
-        createdAtWp
+        createdAt
+        updatedAt
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinateID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        WPOrderBoxes {
-          items {
-            id
-            sticker
-            boxStatus
-            qrCode
-            customerComment
-            weekDay
-            WPOrderID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            WPOrder {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          customerWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const orderByStatus = /* GraphQL */ `
-  query OrderByStatus(
-    $WPOrderStatus: WPORDER_STATUS
-    $sortDirection: ModelSortDirection
-    $filter: ModelWPOrderFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    orderByStatus(
-      WPOrderStatus: $WPOrderStatus
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        WPOrderNumber
-        WPOrderStatus
-        WPDishes {
-          name
-          dishType
-          quantity
-          weekDay
-        }
-        finalPrice
-        customerComment
-        customerID
-        addressID
-        createdAtWp
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        address {
-          id
-          address1
-          address2
-          city
-          postCode
-          coordinateID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
-        WPOrderBoxes {
-          items {
-            id
-            sticker
-            boxStatus
-            qrCode
-            customerComment
-            weekDay
-            WPOrderID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            WPOrder {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
-        customer {
-          id
-          wpId
-          company
-          firstName
-          lastName
-          email
-          phoneNumber
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          customerWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-        }
       }
       nextToken
       startedAt
@@ -6455,14 +193,18 @@ export const syncWPOrders = /* GraphQL */ `
         }
         finalPrice
         customerComment
-        customerID
-        addressID
         createdAtWp
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
+        boxes {
+          nextToken
+          startedAt
+        }
+        driverName
+        companyName
+        customerName
+        customerAddress
+        customerPhoneNumber
+        customerEmail
+        addressID
         address {
           id
           address1
@@ -6470,64 +212,13 @@ export const syncWPOrders = /* GraphQL */ `
           city
           postCode
           coordinateID
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          addressWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
         }
-        WPOrderBoxes {
-          items {
-            id
-            sticker
-            boxStatus
-            qrCode
-            customerComment
-            weekDay
-            WPOrderID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            WPOrder {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
+        customerID
         customer {
           id
           wpId
@@ -6536,31 +227,700 @@ export const syncWPOrders = /* GraphQL */ `
           lastName
           email
           phoneNumber
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const wPOrdersByWPOrderNumber = /* GraphQL */ `
+  query WPOrdersByWPOrderNumber(
+    $WPOrderNumber: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelWPOrderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    wPOrdersByWPOrderNumber(
+      WPOrderNumber: $WPOrderNumber
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        WPOrderNumber
+        WPOrderStatus
+        WPDishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        createdAtWp
+        boxes {
+          nextToken
+          startedAt
+        }
+        driverName
+        companyName
+        customerName
+        customerAddress
+        customerPhoneNumber
+        customerEmail
+        addressID
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
           createdAt
           updatedAt
-          customerWPOrders {
-            items {
-              id
-              WPOrderNumber
-              WPOrderStatus
-              finalPrice
-              customerComment
-              customerID
-              addressID
-              createdAtWp
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
+          _version
+          _deleted
+          _lastChangedAt
         }
+        customerID
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const wPOrdersByAddressID = /* GraphQL */ `
+  query WPOrdersByAddressID(
+    $addressID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelWPOrderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    wPOrdersByAddressID(
+      addressID: $addressID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        WPOrderNumber
+        WPOrderStatus
+        WPDishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        createdAtWp
+        boxes {
+          nextToken
+          startedAt
+        }
+        driverName
+        companyName
+        customerName
+        customerAddress
+        customerPhoneNumber
+        customerEmail
+        addressID
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        customerID
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const wPOrdersByCustomerID = /* GraphQL */ `
+  query WPOrdersByCustomerID(
+    $customerID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelWPOrderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    wPOrdersByCustomerID(
+      customerID: $customerID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        WPOrderNumber
+        WPOrderStatus
+        WPDishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        createdAtWp
+        boxes {
+          nextToken
+          startedAt
+        }
+        driverName
+        companyName
+        customerName
+        customerAddress
+        customerPhoneNumber
+        customerEmail
+        addressID
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        customerID
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getAddress = /* GraphQL */ `
+  query GetAddress($id: ID!) {
+    getAddress(id: $id) {
+      id
+      address1
+      address2
+      city
+      postCode
+      WPOrders {
+        items {
+          id
+          WPOrderNumber
+          WPOrderStatus
+          finalPrice
+          customerComment
+          createdAtWp
+          driverName
+          companyName
+          customerName
+          customerAddress
+          customerPhoneNumber
+          customerEmail
+          addressID
+          customerID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      coordinateID
+      coordinate {
+        id
+        latitude
+        longitude
+        name
+        userID
+        driver {
+          id
+          sub
+          email
+          role
+          firstName
+          lastName
+          avatar
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        addresses {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listAddresses = /* GraphQL */ `
+  query ListAddresses(
+    $filter: ModelAddressFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAddresses(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        address1
+        address2
+        city
+        postCode
+        WPOrders {
+          nextToken
+          startedAt
+        }
+        coordinateID
+        coordinate {
+          id
+          latitude
+          longitude
+          name
+          userID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncAddresses = /* GraphQL */ `
+  query SyncAddresses(
+    $filter: ModelAddressFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncAddresses(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        address1
+        address2
+        city
+        postCode
+        WPOrders {
+          nextToken
+          startedAt
+        }
+        coordinateID
+        coordinate {
+          id
+          latitude
+          longitude
+          name
+          userID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const addressesByPostCode = /* GraphQL */ `
+  query AddressesByPostCode(
+    $postCode: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelAddressFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    addressesByPostCode(
+      postCode: $postCode
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        address1
+        address2
+        city
+        postCode
+        WPOrders {
+          nextToken
+          startedAt
+        }
+        coordinateID
+        coordinate {
+          id
+          latitude
+          longitude
+          name
+          userID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const addressesByCoordinateID = /* GraphQL */ `
+  query AddressesByCoordinateID(
+    $coordinateID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelAddressFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    addressesByCoordinateID(
+      coordinateID: $coordinateID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        address1
+        address2
+        city
+        postCode
+        WPOrders {
+          nextToken
+          startedAt
+        }
+        coordinateID
+        coordinate {
+          id
+          latitude
+          longitude
+          name
+          userID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getCoordinate = /* GraphQL */ `
+  query GetCoordinate($id: ID!) {
+    getCoordinate(id: $id) {
+      id
+      latitude
+      longitude
+      name
+      userID
+      driver {
+        id
+        sub
+        email
+        role
+        firstName
+        lastName
+        avatar
+        coordinates {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      addresses {
+        items {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listCoordinates = /* GraphQL */ `
+  query ListCoordinates(
+    $filter: ModelCoordinateFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCoordinates(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        latitude
+        longitude
+        name
+        userID
+        driver {
+          id
+          sub
+          email
+          role
+          firstName
+          lastName
+          avatar
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        addresses {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCoordinates = /* GraphQL */ `
+  query SyncCoordinates(
+    $filter: ModelCoordinateFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCoordinates(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        latitude
+        longitude
+        name
+        userID
+        driver {
+          id
+          sub
+          email
+          role
+          firstName
+          lastName
+          avatar
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        addresses {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const coordinatesByUserID = /* GraphQL */ `
+  query CoordinatesByUserID(
+    $userID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCoordinateFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    coordinatesByUserID(
+      userID: $userID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        latitude
+        longitude
+        name
+        userID
+        driver {
+          id
+          sub
+          email
+          role
+          firstName
+          lastName
+          avatar
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        addresses {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
@@ -6577,44 +937,27 @@ export const getUser = /* GraphQL */ `
       firstName
       lastName
       avatar
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      assignedDriverCoordinates {
+      coordinates {
         items {
           id
           latitude
           longitude
           name
           userID
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          coordinateAddresses {
-            items {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
         }
         nextToken
         startedAt
       }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -6633,85 +976,15 @@ export const listUsers = /* GraphQL */ `
         firstName
         lastName
         avatar
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        assignedDriverCoordinates {
-          items {
-            id
-            latitude
-            longitude
-            name
-            userID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinateAddresses {
-              nextToken
-              startedAt
-            }
-          }
+        coordinates {
           nextToken
           startedAt
         }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const userBySub = /* GraphQL */ `
-  query UserBySub(
-    $sub: String
-    $sortDirection: ModelSortDirection
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    userBySub(
-      sub: $sub
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        sub
-        email
-        role
-        firstName
-        lastName
-        avatar
+        createdAt
+        updatedAt
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
-        assignedDriverCoordinates {
-          items {
-            id
-            latitude
-            longitude
-            name
-            userID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinateAddresses {
-              nextToken
-              startedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
       }
       nextToken
       startedAt
@@ -6739,31 +1012,15 @@ export const syncUsers = /* GraphQL */ `
         firstName
         lastName
         avatar
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        assignedDriverCoordinates {
-          items {
-            id
-            latitude
-            longitude
-            name
-            userID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            coordinateAddresses {
-              nextToken
-              startedAt
-            }
-          }
+        coordinates {
           nextToken
           startedAt
         }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
@@ -6780,89 +1037,36 @@ export const getCustomer = /* GraphQL */ `
       lastName
       email
       phoneNumber
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      customerWPOrders {
+      WPOrders {
         items {
           id
           WPOrderNumber
           WPOrderStatus
-          WPDishes {
-            name
-            dishType
-            quantity
-            weekDay
-          }
           finalPrice
           customerComment
-          customerID
-          addressID
           createdAtWp
+          driverName
+          companyName
+          customerName
+          customerAddress
+          customerPhoneNumber
+          customerEmail
+          addressID
+          customerID
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          address {
-            id
-            address1
-            address2
-            city
-            postCode
-            coordinateID
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            addressWPOrders {
-              nextToken
-              startedAt
-            }
-          }
-          WPOrderBoxes {
-            items {
-              id
-              sticker
-              boxStatus
-              qrCode
-              customerComment
-              weekDay
-              WPOrderID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            nextToken
-            startedAt
-          }
-          customer {
-            id
-            wpId
-            company
-            firstName
-            lastName
-            email
-            phoneNumber
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            customerWPOrders {
-              nextToken
-              startedAt
-            }
-          }
         }
         nextToken
         startedAt
       }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -6881,157 +1085,15 @@ export const listCustomers = /* GraphQL */ `
         lastName
         email
         phoneNumber
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        customerWPOrders {
-          items {
-            id
-            WPOrderNumber
-            WPOrderStatus
-            WPDishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            finalPrice
-            customerComment
-            customerID
-            addressID
-            createdAtWp
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            WPOrderBoxes {
-              nextToken
-              startedAt
-            }
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
+        WPOrders {
           nextToken
           startedAt
         }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const customerByEmail = /* GraphQL */ `
-  query CustomerByEmail(
-    $email: String
-    $sortDirection: ModelSortDirection
-    $filter: ModelCustomerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    customerByEmail(
-      email: $email
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        wpId
-        company
-        firstName
-        lastName
-        email
-        phoneNumber
+        createdAt
+        updatedAt
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
-        customerWPOrders {
-          items {
-            id
-            WPOrderNumber
-            WPOrderStatus
-            WPDishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            finalPrice
-            customerComment
-            customerID
-            addressID
-            createdAtWp
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            WPOrderBoxes {
-              nextToken
-              startedAt
-            }
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
-          nextToken
-          startedAt
-        }
       }
       nextToken
       startedAt
@@ -7059,67 +1121,284 @@ export const syncCustomers = /* GraphQL */ `
         lastName
         email
         phoneNumber
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        customerWPOrders {
-          items {
-            id
-            WPOrderNumber
-            WPOrderStatus
-            WPDishes {
-              name
-              dishType
-              quantity
-              weekDay
-            }
-            finalPrice
-            customerComment
-            customerID
-            addressID
-            createdAtWp
-            _version
-            _deleted
-            _lastChangedAt
-            createdAt
-            updatedAt
-            address {
-              id
-              address1
-              address2
-              city
-              postCode
-              coordinateID
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-            WPOrderBoxes {
-              nextToken
-              startedAt
-            }
-            customer {
-              id
-              wpId
-              company
-              firstName
-              lastName
-              email
-              phoneNumber
-              _version
-              _deleted
-              _lastChangedAt
-              createdAt
-              updatedAt
-            }
-          }
+        WPOrders {
           nextToken
           startedAt
         }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const customersByEmail = /* GraphQL */ `
+  query CustomersByEmail(
+    $email: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCustomerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    customersByEmail(
+      email: $email
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        wpId
+        company
+        firstName
+        lastName
+        email
+        phoneNumber
+        WPOrders {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getBox = /* GraphQL */ `
+  query GetBox($id: ID!) {
+    getBox(id: $id) {
+      id
+      sticker
+      boxStatus
+      qrCode
+      customerComment
+      weekDay
+      wporderID
+      WPOrder {
+        id
+        WPOrderNumber
+        WPOrderStatus
+        WPDishes {
+          name
+          dishType
+          quantity
+          weekDay
+        }
+        finalPrice
+        customerComment
+        createdAtWp
+        boxes {
+          nextToken
+          startedAt
+        }
+        driverName
+        companyName
+        customerName
+        customerAddress
+        customerPhoneNumber
+        customerEmail
+        addressID
+        address {
+          id
+          address1
+          address2
+          city
+          postCode
+          coordinateID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        customerID
+        customer {
+          id
+          wpId
+          company
+          firstName
+          lastName
+          email
+          phoneNumber
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listBoxes = /* GraphQL */ `
+  query ListBoxes(
+    $filter: ModelBoxFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBoxes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sticker
+        boxStatus
+        qrCode
+        customerComment
+        weekDay
+        wporderID
+        WPOrder {
+          id
+          WPOrderNumber
+          WPOrderStatus
+          finalPrice
+          customerComment
+          createdAtWp
+          driverName
+          companyName
+          customerName
+          customerAddress
+          customerPhoneNumber
+          customerEmail
+          addressID
+          customerID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncBoxes = /* GraphQL */ `
+  query SyncBoxes(
+    $filter: ModelBoxFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncBoxes(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        sticker
+        boxStatus
+        qrCode
+        customerComment
+        weekDay
+        wporderID
+        WPOrder {
+          id
+          WPOrderNumber
+          WPOrderStatus
+          finalPrice
+          customerComment
+          createdAtWp
+          driverName
+          companyName
+          customerName
+          customerAddress
+          customerPhoneNumber
+          customerEmail
+          addressID
+          customerID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const boxesByWporderID = /* GraphQL */ `
+  query BoxesByWporderID(
+    $wporderID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelBoxFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    boxesByWporderID(
+      wporderID: $wporderID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        sticker
+        boxStatus
+        qrCode
+        customerComment
+        weekDay
+        wporderID
+        WPOrder {
+          id
+          WPOrderNumber
+          WPOrderStatus
+          finalPrice
+          customerComment
+          createdAtWp
+          driverName
+          companyName
+          customerName
+          customerAddress
+          customerPhoneNumber
+          customerEmail
+          addressID
+          customerID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt

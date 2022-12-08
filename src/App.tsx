@@ -1,11 +1,17 @@
 import React, {useState} from 'react';
 import './App.css';
-import Amplify from 'aws-amplify';
+import {DataStore, Hub, syncExpression} from 'aws-amplify';
 import {AmplifyAuthenticator, AmplifySignUp} from '@aws-amplify/ui-react';
 import {AuthState, onAuthUIStateChange} from '@aws-amplify/ui-components';
 import {FormFieldTypes} from '@aws-amplify/ui-components/dist/types/components/amplify-auth-fields/amplify-auth-fields-interface';
 import MainRouter from "./MainRouter";
 import {BrowserRouter as Router} from "react-router-dom";
+import {Box, WeekDay} from "./models";
+import {BOX_STATUS} from "./API";
+
+DataStore.configure({
+    maxRecordsToSync: 100000,
+});
 
 const AuthStateApp: React.FC = () => {
   const [authState, setAuthState] = useState<AuthState>();

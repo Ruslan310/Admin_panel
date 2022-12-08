@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dinenation-dev-75626-authRole",
+      "UnauthRoleArn": "arn:aws:iam::150977011093:role/amplify-dinenation-dev-75626-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::150977011093:role/amplify-dinenation-dev-75626-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-dinenation-dev-75626-deployment",
+      "UnauthRoleName": "amplify-dinenation-dev-75626-unauthRole",
+      "StackName": "amplify-dinenation-dev-75626",
+      "StackId": "arn:aws:cloudformation:us-east-1:150977011093:stack/amplify-dinenation-dev-75626/e52037b0-75f3-11ed-9552-0a88b80f2a11",
+      "AmplifyAppId": "d3sst100jc4y17"
+    },
+    "categories": {
+      "auth": {
+        "dineauth": {}
+      },
+      "api": {
+        "dinenation": {}
+      }
+    }
+  }
+}

@@ -54,8 +54,8 @@ const SupplierDetailsPage: React.FC = () => {
           onChange={e => {
             const currValue = e.target.value;
             setSearchName(currValue);
-            const filteredData = supplier?.products?.items?.filter(supplierProduct => supplierProduct!.product.name.toLowerCase().includes(currValue.toLowerCase()));
-            setFilteredSupplierProducts(filteredData as ProductFromSupplier[]);
+            // const filteredData = supplier?.products?.items?.filter(supplierProduct => supplierProduct!.product.name.toLowerCase().includes(currValue.toLowerCase()));
+            // setFilteredSupplierProducts(filteredData as ProductFromSupplier[]);
           }}
         />
       </Col>

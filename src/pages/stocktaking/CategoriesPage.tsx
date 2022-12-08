@@ -148,7 +148,6 @@ const CategoriesPage: React.FC = () => {
           <Button onClick={async () => {
             if (name && departmentId) {
               await createCategory({
-                categoryDepartmentId: departmentId,
                 departmentID: departmentId,
                 name: name
               })

@@ -1,156 +1,83 @@
-type DishComponent @model @auth(rules: [{allow: private}]) {
+type WPOrder @model @auth(rules: [{allow: public}, {allow: private}]) {
     id: ID!
-    dish: Dish! @connection
-    component: Component! @connection
+    WPOrderNumber: String! @index(name: "byNumber")
+    WPOrderStatus: WPORDER_STATUS!
+    WPDishes: [WPDish!]
+    finalPrice: Float!
+    customerComment: String
+    createdAtWp: AWSTimestamp!
+    boxes: [Box] @hasMany(indexName: "byWPOrder", fields: ["id"])
+    driverName: String
+    companyName: String
+    customerName: String!
+    customerAddress: String!
+    customerPhoneNumber: String
+    customerEmail: String
+    addressID: ID! @index(name: "byAddress")
+    address: Address @belongsTo(fields: ["addressID"])
+    customerID: ID! @index(name: "byCustomer")
+    customer: Customer @belongsTo(fields: ["customerID"])
 }
 
-type Dish @model @auth(rules: [{allow: private}]) {
-    id: ID!
-    name: String!
-    description: String
-}
-
-type ComponentProduct @model @auth(rules: [{allow: private}]) {
-    id: ID!
-    component: Component! @connection
-    product: Product! @connection
-}
-
-type Component @model @auth(rules: [{allow: private}]) {
-    id: ID!
-    name: String!
-    type: COMPONENT_TYPE!
-    packageType: PACKAGE_TYPE!
-    calories: Int!
-    carbons: Int!
-    fats: Int!
-    proteins: Int!
-    recipe: String!
-    price: Float!
-    picture: String!
-    weightInGram: Int!
-}
-
-type ProductAtWarehouse @model @auth(rules: [{allow: private}]) {
-    id: ID!
-    quantity: Int!
-    maxQuantity: Int!
-    minQuantity: Int!
-    product: Product! @connection
-    warehouse: Warehouse! @connection
-    qrCode: String
-}
-
-type ProductFromSupplier @model @auth(rules: [{allow: private}]) {
-    id: ID!
-    price: Float!
-    quality: Int
-    product: Product! @connection
-    supplier: Supplier! @connection
-}
-
-type Supplier @model @auth(rules: [{allow: private}]) {
-    id: ID!
-    name: String!
-    phoneNumber: String
-    email: String
-    address: Address! @connection
-}
-
-type Product @model @auth(rules: [{allow: private}]) @key(name: "byType", fields: ["typeID"]) {
-    id: ID!
-    name: String!
-    measurement: String!
-    type: Type! @connection
-    typeID: ID
-}
-
-type Type @model @auth(rules: [{allow: private}]) @key(name: "byCategory", fields: ["categoryID"]) {
-    id: ID!
-    name: String!
-    category: Category! @connection
-    categoryID: ID
-    products: [Product] @connection(keyName: "byType", fields: ["id"])
-}
-
-type Category @model @auth(rules: [{allow: private}]) @key(name: "byDepartment", fields: ["departmentID"]) {
-    id: ID!
-    name: String!
-    department: Department! @connection
-    departmentID: ID
-    types: [Type] @connection(keyName: "byCategory", fields: ["id"])
-}
-
-type Department @model @auth(rules: [{allow: private}]) {
-    id: ID!
-    name: String!
-    categories: [Category] @connection(keyName: "byDepartment", fields: ["id"])
-}
-
-type Warehouse @model @auth(rules: [{allow: private}]) {
-    id: ID!
-    name: String!
-    address: Address! @connection
-}
-
-type Coordinate @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byUser", fields: ["userID"]) {
-    id: ID!
-    latitude: Float!
-    longitude: Float!
-    name: String!
-    userID: ID
-    coordinateAddresses: [Address] @connection(keyName: "byCoordinate", fields: ["id"])
-}
-
-type Address @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byCoordinate", fields: ["coordinateID"]) @key(name: "byPostCode", fields: ["postCode"], queryField: "byPostCode") {
+type Address @model @auth(rules: [{allow: public}, {allow: private}]) {
     id: ID!
     address1: String!
     address2: String!
     city: String!
-    postCode: String!
-    coordinateID: ID
-    addressWPOrders: [WPOrder!] @connection(keyName: "byAddress", fields: ["id"])
+    postCode: String! @index(name: "byPostCode")
+    WPOrders: [WPOrder] @hasMany(indexName: "byAddress", fields: ["id"])
+    coordinateID: ID @index(name: "byCoordinate")
+    coordinate: Coordinate @belongsTo(fields: ["coordinateID"])
 }
 
-type Box @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byWPOrder", fields: ["WPOrderID"]) {
+type Coordinate @model @auth(rules: [{allow: public}, {allow: private}]) {
+    id: ID!
+    latitude: Float!
+    longitude: Float!
+    name: String!
+    userID: ID @index(name: "byUser")
+    driver: User @belongsTo(fields: ["userID"])
+    addresses: [Address] @hasMany(indexName: "byCoordinate", fields: ["id"])
+}
+
+type User @model @auth(rules: [{allow: public}, {allow: private}]) {
+    id: ID!
+    sub: String!
+    email: String!
+    role: ROLE!
+    firstName: String
+    lastName: String
+    avatar: String
+    coordinates: [Coordinate] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+type Customer @model @auth(rules: [{allow: public}, {allow: private}]) {
+    id: ID!
+    wpId: Int
+    company: String
+    firstName: String
+    lastName: String
+    email: String! @index(name: "byEmail")
+    phoneNumber: String
+    WPOrders: [WPOrder] @hasMany(indexName: "byCustomer", fields: ["id"])
+}
+
+type Box @model @auth(rules: [{allow: public}, {allow: private}]) {
     id: ID!
     sticker: String!
     boxStatus: BOX_STATUS!
     qrCode: String!
     customerComment: String
     weekDay: WEEK_DAY!
-    WPOrderID: ID
-    WPOrder: WPOrder @connection
+    wporderID: ID! @index(name: "byWPOrder")
+    WPOrder: WPOrder @belongsTo(fields: ["wporderID"])
 }
 
-type WPOrder @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byCustomer", fields: ["customerID"]) @key(name: "byAddress", fields: ["addressID"]) @key(name: "byWPOrderNumber", fields: ["WPOrderNumber"], queryField: "byWPOrderNumber") {
-    id: ID!
-    WPOrderNumber: String
-    WPOrderStatus: WPORDER_STATUS!
-    WPDishes: [WPDish!]
-    finalPrice: Float!
-    customerComment: String
-    customerID: ID
-    customer: Customer @connection
-    WPOrderBoxes: [Box!] @connection(keyName: "byWPOrder", fields: ["id"])
-    addressID: ID
-    address: Address @connection
-    createdAtWp: AWSTimestamp!
-}
-
-enum PACKAGE_TYPE {
-    HOT
-    COLD
-    DESSERT
-    SOUP
-}
-
-enum COMPONENT_TYPE {
-    MAIN
-    SIDE
-    SOUP
-    SALAD
-    DESSERT
+type WPDish {
+    name: String!
+    dishType: String!
+    quantity: Int!
+    weekDay: WEEK_DAY!
 }
 
 enum WEEK_DAY {
@@ -164,7 +91,14 @@ enum WEEK_DAY {
     WITHOUT_DAY
 }
 
+enum WPORDER_STATUS {
+    PROCESSING
+    COMPLETED
+    CANCELLED
+}
+
 enum BOX_STATUS {
+    NEW
     PRINTED
     COOKED
     IN_DELIVERY
@@ -172,44 +106,9 @@ enum BOX_STATUS {
     CANCELLED
 }
 
-enum WPORDER_STATUS {
-    PROCESSING
-    COMPLETED
-    CANCELLED
-}
-
-enum Role {
+enum ROLE {
     DELIVERY
     KITCHEN
     ADMIN
     GUEST
-}
-
-type User @model @auth(rules: [{allow: public}, {allow: private}]) {
-    id: ID!
-    sub: String!
-    email: String!
-    role: Role!
-    firstName: String
-    lastName: String
-    avatar: String
-    assignedDriverCoordinates: [Coordinate!] @connection(keyName: "byUser", fields: ["id"])
-}
-
-type Customer @model @auth(rules: [{allow: public}, {allow: private}]) @key(name: "byEmail", fields: ["email"], queryField: "byEmail") {
-    id: ID!
-    wpId: Int
-    company: String
-    firstName: String
-    lastName: String
-    email: String!
-    phoneNumber: String
-    customerWPOrders: [WPOrder!] @connection(keyName: "byCustomer", fields: ["id"])
-}
-
-type WPDish {
-    name: String!
-    dishType: String!
-    quantity: Int!
-    weekDay: WEEK_DAY!
 }

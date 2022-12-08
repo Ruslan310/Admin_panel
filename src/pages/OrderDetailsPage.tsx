@@ -6,7 +6,8 @@ import {useParams} from 'react-router-dom';
 import {CheckboxChangeEvent} from "antd/es/checkbox";
 import {stringifyAddress} from "../utils/utils";
 import {fetchCoordinate, fetchOrder, fetchUser} from "../graphql/requests";
-import {Box, Customer, WEEK_DAY, WPDish, WPOrder} from "../API";
+import {DataStore} from "aws-amplify";
+import {Box, Customer, WeekDay, WPDish, WPOrder} from "../models";
 
 const {Content} = Layout;
 const {Title} = Typography;
@@ -15,57 +16,46 @@ const OrderDetailsPage: React.FC = () => {
   const {orderId} = useParams<{
     orderId: string
   }>();
-  const [boxes, setBoxes] = useState<(Box | null)[]>([]);
-  const [filteredBoxes, setFilteredBoxes] = useState<(Box)[]>([]);
+  const [boxes, setBoxes] = useState<Box[]>([]);
+  const [filteredBoxes, setFilteredBoxes] = useState<Box[]>([]);
+  const [dishes, setDishes] = useState<WPDish[]>();
   const [filteredDishes, setFilteredDishes] = useState<WPDish[]>();
   const [currentOrder, setCurrentOrder] = useState<WPOrder>();
   const [isLoading, setLoading] = useState(true)
-  const [checkedList, setCheckedList] = React.useState<WEEK_DAY[]>(Object.values(WEEK_DAY));
+  const [checkedList, setCheckedList] = React.useState<WeekDay[]>(Object.values(WeekDay));
   const [indeterminate, setIndeterminate] = React.useState(false);
   const [checkAll, setCheckAll] = React.useState(true);
-  const [assignedDriver, setAssignedDriver] = React.useState<string>();
-
-  const loadCurrentOrder = async () => {
-    const fetchedOrder = await fetchOrder(orderId);
-    setCurrentOrder(fetchedOrder);
-    if (fetchedOrder.WPDishes) {
-      setFilteredDishes(fetchedOrder.WPDishes);
-    }
-    if (fetchedOrder.WPOrderBoxes?.items) {
-      setBoxes(fetchedOrder.WPOrderBoxes.items);
-      setFilteredBoxes((fetchedOrder.WPOrderBoxes!.items as Box[]).filter(box => checkedList.includes(box!.weekDay as WEEK_DAY)));
-    }
-    if (fetchedOrder && fetchedOrder.address) {
-      await loadAssignedDriverName(fetchedOrder)
-    }
-    setLoading(false)
-  }
 
   useEffect(() => {
-    loadCurrentOrder();
+      const subs = DataStore.observeQuery(WPOrder, order => order.id.eq(orderId))
+          .subscribe(async msg => {
+            const order = msg.items[0]
+            setCurrentOrder(order)
+            const dishes = await order.WPDishes
+            dishes && setDishes(dishes);
+            dishes && setFilteredDishes(dishes);
+            const boxes = await order.boxes.toArray()
+            boxes && setBoxes(boxes);
+            boxes && setFilteredBoxes(boxes);
+            setLoading(false)
+          });
   }, []);
-
-  const fullName = (customer?: Customer | null) => {
-    return `${customer?.firstName} ${customer?.lastName}`
-  }
 
   const onChange = (list: any) => {
     setCheckedList(list);
-    setIndeterminate(!!list.length && list.length < Object.values(WEEK_DAY).length);
-    setCheckAll(list.length === Object.values(WEEK_DAY).length);
-    const currentFilteredDishes = currentOrder?.WPDishes?.filter(dish => list.includes(dish.weekDay as WEEK_DAY))
-    const currentFilteredBoxes = boxes.filter(box => list.includes(box!.weekDay as WEEK_DAY))
+    setIndeterminate(!!list.length && list.length < Object.values(WeekDay).length);
+    setCheckAll(list.length === Object.values(WeekDay).length);
+    const currentFilteredDishes = dishes?.filter(dish => list.includes(dish.weekDay as WeekDay))
+    const currentFilteredBoxes = boxes.filter(box => list.includes(box!.weekDay as WeekDay))
     setFilteredDishes(currentFilteredDishes);
     setFilteredBoxes(currentFilteredBoxes as Box[]);
   };
 
   const onCheckAllChange = (e: CheckboxChangeEvent) => {
-    setCheckedList(e.target.checked ? Object.values(WEEK_DAY) : []);
+    setCheckedList(e.target.checked ? Object.values(WeekDay) : []);
     if (e.target.checked) {
       setFilteredBoxes(boxes as Box[])
-      if (currentOrder?.WPDishes) {
-        setFilteredDishes(currentOrder?.WPDishes)
-      }
+      setFilteredDishes(dishes)
     } else {
       setFilteredBoxes([])
       setFilteredDishes([])
@@ -122,39 +112,23 @@ const OrderDetailsPage: React.FC = () => {
     },
   ];
 
-  const loadAssignedDriverName = async (order: WPOrder): Promise<void> => {
-    if (order.address?.coordinateID) {
-      const coordinate = await fetchCoordinate(
-        order.address?.coordinateID
-      );
-      if (coordinate?.userID) {
-        const driver = await fetchUser(coordinate.userID);
-        setAssignedDriver(driver?.email);
-      } else {
-        setAssignedDriver('Not assigned');
-      }
-    } else {
-      setAssignedDriver('Not assigned');
-    }
-  }
-
   return (
     <Content>
       {currentOrder && <Descriptions title="Order details">
-        <Descriptions.Item label="Full address">{stringifyAddress(currentOrder.address)}</Descriptions.Item>
-        <Descriptions.Item label="Full name">{fullName(currentOrder.customer)}</Descriptions.Item>
-        <Descriptions.Item label="Phone number">{currentOrder.customer?.phoneNumber}</Descriptions.Item>
-        <Descriptions.Item label="Email">{currentOrder.customer?.email}</Descriptions.Item>
+        <Descriptions.Item label="Full address">{currentOrder.customerAddress}</Descriptions.Item>
+        <Descriptions.Item label="Full name">{currentOrder.customerName}</Descriptions.Item>
+        <Descriptions.Item label="Phone number">{currentOrder.customerPhoneNumber}</Descriptions.Item>
+        <Descriptions.Item label="Email">{currentOrder.customerEmail}</Descriptions.Item>
         <Descriptions.Item label="Created">{currentOrder.createdAt}</Descriptions.Item>
         <Descriptions.Item label="WP Status">{currentOrder.WPOrderStatus}</Descriptions.Item>
         <Descriptions.Item label="Order total price">{currentOrder.finalPrice}</Descriptions.Item>
-        <Descriptions.Item label="Assigned driver">{assignedDriver}</Descriptions.Item>
+        <Descriptions.Item label="Assigned driver">{currentOrder.driverName}</Descriptions.Item>
       </Descriptions>}
       <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
         ALL DAYS
       </Checkbox>
       <Divider/>
-      <Checkbox.Group options={Object.values(WEEK_DAY)} value={checkedList} onChange={onChange}/>
+      <Checkbox.Group options={Object.values(WeekDay)} value={checkedList} onChange={onChange}/>
       <Divider/>
       <Title>Boxes</Title>
       <Table

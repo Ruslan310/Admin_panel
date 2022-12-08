@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react'
 
 import {Button, Checkbox, Descriptions, Divider, Input, Layout, Modal, Select, Space, Table, Typography} from 'antd';
-import {DataStore, SortDirection} from "aws-amplify";
+import {DataStore} from "aws-amplify";
 import {Key} from 'antd/lib/table/interface';
 import {ColumnsType} from "antd/es/table";
 import {useHistory} from "react-router-dom";
-import {fullName, stringifyAddress} from "../utils/utils";
+import {stringifyAddress} from "../utils/utils";
 import moment from "moment-timezone";
-import {fetchCoordinate, fetchUser, updateWPOrder} from "../graphql/requests";
 import {CloseOutlined} from "@ant-design/icons";
 import {Address, Box, WPOrder} from "../models";
 import {Subscription} from "recompose";
@@ -49,8 +48,6 @@ const OrdersPage: React.FC = () => {
     const [subscription, setSubscription] = useState<Subscription>()
 
     useEffect(() => {
-        DataStore.start()
-
         subscription && subscription.unsubscribe()
         const subs = DataStore.observeQuery(WPOrder, order => order.or(order =>
             checkedStatusesList.map(status => order.WPOrderStatus.eq(status.toLowerCase()))))
@@ -71,6 +68,7 @@ const OrdersPage: React.FC = () => {
     }, [checkedStatusesList]);
 
     useEffect(() => {
+        DataStore.start()
         DataStore.observeQuery(Address).subscribe(msg => {
             if (msg.isSynced) {
                 setAddresses(msg.items)
@@ -226,16 +224,16 @@ const OrdersPage: React.FC = () => {
                 </Select>
             },
         },
-        {
-            width: 30,
-            title: 'Actions',
-            render: (value, record, index) => {
-                return <Button shape="circle" icon={<CloseOutlined/>} danger type={'primary'} onClick={async () => {
-                    setTargetOrder(record);
-                    setDeleteOrderConfirm(true);
-                }}/>
-            }
-        }
+        // {
+        //     width: 30,
+        //     title: 'Actions',
+        //     render: (value, record, index) => {
+        //         return <Button shape="circle" icon={<CloseOutlined/>} danger type={'primary'} onClick={async () => {
+        //             setTargetOrder(record);
+        //             setDeleteOrderConfirm(true);
+        //         }}/>
+        //     }
+        // }
     ];
 
     return (

@@ -1,0 +1,203 @@
+type Dish @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    name: String!
+    description: String
+}
+
+type Component @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    name: String!
+    type: COMPONENT_TYPE!
+    packageType: PACKAGE_TYPE!
+    calories: Int!
+    carbons: Int!
+    fats: Int!
+    proteins: Int!
+    recipe: String!
+    price: Float!
+    picture: String!
+    weightInGram: Int!
+}
+
+type ProductAtWarehouse @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    quantity: Int!
+    maxQuantity: Int!
+    minQuantity: Int!
+    product: Product! @hasOne
+    warehouse: Warehouse! @hasOne
+    qrCode: String
+}
+
+type ProductFromSupplier @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    price: Float!
+    quality: Int
+    product: Product! @hasOne
+    supplier: Supplier! @hasOne
+}
+
+type Supplier @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    name: String!
+    phoneNumber: String
+    email: String
+    address: Address! @hasOne
+}
+
+type Product @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    name: String!
+    measurement: String!
+    type: Type! @belongsTo(fields: ["typeID"])
+    typeID: ID
+}
+
+type Type @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    name: String!
+    category: Category! @belongsTo(fields: ["categoryID"])
+    categoryID: ID!
+    products: [Product] @hasMany(fields: ["id"])
+}
+
+type Category @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    name: String!
+    department: Department! @belongsTo(fields: ["departmentID"])
+    departmentID: ID!
+    types: [Type] @hasMany(fields: ["id"])
+}
+
+type Department @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    name: String!
+    categories: [Category] @hasMany(fields: ["id"])
+}
+
+type Warehouse @model @auth(rules: [{allow: private}]) {
+    id: ID!
+    name: String!
+    address: Address! @hasOne
+}
+
+type Coordinate @model @auth(rules: [{allow: public}, {allow: private}]) {
+    id: ID!
+    latitude: Float!
+    longitude: Float!
+    name: String!
+    userID: ID
+    coordinateAddresses: [Address] @hasMany(fields: ["id"])
+}
+
+type Address @model @auth(rules: [{allow: public}, {allow: private}]) {
+    id: ID!
+    address1: String!
+    address2: String!
+    city: String!
+    postCode: String!
+    coordinateID: ID
+    addressWPOrders: [WPOrder!] @hasMany(fields: ["id"])
+}
+
+type Box @model @auth(rules: [{allow: public}, {allow: private}]) {
+    id: ID!
+    sticker: String!
+    boxStatus: BOX_STATUS!
+    qrCode: String!
+    customerComment: String
+    weekDay: WEEK_DAY!
+    WPOrderID: ID
+    WPOrder: WPOrder @belongsTo(fields: ["WPOrderID"])
+}
+
+type WPOrder @model @auth(rules: [{allow: public}, {allow: private}]) {
+    id: ID!
+    WPOrderNumber: String
+    WPOrderStatus: WPORDER_STATUS!
+    WPDishes: [WPDish!]
+    finalPrice: Float!
+    customerComment: String
+    customerID: ID
+    customer: Customer @belongsTo(fields: ["customerID"])
+    WPOrderBoxes: [Box!] @hasMany(fields: ["id"])
+    addressID: ID
+    address: Address @belongsTo(fields: ["addressID"])
+    createdAtWp: AWSTimestamp!
+}
+
+enum PACKAGE_TYPE {
+    HOT
+    COLD
+    DESSERT
+    SOUP
+}
+
+enum COMPONENT_TYPE {
+    MAIN
+    SIDE
+    SOUP
+    SALAD
+    DESSERT
+}
+
+enum WEEK_DAY {
+    MONDAY
+    TUESDAY
+    WEDNESDAY
+    THURSDAY
+    FRIDAY
+    SATURDAY
+    SUNDAY
+    WITHOUT_DAY
+}
+
+enum BOX_STATUS {
+    PRINTED
+    COOKED
+    IN_DELIVERY
+    DELIVERED
+    CANCELLED
+}
+
+enum WPORDER_STATUS {
+    PROCESSING
+    COMPLETED
+    CANCELLED
+}
+
+enum ROLE {
+    DELIVERY
+    KITCHEN
+    ADMIN
+    GUEST
+}
+
+type User @model @auth(rules: [{allow: public}, {allow: private}]) {
+    id: ID!
+    sub: String!
+    email: String!
+    role: Role!
+    firstName: String
+    lastName: String
+    avatar: String
+    assignedDriverCoordinates: [Coordinate!] @hasMany(fields: ["id"])
+}
+
+type Customer @model @auth(rules: [{allow: public}, {allow: private}]) {
+    id: ID!
+    wpId: Int
+    company: String
+    firstName: String
+    lastName: String
+    email: String!
+    phoneNumber: String
+    customerWPOrders: [WPOrder!] @hasMany(fields: ["id"])
+}
+
+type WPDish {
+    name: String!
+    dishType: String!
+    quantity: Int!
+    weekDay: WEEK_DAY!
+}

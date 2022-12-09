@@ -1,3 +1,18 @@
+enum PACKAGE_TYPE {
+    HOT
+    COLD
+    DESSERT
+    SOUP
+}
+
+enum COMPONENT_TYPE {
+    MAIN
+    SIDE
+    SOUP
+    SALAD
+    DESSERT
+}
+
 type Dish @model @auth(rules: [{allow: private}]) {
     id: ID!
     name: String!
@@ -124,21 +139,6 @@ type WPOrder @model @auth(rules: [{allow: public}, {allow: private}]) {
     addressID: ID
     address: Address @belongsTo(fields: ["addressID"])
     createdAtWp: AWSTimestamp!
-}
-
-enum PACKAGE_TYPE {
-    HOT
-    COLD
-    DESSERT
-    SOUP
-}
-
-enum COMPONENT_TYPE {
-    MAIN
-    SIDE
-    SOUP
-    SALAD
-    DESSERT
 }
 
 enum WEEK_DAY {

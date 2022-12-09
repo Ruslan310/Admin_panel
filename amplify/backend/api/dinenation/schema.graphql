@@ -106,4 +106,105 @@ enum ROLE {
   ADMIN
   GUEST
 }
- 
+
+enum PACKAGE_TYPE {
+  HOT
+  COLD
+  DESSERT
+  SOUP
+}
+
+enum COMPONENT_TYPE {
+  MAIN
+  SIDE
+  SOUP
+  SALAD
+  DESSERT
+}
+
+type Dish @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  name: String!
+  description: String
+  components: [Component] @manyToMany(relationName: "DishComponent")
+}
+
+type Component @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  name: String!
+  type: COMPONENT_TYPE!
+  packageType: PACKAGE_TYPE!
+  calories: Int!
+  carbons: Int!
+  fats: Int!
+  proteins: Int!
+  recipe: String!
+  price: Float!
+  picture: String!
+  weightInGram: Int!
+  dishes: [Dish] @manyToMany(relationName: "DishComponent")
+  products: [Product] @manyToMany(relationName: "ComponentProducts")
+}
+
+type ProductAtWarehouse @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  quantity: Int!
+  maxQuantity: Int!
+  minQuantity: Int!
+  product: Product! @hasOne
+  warehouse: Warehouse! @hasOne
+  qrCode: String
+}
+
+type ProductFromSupplier @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  price: Float!
+  quality: Int
+  product: Product! @hasOne
+  supplier: Supplier! @hasOne
+}
+
+type Supplier @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  name: String!
+  phoneNumber: String
+  email: String
+  address: Address! @hasOne
+}
+
+type Product @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  name: String!
+  measurement: String!
+  productType: Type! @belongsTo(fields: ["typeID"])
+  typeID: ID
+  components: [Component] @manyToMany(relationName: "ComponentProducts")
+}
+
+type Type @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  name: String!
+  category: Category! @belongsTo(fields: ["categoryID"])
+  categoryID: ID!
+  products: [Product] @hasMany(fields: ["id"])
+}
+
+type Category @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  name: String!
+  department: Department! @belongsTo(fields: ["departmentID"])
+  departmentID: ID!
+  types: [Type] @hasMany(fields: ["id"])
+}
+
+type Department @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  name: String!
+  categories: [Category] @hasMany(fields: ["id"])
+}
+
+type Warehouse @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  name: String!
+  address: Address! @hasOne
+}

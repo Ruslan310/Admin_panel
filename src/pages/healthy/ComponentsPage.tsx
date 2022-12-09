@@ -23,14 +23,7 @@ import {IMAGE_URL_PREFIX} from "../../utils/utils";
 import {RcFile} from "antd/es/upload";
 import {EURO, GRAM} from "../../constants";
 import {useHistory} from "react-router-dom";
-import {Component, COMPONENT_TYPE, ComponentProduct, PACKAGE_TYPE, Product} from "../../API";
-import {
-  createComponent,
-  createComponentProduct,
-  fetchComponent,
-  fetchComponents,
-  fetchProducts
-} from "../../graphql/requests";
+import {Component, COMPONENT_TYPE, PACKAGE_TYPE, Product} from "../../API";
 
 const {confirm, error} = Modal;
 
@@ -50,14 +43,14 @@ const ComponentsPage: React.FC = () => {
   const history = useHistory();
 
   const loadComponents = async () => {
-    const fetchedComponents = await fetchComponents();
-    setComponents(fetchedComponents);
-    setFilteredComponents(fetchedComponents)
+    // const fetchedComponents = await fetchComponents();
+    // setComponents(fetchedComponents);
+    // setFilteredComponents(fetchedComponents)
   }
 
   const loadProducts = async () => {
-    const fetchedProducts = await fetchProducts();
-    setProducts(fetchedProducts);
+    // const fetchedProducts = await fetchProducts();
+    // setProducts(fetchedProducts);
   }
 
   useEffect(() => {
@@ -348,30 +341,30 @@ const ComponentsPage: React.FC = () => {
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             try {
-              await form.validateFields();
-                const addedComponent = await createComponent({
-                  calories: form.getFieldValue("calories"),
-                  carbons: form.getFieldValue("carbons"),
-                  fats: form.getFieldValue("fats"),
-                  name: form.getFieldValue("name"),
-                  packageType: form.getFieldValue("packageType"),
-                  picture: picture,
-                  price: form.getFieldValue("price"),
-                  proteins: form.getFieldValue("proteins"),
-                  recipe: form.getFieldValue("recipe"),
-                  type: form.getFieldValue("componentType"),
-                  weightInGram: form.getFieldValue("weightInGram")
-                })
-              for (const addedProductId of form.getFieldValue("products")) {
-                const product = products.find(product => product.id === addedProductId);
-                if (product) {
-                  await createComponentProduct({
-                    componentProductComponentId: addedComponent.id,
-                    componentProductProductId: product.id,
-                  });
-                }
-              }
-              form.resetFields();
+              // await form.validateFields();
+              //   const addedComponent = await createComponent({
+              //     calories: form.getFieldValue("calories"),
+              //     carbons: form.getFieldValue("carbons"),
+              //     fats: form.getFieldValue("fats"),
+              //     name: form.getFieldValue("name"),
+              //     packageType: form.getFieldValue("packageType"),
+              //     picture: picture,
+              //     price: form.getFieldValue("price"),
+              //     proteins: form.getFieldValue("proteins"),
+              //     recipe: form.getFieldValue("recipe"),
+              //     type: form.getFieldValue("componentType"),
+              //     weightInGram: form.getFieldValue("weightInGram")
+              //   })
+              // for (const addedProductId of form.getFieldValue("products")) {
+              //   const product = products.find(product => product.id === addedProductId);
+              //   if (product) {
+              //     await createComponentProduct({
+              //       componentProductComponentId: addedComponent.id,
+              //       componentProductProductId: product.id,
+              //     });
+              //   }
+              // }
+              // form.resetFields();
               setPicture('');
             } catch (e) {
               console.log('validations errors: ', e);

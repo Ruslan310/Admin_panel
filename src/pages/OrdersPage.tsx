@@ -51,15 +51,17 @@ const OrdersPage: React.FC = () => {
                 }
             });
         setSubscription(subs)
+        return () => subs.unsubscribe()
     }, [checkedStatusesList]);
 
     useEffect(() => {
-        DataStore.observeQuery(Address).subscribe(msg => {
+        const addressSubs = DataStore.observeQuery(Address).subscribe(msg => {
             if (msg.isSynced) {
                 setAddresses(msg.items)
                 isAddressesLoading && setAddressesLoading(false)
             }
         });
+        return () => addressSubs.unsubscribe()
     }, [])
 
     const fullNameFilter = (

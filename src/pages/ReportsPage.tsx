@@ -7,6 +7,7 @@ import {fullName} from "../utils/utils";
 import {Data} from "react-csv/components/CommonPropTypes";
 import {DataStore} from "aws-amplify";
 import {WPOrder} from "../models";
+import {PROCESSING} from "../constants";
 
 const {Text, Title} = Typography;
 

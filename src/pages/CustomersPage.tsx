@@ -13,7 +13,7 @@ const CustomersPage: React.FC = () => {
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        DataStore.observeQuery(Customer)
+        const subs = DataStore.observeQuery(Customer)
             .subscribe(msg => {
                 if (msg.isSynced) {
                     setCustomers(msg.items)
@@ -25,6 +25,7 @@ const CustomersPage: React.FC = () => {
                     }
                 }
             });
+        return () => subs.unsubscribe()
     }, []);
 
     const columns: ColumnsType<Customer> = [

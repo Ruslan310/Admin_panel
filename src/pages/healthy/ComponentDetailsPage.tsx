@@ -17,11 +17,6 @@ import {RcFile} from "antd/es/upload";
 import {EURO, GRAM} from "../../constants";
 import {useHistory, useParams} from "react-router-dom";
 import {Component, COMPONENT_TYPE, PACKAGE_TYPE, Product} from "../../API";
-import {
-  fetchComponent,
-  fetchProducts,
-  updateComponent
-} from "../../graphql/requests";
 
 const {Content} = Layout;
 const {TextArea} = Input;
@@ -40,16 +35,16 @@ const ComponentsPage: React.FC = () => {
   const history = useHistory();
 
   const loadCurrentComponent = async () => {
-    const fetchedComponent = await fetchComponent(componentId);
-    setCurrentComponent(fetchedComponent);
-    if (fetchedComponent) {
-      setPicture(fetchedComponent.picture)
-    }
+    // const fetchedComponent = await fetchComponent(componentId);
+    // setCurrentComponent(fetchedComponent);
+    // if (fetchedComponent) {
+    //   setPicture(fetchedComponent.picture)
+    // }
   }
 
   const loadProducts = async () => {
-    const fetchedProducts = await fetchProducts();
-    setProducts(fetchedProducts);
+    // const fetchedProducts = await fetchProducts();
+    // setProducts(fetchedProducts);
   }
 
   useEffect(() => {
@@ -275,23 +270,23 @@ const ComponentsPage: React.FC = () => {
                 if (currentComponent) {
                   await form.validateFields();
                   message.loading({content: 'Saving component...', key});
-                  await updateComponent(
-                    {
-                      id: currentComponent.id,
-                      _version: currentComponent._version,
-                      calories: form.getFieldValue("calories"),
-                      carbons: form.getFieldValue("carbons"),
-                      fats: form.getFieldValue("fats"),
-                      name: form.getFieldValue("name"),
-                      packageType: form.getFieldValue("packageType"),
-                      picture: picture,
-                      price: form.getFieldValue("price"),
-                      proteins: form.getFieldValue("proteins"),
-                      recipe: form.getFieldValue("recipe"),
-                      type: form.getFieldValue("componentType"),
-                      weightInGram: form.getFieldValue("weightInGram")
-                    }
-                  );
+                  // await updateComponent(
+                  //   {
+                  //     id: currentComponent.id,
+                  //     _version: currentComponent._version,
+                  //     calories: form.getFieldValue("calories"),
+                  //     carbons: form.getFieldValue("carbons"),
+                  //     fats: form.getFieldValue("fats"),
+                  //     name: form.getFieldValue("name"),
+                  //     packageType: form.getFieldValue("packageType"),
+                  //     picture: picture,
+                  //     price: form.getFieldValue("price"),
+                  //     proteins: form.getFieldValue("proteins"),
+                  //     recipe: form.getFieldValue("recipe"),
+                  //     type: form.getFieldValue("componentType"),
+                  //     weightInGram: form.getFieldValue("weightInGram")
+                  //   }
+                  // );
                   await loadCurrentComponent();
                   message.success({content: 'Component successfully saved!', key, duration: 2});
                 }

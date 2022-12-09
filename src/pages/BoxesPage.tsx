@@ -5,10 +5,9 @@ import {ColumnsType} from "antd/es/table";
 import moment from 'moment';
 import jsPDF from "jspdf";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
-import {fetchBoxes, fetchCoordinate, fetchUser, fetchUsers, updateBox} from "../graphql/requests";
 import {Box, BoxStatus, Role, User, WeekDay, WPOrder} from "../models";
 import {DataStore} from "aws-amplify";
-import {ROLE} from "../API";
+import {PROCESSING} from "../constants";
 
 const {Content} = Layout;
 const {TabPane} = Tabs;
@@ -32,7 +31,7 @@ const BoxesPage: React.FC = () => {
     const [generatingStickers, setGeneratingStickers] = useState(false)
 
     useEffect(() => {
-        DataStore.observeQuery(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING))
+        const subs = DataStore.observeQuery(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING))
             .subscribe(msg => {
                 if (msg.isSynced) {
                     setBoxes(msg.items)
@@ -44,6 +43,7 @@ const BoxesPage: React.FC = () => {
                     }
                 }
             });
+        return () => subs.unsubscribe()
     }, []);
 
     const columns: ColumnsType<Box> = [

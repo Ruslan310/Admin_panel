@@ -29,7 +29,22 @@ const Role = {
   "GUEST": "GUEST"
 };
 
-const { WPOrder, Box, Address, Coordinate, User, Customer, WPDish } = initSchema(schema);
+const PackageType = {
+  "HOT": "HOT",
+  "COLD": "COLD",
+  "DESSERT": "DESSERT",
+  "SOUP": "SOUP"
+};
+
+const ComponentType = {
+  "MAIN": "MAIN",
+  "SIDE": "SIDE",
+  "SOUP": "SOUP",
+  "SALAD": "SALAD",
+  "DESSERT": "DESSERT"
+};
+
+const { WPOrder, Box, Address, Coordinate, User, Customer, Dish, Component, Product, Type, Category, Department, ProductAtWarehouse, Warehouse, ProductFromSupplier, Supplier, DishComponent, ComponentProducts, WPDish } = initSchema(schema);
 
 export {
   WPOrder,
@@ -38,8 +53,22 @@ export {
   Coordinate,
   User,
   Customer,
+  Dish,
+  Component,
+  Product,
+  Type,
+  Category,
+  Department,
+  ProductAtWarehouse,
+  Warehouse,
+  ProductFromSupplier,
+  Supplier,
+  DishComponent,
+  ComponentProducts,
   WeekDay,
   BoxStatus,
   Role,
+  PackageType,
+  ComponentType,
   WPDish
 };

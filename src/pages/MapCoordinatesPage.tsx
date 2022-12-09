@@ -4,13 +4,6 @@ import {Button, Checkbox, Col, Layout, List, Modal, Radio, Select, Space, Spin, 
 import {ColumnsType} from "antd/es/table";
 import {today} from "../utils/utils";
 import {ALL_DRIVERS, PROCESSING} from "../constants";
-import {
-    fetchCoordinate,
-    fetchCoordinates,
-    fetchOrdersByStatus,
-    fetchUsers,
-    updateCoordinate
-} from "../graphql/requests";
 import {Coordinate, Role, User, WeekDay, WPOrder} from "../models";
 import {DataStore} from "aws-amplify";
 
@@ -144,7 +137,7 @@ const MapCoordinatesPage: React.FC = () => {
     }
 
     useEffect(() => {
-        DataStore.observeQuery(Coordinate)
+        const coordinateSubs = DataStore.observeQuery(Coordinate)
             .subscribe(async msg => {
                 if (msg.isSynced) {
                     setCoordinates(msg.items)
@@ -153,13 +146,18 @@ const MapCoordinatesPage: React.FC = () => {
                 }
             });
 
-        DataStore.observeQuery(User, user => user.role.eq(Role.DELIVERY))
+        const userSubs = DataStore.observeQuery(User, user => user.role.eq(Role.DELIVERY))
             .subscribe(msg => {
                 if (msg.isSynced) {
                     setDrivers(msg.items)
                     setDriversLoading(false);
                 }
             });
+
+        return () => {
+            coordinateSubs.unsubscribe()
+            userSubs.unsubscribe()
+        }
 
     }, []);
 
@@ -260,13 +258,13 @@ const MapCoordinatesPage: React.FC = () => {
                 if (clusters.hasOwnProperty(key)) {
                     let clusterCoordinates = clusters[key];
                     for (const coordinateId of clusterCoordinates) {
-                        const coordinate = await fetchCoordinate(coordinateId);
+                        const coordinate = coordinates.find(coord => coord.id === coordinateId)
                         if (coordinate) {
-                            await updateCoordinate({
-                                _version: coordinate._version,
-                                id: coordinate.id,
-                                userID: key
-                            })
+                            await DataStore.save(
+                                Coordinate.copyOf(coordinate, updated => {
+                                    updated.userID = key;
+                                })
+                            )
                         }
                     }
                 }

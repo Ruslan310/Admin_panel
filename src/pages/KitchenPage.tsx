@@ -5,106 +5,109 @@ import {ColumnsType} from "antd/es/table";
 import {today} from "../utils/utils";
 import {WeekDay, WPOrder} from '../models';
 import {DataStore} from "aws-amplify";
-import { PROCESSING } from '../constants';
+import {PROCESSING} from '../constants';
 
 const {Content} = Layout;
 const {TabPane} = Tabs;
 const {Title} = Typography;
 
 interface KitchenDish {
-  name: string;
-  dishType: string;
-  quantity: number;
-  weekDay: WeekDay | keyof typeof WeekDay;
+    name: string;
+    dishType: string;
+    quantity: number;
+    weekDay: WeekDay | keyof typeof WeekDay;
 }
 
 const KitchenPage: React.FC = () => {
-  const [kitchenDishes, setKitchenDishes] = useState<KitchenDish[]>([]);
-  const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
-  const [isLoading, setLoading] = useState(true);
+    const [kitchenDishes, setKitchenDishes] = useState<KitchenDish[]>([]);
+    const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
+    const [isLoading, setLoading] = useState(true);
 
-  useEffect(() => {
-    DataStore.observeQuery(WPOrder, order => order.WPOrderStatus.eq(PROCESSING))
-        .subscribe(msg => {
-          if (msg.isSynced) {
-            let newItems: KitchenDish[] = [];
-            for (const order of msg.items) {
-              if (order.WPDishes) {
-                for (const dish of order.WPDishes) {
-                  let found = newItems.find(kitchenDish => kitchenDish.name === dish.name && kitchenDish.weekDay === dish.weekDay);
-                  if (found) {
-                    found.quantity = found.quantity + dish.quantity
-                  } else {
-                    newItems.push(JSON.parse(JSON.stringify(dish)));
-                  }
+    useEffect(() => {
+        const subs = DataStore.observeQuery(WPOrder, order => order.WPOrderStatus.eq(PROCESSING))
+            .subscribe(msg => {
+                if (msg.isSynced) {
+                    let newItems: KitchenDish[] = [];
+                    for (const order of msg.items) {
+                        if (order.WPDishes) {
+                            for (const dish of order.WPDishes) {
+                                let found = newItems.find(kitchenDish => kitchenDish.name === dish.name && kitchenDish.weekDay === dish.weekDay);
+                                if (found) {
+                                    found.quantity = found.quantity + dish.quantity
+                                } else {
+                                    newItems.push(JSON.parse(JSON.stringify(dish)));
+                                }
+                            }
+                        }
+                    }
+                    setKitchenDishes(newItems);
+                    setLoading(false)
                 }
-              }
+            });
+        return () => subs.unsubscribe()
+    }, []);
+
+    const columns: ColumnsType<KitchenDish> = [
+        {
+            title: 'Dish name',
+            dataIndex: 'name',
+            sorter: (a, b) => {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
             }
-            setKitchenDishes(newItems);
-            setLoading(false)
-          }
-        });
-  }, []);
+        },
+        {
+            title: 'Quantity',
+            dataIndex: 'quantity',
+            defaultSortOrder: 'descend',
+            sorter: (a, b) => {
+                if (a.quantity < b.quantity) {
+                    return -1;
+                }
+                if (a.quantity > b.quantity) {
+                    return 1;
+                }
+                return 0;
+            }
+        },
+        {
+            title: 'Dish type',
+            dataIndex: 'dishType',
+            sorter: (a, b) => {
+                if (a.dishType < b.dishType) {
+                    return -1;
+                }
+                if (a.dishType > b.dishType) {
+                    return 1;
+                }
+                return 0;
+            }
+        },
+    ];
 
-  const columns: ColumnsType<KitchenDish> = [
-    {
-      title: 'Dish name',
-      dataIndex: 'name',
-      sorter: (a, b) => {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      }
-    },
-    {
-      title: 'Quantity',
-      dataIndex: 'quantity',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => {
-        if (a.quantity < b.quantity) {
-          return -1;
-        }
-        if (a.quantity > b.quantity) {
-          return 1;
-        }
-        return 0;
-      }
-    },
-    {
-      title: 'Dish type',
-      dataIndex: 'dishType',
-      sorter: (a, b) => {
-        if (a.dishType < b.dishType) {
-          return -1;
-        }
-        if (a.dishType > b.dishType) {
-          return 1;
-        }
-        return 0;
-      }
-    },
-  ];
-
-  return (
-    <Content>
-      <Title>Kitchen</Title>
-      <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WeekDay)}>
-        {Object.values(WeekDay).map(weekDay => <TabPane tab={`${weekDay} (${kitchenDishes.filter(dish => dish.weekDay === weekDay).length})`} key={weekDay}/>)}
-      </Tabs>
-      <Table
-        loading={isLoading}
-        pagination={{defaultPageSize: 100, showSizeChanger: true, pageSizeOptions: ['10', '50', '100']}}
-        size={"middle"}
-        rowKey={(record, index) => record.name + record.dishType + record.quantity}
-        columns={columns}
-        dataSource={kitchenDishes.filter(dish => dish.weekDay === selectedDay)}
-      />
-    </Content>
-  )
+    return (
+        <Content>
+            <Title>Kitchen</Title>
+            <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WeekDay)}>
+                {Object.values(WeekDay).map(weekDay => <TabPane
+                    tab={`${weekDay} (${kitchenDishes.filter(dish => dish.weekDay === weekDay).length})`}
+                    key={weekDay}/>)}
+            </Tabs>
+            <Table
+                loading={isLoading}
+                pagination={{defaultPageSize: 100, showSizeChanger: true, pageSizeOptions: ['10', '50', '100']}}
+                size={"middle"}
+                rowKey={(record, index) => record.name + record.dishType + record.quantity}
+                columns={columns}
+                dataSource={kitchenDishes.filter(dish => dish.weekDay === selectedDay)}
+            />
+        </Content>
+    )
 }
 
 export default KitchenPage

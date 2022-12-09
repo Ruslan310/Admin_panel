@@ -4,8 +4,6 @@ import {Checkbox, Descriptions, Divider, Layout, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {useParams} from 'react-router-dom';
 import {CheckboxChangeEvent} from "antd/es/checkbox";
-import {stringifyAddress} from "../utils/utils";
-import {fetchCoordinate, fetchOrder, fetchUser} from "../graphql/requests";
 import {DataStore} from "aws-amplify";
 import {Box, Customer, WeekDay, WPDish, WPOrder} from "../models";
 
@@ -39,6 +37,7 @@ const OrderDetailsPage: React.FC = () => {
             boxes && setFilteredBoxes(boxes);
             setLoading(false)
           });
+      return () => subs.unsubscribe()
   }, []);
 
   const onChange = (list: any) => {

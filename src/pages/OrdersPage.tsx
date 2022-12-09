@@ -10,20 +10,11 @@ import moment from "moment-timezone";
 import {CloseOutlined} from "@ant-design/icons";
 import {Address, Box, WPOrder} from "../models";
 import {Subscription} from "recompose";
+import {PROCESSING} from "../constants";
 
 moment.tz.setDefault("Africa/Nouakchott");
 
-export type WPORDER_STATUS =
-    'PROCESSING'
-    | 'COMPLETED'
-    | 'CANCELLED'
-    | 'PENDING-PAYMENT'
-    | 'ON-HOLD'
-    | 'REFUNDED'
-    | 'FAILED'
-    | 'CANCEL-REQUEST'
-    | 'DRAFT'
-export const STATUSES = ['PROCESSING', 'COMPLETED', 'CANCELLED', 'PENDING-PAYMENT', 'ON-HOLD', 'REFUNDED', 'FAILED', 'CANCEL-REQUEST', 'DRAFT'];
+export const STATUSES = ['processing', 'completed', 'cancelled', 'pending-payment', 'on-hold', 'refunded', 'failed', 'cancel-request', 'draft'];
 
 const {Content} = Layout;
 const {Text, Title} = Typography;
@@ -36,7 +27,7 @@ const OrdersPage: React.FC = () => {
     const [addresses, setAddresses] = useState<Address[]>([]);
     const [isLoading, setLoading] = useState(true)
     const [isAddressesLoading, setAddressesLoading] = useState(true)
-    const [checkedStatusesList, setCheckedStatusesList] = React.useState<WPORDER_STATUS[]>(['PROCESSING']);
+    const [checkedStatusesList, setCheckedStatusesList] = React.useState<string[]>([PROCESSING]);
     const [searchName, setSearchName] = useState('')
     const [searchNumber, setSearchNumber] = useState('')
     const [isDeleteOrderConfirm, setDeleteOrderConfirm] = useState(false)
@@ -47,7 +38,7 @@ const OrdersPage: React.FC = () => {
     useEffect(() => {
         subscription && subscription.unsubscribe()
         const subs = DataStore.observeQuery(WPOrder, order => order.or(order =>
-            checkedStatusesList.map(status => order.WPOrderStatus.eq(status.toLowerCase()))))
+            checkedStatusesList.map(status => order.WPOrderStatus.eq(status))))
             .subscribe(msg => {
                 if (msg.isSynced) {
                     setOrders(msg.items)
@@ -245,7 +236,7 @@ const OrdersPage: React.FC = () => {
                     {/*</Button>*/}
                 </Space>
                 <Checkbox.Group options={Object.values(STATUSES)} value={checkedStatusesList}
-                                onChange={(list) => setCheckedStatusesList(list as Array<WPORDER_STATUS>)}/>
+                                onChange={(list) => setCheckedStatusesList(list as string[])}/>
                 <Divider/>
                 <Table
                     rowClassName={'tableRow'}
@@ -263,7 +254,7 @@ const OrdersPage: React.FC = () => {
                                 <Descriptions.Item label="Email">{record.customerEmail}</Descriptions.Item>
                                 <Descriptions.Item label="Created">{record.createdAt}</Descriptions.Item>
                                 <Descriptions.Item
-                                    label="WP Status">{record.WPOrderStatus.toUpperCase()}</Descriptions.Item>
+                                    label="WP Status">{record.WPOrderStatus}</Descriptions.Item>
                                 <Descriptions.Item label="Order total price">{record.finalPrice}</Descriptions.Item>
                             </Descriptions>
                         },

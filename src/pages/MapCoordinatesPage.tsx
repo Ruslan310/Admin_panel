@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {Button, Checkbox, Col, Layout, List, Modal, Radio, Select, Space, Spin, Table, Tabs, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {today} from "../utils/utils";
-import {ALL_DRIVERS} from "../constants";
+import {ALL_DRIVERS, PROCESSING} from "../constants";
 import {
     fetchCoordinate,
     fetchCoordinates,
@@ -90,7 +90,7 @@ const MapCoordinatesPage: React.FC = () => {
             if (addresses) {
                 for (const coordinateAddress of addresses) {
                     const addressOrders = await coordinateAddress.WPOrders.toArray()
-                    coordinateWithOrders.orders.push(...addressOrders.filter(order => order.WPOrderStatus === 'processing'))
+                    coordinateWithOrders.orders.push(...addressOrders.filter(order => order.WPOrderStatus === PROCESSING))
                 }
             }
 

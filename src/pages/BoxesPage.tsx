@@ -32,7 +32,7 @@ const BoxesPage: React.FC = () => {
     const [generatingStickers, setGeneratingStickers] = useState(false)
 
     useEffect(() => {
-        DataStore.observeQuery(Box, box => box.WPOrder.WPOrderStatus.eq('processing'))
+        DataStore.observeQuery(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING))
             .subscribe(msg => {
                 if (msg.isSynced) {
                     setBoxes(msg.items)
@@ -62,7 +62,7 @@ const BoxesPage: React.FC = () => {
         try {
             const printBoxes: Sticker[] = [];
             const drivers = await DataStore.query(User, user => user.role.eq(Role.DELIVERY))
-            const orders = await DataStore.query(WPOrder, order => order.WPOrderStatus.eq('processing'))
+            const orders = await DataStore.query(WPOrder, order => order.WPOrderStatus.eq(PROCESSING))
 
             const currentDayBoxes = boxes.filter(box => {
                 if (newOnly) {

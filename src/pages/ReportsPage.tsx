@@ -44,7 +44,7 @@ const AddressesPage: React.FC = () => {
         <Button onClick={async () => {
           const orders = await DataStore.query(WPOrder, order => order.and(order => [
               order.createdAtWp.between(startDate.unix(), endDate.unix()),
-              order.WPOrderStatus.ne('processing')
+              order.WPOrderStatus.ne(PROCESSING)
           ]));
           const companyOrders = orders.filter(order => {
             return targetCompany ? order.companyName?.toLowerCase().includes(targetCompany.toLowerCase()) : true

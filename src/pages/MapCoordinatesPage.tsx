@@ -189,19 +189,30 @@ const MapCoordinatesPage: React.FC = () => {
                 return <Select<string, { value: string; children: string }>
                     placeholder="Select driver"
                     showSearch
-                    disabled={isDriversLoading || isDriversAssigning}
+                    disabled={isDriversLoading || isDriversAssigning || isLoading}
                     filterOption={(input, option) =>
                         option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
                     }
                     value={record.userID || ''}
                     style={width300}
-                    onSelect={async (value) => {
+                    onSelect={async (value, option) => {
                         setLoading(true);
                         await DataStore.save(
                             Coordinate.copyOf(record, updated => {
                                 updated.userID = value;
                             })
                         );
+                        const addresses = await record.addresses.toArray()
+                        for (const address of addresses) {
+                            const orders = await address.WPOrders.toArray()
+                            for (const order of orders) {
+                                await DataStore.save(
+                                    WPOrder.copyOf(order, updated => {
+                                        updated.driverName = option.children;
+                                    })
+                                )
+                            }
+                        }
                         setTimeout(() => setLoading(false), 1000)
                     }}>
                     {drivers.map((driver) => <Select.Option key={driver.id}
@@ -320,8 +331,8 @@ const MapCoordinatesPage: React.FC = () => {
             <Content>
                 <Title>Coordinates ({coordinatesForThisDay.length})</Title>
                 <Button
-                    loading={isDriversAssigning}
-                    disabled={isDriversAssigning}
+                    loading={isDriversAssigning || isDriversLoading || isLoading}
+                    disabled={isDriversAssigning || isDriversLoading || isLoading}
                     onClick={() => setDriversModalVisible(true)} type="primary">
                     Auto assign drivers
                 </Button>

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {Button, Col, Form, Input, Layout, Modal, Row, Select, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {DataStore} from "aws-amplify";
-import {Address, Coordinate} from "../models";
+import {Address, Coordinate, WPOrder} from "../models";
 import {CloseOutlined} from "@ant-design/icons";
 
 const {Content} = Layout;
@@ -109,6 +109,21 @@ const AddressesPage: React.FC = () => {
                                 updated.coordinateID = value;
                             })
                         );
+                        const coordinate = await record.coordinate
+                        if (coordinate) {
+                            const driver = await coordinate.driver
+                            if (driver) {
+                                const orders = await record.WPOrders.toArray()
+                                for (const order of orders) {
+                                    await DataStore.save(
+                                        WPOrder.copyOf(order, updated => {
+                                            updated.driverName = driver.firstName;
+                                        })
+                                    )
+                                }
+                            }
+                        }
+
                     }}>
                     {coordinates.map((coord) => <Select.Option key={coord.id}
                                                                value={coord.id}>{coord.name}</Select.Option>)}

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
-import {Button, Layout, Modal, Table, Tabs, Typography} from 'antd';
+import {Button, Layout, Modal, Spin, Table, Tabs, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import moment from 'moment';
 import jsPDF from "jspdf";
@@ -29,6 +29,7 @@ const BoxesPage: React.FC = () => {
     const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
     const [boxes, setBoxes] = useState<Box[]>([]);
     const [isLoading, setLoading] = useState(true)
+    const [generatingStickers, setGeneratingStickers] = useState(false)
 
     useEffect(() => {
         DataStore.observeQuery(Box, box => box.WPOrder.WPOrderStatus.eq('processing'))
@@ -57,80 +58,86 @@ const BoxesPage: React.FC = () => {
     ];
 
     const generatePdfForPrint = async (newOnly: boolean = false) => {
-        const printBoxes: Sticker[] = [];
-        const drivers = await DataStore.query(User, user => user.role.eq(Role.DELIVERY))
-        const orders = await DataStore.query(WPOrder, order => order.WPOrderStatus.eq('processing'))
+        setGeneratingStickers(true)
+        try {
+            const printBoxes: Sticker[] = [];
+            const drivers = await DataStore.query(User, user => user.role.eq(Role.DELIVERY))
+            const orders = await DataStore.query(WPOrder, order => order.WPOrderStatus.eq('processing'))
 
-        const targetBoxes = boxes.filter(box => {
-            if (newOnly) {
-                return box.boxStatus === BoxStatus.NEW;
-            } else {
-                return true;
-            }
-        });
-        if (targetBoxes.length === 0) {
-            alert('Nothing to print!!');
-        } else {
-            for (let i = 0; i < targetBoxes.length; i++) {
-                const box = targetBoxes[i];
-                let order = orders.find(order => order.id === box.wporderID)
-                let driverName =  order?.driverName || 'NA';
-                console.log('order number: ', order?.WPOrderNumber)
-                printBoxes.push({
-                    orderNumber: order?.WPOrderNumber || "",
-                    customerName: order?.customerName || "",
-                    dishName: box.sticker,
-                    driverName: driverName,
-                    company: order?.companyName || "",
-                    qrCode: box.qrCode,
-                    boxId: box.id,
-                })
-            }
-
-            let sortedStickers: Sticker[] = [];
-            console.log('drivers: ', drivers)
-            for (const driver of drivers) {
-                const stickers = printBoxes.filter(sticker => sticker.driverName === driver.firstName)
-                    .sort((a, b) => {
-                        if (a.dishName.toLowerCase().includes('salad')) return -1;
-                        return 1;
-                    });
-                sortedStickers = sortedStickers.concat(stickers)
-            }
-
-            const doc = new jsPDF({
-                orientation: 'l',
-                unit: 'mm',
-                format: [60, 45],
+            const currentDayBoxes = boxes.filter(box => {
+                if (newOnly) {
+                    return box.weekDay === selectedDay && box.boxStatus === BoxStatus.NEW;
+                } else {
+                    return box.weekDay === selectedDay;
+                }
             });
-            for (let i = 0; i < sortedStickers.length; i++) {
-                const sticker = sortedStickers[i]
-                if (i > 0) {
-                    doc.addPage([60, 45], "l");
+            if (currentDayBoxes.length === 0) {
+                alert('Nothing to print!!');
+            } else {
+                for (let i = 0; i < currentDayBoxes.length; i++) {
+                    const box = currentDayBoxes[i];
+                    let order = orders.find(order => order.id === box.wporderID)
+                    let driverName = order?.driverName || 'NA';
+                    printBoxes.push({
+                        orderNumber: order?.WPOrderNumber || "",
+                        customerName: order?.customerName || "",
+                        dishName: box.sticker,
+                        driverName: driverName,
+                        company: order?.companyName || "",
+                        qrCode: box.qrCode,
+                        boxId: box.id,
+                    })
                 }
-                doc.addImage(sticker.qrCode, 0, 0, 20, 20)
-                doc.setFontSize(15);
-                doc.text(sticker.customerName, 20, 8,)
-                doc.setFont("times", "bold");
-                doc.setFontSize(19);
-                doc.text(sticker.dishName.split("+")[0], 2, 24)
-                if (sticker.dishName.split("+").length > 1) {
-                    doc.text(sticker.dishName.split("+")[1], 2, 32)
+
+                let sortedStickers: Sticker[] = [];
+                for (const driver of drivers) {
+                    const stickers = printBoxes.filter(sticker => sticker.driverName === driver.firstName)
+                        .sort((a, b) => {
+                            if (a.dishName.toLowerCase().includes('salad')) return -1;
+                            return 1;
+                        });
+                    sortedStickers = sortedStickers.concat(printBoxes.filter(sticker => sticker.driverName === driver.firstName))
                 }
-                if (sticker.driverName && sticker.driverName !== 'NA') {
-                    doc.addImage(`assets/images/${sticker.driverName.toLowerCase()}.png`, 45, 34, 10, 10)
+
+                sortedStickers = sortedStickers.concat(sortedStickers.concat(printBoxes.filter(sticker => sticker.driverName === 'NA')))
+
+                const doc = new jsPDF({
+                    orientation: 'l',
+                    unit: 'mm',
+                    format: [60, 45],
+                });
+                for (let i = 0; i < sortedStickers.length; i++) {
+                    const sticker = sortedStickers[i]
+                    if (i > 0) {
+                        doc.addPage([60, 45], "l");
+                    }
+                    doc.addImage(sticker.qrCode, 0, 0, 20, 20)
+                    doc.setFontSize(15);
+                    doc.text(sticker.customerName.split(' ')[0], 20, 8,)
+                    doc.text(sticker.customerName.split(' ')[1], 20, 16,)
+                    doc.setFont("times", "bold");
+                    doc.setFontSize(19);
+                    doc.text(sticker.dishName.split("+")[0], 2, 24)
+                    if (sticker.dishName.split("+").length > 1) {
+                        doc.text(sticker.dishName.split("+")[1], 2, 32)
+                    }
+                    if (sticker.driverName && sticker.driverName !== 'NA') {
+                        doc.addImage(`assets/images/${sticker.driverName.toLowerCase()}.png`, 45, 34, 10, 10)
+                    }
+                    doc.setFont("times", "normal");
+                    doc.setFontSize(12);
+                    doc.text(sticker.company.substr(0, 8), 2, 40)
+                    doc.setFontSize(16);
+                    doc.text(sticker.orderNumber, 20, 40)
                 }
-                doc.setFont("times", "normal");
-                doc.setFontSize(12);
-                doc.text(sticker.company.substr(0, 8), 2, 40)
-                doc.setFontSize(16);
-                doc.text(sticker.orderNumber, 20, 40)
+                let newPrefix = '';
+                if (newOnly) {
+                    newPrefix = 'NEW-';
+                }
+                doc.save(newPrefix + selectedDay + moment().format("-DD-MM-yyyy") + ".pdf")
             }
-            let newPrefix = '';
-            if (newOnly) {
-                newPrefix = 'NEW-';
-            }
-            doc.save(newPrefix + selectedDay + moment().format("-DD-MM-yyyy") + ".pdf")
+        } finally {
+            setGeneratingStickers(false)
         }
     }
 
@@ -156,6 +163,9 @@ const BoxesPage: React.FC = () => {
             },
         });
     };
+
+    if (generatingStickers) return <Spin size="large"/>
+
     return (
         <Content>
             <Title>Boxes</Title>

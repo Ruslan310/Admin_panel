@@ -5,8 +5,8 @@ import {Button, Checkbox, Input, InputNumber, Layout, Progress, Radio, Space, Ty
 import moment from "moment-timezone";
 import {fullName} from "../utils/utils";
 import {Data} from "react-csv/components/CommonPropTypes";
-import {Customer} from "../API";
-import {fetchOrdersByStatus} from "../graphql/requests";
+import {DataStore} from "aws-amplify";
+import {WPOrder} from "../models";
 
 const {Text, Title} = Typography;
 
@@ -41,48 +41,51 @@ const AddressesPage: React.FC = () => {
     <Content>
       <Title>Reports</Title>
       <Space direction={"vertical"}>
-        {/*<Button onClick={async () => {*/}
-        {/*  const orders = await DataStore.query(WPOrder, order => order.createdAtWp("between", [startDate.unix(), endDate.unix()]).WPOrderStatus("ne", WporderStatus.CANCELLED));*/}
-        {/*  const orders = await fetchOrders();*/}
-        {/*  const companyOrders = orders.filter(order => {*/}
-        {/*    return targetCompany ? order.customer?.company?.toLowerCase().includes(targetCompany.toLowerCase()) : true*/}
-        {/*  })*/}
-        {/*  const invoice: InvoiceOrderItem[] = [];*/}
-        {/*  setProgress(1);*/}
-        {/*  let count = 1;*/}
-        {/*  let coef = 100;*/}
-        {/*  if (isWithoutTax) {*/}
-        {/*    coef = 95;*/}
-        {/*  }*/}
-        {/*  for (const order of companyOrders) {*/}
-        {/*    const found = invoice.find(item => fullName(order.customer as Customer | null) === item.fullName);*/}
-        {/*    if (found) {*/}
-        {/*      found.total = Math.ceil((found.total + order.finalPrice) * coef) / 100;*/}
-        {/*    } else {*/}
-        {/*      const newItem: InvoiceOrderItem = {*/}
-        {/*        fullName: fullName(order.customer as Customer | null),*/}
-        {/*        total: Math.ceil(order.finalPrice * coef) / 100,*/}
-        {/*        companyPayment: 0,*/}
-        {/*        customerPayment: 0,*/}
-        {/*      };*/}
-        {/*      invoice.push(newItem)*/}
-        {/*    }*/}
-        {/*    count++;*/}
-        {/*    setProgress(Math.ceil((count/companyOrders.length)*90))*/}
-        {/*  }*/}
-        {/*  for (const invoiceItem of invoice) {*/}
-        {/*    if (invoiceItem.total > companyCoverage) {*/}
-        {/*      invoiceItem.customerPayment = Math.ceil((invoiceItem.total - companyCoverage) * 100) / 100;*/}
-        {/*      invoiceItem.companyPayment = companyCoverage;*/}
-        {/*    } else {*/}
-        {/*      invoiceItem.companyPayment = invoiceItem.total;*/}
-        {/*    }*/}
-        {/*  }*/}
-        {/*  setProgress(100)*/}
-        {/*  setCsvData(invoice);*/}
-        {/*}} type="primary">*/}
-        {/*  Generate ({startDate.format("DD-MM")}-{endDate.format("DD-MM")})*/}
-        {/*</Button>*/}
+        <Button onClick={async () => {
+          const orders = await DataStore.query(WPOrder, order => order.and(order => [
+              order.createdAtWp.between(startDate.unix(), endDate.unix()),
+              order.WPOrderStatus.ne('processing')
+          ]));
+          const companyOrders = orders.filter(order => {
+            return targetCompany ? order.companyName?.toLowerCase().includes(targetCompany.toLowerCase()) : true
+          })
+          const invoice: InvoiceOrderItem[] = [];
+          setProgress(1);
+          let count = 1;
+          let coef = 100;
+          if (isWithoutTax) {
+            coef = 95;
+          }
+          for (const order of companyOrders) {
+            const customer = await order.customer
+            const found = invoice.find(item => fullName(customer) === item.fullName);
+            if (found) {
+              found.total = Math.ceil((found.total + order.finalPrice) * coef) / 100;
+            } else {
+              const newItem: InvoiceOrderItem = {
+                fullName: fullName(customer),
+                total: Math.ceil(order.finalPrice * coef) / 100,
+                companyPayment: 0,
+                customerPayment: 0,
+              };
+              invoice.push(newItem)
+            }
+            count++;
+            setProgress(Math.ceil((count/companyOrders.length)*90))
+          }
+          for (const invoiceItem of invoice) {
+            if (invoiceItem.total > companyCoverage) {
+              invoiceItem.customerPayment = Math.ceil((invoiceItem.total - companyCoverage) * 100) / 100;
+              invoiceItem.companyPayment = companyCoverage;
+            } else {
+              invoiceItem.companyPayment = invoiceItem.total;
+            }
+          }
+          setProgress(100)
+          setCsvData(invoice);
+        }} type="primary">
+          Generate ({startDate.format("DD-MM")}-{endDate.format("DD-MM")})
+        </Button>
         <Radio.Group onChange={(e) => {
           const value = e.target.value;
           const newStartDate = moment().day(friday + week * (value - 1));

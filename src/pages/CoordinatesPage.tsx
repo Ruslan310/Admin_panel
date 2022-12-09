@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 import {
-  Button,
+  Button, Descriptions,
   Divider,
   Form,
   Input,
@@ -14,13 +14,17 @@ import {
 } from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {googleMapLink, stringifyAddress} from "../utils/utils";
-import {Coordinate} from "../API";
-import {createCoordinate, fetchCoordinates} from "../graphql/requests";
+import {Address, Coordinate} from '../models';
+import {DataStore} from "aws-amplify";
 
 const {Content} = Layout;
 const {Title} = Typography;
 
 const width300 = {width: 300}
+interface LoadedAddress  {
+  coordinateId: string
+  addresses: Address[]
+}
 
 const CoordinatesPage: React.FC = () => {
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
@@ -35,18 +39,22 @@ const CoordinatesPage: React.FC = () => {
   const [latitude, setLatitude] = useState(0.000000);
   const [longitude, setLongitude] = useState(0.000000);
   const [isLoadingAddresses, setLoadingAddresses] = useState(false)
+  const [loadedAddresses, setLoadedAddresses] = useState<LoadedAddress[]>([])
 
-  const loadCoordinates = async () => {
-    const fetchedCoordinates = await fetchCoordinates();
-    setCoordinates(fetchedCoordinates);
-  }
 
   useEffect(() => {
-    setLoading(true);
-    loadCoordinates();
-
-    setLoading(false);
-
+    DataStore.observeQuery(Coordinate)
+        .subscribe(msg => {
+          if (msg.isSynced) {
+            setCoordinates(msg.items)
+            isLoading && setLoading(false)
+          } else {
+            if (msg.items.length > 0) {
+              setCoordinates(msg.items)
+              isLoading && setLoading(false)
+            }
+          }
+        });
   }, []);
 
   const columns: ColumnsType<Coordinate> = [
@@ -84,23 +92,23 @@ const CoordinatesPage: React.FC = () => {
     }
   ];
 
-  // const deleteCoordinate = async () => {
-  //   if (targetCoordinate) {
-  //     const addresses = await DataStore.query(Address, address => address.coordinateID("eq", targetCoordinate.id))
-  //     if (addresses) {
-  //       for (const address of addresses) {
-  //         await DataStore.save(
-  //           Address.copyOf(address, updated => {
-  //             updated.coordinateID = undefined;
-  //           })
-  //         );
-  //       }
-  //     }
-  //     await DataStore.delete(Coordinate, targetCoordinate.id);
-  //   }
-  //   setTargetCoordinate(undefined);
-  //   setDeleteConfirmationShow(false);
-  // };
+  const deleteCoordinate = async () => {
+    if (targetCoordinate) {
+      const addresses = await targetCoordinate.addresses.toArray()
+      if (addresses) {
+        for (const address of addresses) {
+          await DataStore.save(
+            Address.copyOf(address, updated => {
+              updated.coordinateID = undefined;
+            })
+          );
+        }
+      }
+      await DataStore.delete(targetCoordinate);
+    }
+    setTargetCoordinate(undefined);
+    setDeleteConfirmationShow(false);
+  };
 
   // const editCoordinate = async () => {
   //   if (targetCoordinate && editedName) {
@@ -116,21 +124,12 @@ const CoordinatesPage: React.FC = () => {
   //   }
   // };
 
-  // const loadAddresses = async (coordinateId: string): Promise<void> => {
-  //   setLoadingAddresses(true);
-  //   const loadedAddresses = await DataStore.query(Address, address => address.coordinateID("eq", coordinateId))
-  //   const targetCoordinate = coordinates.find(coordinate => coordinate.id === coordinateId);
-  //   if (targetCoordinate) {
-  //     const targetIndex = coordinates.indexOf(targetCoordinate);
-  //     const newCoordinate = Coordinate.copyOf(targetCoordinate, updated => {
-  //       updated.coordinateAddresses = loadedAddresses;
-  //     })
-  //     const filteredCoordinates = coordinates.filter(coordinate => coordinate.id !== coordinateId);
-  //     filteredCoordinates.splice(targetIndex, 0, newCoordinate);
-  //     setCoordinates([...filteredCoordinates]);
-  //   }
-  //   setLoadingAddresses(false);
-  // }
+  const loadAddresses = async (coordinate: Coordinate): Promise<void> => {
+    setLoadingAddresses(true);
+    const addresses = await coordinate.addresses.toArray()
+    setLoadedAddresses([...loadedAddresses, {coordinateId: coordinate.id, addresses}])
+    setLoadingAddresses(false);
+  }
 
   // const renderMaps = () => {
   //   if (isLoading || coordinates.length === 0) return null;
@@ -304,11 +303,13 @@ const CoordinatesPage: React.FC = () => {
           <Form.Item wrapperCol={{offset: 4, span: 16}}>
             <Button onClick={async () => {
               if (name) {
-                await createCoordinate({
-                  latitude: latitude,
-                  longitude: longitude,
-                  name: name,
-                })
+                await DataStore.save(
+                    new Coordinate({
+                      latitude,
+                      longitude,
+                      name,
+                    })
+                );
               }
             }} type="primary" htmlType="submit">
               Create
@@ -318,6 +319,7 @@ const CoordinatesPage: React.FC = () => {
         <Table
           size={"middle"}
           rowKey="id"
+          loading={isLoading}
           columns={columns}
           dataSource={coordinates}
           expandable={{
@@ -327,17 +329,17 @@ const CoordinatesPage: React.FC = () => {
               } else {
                 return <List
                   size="small"
-                  dataSource={record.coordinateAddresses?.items || []}
+                  dataSource={loadedAddresses.find(addresses => addresses.coordinateId === record.id)?.addresses || []}
                   renderItem={item => <List.Item>{stringifyAddress(item)}</List.Item>}
                 />
               }
             },
             rowExpandable: record => true,
-            // onExpand: async (expanded, record) => {
-            //   if (expanded) {
-            //     await loadAddresses(record.id)
-            //   }
-            // }
+            onExpand: async (expanded, record) => {
+              if (expanded) {
+                await loadAddresses(record)
+              }
+            }
           }}
         />
         <Divider/>

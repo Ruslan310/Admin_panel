@@ -57,6 +57,10 @@ const MainRouter: React.FC = () => {
     setCollapsed(!collapsed)
   }
 
+  useEffect(() => {
+    DataStore.start()
+  }, [])
+
   const path = window.location.pathname.replace(new RegExp("/(\\w*)"), "$1")
   return <Layout style={{minHeight: '100vh'}}>
     <Sider

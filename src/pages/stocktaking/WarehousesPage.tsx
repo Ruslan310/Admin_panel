@@ -4,8 +4,7 @@ import {Button, Form, Input, Layout, Modal, Select, Table, Typography} from 'ant
 import {ColumnsType} from "antd/es/table";
 import {googleMapLink, stringifyAddress} from "../../utils/utils";
 import {useHistory} from "react-router-dom";
-import {Address, Coordinate, Warehouse} from "../../API";
-import {createWarehouse, fetchAddresses, fetchCoordinates, fetchWarehouses} from "../../graphql/requests";
+import {Address, Coordinate} from "../../models";
 
 const {confirm, error} = Modal;
 
@@ -22,18 +21,18 @@ const WarehousesPage: React.FC = () => {
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
 
   const loadWarehouses = async () => {
-    const fetchedWarehouses = await fetchWarehouses();
-    setWarehouses(fetchedWarehouses);
+    // const fetchedWarehouses = await fetchWarehouses();
+    // setWarehouses(fetchedWarehouses);
   }
 
   const loadAddresses = async () => {
-    const fetchedAddresses = await fetchAddresses();
-    setAddresses(fetchedAddresses);
+    // const fetchedAddresses = await fetchAddresses();
+    // setAddresses(fetchedAddresses);
   }
 
   const loadCoordinates = async () => {
-    const fetchedCoordinates = await fetchCoordinates();
-    setCoordinates(fetchedCoordinates);
+    // const fetchedCoordinates = await fetchCoordinates();
+    // setCoordinates(fetchedCoordinates);
   }
 
   useEffect(() => {
@@ -148,10 +147,10 @@ const WarehousesPage: React.FC = () => {
         <Form.Item wrapperCol={{offset: 4, span: 16}}>
           <Button onClick={async () => {
             if (name && addressId) {
-              await createWarehouse({
-                name: name,
-                warehouseAddressId: addressId,
-              })
+              // await createWarehouse({
+              //   name: name,
+              //   warehouseAddressId: addressId,
+              // })
             }
           }} type="primary" htmlType="submit">
             Create

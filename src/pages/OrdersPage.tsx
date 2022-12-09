@@ -34,14 +34,11 @@ const OrdersPage: React.FC = () => {
     const history = useHistory();
     const [orders, setOrders] = useState<WPOrder[]>([]);
     const [addresses, setAddresses] = useState<Address[]>([]);
-    const [filteredOrders, setFilteredOrders] = useState<WPOrder[]>([]);
-    const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([])
     const [isLoading, setLoading] = useState(true)
     const [isAddressesLoading, setAddressesLoading] = useState(true)
     const [checkedStatusesList, setCheckedStatusesList] = React.useState<WPORDER_STATUS[]>(['PROCESSING']);
     const [searchName, setSearchName] = useState('')
     const [searchNumber, setSearchNumber] = useState('')
-    const [assignedDriverName, setAssignedDriverName] = useState<string>('Not assigned')
     const [isDeleteOrderConfirm, setDeleteOrderConfirm] = useState(false)
     const [isDeleting, setDeleting] = useState(false)
     const [targetOrder, setTargetOrder] = useState<WPOrder>()
@@ -52,23 +49,20 @@ const OrdersPage: React.FC = () => {
         const subs = DataStore.observeQuery(WPOrder, order => order.or(order =>
             checkedStatusesList.map(status => order.WPOrderStatus.eq(status.toLowerCase()))))
             .subscribe(msg => {
-            if (msg.isSynced) {
-                setOrders(msg.items)
-                setFilteredOrders(msg.items)
-                isLoading && setLoading(false)
-            } else {
-                if (msg.items.length > 0) {
+                if (msg.isSynced) {
                     setOrders(msg.items)
-                    setFilteredOrders(msg.items)
                     isLoading && setLoading(false)
+                } else {
+                    if (msg.items.length > 0) {
+                        setOrders(msg.items)
+                        isLoading && setLoading(false)
+                    }
                 }
-            }
-        });
+            });
         setSubscription(subs)
     }, [checkedStatusesList]);
 
     useEffect(() => {
-        DataStore.start()
         DataStore.observeQuery(Address).subscribe(msg => {
             if (msg.isSynced) {
                 setAddresses(msg.items)
@@ -86,9 +80,6 @@ const OrdersPage: React.FC = () => {
                 onChange={e => {
                     const currValue = e.target.value;
                     setSearchName(currValue);
-                    const filteredData = orders
-                        .filter(order => order.customerName.toLowerCase().includes(currValue.toLowerCase()));
-                    setFilteredOrders(filteredData);
                 }}
             />
         </>
@@ -105,7 +96,6 @@ const OrdersPage: React.FC = () => {
                     setSearchNumber(currValue);
                     const filteredData = orders
                         .filter(order => order.WPOrderNumber?.toLowerCase().includes(currValue.toLowerCase()));
-                    setFilteredOrders(filteredData);
                 }}
             />
         </>
@@ -239,7 +229,7 @@ const OrdersPage: React.FC = () => {
     return (
         <>
             <Content>
-                <Title>Orders ({filteredOrders.length})</Title>
+                <Title>Orders ({orders.length})</Title>
                 <Space>
                     {/*<Button onClick={async () => {*/}
                     {/*  for (const order of orders) {*/}
@@ -254,14 +244,8 @@ const OrdersPage: React.FC = () => {
                     {/*  Sync orders from wp*/}
                     {/*</Button>*/}
                 </Space>
-                <Checkbox.Group options={Object.values(STATUSES)} value={checkedStatusesList} onChange={(list) => {
-                    setCheckedStatusesList(list as Array<WPORDER_STATUS>);
-                    setFilteredOrders(
-                        orders
-                            .filter(order => order.WPOrderNumber?.toLowerCase().includes(searchNumber.toLowerCase()))
-                            .filter(order => order.customerName.toLowerCase().includes(searchName.toLowerCase()))
-                    )
-                }}/>
+                <Checkbox.Group options={Object.values(STATUSES)} value={checkedStatusesList}
+                                onChange={(list) => setCheckedStatusesList(list as Array<WPORDER_STATUS>)}/>
                 <Divider/>
                 <Table
                     rowClassName={'tableRow'}
@@ -269,7 +253,8 @@ const OrdersPage: React.FC = () => {
                     size={"middle"}
                     rowKey="id"
                     columns={columns}
-                    dataSource={filteredOrders}
+                    dataSource={orders.filter(order => order.customerName.toLowerCase().includes(searchName.toLowerCase()))
+                        .filter(order => order.WPOrderNumber.toLowerCase().includes(searchNumber.toLowerCase()))}
                     expandable={{
                         expandedRowRender: record => {
                             return <Descriptions title="Order details">

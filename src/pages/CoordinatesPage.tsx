@@ -14,7 +14,7 @@ import {
 } from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {googleMapLink, stringifyAddress} from "../utils/utils";
-import {Address, Coordinate} from '../models';
+import {Address, Coordinate, WPOrder} from '../models';
 import {DataStore} from "aws-amplify";
 
 const {Content} = Layout;
@@ -32,8 +32,8 @@ const CoordinatesPage: React.FC = () => {
   const [isDeleteConfirmationShow, setDeleteConfirmationShow] = useState(false);
   const [isEditShow, setEditShow] = useState(false);
   const [editedName, setEditedName] = useState<string>();
-  const [editedLatitude, setEditedLatitude] = useState<number>(0.000000);
-  const [editedLongitude, setEditedLongitude] = useState<number>(0.000000);
+  const [editedLatitude, setEditedLatitude] = useState<number>();
+  const [editedLongitude, setEditedLongitude] = useState<number>();
   const [targetCoordinate, setTargetCoordinate] = useState<Coordinate>();
   const [name, setName] = useState('');
   const [latitude, setLatitude] = useState(0.000000);
@@ -102,6 +102,16 @@ const CoordinatesPage: React.FC = () => {
               updated.coordinateID = undefined;
             })
           );
+          const orders = await address.WPOrders.toArray()
+          if (orders) {
+            for (const order of orders) {
+              await DataStore.save(
+                  WPOrder.copyOf(order, updated => {
+                    updated.driverName = undefined;
+                  })
+              );
+            }
+          }
         }
       }
       await DataStore.delete(targetCoordinate);
@@ -110,19 +120,19 @@ const CoordinatesPage: React.FC = () => {
     setDeleteConfirmationShow(false);
   };
 
-  // const editCoordinate = async () => {
-  //   if (targetCoordinate && editedName) {
-  //     await DataStore.save(
-  //       Coordinate.copyOf(targetCoordinate, updated => {
-  //         updated.name = editedName;
-  //         updated.latitude = editedLatitude;
-  //         updated.longitude = editedLongitude;
-  //       })
-  //     );
-  //     setTargetCoordinate(undefined);
-  //     setEditShow(false);
-  //   }
-  // };
+  const editCoordinate = async () => {
+    if (targetCoordinate && editedName) {
+      await DataStore.save(
+        Coordinate.copyOf(targetCoordinate, updated => {
+          updated.name = editedName;
+          updated.latitude = editedLatitude || 0.000000;
+          updated.longitude = editedLongitude || 0.000000;
+        })
+      );
+      setTargetCoordinate(undefined);
+      setEditShow(false);
+    }
+  };
 
   const loadAddresses = async (coordinate: Coordinate): Promise<void> => {
     setLoadingAddresses(true);
@@ -147,91 +157,91 @@ const CoordinatesPage: React.FC = () => {
 
   return (
     <>
-      {/*<Modal*/}
-      {/*  title="Are sure you want to delete coordinate?"*/}
-      {/*  visible={isDeleteConfirmationShow}*/}
-      {/*  onOk={deleteCoordinate}*/}
-      {/*  onCancel={() => {*/}
-      {/*    setTargetCoordinate(undefined);*/}
-      {/*    setDeleteConfirmationShow(false);*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <p>You want to delete coordinate with name "{targetCoordinate?.name}"</p>*/}
-      {/*</Modal>*/}
-      {/*<Modal*/}
-      {/*  title="Edit coordinates"*/}
-      {/*  visible={isEditShow}*/}
-      {/*  onOk={editCoordinate}*/}
-      {/*  onCancel={() => {*/}
-      {/*    setTargetCoordinate(undefined);*/}
-      {/*    setEditShow(false);*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <Form*/}
-      {/*    labelCol={{span: 4}}*/}
-      {/*    wrapperCol={{span: 14}}*/}
-      {/*    layout="horizontal"*/}
-      {/*  >*/}
-      {/*    <Form.Item label="Edit name">*/}
-      {/*      <Input style={width300} value={editedName} onChange={(e) => {*/}
-      {/*        setEditedName(e.target.value)*/}
-      {/*      }}/>*/}
-      {/*    </Form.Item>*/}
-      {/*    <Form.Item label="Map link">*/}
-      {/*      <Input*/}
-      {/*        style={width300}*/}
-      {/*        onChange={(e) => {*/}
-      {/*          if (e.target.value.includes('google.com')) {*/}
-      {/*            const latReg = new RegExp("@(-?[\\d.]*)")*/}
-      {/*            const latGroups = latReg.exec(e.target.value);*/}
-      {/*            if (latGroups) {*/}
-      {/*              setEditedLatitude(parseFloat(latGroups[1]))*/}
-      {/*            }*/}
-      {/*            const lonReg = new RegExp("@[-?\\d.]*,([-?\\d.]*)")*/}
-      {/*            const lonGroups = lonReg.exec(e.target.value);*/}
-      {/*            if (lonGroups) {*/}
-      {/*              setEditedLongitude(parseFloat(lonGroups[1]))*/}
-      {/*            }*/}
-      {/*          } else if (e.target.value.includes('2gis')) {*/}
-      {/*            let allReg = new RegExp("\\/(\\d+[.]\\d+)%2C(\\d+.\\d+)[?]m=")*/}
-      {/*            const groups = allReg.exec(e.target.value);*/}
-      {/*            if (groups) {*/}
-      {/*              setEditedLatitude(parseFloat(groups[2]))*/}
-      {/*              setEditedLongitude(parseFloat(groups[1]))*/}
-      {/*            } else {*/}
-      {/*              let allReg = new RegExp("m=(\\d+[.]\\d+)%2C(\\d+.\\d+)")*/}
-      {/*              const groups = allReg.exec(e.target.value);*/}
-      {/*              if (groups) {*/}
-      {/*                setEditedLatitude(parseFloat(groups[2]))*/}
-      {/*                setEditedLongitude(parseFloat(groups[1]))*/}
-      {/*              }*/}
-      {/*            }*/}
-      {/*          }*/}
-      {/*        }}*/}
-      {/*      />*/}
-      {/*    </Form.Item>*/}
-      {/*    <Form.Item label="latitude">*/}
-      {/*      <InputNumber<number>*/}
-      {/*        style={width300}*/}
-      {/*        value={editedLatitude}*/}
-      {/*        min={-50}*/}
-      {/*        max={50}*/}
-      {/*        step={0.000001}*/}
-      {/*        onChange={(value) => setEditedLatitude(value)}*/}
-      {/*      />*/}
-      {/*    </Form.Item>*/}
-      {/*    <Form.Item label="longitude">*/}
-      {/*      <InputNumber<number>*/}
-      {/*        style={width300}*/}
-      {/*        value={editedLongitude}*/}
-      {/*        min={-50}*/}
-      {/*        max={50}*/}
-      {/*        step={0.000001}*/}
-      {/*        onChange={(value) => setEditedLongitude(value)}*/}
-      {/*      />*/}
-      {/*    </Form.Item>*/}
-      {/*  </Form>*/}
-      {/*</Modal>*/}
+      <Modal
+        title="Are sure you want to delete coordinate?"
+        open={isDeleteConfirmationShow}
+        onOk={deleteCoordinate}
+        onCancel={() => {
+          setTargetCoordinate(undefined);
+          setDeleteConfirmationShow(false);
+        }}
+      >
+        <p>You want to delete coordinate with name "{targetCoordinate?.name}"</p>
+      </Modal>
+      <Modal
+        title="Edit coordinates"
+        open={isEditShow}
+        onOk={editCoordinate}
+        onCancel={() => {
+          setTargetCoordinate(undefined);
+          setEditShow(false);
+        }}
+      >
+        <Form
+          labelCol={{span: 4}}
+          wrapperCol={{span: 14}}
+          layout="horizontal"
+        >
+          <Form.Item label="Edit name">
+            <Input style={width300} value={editedName} onChange={(e) => {
+              setEditedName(e.target.value)
+            }}/>
+          </Form.Item>
+          <Form.Item label="Map link">
+            <Input
+              style={width300}
+              onChange={(e) => {
+                if (e.target.value.includes('google.com')) {
+                  const latReg = new RegExp("@(-?[\\d.]*)")
+                  const latGroups = latReg.exec(e.target.value);
+                  if (latGroups) {
+                    setEditedLatitude(parseFloat(latGroups[1]))
+                  }
+                  const lonReg = new RegExp("@[-?\\d.]*,([-?\\d.]*)")
+                  const lonGroups = lonReg.exec(e.target.value);
+                  if (lonGroups) {
+                    setEditedLongitude(parseFloat(lonGroups[1]))
+                  }
+                } else if (e.target.value.includes('2gis')) {
+                  let allReg = new RegExp("\\/(\\d+[.]\\d+)%2C(\\d+.\\d+)[?]m=")
+                  const groups = allReg.exec(e.target.value);
+                  if (groups) {
+                    setEditedLatitude(parseFloat(groups[2]))
+                    setEditedLongitude(parseFloat(groups[1]))
+                  } else {
+                    let allReg = new RegExp("m=(\\d+[.]\\d+)%2C(\\d+.\\d+)")
+                    const groups = allReg.exec(e.target.value);
+                    if (groups) {
+                      setEditedLatitude(parseFloat(groups[2]))
+                      setEditedLongitude(parseFloat(groups[1]))
+                    }
+                  }
+                }
+              }}
+            />
+          </Form.Item>
+          <Form.Item label="latitude">
+            <InputNumber<number>
+              style={width300}
+              value={editedLatitude}
+              min={-50}
+              max={50}
+              step={0.000001}
+              onChange={(value) => setEditedLatitude(value || 0.000000)}
+            />
+          </Form.Item>
+          <Form.Item label="longitude">
+            <InputNumber<number>
+              style={width300}
+              value={editedLongitude}
+              min={-50}
+              max={50}
+              step={0.000001}
+              onChange={(value) => setEditedLongitude(value || 0.000000)}
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
       <Content>
         <Title>Coordinates ({coordinates.length})</Title>
         <Form

@@ -110,6 +110,22 @@ const OrdersPage: React.FC = () => {
     //   setDeleteOrderConfirm(false);
     // }
 
+    // const updateOrderStatuses = async () => {
+    //     const API_KEY = 'ck_11f370a58f0a180d08a5bfdc5fde205c200c3f21';
+    //     const API_SECRET = 'cs_198e26c66e91a1ac1fdc4d812173cf7dbefbd694';
+    //     const ordersFromWP = await fetch(`https://dinenation.com/wp-json/wc/v3/orders?consumer_key=${API_KEY}&consumer_secret=${API_SECRET}&status=processing&per_page=100`)
+    //     const ordersFromWPObj = await ordersFromWP.json()
+    //     for (const order of orders) {
+    //         if (!ordersFromWPObj.find((fromWP: any) => order.WPOrderNumber === fromWP.number)) {
+    //             await DataStore.save(
+    //                 WPOrder.copyOf(order, updated => {
+    //                     updated.WPOrderStatus = 'completed'
+    //                 })
+    //             )
+    //         }
+    //     }
+    // }
+
     const columns: ColumnsType<WPOrder> = [
         {
             title: orderNumberFilter,

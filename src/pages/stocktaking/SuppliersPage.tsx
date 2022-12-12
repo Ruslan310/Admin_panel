@@ -47,7 +47,7 @@ const SuppliersPage: React.FC = () => {
                 }
             });
 
-        () => {
+        return () => {
             addrSubs.unsubscribe()
             suppliersSubs.unsubscribe()
         }

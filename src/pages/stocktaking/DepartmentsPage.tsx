@@ -26,7 +26,7 @@ const DepartmentsPage: React.FC = () => {
                     isLoading && setLoading(false)
                 }
             });
-        () => subs.unsubscribe()
+        return () => subs.unsubscribe()
     }, []);
 
     const nameFilter = (
@@ -54,7 +54,7 @@ const DepartmentsPage: React.FC = () => {
         },
         {
             title: 'Delete',
-            render: (value, record, index) => {
+            render: (value, record) => {
                 return <Button danger type={'primary'} onClick={() => tryToDelete(record)}>Delete</Button>
             }
         }

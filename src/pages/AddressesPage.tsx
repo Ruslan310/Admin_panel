@@ -26,7 +26,7 @@ const AddressesPage: React.FC = () => {
     const [searchAddress2, setSearchAddress2] = useState('');
 
     useEffect(() => {
-        DataStore.observeQuery(Address).subscribe(msg => {
+        const addrSubs =DataStore.observeQuery(Address).subscribe(msg => {
             if (msg.isSynced) {
                 setAddresses(msg.items)
                 isAddressesLoading && setAddressesLoading(false)
@@ -38,12 +38,16 @@ const AddressesPage: React.FC = () => {
             }
         });
 
-        DataStore.observeQuery(Coordinate).subscribe(msg => {
+        const coordSubs = DataStore.observeQuery(Coordinate).subscribe(msg => {
             if (msg.isSynced) {
                 setCoordinates(msg.items)
                 isCoordinatesLoading && setCoordinatesLoading(false)
             }
         });
+        return () => {
+            addrSubs.unsubscribe();
+            coordSubs.unsubscribe()
+        }
     }, [])
 
     const addressFilter1 = (

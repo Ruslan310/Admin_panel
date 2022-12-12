@@ -43,7 +43,7 @@ const CategoriesPage: React.FC = () => {
           }
         });
 
-      () => {
+      return () => {
           categoriesSubs.unsubscribe()
           depsSubs.unsubscribe()
       }

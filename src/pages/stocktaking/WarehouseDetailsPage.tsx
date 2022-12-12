@@ -63,7 +63,7 @@ const WarehouseDetailsPage: React.FC = () => {
                 }
             });
 
-        () => {
+        return () => {
             warehouseProductsSubs.unsubscribe()
             warehouseSubs.unsubscribe()
             productsSubs.unsubscribe()

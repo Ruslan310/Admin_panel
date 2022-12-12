@@ -43,7 +43,7 @@ const TypesPage: React.FC = () => {
                 }
             });
 
-        () => {
+        return () => {
             typesSubs.unsubscribe()
             catsSubs.unsubscribe()
         }

@@ -67,7 +67,7 @@ const ProductsPage: React.FC = () => {
                 }
             });
 
-        () => {
+        return () => {
             categoriesSubs.unsubscribe()
             productsSubs.unsubscribe()
             depsSubs.unsubscribe()

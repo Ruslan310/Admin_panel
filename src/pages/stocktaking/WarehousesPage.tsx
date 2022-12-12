@@ -45,7 +45,7 @@ const WarehousesPage: React.FC = () => {
                 }
             });
 
-        () => {
+        return () => {
             addrSubs.unsubscribe()
             warehouseSubs.unsubscribe()
         }

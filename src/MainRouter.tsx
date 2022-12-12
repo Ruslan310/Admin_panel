@@ -21,7 +21,7 @@ import OrderDetailsPage from "./pages/OrderDetailsPage";
 import CustomersPage from "./pages/CustomersPage";
 import KitchenPage from "./pages/KitchenPage";
 import BoxesPage from "./pages/BoxesPage";
-import ReportsPage from "./pages/ReportsPage";
+import InvoicesPage from "./pages/InvoicesPage";
 import MapCoordinatesPage from "./pages/MapCoordinatesPage";
 import {DataStore, Hub} from "aws-amplify";
 import { LoadingOutlined } from '@ant-design/icons';
@@ -135,9 +135,9 @@ const MainRouter: React.FC = () => {
           <span>Customers</span>
           <Link to="/customers"/>
         </Menu.Item>
-        <Menu.Item key="reports" icon={<LineChartOutlined/>}>
-          <span>Reports</span>
-          <Link to="/reports"/>
+        <Menu.Item key="invoices" icon={<LineChartOutlined/>}>
+          <span>Invoices</span>
+          <Link to="/invoices"/>
         </Menu.Item>
         <Menu.Item key="profile" icon={<UserOutlined/>}>
           <span>Profile</span>
@@ -159,7 +159,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/customers" component={CustomersPage}/>
         <Route exact path="/boxes" component={BoxesPage}/>
         <Route exact path="/profile" component={ProfilePage}/>
-        <Route exact path="/reports" component={ReportsPage}/>
+        <Route exact path="/invoices" component={InvoicesPage}/>
         <Route exact path="/orderDetails/:orderId" component={OrderDetailsPage}/>
         <Route exact path="/stocktaking/products" component={ProductsPage}/>
         <Route exact path="/stocktaking/warehouses" component={WarehousesPage}/>

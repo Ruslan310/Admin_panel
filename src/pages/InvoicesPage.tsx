@@ -29,7 +29,7 @@ interface InvoiceOrderItem {
   customerPayment: number,
 }
 
-const AddressesPage: React.FC = () => {
+const InvoicesPage: React.FC = () => {
   const [progress, setProgress] = useState(0);
   const [startDate, setStartDate] = useState(initialStartDate);
   const [endDate, setEndDate] = useState(initialEndDate);
@@ -121,5 +121,5 @@ const AddressesPage: React.FC = () => {
   )
 }
 
-export default AddressesPage
+export default InvoicesPage
 

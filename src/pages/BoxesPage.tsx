@@ -48,6 +48,20 @@ const BoxesPage: React.FC = () => {
         return () => subs.unsubscribe()
     }, []);
 
+    // const updateOrderBoxesStatuses = async () => {
+    //     const notActiveOrders = await DataStore.query(WPOrder, order => order.WPOrderStatus.ne(PROCESSING))
+    //     for (const box of boxes) {
+    //         if (notActiveOrders.find(order => order.id === box.wporderID) && box.boxStatus === BoxStatus.NEW) {
+    //             await DataStore.save(
+    //                 Box.copyOf(box, updated => {
+    //                     updated.boxStatus = BoxStatus.DELIVERED
+    //                 })
+    //             )
+    //             console.log('BOX DELIVERED')
+    //         }
+    //     }
+    // }
+
     const columns: ColumnsType<Box> = [
         {
             title: 'Sticker',
@@ -170,6 +184,11 @@ const BoxesPage: React.FC = () => {
 
     return (
         <Content>
+            {/*<Button onClick={async () => {*/}
+            {/*    await updateOrderBoxesStatuses()*/}
+            {/*}} type="default">*/}
+            {/*    Sync orders from wp*/}
+            {/*</Button>*/}
             <Title>Boxes</Title>
             <Button size={"large"} onClick={() => generatePdfForPrint()} type="default" htmlType="submit">
                 <>

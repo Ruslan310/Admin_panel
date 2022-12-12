@@ -6,9 +6,15 @@ import {AuthState, onAuthUIStateChange} from '@aws-amplify/ui-components';
 import {FormFieldTypes} from '@aws-amplify/ui-components/dist/types/components/amplify-auth-fields/amplify-auth-fields-interface';
 import MainRouter from "./MainRouter";
 import {BrowserRouter as Router} from "react-router-dom";
+import {Box} from "./models";
 
 DataStore.configure({
     maxRecordsToSync: 100000,
+    syncExpressions: [
+        syncExpression(Box, async () => {
+            return box => box.boxStatus.eq('NEW')
+        })
+    ]
 });
 
 const AuthStateApp: React.FC = () => {

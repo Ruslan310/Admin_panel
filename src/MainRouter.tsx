@@ -9,7 +9,7 @@ import {
   UsergroupAddOutlined,
   FileSearchOutlined,
   CodeSandboxOutlined,
-  LineChartOutlined, HeartOutlined,
+  LineChartOutlined, HeartOutlined, FileProtectOutlined,
 } from "@ant-design/icons";
 import {Link, Route} from "react-router-dom";
 import OrdersPage from "./pages/OrdersPage";
@@ -35,6 +35,7 @@ import SupplierDetailsPage from "./pages/stocktaking/SupplierDetailsPage";
 import WarehouseDetailsPage from "./pages/stocktaking/WarehouseDetailsPage";
 import ComponentsPage from "./pages/healthy/ComponentsPage";
 import ComponentDetailsPage from "./pages/healthy/ComponentDetailsPage";
+import ReportsPage from "./pages/ReportsPage";
 
 const antIcon = <LoadingOutlined style={{
   fontSize: 124,
@@ -135,9 +136,13 @@ const MainRouter: React.FC = () => {
           <span>Customers</span>
           <Link to="/customers"/>
         </Menu.Item>
-        <Menu.Item key="invoices" icon={<LineChartOutlined/>}>
+        <Menu.Item key="invoices" icon={<FileProtectOutlined/>}>
           <span>Invoices</span>
           <Link to="/invoices"/>
+        </Menu.Item>
+        <Menu.Item key="reports" icon={<LineChartOutlined />}>
+          <span>Reports</span>
+          <Link to="/reports"/>
         </Menu.Item>
         <Menu.Item key="profile" icon={<UserOutlined/>}>
           <span>Profile</span>
@@ -160,6 +165,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/boxes" component={BoxesPage}/>
         <Route exact path="/profile" component={ProfilePage}/>
         <Route exact path="/invoices" component={InvoicesPage}/>
+        <Route exact path="/reports" component={ReportsPage}/>
         <Route exact path="/orderDetails/:orderId" component={OrderDetailsPage}/>
         <Route exact path="/stocktaking/products" component={ProductsPage}/>
         <Route exact path="/stocktaking/warehouses" component={WarehousesPage}/>

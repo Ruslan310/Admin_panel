@@ -40,7 +40,7 @@ const InvoicesPage: React.FC = () => {
 
   return (
     <Content>
-      <Title>Reports</Title>
+      <Title>Invoices</Title>
       <Space direction={"vertical"}>
         <Button onClick={async () => {
           const orders = await DataStore.query(WPOrder, order => order.and(order => [
@@ -116,7 +116,7 @@ const InvoicesPage: React.FC = () => {
           }}>Without 5% tax</Checkbox>
       </Space>
       {progress > 0 && <Progress percent={progress}/>}
-      {progress === 100 && <CSVLink data={csvData}>Download report</CSVLink>}
+      {progress === 100 && <CSVLink data={csvData}>Download invoice</CSVLink>}
     </Content>
   )
 }

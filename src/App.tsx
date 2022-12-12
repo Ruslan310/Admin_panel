@@ -6,8 +6,6 @@ import {AuthState, onAuthUIStateChange} from '@aws-amplify/ui-components';
 import {FormFieldTypes} from '@aws-amplify/ui-components/dist/types/components/amplify-auth-fields/amplify-auth-fields-interface';
 import MainRouter from "./MainRouter";
 import {BrowserRouter as Router} from "react-router-dom";
-import {Box, WeekDay} from "./models";
-import {BOX_STATUS} from "./API";
 
 DataStore.configure({
     maxRecordsToSync: 100000,

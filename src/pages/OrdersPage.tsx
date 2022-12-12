@@ -41,9 +41,11 @@ const OrdersPage: React.FC = () => {
             checkedStatusesList.map(status => order.WPOrderStatus.eq(status))))
             .subscribe(msg => {
                 if (msg.isSynced) {
+                    console.log('synced: ', msg.items.length)
                     setOrders(msg.items)
                     isLoading && setLoading(false)
                 } else {
+                    console.log('not synced: ', msg.items.length)
                     if (msg.items.length > 0) {
                         setOrders(msg.items)
                         isLoading && setLoading(false)

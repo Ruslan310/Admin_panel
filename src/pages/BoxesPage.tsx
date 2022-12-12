@@ -34,10 +34,12 @@ const BoxesPage: React.FC = () => {
         const subs = DataStore.observeQuery(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING))
             .subscribe(msg => {
                 if (msg.isSynced) {
+                    console.log('synced: ', msg.items.length)
                     setBoxes(msg.items)
                     isLoading && setLoading(false)
                 } else {
                     if (msg.items.length > 0) {
+                        console.log('not synced: ', msg.items.length)
                         setBoxes(msg.items)
                         isLoading && setLoading(false)
                     }

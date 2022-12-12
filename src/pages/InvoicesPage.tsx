@@ -17,8 +17,8 @@ const friday = 5;
 const week = 7;
 
 const {Content} = Layout;
-const initialStartDate = moment().day(friday);
-const initialEndDate = moment().day(friday + week);
+const initialStartDate = moment().day(friday - week);
+const initialEndDate = moment().day(friday);
 initialStartDate.set({hour: 9, minute: 30, second: 0});
 initialEndDate.set({hour: 9, minute: 30, second: 0});
 
@@ -57,6 +57,7 @@ const InvoicesPage: React.FC = () => {
           if (isWithoutTax) {
             coef = 95;
           }
+          console.log('companyOrders: ', companyOrders)
           for (const order of companyOrders) {
             const customer = await order.customer
             const found = invoice.find(item => fullName(customer) === item.fullName);
@@ -95,11 +96,11 @@ const InvoicesPage: React.FC = () => {
           newEndDate.set({hour: 9, minute: 30, second: 0});
           setEndDate(newEndDate);
           setStartDate(newStartDate);
-        }} defaultValue={1}>
-          <Radio.Button value={1}>Current week</Radio.Button>
-          <Radio.Button value={0}>Last week</Radio.Button>
-          <Radio.Button value={-1}>2 week ago</Radio.Button>
-          <Radio.Button value={-2}>3 weeks ago</Radio.Button>
+        }} defaultValue={0}>
+          <Radio.Button value={0}>Current week</Radio.Button>
+          <Radio.Button value={-1}>Last week</Radio.Button>
+          <Radio.Button value={-2}>2 week ago</Radio.Button>
+          <Radio.Button value={-3}>3 weeks ago</Radio.Button>
         </Radio.Group>
         <Space>
           <Text>Company name: </Text>

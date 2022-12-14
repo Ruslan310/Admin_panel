@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
-import {Layout, Table, Tabs, Typography} from 'antd';
+import {Input, Layout, Table, Tabs, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {today} from "../utils/utils";
 import {WeekDay, WPOrder} from '../models';
@@ -22,6 +22,7 @@ const KitchenPage: React.FC = () => {
     const [kitchenDishes, setKitchenDishes] = useState<KitchenDish[]>([]);
     const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
     const [isLoading, setLoading] = useState(true);
+    const [searchName, setSearchName] = useState('')
 
     useEffect(() => {
         const subs = DataStore.observeQuery(WPOrder, order => order.WPOrderStatus.eq(PROCESSING))
@@ -47,9 +48,23 @@ const KitchenPage: React.FC = () => {
         return () => subs.unsubscribe()
     }, []);
 
+    const fullNameFilter = (
+        <>
+            <Typography>Dish name</Typography>
+            <Input
+                placeholder="Search Name"
+                value={searchName}
+                onChange={e => {
+                    const currValue = e.target.value;
+                    setSearchName(currValue);
+                }}
+            />
+        </>
+    );
+
     const columns: ColumnsType<KitchenDish> = [
         {
-            title: 'Dish name',
+            title: fullNameFilter,
             dataIndex: 'name',
             sorter: (a, b) => {
                 if (a.name < b.name) {
@@ -104,7 +119,7 @@ const KitchenPage: React.FC = () => {
                 size={"middle"}
                 rowKey={(record, index) => record.name + record.dishType + record.quantity}
                 columns={columns}
-                dataSource={kitchenDishes.filter(dish => dish.weekDay === selectedDay)}
+                dataSource={kitchenDishes.filter(dish => dish.weekDay === selectedDay).filter(dish => dish.name.toLowerCase().includes(searchName.toLowerCase()))}
             />
         </Content>
     )

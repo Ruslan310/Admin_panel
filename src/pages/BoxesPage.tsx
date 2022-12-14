@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 
-import {Button, Layout, Modal, Spin, Table, Tabs, Typography} from 'antd';
+import {Button, Input, Layout, Modal, Spin, Table, Tabs, Typography} from 'antd';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import {ColumnsType} from "antd/es/table";
 import moment from 'moment';
@@ -25,12 +25,19 @@ interface Sticker {
     boxId: string;
 }
 
+interface OrdersByDay {
+    quantity: number;
+    weekDay: WeekDay | keyof typeof WeekDay;
+}
+
 const today = moment().format('dddd');
 const BoxesPage: React.FC = () => {
     const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
     const [boxes, setBoxes] = useState<Box[]>([]);
     const [isLoading, setLoading] = useState(true)
     const [generatingStickers, setGeneratingStickers] = useState(false)
+    const [ordersByDays, setOrdersByDays] = useState<OrdersByDay[]>([])
+    const [searchName, setSearchName] = useState('')
 
     useEffect(() => {
         DataStore.query(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING)).then(boxes => {
@@ -38,6 +45,13 @@ const BoxesPage: React.FC = () => {
                 setBoxes(boxes)
             }
             isLoading && setLoading(false)
+            DataStore.query(WPOrder).then(orders => {
+                const newOrdersByDays: OrdersByDay[] = []
+                for (const weekDay of Object.values(WeekDay)) {
+                    newOrdersByDays.push({weekDay, quantity: orders.filter(order => boxes.filter(box => box.wporderID === order.id && box.weekDay === weekDay).length > 0).length})
+                }
+                setOrdersByDays(newOrdersByDays)
+            })
         })
     }, []);
 
@@ -55,9 +69,23 @@ const BoxesPage: React.FC = () => {
     //     }
     // }
 
+    const fullNameFilter = (
+        <>
+            <Typography>Dish name</Typography>
+            <Input
+                placeholder="Sticker"
+                value={searchName}
+                onChange={e => {
+                    const currValue = e.target.value;
+                    setSearchName(currValue);
+                }}
+            />
+        </>
+    );
+
     const columns: ColumnsType<Box> = [
         {
-            title: 'Sticker',
+            title: fullNameFilter,
             dataIndex: 'sticker',
         },
         {
@@ -209,7 +237,7 @@ const BoxesPage: React.FC = () => {
             </Button>
             <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WeekDay)}>
                 {Object.values(WeekDay).map(weekDay => <TabPane
-                    tab={`${weekDay} (${boxes.filter(box => box.weekDay === weekDay).length})`} key={weekDay}/>)}
+                    tab={`${weekDay} (${boxes.filter(box => box.weekDay === weekDay).length}), people(${ordersByDays.find(or => or.weekDay === weekDay)?.quantity})`} key={weekDay}/>)}
             </Tabs>
             {/*<Space>*/}
             {/*  <Button onClick={async () => {*/}
@@ -230,7 +258,7 @@ const BoxesPage: React.FC = () => {
                 rowKey="id"
                 loading={isLoading}
                 columns={columns}
-                dataSource={boxes.filter(box => box.weekDay === selectedDay)}
+                dataSource={boxes.filter(box => box.weekDay === selectedDay).filter(box => box.sticker.toLowerCase().includes(searchName.toLowerCase()))}
             />
         </Content>
     )

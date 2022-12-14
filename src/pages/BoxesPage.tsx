@@ -128,6 +128,15 @@ const BoxesPage: React.FC = () => {
                 }
 
                 console.log('printBoxes: ', printBoxes.length)
+                printBoxes.sort((a,b) => {
+                    if (a.dishName > b.dishName) {
+                        return 1
+                    }
+                    if (a.dishName < b.dishName) {
+                        return -1
+                    }
+                    return 0
+                })
                 // let sortedStickers: Sticker[] = [];
                 // for (const driver of drivers) {
                 //     const stickers = printBoxes.filter(sticker => sticker.driverName === driver.firstName)

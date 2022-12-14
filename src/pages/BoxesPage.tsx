@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import {Button, Layout, Modal, Spin, Table, Tabs, Typography} from 'antd';
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import {ColumnsType} from "antd/es/table";
 import moment from 'moment';
 import jsPDF from "jspdf";
@@ -12,6 +13,7 @@ import {PROCESSING} from "../constants";
 const {Content} = Layout;
 const {TabPane} = Tabs;
 const {Text, Title} = Typography;
+const cyrillicToTranslit = new (CyrillicToTranslit as any)();
 
 interface Sticker {
     orderNumber: string;
@@ -23,37 +25,18 @@ interface Sticker {
     boxId: string;
 }
 
+const today = moment().format('dddd');
 const BoxesPage: React.FC = () => {
-    const [selectedDay, setSelectedDay] = useState<WeekDay>(moment().format('dddd') as WeekDay);
+    const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
     const [boxes, setBoxes] = useState<Box[]>([]);
     const [isLoading, setLoading] = useState(true)
     const [generatingStickers, setGeneratingStickers] = useState(false)
 
-    const syncBoxes = () => {
-        setLoading(true)
-        const subs = DataStore.observeQuery(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING))
-            .subscribe(msg => {
-                if (msg.isSynced) {
-                    console.log('synced: ', msg.items)
-                    setBoxes(msg.items)
-                    console.log('unsubscribe')
-                    subs.unsubscribe()
-                    setLoading(false)
-                } else {
-                    if (msg.items.length > 0) {
-                        console.log('not synced: ', msg.items.length)
-                        setBoxes(msg.items)
-                        setLoading(false)
-                    }
-                }
-            });
-    }
-
     useEffect(() => {
-        console.log(moment().format('dddd') as WeekDay)
-        setSelectedDay(moment().format('dddd') as WeekDay)
         DataStore.query(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING)).then(boxes => {
-            setBoxes(boxes)
+            if (boxes) {
+                setBoxes(boxes)
+            }
             isLoading && setLoading(false)
         })
     }, []);
@@ -139,8 +122,8 @@ const BoxesPage: React.FC = () => {
                     }
                     doc.addImage(sticker.qrCode, 0, 0, 20, 20)
                     doc.setFontSize(15);
-                    doc.text(sticker.customerName.split(' ')[0], 20, 8,)
-                    doc.text(sticker.customerName.split(' ')[1], 20, 16,)
+                    doc.text(cyrillicToTranslit.transform(sticker.customerName.split(' ')[0], '_'), 20, 8,)
+                    doc.text(cyrillicToTranslit.transform(sticker.customerName.split(' ')[1], '_'), 20, 16,)
                     doc.setFont("times", "bold");
                     doc.setFontSize(19);
                     doc.text(sticker.dishName.split("+")[0], 2, 24)
@@ -152,7 +135,7 @@ const BoxesPage: React.FC = () => {
                     }
                     doc.setFont("times", "normal");
                     doc.setFontSize(12);
-                    doc.text(sticker.company.substr(0, 8), 2, 40)
+                    doc.text(cyrillicToTranslit.transform(sticker.company.substr(0, 8), '_'), 2, 40)
                     doc.setFontSize(16);
                     doc.text(sticker.orderNumber, 20, 40)
                 }
@@ -219,12 +202,6 @@ const BoxesPage: React.FC = () => {
                 <>
                     <Text style={{color: "red", fontWeight: "bold"}}>SET NEW TO PRINTED
                         ({boxes.filter(box => box.weekDay === selectedDay && box.boxStatus === BoxStatus.NEW).length})</Text>
-                </>
-            </Button>
-            <Button style={{marginLeft: 20}} size={"large"} onClick={syncBoxes} type="dashed"
-                    htmlType="submit">
-                <>
-                    <Text style={{color: "blue", fontWeight: "bold"}}>SYNC BOXES</Text>
                 </>
             </Button>
             <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WeekDay)}>

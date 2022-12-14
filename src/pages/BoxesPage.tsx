@@ -80,6 +80,7 @@ const BoxesPage: React.FC = () => {
                     return box.weekDay === selectedDay;
                 }
             });
+            console.log(currentDayBoxes.length)
             if (currentDayBoxes.length === 0) {
                 alert('Nothing to print!!');
             } else {
@@ -98,25 +99,27 @@ const BoxesPage: React.FC = () => {
                     })
                 }
 
-                let sortedStickers: Sticker[] = [];
-                for (const driver of drivers) {
-                    const stickers = printBoxes.filter(sticker => sticker.driverName === driver.firstName)
-                        .sort((a, b) => {
-                            if (a.dishName.toLowerCase().includes('salad')) return -1;
-                            return 1;
-                        });
-                    sortedStickers = sortedStickers.concat(printBoxes.filter(sticker => sticker.driverName === driver.firstName))
-                }
-
-                sortedStickers = sortedStickers.concat(sortedStickers.concat(printBoxes.filter(sticker => sticker.driverName === 'NA')))
+                console.log('printBoxes: ', printBoxes.length)
+                // let sortedStickers: Sticker[] = [];
+                // for (const driver of drivers) {
+                //     const stickers = printBoxes.filter(sticker => sticker.driverName === driver.firstName)
+                //         .sort((a, b) => {
+                //             if (a.dishName.toLowerCase().includes('salad')) return -1;
+                //             return 1;
+                //         });
+                //     sortedStickers = sortedStickers.concat(stickers.filter(sticker => sticker.driverName === driver.firstName))
+                // }
+                //
+                // sortedStickers = sortedStickers.concat(sortedStickers.concat(printBoxes.filter(sticker => sticker.driverName === 'NA')))
+                // console.log('sortedStickers: ', printBoxes.length)
 
                 const doc = new jsPDF({
                     orientation: 'l',
                     unit: 'mm',
                     format: [60, 45],
                 });
-                for (let i = 0; i < sortedStickers.length; i++) {
-                    const sticker = sortedStickers[i]
+                for (let i = 0; i < printBoxes.length; i++) {
+                    const sticker = printBoxes[i]
                     if (i > 0) {
                         doc.addPage([60, 45], "l");
                     }
@@ -130,9 +133,9 @@ const BoxesPage: React.FC = () => {
                     if (sticker.dishName.split("+").length > 1) {
                         doc.text(sticker.dishName.split("+")[1], 2, 32)
                     }
-                    if (sticker.driverName && sticker.driverName !== 'NA') {
-                        doc.addImage(`assets/images/${sticker.driverName.toLowerCase()}.png`, 45, 34, 10, 10)
-                    }
+                    // if (sticker.driverName && sticker.driverName.includes('delivery')) {
+                    //     doc.addImage(`assets/images/${sticker.driverName.toLowerCase()}.png`, 45, 34, 10, 10)
+                    // }
                     doc.setFont("times", "normal");
                     doc.setFontSize(12);
                     doc.text(cyrillicToTranslit.transform(sticker.company.substr(0, 8), '_'), 2, 40)

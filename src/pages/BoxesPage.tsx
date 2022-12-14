@@ -45,7 +45,7 @@ const BoxesPage: React.FC = () => {
                 setBoxes(boxes)
             }
             isLoading && setLoading(false)
-            DataStore.query(WPOrder).then(orders => {
+            DataStore.query(WPOrder, order => order.WPOrderStatus.eq(PROCESSING)).then(orders => {
                 const newOrdersByDays: OrdersByDay[] = []
                 for (const weekDay of Object.values(WeekDay)) {
                     newOrdersByDays.push({weekDay, quantity: orders.filter(order => boxes.filter(box => box.wporderID === order.id && box.weekDay === weekDay).length > 0).length})

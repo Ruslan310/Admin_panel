@@ -23,29 +23,39 @@ interface Sticker {
     boxId: string;
 }
 
-const today = moment().format('dddd');
 const BoxesPage: React.FC = () => {
-    const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
+    const [selectedDay, setSelectedDay] = useState<WeekDay>(moment().format('dddd') as WeekDay);
     const [boxes, setBoxes] = useState<Box[]>([]);
     const [isLoading, setLoading] = useState(true)
     const [generatingStickers, setGeneratingStickers] = useState(false)
 
-    useEffect(() => {
+    const syncBoxes = () => {
+        setLoading(true)
         const subs = DataStore.observeQuery(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING))
             .subscribe(msg => {
                 if (msg.isSynced) {
-                    console.log('synced: ', msg.items.length)
+                    console.log('synced: ', msg.items)
                     setBoxes(msg.items)
-                    isLoading && setLoading(false)
+                    console.log('unsubscribe')
+                    subs.unsubscribe()
+                    setLoading(false)
                 } else {
                     if (msg.items.length > 0) {
                         console.log('not synced: ', msg.items.length)
                         setBoxes(msg.items)
-                        isLoading && setLoading(false)
+                        setLoading(false)
                     }
                 }
             });
-        return () => subs.unsubscribe()
+    }
+
+    useEffect(() => {
+        console.log(moment().format('dddd') as WeekDay)
+        setSelectedDay(moment().format('dddd') as WeekDay)
+        DataStore.query(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING)).then(boxes => {
+            setBoxes(boxes)
+            isLoading && setLoading(false)
+        })
     }, []);
 
     // const updateOrderBoxesStatuses = async () => {
@@ -171,6 +181,7 @@ const BoxesPage: React.FC = () => {
                                 updated.boxStatus = BoxStatus.PRINTED
                             })
                         );
+                        console.log('UPDATED')
                     }
                     resolve(true);
                 }).catch(() => console.log('Oops errors!'));
@@ -208,6 +219,12 @@ const BoxesPage: React.FC = () => {
                 <>
                     <Text style={{color: "red", fontWeight: "bold"}}>SET NEW TO PRINTED
                         ({boxes.filter(box => box.weekDay === selectedDay && box.boxStatus === BoxStatus.NEW).length})</Text>
+                </>
+            </Button>
+            <Button style={{marginLeft: 20}} size={"large"} onClick={syncBoxes} type="dashed"
+                    htmlType="submit">
+                <>
+                    <Text style={{color: "blue", fontWeight: "bold"}}>SYNC BOXES</Text>
                 </>
             </Button>
             <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WeekDay)}>

@@ -108,7 +108,6 @@ const BoxesPage: React.FC = () => {
                     return box.weekDay === selectedDay;
                 }
             });
-            console.log(currentDayBoxes.length)
             if (currentDayBoxes.length === 0) {
                 alert('Nothing to print!!');
             } else {
@@ -190,6 +189,49 @@ const BoxesPage: React.FC = () => {
         }
     }
 
+    const generatePdfForPaperBoxes = async (newOnly: boolean = false) => {
+        setGeneratingStickers(true)
+        try {
+            const orders = await DataStore.query(WPOrder, order => order.WPOrderStatus.eq(PROCESSING))
+            const companyOrders = orders.filter(order => {
+                return order.companyName && (order.companyName.toLowerCase().includes('advant') || order.companyName.toLowerCase().includes('well'))
+                    && boxes.filter(box => box.wporderID === order.id && box.weekDay === selectedDay).length > 0
+            });
+            const doc = new jsPDF({
+                orientation: 'l',
+                unit: 'mm',
+                format: [60, 45],
+            });
+            for (let i = 0; i < companyOrders.length; i++) {
+                const sticker = companyOrders[i]
+                if (i > 0) {
+                    doc.addPage([60, 45], "l");
+                }
+                // doc.addImage(sticker, 0, 0, 20, 20)
+                doc.setFontSize(15);
+                doc.text(cyrillicToTranslit.transform(sticker.customerName.split(' ')[0], '_'), 20, 8,)
+                doc.text(cyrillicToTranslit.transform(sticker.customerName.split(' ')[1], '_'), 20, 16,)
+                doc.setFont("times", "bold");
+                doc.setFontSize(19);
+                doc.text(cyrillicToTranslit.transform(sticker.companyName, '_'), 20, 24)
+                // if (sticker.dishName.split("+").length > 1) {
+                //   doc.text(sticker.dishName.split("+")[1], 2, 32)
+                // }
+                // if (sticker.assignedUserName) {
+                //     doc.addImage(`assets/images/${sticker.assignedUserName.toLowerCase()}.png`, 45, 34, 10, 10)
+                // }
+                doc.setFont("times", "normal");
+                doc.setFontSize(12);
+                // doc.text(cyrillicToTranslit.transform(sticker.company, '_'), 2, 40)
+                doc.setFontSize(16);
+                doc.text(sticker.WPOrderNumber, 20, 40)
+            }
+            doc.save(selectedDay + ".pdf")
+        } finally {
+            setGeneratingStickers(false)
+        }
+    }
+
     const changeNewToPrinted = () => {
         Modal.confirm({
             title: 'Do you want to delete these items?',
@@ -242,6 +284,12 @@ const BoxesPage: React.FC = () => {
                 <>
                     <Text style={{color: "red", fontWeight: "bold"}}>SET NEW TO PRINTED
                         ({boxes.filter(box => box.weekDay === selectedDay && box.boxStatus === BoxStatus.NEW).length})</Text>
+                </>
+            </Button>
+            <Button style={{marginLeft: 20}}  size={"large"} onClick={() => generatePdfForPaperBoxes()} type="default" htmlType="submit">
+                <>
+                    <Text keyboard>Print Paper boxes (Advantika, WellTech)</Text>
+                    <Text keyboard strong>{selectedDay}</Text>
                 </>
             </Button>
             <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WeekDay)}>

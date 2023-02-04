@@ -23,6 +23,7 @@ interface Sticker {
     company: string;
     qrCode: string;
     boxId: string;
+    date: string;
 }
 
 interface OrdersByDay {
@@ -123,6 +124,7 @@ const BoxesPage: React.FC = () => {
                         company: order?.companyName || "",
                         qrCode: box.qrCode,
                         boxId: box.id,
+                        date: moment().format('DD.MMM')
                     })
                 }
 
@@ -160,6 +162,8 @@ const BoxesPage: React.FC = () => {
                         doc.addPage([60, 45], "l");
                     }
                     doc.addImage(sticker.qrCode, 0, 0, 20, 20)
+                    doc.setFontSize(12);
+                    doc.text(sticker.date, 45, 5)
                     doc.setFontSize(15);
                     doc.text(cyrillicToTranslit.transform(sticker.customerName.split(' ')[0], '_'), 20, 8,)
                     doc.text(cyrillicToTranslit.transform(sticker.customerName.split(' ')[1], '_'), 20, 16,)

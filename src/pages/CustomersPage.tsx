@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
-import {Layout, Table, Typography} from 'antd';
+import {Input, Layout, Table, Typography} from 'antd';
 import {ColumnsType} from "antd/es/table";
 import {Coordinate, Customer} from "../models";
 import {DataStore} from "aws-amplify";
@@ -11,6 +11,7 @@ const {Title} = Typography;
 const CustomersPage: React.FC = () => {
     const [customers, setCustomers] = useState<Customer[]>([]);
     const [isLoading, setLoading] = useState(true);
+    const [searchName, setSearchName] = useState('')
 
     useEffect(() => {
         const subs = DataStore.observeQuery(Customer)
@@ -28,13 +29,27 @@ const CustomersPage: React.FC = () => {
         return () => subs.unsubscribe()
     }, []);
 
+    const lastNameFilter = (
+      <>
+          <Typography>Last name</Typography>
+          <Input
+            placeholder="Search Name"
+            value={searchName}
+            onChange={e => {
+                const currValue = e.target.value;
+                setSearchName(currValue);
+            }}
+          />
+      </>
+    );
+
     const columns: ColumnsType<Customer> = [
         {
             title: 'First name',
             dataIndex: 'firstName',
         },
         {
-            title: 'Last name',
+            title: lastNameFilter,
             dataIndex: 'lastName',
         },
         {
@@ -76,7 +91,7 @@ const CustomersPage: React.FC = () => {
                 size={"middle"}
                 rowKey="id"
                 columns={columns}
-                dataSource={customers}
+                dataSource={customers.filter(order => order.lastName?.toLowerCase().includes(searchName.toLowerCase()))}
             />
         </Content>
     )

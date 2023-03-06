@@ -107,7 +107,7 @@ const KitchenPage: React.FC = () => {
 
     return (
         <Content>
-            <Title>Kitchen</Title>
+            <Title>Kitchen({kitchenDishes.length})</Title>
             <Tabs defaultActiveKey={selectedDay} onChange={(activeKey) => setSelectedDay(activeKey as WeekDay)}>
                 {Object.values(WeekDay).map(weekDay => <TabPane
                     tab={`${weekDay} (${kitchenDishes.filter(dish => dish.weekDay === weekDay).length})`}

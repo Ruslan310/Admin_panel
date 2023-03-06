@@ -1,0 +1,13 @@
+{
+  "resourceName": "website",
+  "policyUUID": "83d54f59",
+  "bucketName": "site",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

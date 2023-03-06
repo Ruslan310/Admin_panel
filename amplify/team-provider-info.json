@@ -15,14 +15,8 @@
       "auth": {
         "dineauth": {}
       },
-      "api": {
-        "dinenation": {}
-      },
       "storage": {
         "website": {}
-      },
-      "hosting": {
-        "S3AndCloudFront": {}
       }
     }
   }

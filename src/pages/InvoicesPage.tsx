@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {CSVLink} from "react-csv";
 
-import {Button, Checkbox, Input, InputNumber, Layout, Progress, Radio, Space, Typography} from 'antd';
-import moment from "moment-timezone";
+import {Button, Checkbox, Input, InputNumber, Layout, Progress, Radio, Space, Typography, DatePicker} from 'antd';
+import moment, {Moment} from "moment-timezone";
 import {fullName} from "../utils/utils";
 import {Data} from "react-csv/components/CommonPropTypes";
 import {DataStore} from "aws-amplify";
@@ -25,8 +25,8 @@ initialEndDate.set({hour: 9, minute: 30, second: 0});
 interface InvoiceOrderItem {
   fullName: string,
   total: number,
+  customerPayment: number | undefined,
   companyPayment: number,
-  customerPayment: number,
 }
 
 const InvoicesPage: React.FC = () => {
@@ -38,13 +38,28 @@ const InvoicesPage: React.FC = () => {
   const [csvData, setCsvData] = useState<Data>([]);
   const [isWithoutTax, setWithoutTax] = useState(false);
 
+  const [startDatePicker, setStartDatePicker] = useState<Moment | undefined>();
+  const [endDatePicker, setEndDatePicker] = useState<Moment | undefined>();
+
+
+  useEffect(() => {
+    if (startDatePicker && endDatePicker && startDatePicker.format("DD-MM")>=endDatePicker.format("DD-MM")) {
+      setEndDatePicker(undefined)
+    }
+    if (startDatePicker && endDatePicker && startDatePicker.format("DD-MM")>=endDatePicker.format("DD-MM")) {
+      setEndDatePicker(undefined)
+    }
+  }, [startDatePicker, endDatePicker])
+
   return (
     <Content>
       <Title>Invoices</Title>
       <Space direction={"vertical"}>
         <Button onClick={async () => {
+          let atDate = startDatePicker && endDatePicker ? startDatePicker : startDate
+          let toDate = startDatePicker && endDatePicker ? endDatePicker : endDate
           const orders = await DataStore.query(WPOrder, order => order.and(order => [
-              order.createdAtWp.between(startDate.unix(), endDate.unix()),
+              order.createdAtWp.between(atDate.unix(), toDate.unix()),
               order.WPOrderStatus.ne(PROCESSING)
           ]));
           const companyOrders = orders.filter(order => {
@@ -75,6 +90,7 @@ const InvoicesPage: React.FC = () => {
             count++;
             setProgress(Math.ceil((count/companyOrders.length)*90))
           }
+
           for (const invoiceItem of invoice) {
             if (invoiceItem.total > companyCoverage) {
               invoiceItem.customerPayment = Math.ceil((invoiceItem.total - companyCoverage) * 100) / 100;
@@ -83,11 +99,49 @@ const InvoicesPage: React.FC = () => {
               invoiceItem.companyPayment = invoiceItem.total;
             }
           }
+
+          let amountTotal = 0
+          let amountCompanyPayment = 0
+
+          for (const getTotal of invoice) {
+            amountTotal = amountTotal + getTotal.total;
+            amountCompanyPayment = amountCompanyPayment + getTotal.companyPayment;
+          }
+
+          const totalValue: InvoiceOrderItem = {
+            fullName: 'Total',
+            total: amountTotal,
+            companyPayment: amountCompanyPayment,
+            customerPayment: undefined,
+          };
+          invoice.push(totalValue)
+
           setProgress(100)
           setCsvData(invoice);
-        }} type="primary">
-          Generate ({startDate.format("DD-MM")}-{endDate.format("DD-MM")})
+        }} type="primary">{
+          startDatePicker && endDatePicker
+              ? `Generate (${startDatePicker.format("DD-MM")}-${endDatePicker.format("DD-MM")})`
+              : `Generate (${startDate.format("DD-MM")}-${endDate.format("DD-MM")})`
+        }
         </Button>
+        <div className="gutter-row">
+          <DatePicker
+              value={startDatePicker}
+              onChange={(value) => {
+                if (value) {
+                  setStartDatePicker(value as Moment)
+                }
+              }}
+          />
+          <DatePicker
+              value={endDatePicker}
+              onChange={(value) => {
+                if (value) {
+                  setEndDatePicker(value as Moment)
+                }
+              }}
+          />
+        </div>
         <Radio.Group onChange={(e) => {
           const value = e.target.value;
           const newStartDate = moment().day(friday + week * (value - 1));
@@ -96,6 +150,8 @@ const InvoicesPage: React.FC = () => {
           newEndDate.set({hour: 9, minute: 30, second: 0});
           setEndDate(newEndDate);
           setStartDate(newStartDate);
+          setStartDatePicker(undefined)
+          setEndDatePicker(undefined)
         }} defaultValue={0}>
           <Radio.Button value={0}>Current week</Radio.Button>
           <Radio.Button value={-1}>Last week</Radio.Button>
@@ -117,7 +173,7 @@ const InvoicesPage: React.FC = () => {
           }}>Without 5% tax</Checkbox>
       </Space>
       {progress > 0 && <Progress percent={progress}/>}
-      {progress === 100 && <CSVLink data={csvData}>Download invoice</CSVLink>}
+      {progress === 100 && <CSVLink separator={";"} data={csvData}>Download invoice</CSVLink>}
     </Content>
   )
 }

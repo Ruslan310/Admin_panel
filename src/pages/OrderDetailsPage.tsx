@@ -122,6 +122,7 @@ const OrderDetailsPage: React.FC = () => {
         <Descriptions.Item label="WP Status">{currentOrder.WPOrderStatus}</Descriptions.Item>
         <Descriptions.Item label="Order total price">{currentOrder.finalPrice}</Descriptions.Item>
         <Descriptions.Item label="Assigned driver">{currentOrder.driverName}</Descriptions.Item>
+        <Descriptions.Item label="Company">{currentOrder.companyName}</Descriptions.Item>
       </Descriptions>}
       <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
         ALL DAYS

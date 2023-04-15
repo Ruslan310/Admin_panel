@@ -184,15 +184,23 @@ type User @model @auth(rules: [{allow: public}, {allow: private}]) {
     assignedDriverCoordinates: [Coordinate!] @hasMany(fields: ["id"])
 }
 
+type Company @model @auth(rules: [{allow: public}, {allow: private}]) {
+    id: ID!
+    name: String!
+    customer: [Customer] @hasMany(fields: ["id"])
+}
+
 type Customer @model @auth(rules: [{allow: public}, {allow: private}]) {
     id: ID!
     wpId: Int
-    company: String
+    #    company: String
     firstName: String
     lastName: String
-    email: String!
+    email: String! @index(name: "byEmail")
     phoneNumber: String
-    customerWPOrders: [WPOrder!] @hasMany(fields: ["id"])
+    WPOrders: [WPOrder] @hasMany(indexName: "byCustomer", fields: ["id"])
+    companyId: ID @index(name: "byCompany")
+    company: Company @belongsTo(fields: ["companyId"])
 }
 
 type WPDish {

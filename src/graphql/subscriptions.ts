@@ -75,7 +75,6 @@ export const onCreateWPOrder = /* GraphQL */ `
       customer {
         id
         wpId
-        company
         firstName
         lastName
         email
@@ -83,6 +82,16 @@ export const onCreateWPOrder = /* GraphQL */ `
         WPOrders {
           nextToken
           startedAt
+        }
+        companyId
+        company {
+          id
+          name
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         createdAt
         updatedAt
@@ -171,7 +180,6 @@ export const onUpdateWPOrder = /* GraphQL */ `
       customer {
         id
         wpId
-        company
         firstName
         lastName
         email
@@ -179,6 +187,16 @@ export const onUpdateWPOrder = /* GraphQL */ `
         WPOrders {
           nextToken
           startedAt
+        }
+        companyId
+        company {
+          id
+          name
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         createdAt
         updatedAt
@@ -267,7 +285,6 @@ export const onDeleteWPOrder = /* GraphQL */ `
       customer {
         id
         wpId
-        company
         firstName
         lastName
         email
@@ -275,6 +292,16 @@ export const onDeleteWPOrder = /* GraphQL */ `
         WPOrders {
           nextToken
           startedAt
+        }
+        companyId
+        company {
+          id
+          name
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         createdAt
         updatedAt
@@ -767,12 +794,104 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
+export const onCreateCompany = /* GraphQL */ `
+  subscription OnCreateCompany($filter: ModelSubscriptionCompanyFilterInput) {
+    onCreateCompany(filter: $filter) {
+      id
+      name
+      customers {
+        items {
+          id
+          wpId
+          firstName
+          lastName
+          email
+          phoneNumber
+          companyId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateCompany = /* GraphQL */ `
+  subscription OnUpdateCompany($filter: ModelSubscriptionCompanyFilterInput) {
+    onUpdateCompany(filter: $filter) {
+      id
+      name
+      customers {
+        items {
+          id
+          wpId
+          firstName
+          lastName
+          email
+          phoneNumber
+          companyId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteCompany = /* GraphQL */ `
+  subscription OnDeleteCompany($filter: ModelSubscriptionCompanyFilterInput) {
+    onDeleteCompany(filter: $filter) {
+      id
+      name
+      customers {
+        items {
+          id
+          wpId
+          firstName
+          lastName
+          email
+          phoneNumber
+          companyId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const onCreateCustomer = /* GraphQL */ `
   subscription OnCreateCustomer($filter: ModelSubscriptionCustomerFilterInput) {
     onCreateCustomer(filter: $filter) {
       id
       wpId
-      company
       firstName
       lastName
       email
@@ -801,6 +920,20 @@ export const onCreateCustomer = /* GraphQL */ `
         }
         nextToken
         startedAt
+      }
+      companyId
+      company {
+        id
+        name
+        customers {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       createdAt
       updatedAt
@@ -815,7 +948,6 @@ export const onUpdateCustomer = /* GraphQL */ `
     onUpdateCustomer(filter: $filter) {
       id
       wpId
-      company
       firstName
       lastName
       email
@@ -845,6 +977,20 @@ export const onUpdateCustomer = /* GraphQL */ `
         nextToken
         startedAt
       }
+      companyId
+      company {
+        id
+        name
+        customers {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdAt
       updatedAt
       _version
@@ -858,7 +1004,6 @@ export const onDeleteCustomer = /* GraphQL */ `
     onDeleteCustomer(filter: $filter) {
       id
       wpId
-      company
       firstName
       lastName
       email
@@ -887,6 +1032,20 @@ export const onDeleteCustomer = /* GraphQL */ `
         }
         nextToken
         startedAt
+      }
+      companyId
+      company {
+        id
+        name
+        customers {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       createdAt
       updatedAt
@@ -947,11 +1106,11 @@ export const onCreateBox = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version
@@ -1023,11 +1182,11 @@ export const onUpdateBox = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version
@@ -1099,11 +1258,11 @@ export const onDeleteBox = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version

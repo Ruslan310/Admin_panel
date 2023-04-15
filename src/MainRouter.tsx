@@ -9,13 +9,17 @@ import {
   UsergroupAddOutlined,
   FileSearchOutlined,
   CodeSandboxOutlined,
-  LineChartOutlined, HeartOutlined, FileProtectOutlined,
+  LineChartOutlined,
+  HeartOutlined,
+  FileProtectOutlined,
+  SolutionOutlined,
 } from "@ant-design/icons";
 import {Link, Route} from "react-router-dom";
 import OrdersPage from "./pages/OrdersPage";
 import ProfilePage from "./pages/ProfilePage";
 import React, {useEffect, useState} from "react";
 import CoordinatesPage from "./pages/CoordinatesPage";
+import CompanyPage from "./pages/CompaniesPage";
 import AddressesPage from "./pages/AddressesPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import CustomersPage from "./pages/CustomersPage";
@@ -136,6 +140,10 @@ const MainRouter: React.FC = () => {
           <span>Customers</span>
           <Link to="/customers"/>
         </Menu.Item>
+        <Menu.Item key="company" icon={<SolutionOutlined />}>
+          <span>Company</span>
+          <Link to="/company"/>
+        </Menu.Item>
         <Menu.Item key="invoices" icon={<FileProtectOutlined/>}>
           <span>Invoices</span>
           <Link to="/invoices"/>
@@ -162,6 +170,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/coordinates/map" component={MapCoordinatesPage}/>
         <Route exact path="/addresses" component={AddressesPage}/>
         <Route exact path="/customers" component={CustomersPage}/>
+        <Route exact path="/company" component={CompanyPage}/>
         <Route exact path="/boxes" component={BoxesPage}/>
         <Route exact path="/profile" component={ProfilePage}/>
         <Route exact path="/invoices" component={InvoicesPage}/>

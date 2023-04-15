@@ -291,17 +291,37 @@ export type Customer = {
   __typename: "Customer",
   id: string,
   wpId?: number | null,
-  company?: string | null,
   firstName?: string | null,
   lastName?: string | null,
   email: string,
   phoneNumber?: string | null,
   WPOrders?: ModelWPOrderConnection | null,
+  companyId?: string | null,
+  company?: Company | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
+};
+
+export type Company = {
+  __typename: "Company",
+  id: string,
+  name: string,
+  customers?: ModelCustomerConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type ModelCustomerConnection = {
+  __typename: "ModelCustomerConnection",
+  items:  Array<Customer | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type UpdateWPOrderInput = {
@@ -441,24 +461,48 @@ export type DeleteUserInput = {
   _version?: number | null,
 };
 
+export type CreateCompanyInput = {
+  id?: string | null,
+  name: string,
+  _version?: number | null,
+};
+
+export type ModelCompanyConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelCompanyConditionInput | null > | null,
+  or?: Array< ModelCompanyConditionInput | null > | null,
+  not?: ModelCompanyConditionInput | null,
+};
+
+export type UpdateCompanyInput = {
+  id: string,
+  name?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteCompanyInput = {
+  id: string,
+  _version?: number | null,
+};
+
 export type CreateCustomerInput = {
   id?: string | null,
   wpId?: number | null,
-  company?: string | null,
   firstName?: string | null,
   lastName?: string | null,
   email: string,
   phoneNumber?: string | null,
+  companyId?: string | null,
   _version?: number | null,
 };
 
 export type ModelCustomerConditionInput = {
   wpId?: ModelIntInput | null,
-  company?: ModelStringInput | null,
   firstName?: ModelStringInput | null,
   lastName?: ModelStringInput | null,
   email?: ModelStringInput | null,
   phoneNumber?: ModelStringInput | null,
+  companyId?: ModelIDInput | null,
   and?: Array< ModelCustomerConditionInput | null > | null,
   or?: Array< ModelCustomerConditionInput | null > | null,
   not?: ModelCustomerConditionInput | null,
@@ -467,11 +511,11 @@ export type ModelCustomerConditionInput = {
 export type UpdateCustomerInput = {
   id: string,
   wpId?: number | null,
-  company?: string | null,
   firstName?: string | null,
   lastName?: string | null,
   email?: string | null,
   phoneNumber?: string | null,
+  companyId?: string | null,
   _version?: number | null,
 };
 
@@ -852,8 +896,8 @@ export type UpdateProductAtWarehouseInput = {
   minQuantity?: number | null,
   qrCode?: string | null,
   _version?: number | null,
-  productAtWarehouseProductId: string,
-  productAtWarehouseWarehouseId: string,
+  productAtWarehouseProductId?: string | null,
+  productAtWarehouseWarehouseId?: string | null,
 };
 
 export type DeleteProductAtWarehouseInput = {
@@ -916,8 +960,8 @@ export type UpdateProductFromSupplierInput = {
   price?: number | null,
   quality?: number | null,
   _version?: number | null,
-  productFromSupplierProductId: string,
-  productFromSupplierSupplierId: string,
+  productFromSupplierProductId?: string | null,
+  productFromSupplierSupplierId?: string | null,
 };
 
 export type DeleteProductFromSupplierInput = {
@@ -950,7 +994,7 @@ export type UpdateSupplierInput = {
   phoneNumber?: string | null,
   email?: string | null,
   _version?: number | null,
-  supplierAddressId: string,
+  supplierAddressId?: string | null,
 };
 
 export type DeleteSupplierInput = {
@@ -1085,7 +1129,7 @@ export type UpdateWarehouseInput = {
   id: string,
   name?: string | null,
   _version?: number | null,
-  warehouseAddressId: string,
+  warehouseAddressId?: string | null,
 };
 
 export type DeleteWarehouseInput = {
@@ -1216,24 +1260,32 @@ export type ModelUserConnection = {
   startedAt?: number | null,
 };
 
+export type ModelCompanyFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  and?: Array< ModelCompanyFilterInput | null > | null,
+  or?: Array< ModelCompanyFilterInput | null > | null,
+  not?: ModelCompanyFilterInput | null,
+};
+
+export type ModelCompanyConnection = {
+  __typename: "ModelCompanyConnection",
+  items:  Array<Company | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
 export type ModelCustomerFilterInput = {
   id?: ModelIDInput | null,
   wpId?: ModelIntInput | null,
-  company?: ModelStringInput | null,
   firstName?: ModelStringInput | null,
   lastName?: ModelStringInput | null,
   email?: ModelStringInput | null,
   phoneNumber?: ModelStringInput | null,
+  companyId?: ModelIDInput | null,
   and?: Array< ModelCustomerFilterInput | null > | null,
   or?: Array< ModelCustomerFilterInput | null > | null,
   not?: ModelCustomerFilterInput | null,
-};
-
-export type ModelCustomerConnection = {
-  __typename: "ModelCustomerConnection",
-  items:  Array<Customer | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelBoxFilterInput = {
@@ -1529,14 +1581,21 @@ export type ModelSubscriptionUserFilterInput = {
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
 };
 
+export type ModelSubscriptionCompanyFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionCompanyFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCompanyFilterInput | null > | null,
+};
+
 export type ModelSubscriptionCustomerFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   wpId?: ModelSubscriptionIntInput | null,
-  company?: ModelSubscriptionStringInput | null,
   firstName?: ModelSubscriptionStringInput | null,
   lastName?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
   phoneNumber?: ModelSubscriptionStringInput | null,
+  companyId?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCustomerFilterInput | null > | null,
   or?: Array< ModelSubscriptionCustomerFilterInput | null > | null,
 };
@@ -1745,7 +1804,6 @@ export type CreateWPOrderMutation = {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
-      company?: string | null,
       firstName?: string | null,
       lastName?: string | null,
       email: string,
@@ -1754,6 +1812,17 @@ export type CreateWPOrderMutation = {
         __typename: "ModelWPOrderConnection",
         nextToken?: string | null,
         startedAt?: number | null,
+      } | null,
+      companyId?: string | null,
+      company?:  {
+        __typename: "Company",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -1854,7 +1923,6 @@ export type UpdateWPOrderMutation = {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
-      company?: string | null,
       firstName?: string | null,
       lastName?: string | null,
       email: string,
@@ -1863,6 +1931,17 @@ export type UpdateWPOrderMutation = {
         __typename: "ModelWPOrderConnection",
         nextToken?: string | null,
         startedAt?: number | null,
+      } | null,
+      companyId?: string | null,
+      company?:  {
+        __typename: "Company",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -1963,7 +2042,6 @@ export type DeleteWPOrderMutation = {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
-      company?: string | null,
       firstName?: string | null,
       lastName?: string | null,
       email: string,
@@ -1972,6 +2050,17 @@ export type DeleteWPOrderMutation = {
         __typename: "ModelWPOrderConnection",
         nextToken?: string | null,
         startedAt?: number | null,
+      } | null,
+      companyId?: string | null,
+      company?:  {
+        __typename: "Company",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -2536,6 +2625,120 @@ export type DeleteUserMutation = {
   } | null,
 };
 
+export type CreateCompanyMutationVariables = {
+  input: CreateCompanyInput,
+  condition?: ModelCompanyConditionInput | null,
+};
+
+export type CreateCompanyMutation = {
+  createCompany?:  {
+    __typename: "Company",
+    id: string,
+    name: string,
+    customers?:  {
+      __typename: "ModelCustomerConnection",
+      items:  Array< {
+        __typename: "Customer",
+        id: string,
+        wpId?: number | null,
+        firstName?: string | null,
+        lastName?: string | null,
+        email: string,
+        phoneNumber?: string | null,
+        companyId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateCompanyMutationVariables = {
+  input: UpdateCompanyInput,
+  condition?: ModelCompanyConditionInput | null,
+};
+
+export type UpdateCompanyMutation = {
+  updateCompany?:  {
+    __typename: "Company",
+    id: string,
+    name: string,
+    customers?:  {
+      __typename: "ModelCustomerConnection",
+      items:  Array< {
+        __typename: "Customer",
+        id: string,
+        wpId?: number | null,
+        firstName?: string | null,
+        lastName?: string | null,
+        email: string,
+        phoneNumber?: string | null,
+        companyId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteCompanyMutationVariables = {
+  input: DeleteCompanyInput,
+  condition?: ModelCompanyConditionInput | null,
+};
+
+export type DeleteCompanyMutation = {
+  deleteCompany?:  {
+    __typename: "Company",
+    id: string,
+    name: string,
+    customers?:  {
+      __typename: "ModelCustomerConnection",
+      items:  Array< {
+        __typename: "Customer",
+        id: string,
+        wpId?: number | null,
+        firstName?: string | null,
+        lastName?: string | null,
+        email: string,
+        phoneNumber?: string | null,
+        companyId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type CreateCustomerMutationVariables = {
   input: CreateCustomerInput,
   condition?: ModelCustomerConditionInput | null,
@@ -2546,7 +2749,6 @@ export type CreateCustomerMutation = {
     __typename: "Customer",
     id: string,
     wpId?: number | null,
-    company?: string | null,
     firstName?: string | null,
     lastName?: string | null,
     email: string,
@@ -2577,6 +2779,22 @@ export type CreateCustomerMutation = {
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
+    } | null,
+    companyId?: string | null,
+    company?:  {
+      __typename: "Company",
+      id: string,
+      name: string,
+      customers?:  {
+        __typename: "ModelCustomerConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2596,7 +2814,6 @@ export type UpdateCustomerMutation = {
     __typename: "Customer",
     id: string,
     wpId?: number | null,
-    company?: string | null,
     firstName?: string | null,
     lastName?: string | null,
     email: string,
@@ -2628,6 +2845,22 @@ export type UpdateCustomerMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    companyId?: string | null,
+    company?:  {
+      __typename: "Company",
+      id: string,
+      name: string,
+      customers?:  {
+        __typename: "ModelCustomerConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2646,7 +2879,6 @@ export type DeleteCustomerMutation = {
     __typename: "Customer",
     id: string,
     wpId?: number | null,
-    company?: string | null,
     firstName?: string | null,
     lastName?: string | null,
     email: string,
@@ -2677,6 +2909,22 @@ export type DeleteCustomerMutation = {
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
+    } | null,
+    companyId?: string | null,
+    company?:  {
+      __typename: "Company",
+      id: string,
+      name: string,
+      customers?:  {
+        __typename: "ModelCustomerConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2747,11 +2995,11 @@ export type CreateBoxMutation = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -2833,11 +3081,11 @@ export type UpdateBoxMutation = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -2919,11 +3167,11 @@ export type DeleteBoxMutation = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -5134,7 +5382,6 @@ export type GetWPOrderQuery = {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
-      company?: string | null,
       firstName?: string | null,
       lastName?: string | null,
       email: string,
@@ -5143,6 +5390,17 @@ export type GetWPOrderQuery = {
         __typename: "ModelWPOrderConnection",
         nextToken?: string | null,
         startedAt?: number | null,
+      } | null,
+      companyId?: string | null,
+      company?:  {
+        __typename: "Company",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -5213,11 +5471,11 @@ export type ListWPOrdersQuery = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -5291,11 +5549,11 @@ export type SyncWPOrdersQuery = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -5370,11 +5628,11 @@ export type WPOrdersByWPOrderNumberQuery = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -5449,11 +5707,11 @@ export type WPOrdersByAddressIDQuery = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -5528,11 +5786,11 @@ export type WPOrdersByCustomerIDQuery = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -6132,6 +6390,102 @@ export type SyncUsersQuery = {
   } | null,
 };
 
+export type GetCompanyQueryVariables = {
+  id: string,
+};
+
+export type GetCompanyQuery = {
+  getCompany?:  {
+    __typename: "Company",
+    id: string,
+    name: string,
+    customers?:  {
+      __typename: "ModelCustomerConnection",
+      items:  Array< {
+        __typename: "Customer",
+        id: string,
+        wpId?: number | null,
+        firstName?: string | null,
+        lastName?: string | null,
+        email: string,
+        phoneNumber?: string | null,
+        companyId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListCompaniesQueryVariables = {
+  filter?: ModelCompanyFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListCompaniesQuery = {
+  listCompanies?:  {
+    __typename: "ModelCompanyConnection",
+    items:  Array< {
+      __typename: "Company",
+      id: string,
+      name: string,
+      customers?:  {
+        __typename: "ModelCustomerConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCompaniesQueryVariables = {
+  filter?: ModelCompanyFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCompaniesQuery = {
+  syncCompanies?:  {
+    __typename: "ModelCompanyConnection",
+    items:  Array< {
+      __typename: "Company",
+      id: string,
+      name: string,
+      customers?:  {
+        __typename: "ModelCustomerConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
 export type GetCustomerQueryVariables = {
   id: string,
 };
@@ -6141,7 +6495,6 @@ export type GetCustomerQuery = {
     __typename: "Customer",
     id: string,
     wpId?: number | null,
-    company?: string | null,
     firstName?: string | null,
     lastName?: string | null,
     email: string,
@@ -6173,6 +6526,22 @@ export type GetCustomerQuery = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    companyId?: string | null,
+    company?:  {
+      __typename: "Company",
+      id: string,
+      name: string,
+      customers?:  {
+        __typename: "ModelCustomerConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -6194,7 +6563,6 @@ export type ListCustomersQuery = {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
-      company?: string | null,
       firstName?: string | null,
       lastName?: string | null,
       email: string,
@@ -6203,6 +6571,17 @@ export type ListCustomersQuery = {
         __typename: "ModelWPOrderConnection",
         nextToken?: string | null,
         startedAt?: number | null,
+      } | null,
+      companyId?: string | null,
+      company?:  {
+        __typename: "Company",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -6229,7 +6608,6 @@ export type SyncCustomersQuery = {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
-      company?: string | null,
       firstName?: string | null,
       lastName?: string | null,
       email: string,
@@ -6238,6 +6616,17 @@ export type SyncCustomersQuery = {
         __typename: "ModelWPOrderConnection",
         nextToken?: string | null,
         startedAt?: number | null,
+      } | null,
+      companyId?: string | null,
+      company?:  {
+        __typename: "Company",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -6265,7 +6654,6 @@ export type CustomersByEmailQuery = {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
-      company?: string | null,
       firstName?: string | null,
       lastName?: string | null,
       email: string,
@@ -6274,6 +6662,63 @@ export type CustomersByEmailQuery = {
         __typename: "ModelWPOrderConnection",
         nextToken?: string | null,
         startedAt?: number | null,
+      } | null,
+      companyId?: string | null,
+      company?:  {
+        __typename: "Company",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type CustomersByCompanyIdQueryVariables = {
+  companyId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCustomerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CustomersByCompanyIdQuery = {
+  customersByCompanyId?:  {
+    __typename: "ModelCustomerConnection",
+    items:  Array< {
+      __typename: "Customer",
+      id: string,
+      wpId?: number | null,
+      firstName?: string | null,
+      lastName?: string | null,
+      email: string,
+      phoneNumber?: string | null,
+      WPOrders?:  {
+        __typename: "ModelWPOrderConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      companyId?: string | null,
+      company?:  {
+        __typename: "Company",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -6346,11 +6791,11 @@ export type GetBoxQuery = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -8593,7 +9038,6 @@ export type OnCreateWPOrderSubscription = {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
-      company?: string | null,
       firstName?: string | null,
       lastName?: string | null,
       email: string,
@@ -8602,6 +9046,17 @@ export type OnCreateWPOrderSubscription = {
         __typename: "ModelWPOrderConnection",
         nextToken?: string | null,
         startedAt?: number | null,
+      } | null,
+      companyId?: string | null,
+      company?:  {
+        __typename: "Company",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -8701,7 +9156,6 @@ export type OnUpdateWPOrderSubscription = {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
-      company?: string | null,
       firstName?: string | null,
       lastName?: string | null,
       email: string,
@@ -8710,6 +9164,17 @@ export type OnUpdateWPOrderSubscription = {
         __typename: "ModelWPOrderConnection",
         nextToken?: string | null,
         startedAt?: number | null,
+      } | null,
+      companyId?: string | null,
+      company?:  {
+        __typename: "Company",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -8809,7 +9274,6 @@ export type OnDeleteWPOrderSubscription = {
       __typename: "Customer",
       id: string,
       wpId?: number | null,
-      company?: string | null,
       firstName?: string | null,
       lastName?: string | null,
       email: string,
@@ -8818,6 +9282,17 @@ export type OnDeleteWPOrderSubscription = {
         __typename: "ModelWPOrderConnection",
         nextToken?: string | null,
         startedAt?: number | null,
+      } | null,
+      companyId?: string | null,
+      company?:  {
+        __typename: "Company",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -9373,6 +9848,117 @@ export type OnDeleteUserSubscription = {
   } | null,
 };
 
+export type OnCreateCompanySubscriptionVariables = {
+  filter?: ModelSubscriptionCompanyFilterInput | null,
+};
+
+export type OnCreateCompanySubscription = {
+  onCreateCompany?:  {
+    __typename: "Company",
+    id: string,
+    name: string,
+    customers?:  {
+      __typename: "ModelCustomerConnection",
+      items:  Array< {
+        __typename: "Customer",
+        id: string,
+        wpId?: number | null,
+        firstName?: string | null,
+        lastName?: string | null,
+        email: string,
+        phoneNumber?: string | null,
+        companyId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateCompanySubscriptionVariables = {
+  filter?: ModelSubscriptionCompanyFilterInput | null,
+};
+
+export type OnUpdateCompanySubscription = {
+  onUpdateCompany?:  {
+    __typename: "Company",
+    id: string,
+    name: string,
+    customers?:  {
+      __typename: "ModelCustomerConnection",
+      items:  Array< {
+        __typename: "Customer",
+        id: string,
+        wpId?: number | null,
+        firstName?: string | null,
+        lastName?: string | null,
+        email: string,
+        phoneNumber?: string | null,
+        companyId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteCompanySubscriptionVariables = {
+  filter?: ModelSubscriptionCompanyFilterInput | null,
+};
+
+export type OnDeleteCompanySubscription = {
+  onDeleteCompany?:  {
+    __typename: "Company",
+    id: string,
+    name: string,
+    customers?:  {
+      __typename: "ModelCustomerConnection",
+      items:  Array< {
+        __typename: "Customer",
+        id: string,
+        wpId?: number | null,
+        firstName?: string | null,
+        lastName?: string | null,
+        email: string,
+        phoneNumber?: string | null,
+        companyId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type OnCreateCustomerSubscriptionVariables = {
   filter?: ModelSubscriptionCustomerFilterInput | null,
 };
@@ -9382,7 +9968,6 @@ export type OnCreateCustomerSubscription = {
     __typename: "Customer",
     id: string,
     wpId?: number | null,
-    company?: string | null,
     firstName?: string | null,
     lastName?: string | null,
     email: string,
@@ -9413,6 +9998,22 @@ export type OnCreateCustomerSubscription = {
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
+    } | null,
+    companyId?: string | null,
+    company?:  {
+      __typename: "Company",
+      id: string,
+      name: string,
+      customers?:  {
+        __typename: "ModelCustomerConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -9431,7 +10032,6 @@ export type OnUpdateCustomerSubscription = {
     __typename: "Customer",
     id: string,
     wpId?: number | null,
-    company?: string | null,
     firstName?: string | null,
     lastName?: string | null,
     email: string,
@@ -9463,6 +10063,22 @@ export type OnUpdateCustomerSubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    companyId?: string | null,
+    company?:  {
+      __typename: "Company",
+      id: string,
+      name: string,
+      customers?:  {
+        __typename: "ModelCustomerConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -9480,7 +10096,6 @@ export type OnDeleteCustomerSubscription = {
     __typename: "Customer",
     id: string,
     wpId?: number | null,
-    company?: string | null,
     firstName?: string | null,
     lastName?: string | null,
     email: string,
@@ -9511,6 +10126,22 @@ export type OnDeleteCustomerSubscription = {
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
+    } | null,
+    companyId?: string | null,
+    company?:  {
+      __typename: "Company",
+      id: string,
+      name: string,
+      customers?:  {
+        __typename: "ModelCustomerConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -9580,11 +10211,11 @@ export type OnCreateBoxSubscription = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -9665,11 +10296,11 @@ export type OnUpdateBoxSubscription = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -9750,11 +10381,11 @@ export type OnDeleteBoxSubscription = {
         __typename: "Customer",
         id: string,
         wpId?: number | null,
-        company?: string | null,
         firstName?: string | null,
         lastName?: string | null,
         email: string,
         phoneNumber?: string | null,
+        companyId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,

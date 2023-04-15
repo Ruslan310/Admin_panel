@@ -75,7 +75,6 @@ export const getWPOrder = /* GraphQL */ `
       customer {
         id
         wpId
-        company
         firstName
         lastName
         email
@@ -83,6 +82,16 @@ export const getWPOrder = /* GraphQL */ `
         WPOrders {
           nextToken
           startedAt
+        }
+        companyId
+        company {
+          id
+          name
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         createdAt
         updatedAt
@@ -146,11 +155,11 @@ export const listWPOrders = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version
@@ -222,11 +231,11 @@ export const syncWPOrders = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version
@@ -300,11 +309,11 @@ export const wPOrdersByWPOrderNumber = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version
@@ -378,11 +387,11 @@ export const wPOrdersByAddressID = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version
@@ -456,11 +465,11 @@ export const wPOrdersByCustomerID = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version
@@ -1027,12 +1036,98 @@ export const syncUsers = /* GraphQL */ `
     }
   }
 `;
+export const getCompany = /* GraphQL */ `
+  query GetCompany($id: ID!) {
+    getCompany(id: $id) {
+      id
+      name
+      customers {
+        items {
+          id
+          wpId
+          firstName
+          lastName
+          email
+          phoneNumber
+          companyId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listCompanies = /* GraphQL */ `
+  query ListCompanies(
+    $filter: ModelCompanyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCompanies(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        customers {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCompanies = /* GraphQL */ `
+  query SyncCompanies(
+    $filter: ModelCompanyFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCompanies(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        customers {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getCustomer = /* GraphQL */ `
   query GetCustomer($id: ID!) {
     getCustomer(id: $id) {
       id
       wpId
-      company
       firstName
       lastName
       email
@@ -1062,6 +1157,20 @@ export const getCustomer = /* GraphQL */ `
         nextToken
         startedAt
       }
+      companyId
+      company {
+        id
+        name
+        customers {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdAt
       updatedAt
       _version
@@ -1080,7 +1189,6 @@ export const listCustomers = /* GraphQL */ `
       items {
         id
         wpId
-        company
         firstName
         lastName
         email
@@ -1088,6 +1196,16 @@ export const listCustomers = /* GraphQL */ `
         WPOrders {
           nextToken
           startedAt
+        }
+        companyId
+        company {
+          id
+          name
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         createdAt
         updatedAt
@@ -1116,7 +1234,6 @@ export const syncCustomers = /* GraphQL */ `
       items {
         id
         wpId
-        company
         firstName
         lastName
         email
@@ -1124,6 +1241,16 @@ export const syncCustomers = /* GraphQL */ `
         WPOrders {
           nextToken
           startedAt
+        }
+        companyId
+        company {
+          id
+          name
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         createdAt
         updatedAt
@@ -1154,7 +1281,6 @@ export const customersByEmail = /* GraphQL */ `
       items {
         id
         wpId
-        company
         firstName
         lastName
         email
@@ -1162,6 +1288,63 @@ export const customersByEmail = /* GraphQL */ `
         WPOrders {
           nextToken
           startedAt
+        }
+        companyId
+        company {
+          id
+          name
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const customersByCompanyId = /* GraphQL */ `
+  query CustomersByCompanyId(
+    $companyId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCustomerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    customersByCompanyId(
+      companyId: $companyId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        wpId
+        firstName
+        lastName
+        email
+        phoneNumber
+        WPOrders {
+          nextToken
+          startedAt
+        }
+        companyId
+        company {
+          id
+          name
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         createdAt
         updatedAt
@@ -1225,11 +1408,11 @@ export const getBox = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version

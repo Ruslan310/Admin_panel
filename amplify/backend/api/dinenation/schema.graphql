@@ -51,15 +51,23 @@ type User @model @auth(rules: [{allow: public}, {allow: private}]) {
   coordinates: [Coordinate] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
+type Company @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  name: String!
+  customers: [Customer] @hasMany(fields: ["id"])
+}
+
 type Customer @model @auth(rules: [{allow: public}, {allow: private}]) {
   id: ID!
   wpId: Int
-  company: String
+  #    company: String
   firstName: String
   lastName: String
   email: String! @index(name: "byEmail")
   phoneNumber: String
   WPOrders: [WPOrder] @hasMany(indexName: "byCustomer", fields: ["id"])
+  companyId: ID @index(name: "byCompany")
+  company: Company @belongsTo(fields: ["companyId"])
 }
 
 type Box @model @auth(rules: [{allow: public}, {allow: private}]) {

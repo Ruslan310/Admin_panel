@@ -1,12 +1,24 @@
 import React, {useEffect, useState} from 'react'
 import {CSVLink} from "react-csv";
 
-import {Button, Checkbox, Input, InputNumber, Layout, Progress, Radio, Space, Typography, DatePicker} from 'antd';
+import {
+  Button,
+  Checkbox,
+  Input,
+  InputNumber,
+  Layout,
+  Progress,
+  Radio,
+  Space,
+  Typography,
+  DatePicker,
+  Select
+} from 'antd';
 import moment, {Moment} from "moment-timezone";
 import {fullName} from "../utils/utils";
 import {Data} from "react-csv/components/CommonPropTypes";
 import {DataStore} from "aws-amplify";
-import {WPOrder} from "../models";
+import {Company, Customer, WPOrder} from "../models";
 import {PROCESSING} from "../constants";
 
 const {Text, Title} = Typography;
@@ -15,6 +27,7 @@ moment.tz.setDefault("Africa/Nouakchott");
 
 const friday = 5;
 const week = 7;
+const width300 = {width: 300}
 
 const {Content} = Layout;
 const initialStartDate = moment().day(friday - week);
@@ -37,10 +50,22 @@ const InvoicesPage: React.FC = () => {
   const [companyCoverage, setCompanyCoverage] = useState(0);
   const [csvData, setCsvData] = useState<Data>([]);
   const [isWithoutTax, setWithoutTax] = useState(false);
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [isCompaniesLoading, setCompaniesLoading] = useState(true);
 
   const [startDatePicker, setStartDatePicker] = useState<Moment | undefined>();
   const [endDatePicker, setEndDatePicker] = useState<Moment | undefined>();
+  const [selectedCompany, setSelectedCompany] = useState('');
 
+  useEffect(() => {
+    const compSubs = DataStore.observeQuery(Company).subscribe(msg => {
+      if (msg.items.length > 0) {
+        setCompanies(msg.items)
+        isCompaniesLoading && setCompaniesLoading(false)
+      }
+    });
+    return () => compSubs.unsubscribe();
+  }, []);
 
   useEffect(() => {
     if (startDatePicker && endDatePicker && startDatePicker.format("DD-MM")>=endDatePicker.format("DD-MM")) {
@@ -51,6 +76,26 @@ const InvoicesPage: React.FC = () => {
     }
   }, [startDatePicker, endDatePicker])
 
+
+  const headers = [
+    {
+      label: "FullName",
+      key: "fullName"
+    },
+    {
+      label: "Total",
+      key: "total"
+    },
+    {
+      label: "Company Payment",
+      key: "companyPayment"
+    },
+    {
+      label: "Customer Payment",
+      key: "customerPayment"
+    },
+  ];
+
   return (
     <Content>
       <Title>Invoices</Title>
@@ -58,12 +103,13 @@ const InvoicesPage: React.FC = () => {
         <Button onClick={async () => {
           let atDate = startDatePicker && endDatePicker ? startDatePicker : startDate
           let toDate = startDatePicker && endDatePicker ? endDatePicker : endDate
+          let testCompany = selectedCompany ? selectedCompany : targetCompany
           const orders = await DataStore.query(WPOrder, order => order.and(order => [
               order.createdAtWp.between(atDate.unix(), toDate.unix()),
               order.WPOrderStatus.ne(PROCESSING)
           ]));
           const companyOrders = orders.filter(order => {
-            return targetCompany ? order.companyName?.toLowerCase().includes(targetCompany.toLowerCase()) : true
+            return testCompany ? order.companyName?.toLowerCase().includes(testCompany.toLowerCase()) : true
           })
           const invoice: InvoiceOrderItem[] = [];
           setProgress(1);
@@ -160,7 +206,27 @@ const InvoicesPage: React.FC = () => {
         </Radio.Group>
         <Space>
           <Text>Company name: </Text>
-          <Input placeholder="Enter name" value={targetCompany} onChange={(e) => setTargetCompany(e.target.value)}/>
+          <Input placeholder="Enter name" value={targetCompany} onChange={(e) => {
+            if(selectedCompany) setSelectedCompany('')
+            setTargetCompany(e.target.value)
+          }}/>
+        </Space>
+        <Space>
+          <Text>"For test" new Company name: </Text>
+          <Select<string, { value: string; children: string }>
+            placeholder="Select company"
+            showSearch
+            filterOption={(input, option) =>
+              option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
+            }
+            value={selectedCompany}
+            style={width300}
+            onSelect={value => {
+              if(selectedCompany) setTargetCompany('')
+              setSelectedCompany(value)
+            }}>
+            {companies.map((el) => <Select.Option key={el.id} value={el.name}>{el.name}</Select.Option>)}
+          </Select>
         </Space>
         <Space>
           <Text>Company coverage: </Text>
@@ -173,7 +239,7 @@ const InvoicesPage: React.FC = () => {
           }}>Without 5% tax</Checkbox>
       </Space>
       {progress > 0 && <Progress percent={progress}/>}
-      {progress === 100 && <CSVLink separator={";"} data={csvData}>Download invoice</CSVLink>}
+      {progress === 100 && <CSVLink headers={headers} separator={";"} data={csvData}>Download invoice</CSVLink>}
     </Content>
   )
 }

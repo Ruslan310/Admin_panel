@@ -78,7 +78,6 @@ export const createWPOrder = /* GraphQL */ `
       customer {
         id
         wpId
-        company
         firstName
         lastName
         email
@@ -86,6 +85,16 @@ export const createWPOrder = /* GraphQL */ `
         WPOrders {
           nextToken
           startedAt
+        }
+        companyId
+        company {
+          id
+          name
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         createdAt
         updatedAt
@@ -177,7 +186,6 @@ export const updateWPOrder = /* GraphQL */ `
       customer {
         id
         wpId
-        company
         firstName
         lastName
         email
@@ -185,6 +193,16 @@ export const updateWPOrder = /* GraphQL */ `
         WPOrders {
           nextToken
           startedAt
+        }
+        companyId
+        company {
+          id
+          name
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         createdAt
         updatedAt
@@ -276,7 +294,6 @@ export const deleteWPOrder = /* GraphQL */ `
       customer {
         id
         wpId
-        company
         firstName
         lastName
         email
@@ -284,6 +301,16 @@ export const deleteWPOrder = /* GraphQL */ `
         WPOrders {
           nextToken
           startedAt
+        }
+        companyId
+        company {
+          id
+          name
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         createdAt
         updatedAt
@@ -797,6 +824,108 @@ export const deleteUser = /* GraphQL */ `
     }
   }
 `;
+export const createCompany = /* GraphQL */ `
+  mutation CreateCompany(
+    $input: CreateCompanyInput!
+    $condition: ModelCompanyConditionInput
+  ) {
+    createCompany(input: $input, condition: $condition) {
+      id
+      name
+      customers {
+        items {
+          id
+          wpId
+          firstName
+          lastName
+          email
+          phoneNumber
+          companyId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateCompany = /* GraphQL */ `
+  mutation UpdateCompany(
+    $input: UpdateCompanyInput!
+    $condition: ModelCompanyConditionInput
+  ) {
+    updateCompany(input: $input, condition: $condition) {
+      id
+      name
+      customers {
+        items {
+          id
+          wpId
+          firstName
+          lastName
+          email
+          phoneNumber
+          companyId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteCompany = /* GraphQL */ `
+  mutation DeleteCompany(
+    $input: DeleteCompanyInput!
+    $condition: ModelCompanyConditionInput
+  ) {
+    deleteCompany(input: $input, condition: $condition) {
+      id
+      name
+      customers {
+        items {
+          id
+          wpId
+          firstName
+          lastName
+          email
+          phoneNumber
+          companyId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const createCustomer = /* GraphQL */ `
   mutation CreateCustomer(
     $input: CreateCustomerInput!
@@ -805,7 +934,6 @@ export const createCustomer = /* GraphQL */ `
     createCustomer(input: $input, condition: $condition) {
       id
       wpId
-      company
       firstName
       lastName
       email
@@ -834,6 +962,20 @@ export const createCustomer = /* GraphQL */ `
         }
         nextToken
         startedAt
+      }
+      companyId
+      company {
+        id
+        name
+        customers {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       createdAt
       updatedAt
@@ -851,7 +993,6 @@ export const updateCustomer = /* GraphQL */ `
     updateCustomer(input: $input, condition: $condition) {
       id
       wpId
-      company
       firstName
       lastName
       email
@@ -881,6 +1022,20 @@ export const updateCustomer = /* GraphQL */ `
         nextToken
         startedAt
       }
+      companyId
+      company {
+        id
+        name
+        customers {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdAt
       updatedAt
       _version
@@ -897,7 +1052,6 @@ export const deleteCustomer = /* GraphQL */ `
     deleteCustomer(input: $input, condition: $condition) {
       id
       wpId
-      company
       firstName
       lastName
       email
@@ -926,6 +1080,20 @@ export const deleteCustomer = /* GraphQL */ `
         }
         nextToken
         startedAt
+      }
+      companyId
+      company {
+        id
+        name
+        customers {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       createdAt
       updatedAt
@@ -989,11 +1157,11 @@ export const createBox = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version
@@ -1068,11 +1236,11 @@ export const updateBox = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version
@@ -1147,11 +1315,11 @@ export const deleteBox = /* GraphQL */ `
         customer {
           id
           wpId
-          company
           firstName
           lastName
           email
           phoneNumber
+          companyId
           createdAt
           updatedAt
           _version

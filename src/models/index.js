@@ -44,25 +44,26 @@ const ComponentType = {
   "DESSERT": "DESSERT"
 };
 
-const { WPOrder, Box, Address, Coordinate, User, Customer, Dish, Component, Product, Type, Category, Department, ProductAtWarehouse, Warehouse, ProductFromSupplier, Supplier, DishComponent, ComponentProducts, WPDish } = initSchema(schema);
+const { WPOrder, Address, Coordinate, User, Company, Customer, Box, Dish, Component, ProductAtWarehouse, ProductFromSupplier, Supplier, Product, Type, Category, Department, Warehouse, DishComponent, ComponentProducts, WPDish } = initSchema(schema);
 
 export {
   WPOrder,
-  Box,
   Address,
   Coordinate,
   User,
+  Company,
   Customer,
+  Box,
   Dish,
   Component,
+  ProductAtWarehouse,
+  ProductFromSupplier,
+  Supplier,
   Product,
   Type,
   Category,
   Department,
-  ProductAtWarehouse,
   Warehouse,
-  ProductFromSupplier,
-  Supplier,
   DishComponent,
   ComponentProducts,
   WeekDay,

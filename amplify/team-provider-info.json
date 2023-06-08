@@ -17,12 +17,6 @@
       },
       "storage": {
         "website": {}
-      },
-      "api": {
-        "dinenation": {}
-      },
-      "hosting": {
-        "S3AndCloudFront": {}
       }
     }
   }

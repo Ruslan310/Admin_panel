@@ -90,6 +90,16 @@ const BoxesPage: React.FC = () => {
             dataIndex: 'sticker',
         },
         {
+            title: 'UpdatedAt',
+            dataIndex: 'updatedAt',
+            render: (value, record, index) => {
+                console.log('-----value', record)
+                return record.boxStatus === BoxStatus.PRINTED
+                  ? <Text style={{fontSize: 12}}>{moment(value).format("HH:mm DD-MM")}</Text>
+                  : null
+            },
+        },
+        {
             title: 'Status',
             dataIndex: 'boxStatus',
         },

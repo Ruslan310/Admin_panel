@@ -239,7 +239,8 @@ const InvoicesPage: React.FC = () => {
           }}>Without 5% tax</Checkbox>
       </Space>
       {progress > 0 && <Progress percent={progress}/>}
-      {progress === 100 && <CSVLink headers={headers} separator={";"} data={csvData}>Download invoice</CSVLink>}
+      {/*{progress === 100 && <CSVLink headers={headers} data={csvData}>Download invoice</CSVLink>}*/}
+      {progress === 100 && <CSVLink separator={";"} headers={headers} data={csvData}>Download invoice</CSVLink>}
     </Content>
   )
 }

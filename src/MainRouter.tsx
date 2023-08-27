@@ -13,6 +13,7 @@ import {
   HeartOutlined,
   FileProtectOutlined,
   SolutionOutlined,
+  UnorderedListOutlined
 } from "@ant-design/icons";
 import {Link, Route} from "react-router-dom";
 import OrdersPage from "./pages/OrdersPage";
@@ -27,7 +28,7 @@ import KitchenPage from "./pages/KitchenPage";
 import BoxesPage from "./pages/BoxesPage";
 import InvoicesPage from "./pages/InvoicesPage";
 import MapCoordinatesPage from "./pages/MapCoordinatesPage";
-import {DataStore, Hub} from "aws-amplify";
+import {DataStore} from "aws-amplify";
 import { LoadingOutlined } from '@ant-design/icons';
 import WarehousesPage from "./pages/stocktaking/WarehousesPage";
 import DepartmentsPage from "./pages/stocktaking/DepartmentsPage";
@@ -40,6 +41,7 @@ import WarehouseDetailsPage from "./pages/stocktaking/WarehouseDetailsPage";
 import ComponentsPage from "./pages/healthy/ComponentsPage";
 import ComponentDetailsPage from "./pages/healthy/ComponentDetailsPage";
 import ReportsPage from "./pages/ReportsPage";
+import CompanyMenuPage from "./pages/CompanyMenuPage";
 
 const antIcon = <LoadingOutlined style={{
   fontSize: 124,
@@ -144,6 +146,10 @@ const MainRouter: React.FC = () => {
           <span>Company</span>
           <Link to="/company"/>
         </Menu.Item>
+        <Menu.Item key="companyMenu" icon={<UnorderedListOutlined />}>
+          <span>Company Menu</span>
+          <Link to="/companyMenu"/>
+        </Menu.Item>
         <Menu.Item key="invoices" icon={<FileProtectOutlined/>}>
           <span>Invoices</span>
           <Link to="/invoices"/>
@@ -171,6 +177,7 @@ const MainRouter: React.FC = () => {
         <Route exact path="/addresses" component={AddressesPage}/>
         <Route exact path="/customers" component={CustomersPage}/>
         <Route exact path="/company" component={CompanyPage}/>
+        <Route exact path="/companymenu" component={CompanyMenuPage}/>
         <Route exact path="/boxes" component={BoxesPage}/>
         <Route exact path="/profile" component={ProfilePage}/>
         <Route exact path="/invoices" component={InvoicesPage}/>

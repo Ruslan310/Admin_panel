@@ -1,11 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react'
-
+import React, {useEffect, useState} from 'react'
 import {Button, Input, Layout, Modal, Spin, Table, Tabs, Typography} from 'antd';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import {ColumnsType} from "antd/es/table";
 import moment from 'moment';
 import jsPDF from "jspdf";
-import {ExclamationCircleOutlined} from "@ant-design/icons";
+import {ExclamationCircleOutlined, LoadingOutlined} from "@ant-design/icons";
 import {Box, BoxStatus, Role, User, WeekDay, WPOrder} from "../models";
 import {DataStore} from "aws-amplify";
 import {PROCESSING} from "../constants";
@@ -31,28 +30,57 @@ interface OrdersByDay {
     weekDay: WeekDay | keyof typeof WeekDay;
 }
 
+// Return value should be component
+
 const today = moment().format('dddd');
 const BoxesPage: React.FC = () => {
     const [selectedDay, setSelectedDay] = useState<WeekDay>(today.toUpperCase() as WeekDay);
     const [boxes, setBoxes] = useState<Box[]>([]);
+    const [orders, setOrders] = useState<WPOrder[]>([]);
     const [isLoading, setLoading] = useState(true)
     const [generatingStickers, setGeneratingStickers] = useState(false)
     const [ordersByDays, setOrdersByDays] = useState<OrdersByDay[]>([])
     const [searchName, setSearchName] = useState('')
+    const [searchOrderNumber, setSearchOrderNumber] = useState({id: '', number: ''})
+    const [searchOrder, setSearchOrder] = useState('')
 
     useEffect(() => {
-        DataStore.query(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING)).then(boxes => {
+        const subs = DataStore.observeQuery(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING))
+        //   .subscribe(async msg => {
+        //       console.log('msg.isSynced', msg.isSynced)
+        //       console.log('msg.isSynced', msg.items.length)
+        //       if (!msg.isSynced) {
+        //           setBoxes(msg.items)
+        //           isLoading && setLoading(true)
+        //       } else {
+        //           console.log('------msg.items', msg.items)
+        //           setBoxes(msg.items)
+        //           isLoading && setLoading(false)
+        //           DataStore.query(WPOrder, order => order.WPOrderStatus.eq(PROCESSING)).then(orders => {
+        //               setOrders(orders)
+        //               const newOrdersByDays: OrdersByDay[] = []
+        //               for (const weekDay of Object.values(WeekDay)) {
+        //                   newOrdersByDays.push({weekDay, quantity: orders.filter(order => msg.items.filter(box => box.wporderID === order.id && box.weekDay === weekDay).length > 0).length})
+        //               }
+        //               setOrdersByDays(newOrdersByDays)
+        //           })
+        //       }
+        //   });
+        // return () => subs.unsubscribe()
+        DataStore.query(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING))
+          .then(async boxes => {
             if (boxes) {
                 setBoxes(boxes)
             }
             isLoading && setLoading(false)
-            DataStore.query(WPOrder, order => order.WPOrderStatus.eq(PROCESSING)).then(orders => {
-                const newOrdersByDays: OrdersByDay[] = []
-                for (const weekDay of Object.values(WeekDay)) {
-                    newOrdersByDays.push({weekDay, quantity: orders.filter(order => boxes.filter(box => box.wporderID === order.id && box.weekDay === weekDay).length > 0).length})
-                }
-                setOrdersByDays(newOrdersByDays)
-            })
+                DataStore.query(WPOrder, order => order.WPOrderStatus.eq(PROCESSING)).then(orders => {
+                    setOrders(orders)
+                    const newOrdersByDays: OrdersByDay[] = []
+                    for (const weekDay of Object.values(WeekDay)) {
+                        newOrdersByDays.push({weekDay, quantity: orders.filter(order => boxes.filter(box => box.wporderID === order.id && box.weekDay === weekDay).length > 0).length})
+                    }
+                    setOrdersByDays(newOrdersByDays)
+                })
         })
     }, []);
 
@@ -78,7 +106,29 @@ const BoxesPage: React.FC = () => {
                 value={searchName}
                 onChange={e => {
                     const currValue = e.target.value;
+                    setSearchOrder('')
                     setSearchName(currValue);
+                }}
+            />
+        </>
+    );
+
+    const ordersFilter = (
+        <>
+            <Typography>Order Number</Typography>
+            <Input
+                placeholder="Num"
+                value={searchOrderNumber.number}
+                onChange={e => {
+                    const currValue = e.target.value;
+                    let orderNumber = orders.filter(order => currValue === order.WPOrderNumber)[0]
+                    if (orderNumber) {
+                        setSearchOrderNumber({id: orderNumber.id, number: orderNumber.WPOrderNumber});
+                    } else {
+                        setSearchOrderNumber({id: '', number: currValue});
+                    }
+                    setSearchName('')
+
                 }}
             />
         </>
@@ -93,7 +143,6 @@ const BoxesPage: React.FC = () => {
             title: 'UpdatedAt',
             dataIndex: 'updatedAt',
             render: (value, record, index) => {
-                console.log('-----value', record)
                 return record.boxStatus === BoxStatus.PRINTED
                   ? <Text style={{fontSize: 12}}>{moment(value).format("HH:mm DD-MM")}</Text>
                   : null
@@ -102,6 +151,20 @@ const BoxesPage: React.FC = () => {
         {
             title: 'Status',
             dataIndex: 'boxStatus',
+        },
+        // {
+        //     title: 'id',
+        //     dataIndex: 'orderId',
+        // },
+        {
+            title: ordersFilter,
+            // title: 'Num',
+            render: (value, record, index) => {
+                let orderNumber = orders.filter(order => record.wporderID === order.id)
+                return orderNumber && orderNumber[0]?.WPOrderNumber
+                  ? <Text>{orderNumber[0].WPOrderNumber}</Text>
+                  : <LoadingOutlined style={{fontSize: 24, marginLeft: 30}} spin />
+            },
         },
     ];
 
@@ -175,7 +238,8 @@ const BoxesPage: React.FC = () => {
                     doc.setFontSize(12);
                     doc.text(sticker.date, 45, 5)
                     doc.setFontSize(15);
-                    doc.text(cyrillicToTranslit.transform(sticker.customerName.split(' ')[0], '_'), 20, 8,)
+                    doc.text(sticker.customerName.split(' ')[0].replace('_', ' '), 20, 8,)
+                    // doc.text(cyrillicToTranslit.transform(sticker.customerName.split(' ')[0], '_'), 20, 8,)
                     doc.text(cyrillicToTranslit.transform(sticker.customerName.split(' ')[1], '_'), 20, 16,)
                     doc.setFont("times", "bold");
                     doc.setFontSize(19);
@@ -190,7 +254,7 @@ const BoxesPage: React.FC = () => {
                     doc.setFontSize(12);
                     doc.text(cyrillicToTranslit.transform(sticker.company.substr(0, 8), '_'), 2, 40)
                     doc.setFontSize(16);
-                    doc.text(sticker.orderNumber, 20, 40)
+                    doc.text(sticker.orderNumber, 33, 40)
                 }
                 let newPrefix = '';
                 if (newOnly) {
@@ -329,7 +393,10 @@ const BoxesPage: React.FC = () => {
                 rowKey="id"
                 loading={isLoading}
                 columns={columns}
-                dataSource={boxes.filter(box => box.weekDay === selectedDay).filter(box => box.sticker.toLowerCase().includes(searchName.toLowerCase()))}
+                dataSource={boxes.filter(box => box.weekDay === selectedDay).filter(box => {
+                    if (searchOrderNumber.id) return box.wporderID === searchOrderNumber.id
+                    return box.sticker.toLowerCase().includes(searchName.toLowerCase())
+                })}
             />
         </Content>
     )

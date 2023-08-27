@@ -38,7 +38,7 @@ const OrdersPage: React.FC = () => {
     useEffect(() => {
         subscription && subscription.unsubscribe()
         const subs = DataStore.observeQuery(WPOrder, order => order.or(order =>
-            checkedStatusesList.map(status => order.WPOrderStatus.eq(status))))
+                checkedStatusesList.map(status => order.WPOrderStatus.eq(status))))
             .subscribe(msg => {
                 if (msg.isSynced) {
                     console.log('synced: ', msg.items.length)
@@ -48,7 +48,7 @@ const OrdersPage: React.FC = () => {
                     console.log('not synced: ', msg.items.length)
                     if (msg.items.length > 0) {
                         setOrders(msg.items)
-                        isLoading && setLoading(false)
+                        isLoading && setLoading(true)
                     }
                 }
             });
@@ -135,6 +135,11 @@ const OrdersPage: React.FC = () => {
             width: 100,
         },
         {
+            title: 'finalPrice',
+            dataIndex: 'finalPrice',
+            width: 100,
+        },
+        {
             title: fullNameFilter,
             dataIndex: 'customerName',
             width: 120,
@@ -172,10 +177,10 @@ const OrdersPage: React.FC = () => {
                 }
             }
         },
-        {
-            title: 'Driver',
-            dataIndex: 'driverName',
-        },
+        // {
+        //     title: 'Driver',
+        //     dataIndex: 'driverName',
+        // },
         {
             title: 'Details',
             render: (value, record, index) => {

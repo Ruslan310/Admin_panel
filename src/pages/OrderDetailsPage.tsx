@@ -113,7 +113,7 @@ const OrderDetailsPage: React.FC = () => {
 
   return (
     <Content>
-      {currentOrder && <Descriptions title="Order details">
+      {currentOrder && <Descriptions title={`Order details - ${currentOrder.WPOrderNumber}`}>
         <Descriptions.Item label="Full address">{currentOrder.customerAddress}</Descriptions.Item>
         <Descriptions.Item label="Full name">{currentOrder.customerName}</Descriptions.Item>
         <Descriptions.Item label="Phone number">{currentOrder.customerPhoneNumber}</Descriptions.Item>

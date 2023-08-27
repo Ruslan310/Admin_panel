@@ -26,7 +26,7 @@ const AddressesPage: React.FC = () => {
     const [searchAddress2, setSearchAddress2] = useState('');
 
     useEffect(() => {
-        const addrSubs =DataStore.observeQuery(Address).subscribe(msg => {
+        const addrSubs = DataStore.observeQuery(Address).subscribe(msg => {
             if (msg.isSynced) {
                 setAddresses(msg.items)
                 isAddressesLoading && setAddressesLoading(false)

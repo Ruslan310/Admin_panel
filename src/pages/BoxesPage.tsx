@@ -42,61 +42,32 @@ const BoxesPage: React.FC = () => {
     const [ordersByDays, setOrdersByDays] = useState<OrdersByDay[]>([])
     const [searchName, setSearchName] = useState('')
     const [searchOrderNumber, setSearchOrderNumber] = useState({id: '', number: ''})
-    const [searchOrder, setSearchOrder] = useState('')
 
     useEffect(() => {
         const subs = DataStore.observeQuery(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING))
-        //   .subscribe(async msg => {
-        //       console.log('msg.isSynced', msg.isSynced)
-        //       console.log('msg.isSynced', msg.items.length)
-        //       if (!msg.isSynced) {
-        //           setBoxes(msg.items)
-        //           isLoading && setLoading(true)
-        //       } else {
-        //           console.log('------msg.items', msg.items)
-        //           setBoxes(msg.items)
-        //           isLoading && setLoading(false)
-        //           DataStore.query(WPOrder, order => order.WPOrderStatus.eq(PROCESSING)).then(orders => {
-        //               setOrders(orders)
-        //               const newOrdersByDays: OrdersByDay[] = []
-        //               for (const weekDay of Object.values(WeekDay)) {
-        //                   newOrdersByDays.push({weekDay, quantity: orders.filter(order => msg.items.filter(box => box.wporderID === order.id && box.weekDay === weekDay).length > 0).length})
-        //               }
-        //               setOrdersByDays(newOrdersByDays)
-        //           })
-        //       }
-        //   });
-        // return () => subs.unsubscribe()
-        DataStore.query(Box, box => box.WPOrder.WPOrderStatus.eq(PROCESSING))
-          .then(async boxes => {
-            if (boxes) {
-                setBoxes(boxes)
-            }
-            isLoading && setLoading(false)
-                DataStore.query(WPOrder, order => order.WPOrderStatus.eq(PROCESSING)).then(orders => {
-                    setOrders(orders)
-                    const newOrdersByDays: OrdersByDay[] = []
-                    for (const weekDay of Object.values(WeekDay)) {
-                        newOrdersByDays.push({weekDay, quantity: orders.filter(order => boxes.filter(box => box.wporderID === order.id && box.weekDay === weekDay).length > 0).length})
-                    }
-                    setOrdersByDays(newOrdersByDays)
-                })
-        })
+          .subscribe(async msg => {
+              console.log('msg.isSynced', msg.isSynced)
+              console.log('msg.isSynced', msg.items.length)
+              if (!msg.isSynced) {
+                  setBoxes(msg.items)
+                  isLoading && setLoading(true)
+              } else {
+                  console.log('------msg.items', msg.items)
+                  setBoxes(msg.items)
+                  isLoading && setLoading(false)
+                  DataStore.query(WPOrder, order => order.WPOrderStatus.eq(PROCESSING)).then(orders => {
+                      setOrders(orders)
+                      const newOrdersByDays: OrdersByDay[] = []
+                      for (const weekDay of Object.values(WeekDay)) {
+                          newOrdersByDays.push({weekDay, quantity: orders.filter(order => msg.items.filter(box => box.wporderID === order.id && box.weekDay === weekDay).length > 0).length})
+                      }
+                      setOrdersByDays(newOrdersByDays)
+                  })
+              }
+          });
+        return () => subs.unsubscribe()
     }, []);
 
-    // const updateOrderBoxesStatuses = async () => {
-    //     const notActiveOrders = await DataStore.query(WPOrder, order => order.WPOrderStatus.ne(PROCESSING))
-    //     for (const box of boxes) {
-    //         if (notActiveOrders.find(order => order.id === box.wporderID) && box.boxStatus === BoxStatus.NEW) {
-    //             await DataStore.save(
-    //                 Box.copyOf(box, updated => {
-    //                     updated.boxStatus = BoxStatus.DELIVERED
-    //                 })
-    //             )
-    //             console.log('BOX DELIVERED')
-    //         }
-    //     }
-    // }
 
     const fullNameFilter = (
         <>
@@ -106,7 +77,6 @@ const BoxesPage: React.FC = () => {
                 value={searchName}
                 onChange={e => {
                     const currValue = e.target.value;
-                    setSearchOrder('')
                     setSearchName(currValue);
                 }}
             />

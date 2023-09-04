@@ -5,7 +5,7 @@ import {ColumnsType} from "antd/es/table";
 import {useParams} from 'react-router-dom';
 import {CheckboxChangeEvent} from "antd/es/checkbox";
 import {DataStore} from "aws-amplify";
-import {Box, Customer, WeekDay, WPDish, WPOrder} from "../models";
+import {Box, WeekDay, WPDish, WPOrder} from "../models";
 
 const {Content} = Layout;
 const {Title} = Typography;
